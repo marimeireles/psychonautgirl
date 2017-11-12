@@ -1,0 +1,178 @@
+/*General*/
+* {
+	font-family: monospace;
+}
+
+.btn {
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 0;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.btn:hover {
+	background: #ffdeeb;
+	color: #f444b0;
+}
+
+.btn a:hover {
+	color: #f444b0;
+	text-decoration: none;
+}
+
+.card {
+	color: #f444b0;
+	width: 300px;
+}
+
+.card-img-top {
+	display: block;
+	margin: 0 auto;
+	width: 200px;
+}
+
+.card-text {
+	font-size: 15px;
+}
+
+.card a {
+	font-size: 15px;
+}
+
+/*Background*/
+	.purple-gradient {
+		background: #fe6ec7; /* For browsers that do not support gradients */
+	  background: -webkit-linear-gradient(#fe6ec7, #fecdec); /* For Safari 5.1 to 6.0 */
+	  background: -o-linear-gradient(#fe6ec7, #fecdec); /* For Opera 11.1 to 12.0 */
+	  background: -moz-linear-gradient(#fe6ec7, #fecdec); /* For Firefox 3.6 to 15 */
+	  background: linear-gradient(#fe6ec7, #fecdec); /* Standard syntax */
+	  height: 100%;
+	  min-height: 665px; 
+	  width: 100%;
+	}
+
+	.small-star {
+		background-color: white;
+		border-radius: 50%;
+		position: absolute;
+		height: 4px;
+		opacity: .4;
+		width: 4px;
+	}
+
+	.medium-star {
+		background-color: white;
+		border-radius: 50%;
+		position: absolute;
+		height: 6px;
+		opacity: .5;
+		width: 6px;
+	}
+
+	.big-star {
+		background-color: white;
+		border-radius: 50%;
+		position: absolute;
+		height: 7px;
+		opacity: .5;
+		width: 7px;	
+	}
+
+/*Header*/
+
+.site-title {
+	color: white;
+	display: inline-block;
+  font-family: frontage_condensedoutline, Tahoma, serif;
+	font-size: 90px;
+}
+
+.site-title:hover {
+	text-decoration: none !important;
+}
+
+/*Main content*/
+
+.content-container {
+	display: inline-block;
+	margin-left: 100px;
+	margin-top: -70px; 
+	top: -10px;  
+}
+
+.my-name {
+	color: white;
+	display: inline-block;
+  font-family:frontage_condensedoutline, Tahoma, serif;
+  font-size: 50px;
+  margin-top: -35px; 
+  top: -10px;
+}
+
+.astronaut {
+	display: inline-block;
+	height: 500px;
+	margin-left: -115px; 
+	margin-top: -190px;
+	top: -10px;
+	width: 500px;
+}
+
+.rectangles {
+	display: inline-block;
+	height: 200px;
+	margin-left: -24px;
+	width: 200px;
+}
+
+.planet {
+	width: 300px;
+	height: 300px;
+}
+
+#floater {
+	color: #f444b0;
+  position: absolute;
+  top: 100%;
+  margin-top: -43px;
+  right: 0px;
+  -webkit-transition: all 2s ease-in-out;
+  -webkit-appearance: button !important;
+  transition: all 2s ease-in-out;
+  z-index: 1;
+}
+
+/*Portfolio content*/
+
+.portfolio-content {
+	background: white;
+}
+
+.title-portfolio-content {
+	color: #f444b0;
+	display: inline-block;
+  font-family:frontage_condensedoutline, Tahoma, serif;
+  font-size: 50px;	
+}
+
+.my-habilities{
+	color: #007bff;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/*Footer*/
+
+footer {
+	background: #ffdeeb;
+	color: #f444b0;
+	font-size: 13px;
+	height: 40px;
+	z-index: 1;
+}
+
+/*Media*/
+
+w: 960, 738, 549, 305
