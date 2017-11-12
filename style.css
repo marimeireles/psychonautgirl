@@ -24,6 +24,8 @@
 
 .card {
 	color: #f444b0;
+	min-height: 365px;
+	max-height: 365px;
 	width: 300px;
 }
 
@@ -41,6 +43,23 @@
 	font-size: 15px;
 }
 
+.fa {
+	color: #f444b0;
+	font-size: 90px;
+}
+
+#floater {
+	background-color: #ffdeeb;
+	color: #f444b0;
+  position: absolute;
+  top: 100%;
+  margin-top: -43px;
+  right: 0px;
+  -webkit-transition: all 2s ease-in-out;
+  -webkit-appearance: button !important;
+  transition: all 2s ease-in-out;
+  z-index: 1;
+}
 /*Background*/
 	.purple-gradient {
 		background: #fe6ec7; /* For browsers that do not support gradients */
@@ -132,18 +151,6 @@
 	height: 300px;
 }
 
-#floater {
-	color: #f444b0;
-  position: absolute;
-  top: 100%;
-  margin-top: -43px;
-  right: 0px;
-  -webkit-transition: all 2s ease-in-out;
-  -webkit-appearance: button !important;
-  transition: all 2s ease-in-out;
-  z-index: 1;
-}
-
 /*Portfolio content*/
 
 .portfolio-content {
@@ -161,6 +168,17 @@
 	color: #007bff;
 	font-size: 15px;
 	font-weight: bold;
+}
+
+.showcase-img {
+	height: 100%;
+	margin-left: 15%;
+	width: 800px;
+}
+
+.text-about-project {
+	color: #f444b0;
+	font-size: 14px;
 }
 
 /*Footer*/
