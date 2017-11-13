@@ -1,0 +1,2 @@
+These are the codes for the web site [http://psychonautgirl.me/](psychonautgirl.me)
+The site is not ready yet, I still have to work in its responsiveness, but, please, feel free to acess it and find out more about my work!

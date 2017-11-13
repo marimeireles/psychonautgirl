@@ -19,6 +19,7 @@ button {
 .btn:hover {
 	background: #ffdeeb;
 	color: #f444b0;
+	-webkit-border: 2px solid red !important;
 }
 
 .btn a:hover {
@@ -60,8 +61,6 @@ button {
   top: 100%;
   margin-top: -43px;
   right: 0px;
-  -webkit-transition: all 2s ease-in-out;
-  -webkit-appearance: button !important;
   transition: all 2s ease-in-out;
   z-index: 1;
 }
