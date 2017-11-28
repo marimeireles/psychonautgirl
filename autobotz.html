@@ -46,18 +46,37 @@
 				<div class="container text-about-project">
 					<p>Nesse projeto fui responsável por todos os aspectos da criação de um site, desde a criação do design até os códigos de front e back-end.</p>
 					<p>O site foi criado usando as tecnologias das tags abaixo. O back-end foi feito em HUGO um website generator parecido com o Jekyll, mas mais rápido. Esse método foi escolhido em detrimento dos demais porque o cliente precisava de um site estático simples. Buscando minimizar gastos com hospedagem utilizei o HUGO que é um serviço seguro e de hospedagem gratuita. Mesmo sendo um gerador de site estático o HUGO oferece alguns recursos de sites dinâmicos como busca e envio de formulário.</p>
-					<p>Acha que algo como esse site pode ser útil pra você? <a onClick="javascript:window.open('mailto:marian.meireles@gmail.com', 'Mail');event.preventDefault()" href="marian.meireles@gmail.com">Converse comigo.</a></div></p>
+					<p>Acha que algo como esse site pode ser útil pra você? <a id="contact">Converse comigo!</a>
+						<div id="contactForm" class="text-center align-middle">
+					  	<form method="POST" action="http://formspree.io/marian.meireles@gmail.com">
+						    <input placeholder="Nome" type="text" />
+						    <textarea placeholder="Mensagem"></textarea>
+						    <input value="Enviar" class="button-aesthetic-small" type="submit" />
+						    <input value="Resetar" class="button-aesthetic-small" type="reset" />
+					 		</form>
+						</div>
+					</p>
 				</div>
 				<br>
 				<div class="row text-center">
-					<div class="my-habilities"><button>HTML 5</button><span> </span><button>CSS</button><span> </span><button>Bootstrap</button><span> </span><button>Javascript</button><span> </span><button>JQuery</button><span> </span><button>HUGO</button><span> </span><button>Photoshop</button><span> </span><button>Illustrator</button></div>
+					<div class="my-habilities "><button class="button-aesthetic-small">HTML 5</button><span> </span><button class="button-aesthetic-small">CSS</button><span> </span><button class="button-aesthetic-small">Bootstrap</button><span> </span><button class="button-aesthetic-small">Javascript</button><span> </span><button class="button-aesthetic-small">JQuery</button><span> </span><button class="button-aesthetic-small">HUGO</button><span> </span><button class="button-aesthetic-small">Photoshop</button><span> </span><button class="button-aesthetic-small">Illustrator</button></div>
 				</div>
 				<br>
 				</div>
 		</div>
 
 	</div>
-	<div id="floater" class="btn"><a onClick="javascript:window.open('mailto:marian.meireles@gmail.com', 'Mail');event.preventDefault()" href="marian.meireles@gmail.com">Entre em contato!</a></div>
+	<!-- contact -->
+		<div id="floater" class="btn button-aesthetic"><a id="contact">Entre em contato!</a>
+				<div id="contactForm" class="text-center align-middle">
+			  	<form method="POST" action="http://formspree.io/marian.meireles@gmail.com">
+				    <input placeholder="Nome" type="text" />
+				    <textarea placeholder="Mensagem"></textarea>
+				    <input value="Enviar" class="button-aesthetic-small" type="submit" />
+				    <input value="Resetar" class="button-aesthetic-small" type="reset" />
+			 		</form>
+				</div>
+		</div>
 </body>
 
 <footer>

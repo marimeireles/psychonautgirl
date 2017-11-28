@@ -16,10 +16,70 @@ button {
 	font-weight: bold;
 }
 
+.button-transparent {
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 0;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.button-transparent:active {
+	color: white !important;
+}
+
+.button-transparent:hover {
+	color: white !important;
+	background: transparent !important;
+	text-decoration: underline;
+}
+
+.button-aesthetic {
+	background: #e8e8e7 !important;
+	border-top: 3px solid #f8f8f7; 
+	border-left: 3px solid #f8f8f7;
+	border-bottom: 3px solid #808080;
+	border-right: 3px solid #808080;	
+	color: #007bff !important;
+}
+
+.button-aesthetic a {
+	color: #007bff;
+}
+
+.button-aesthetic:active {
+	background: #e8e8e7 !important;
+	border-top: 3px solid #808080; 
+	border-left: 3px solid #808080;
+	border-bottom: 3px solid #f8f8f7;
+	border-right: 3px solid #f8f8f7;	
+}
+
+.button-aesthetic-small {
+	background: #e8e8e7 !important;
+	border-top: 2px solid #f8f8f7; 
+	border-left: 2px solid #f8f8f7;
+	border-bottom: 2px solid #808080;
+	border-right: 2px solid #808080;	
+}
+
+.button-aesthetic-small a {
+	color: #007bff;
+}
+
+.button-aesthetic-small:active {
+	background: #e8e8e7 !important;
+	border-top: 2px solid #808080; 
+	border-left: 2px solid #808080;
+	border-bottom: 2px solid #f8f8f7;
+	border-right: 2px solid #f8f8f7;	
+}
+
 .btn:hover {
 	background: #ffdeeb;
 	color: #f444b0;
-	-webkit-border: 2px solid red !important;
+	-webkit-border: 2px solid !important;
 }
 
 .btn a:hover {
@@ -54,16 +114,6 @@ button {
 	font-size: 90px;
 }
 
-#floater {
-	background-color: #ffdeeb;
-	color: #f444b0;
-  position: absolute;
-  top: 100%;
-  margin-top: -43px;
-  right: 0px;
-  transition: all .2s ease-in-out;
-  z-index: 1;
-}
 /*Background*/
 	.purple-gradient {
 		background: #fe6ec7; /* For browsers that do not support gradients */
@@ -186,16 +236,77 @@ button {
 	font-size: 14px;
 }
 
+/*Popup menu*/
+@import "https://fonts.googleapis.com/css?family=Raleway";
+
+	* { box-sizing: border-box; }
+	h1{ margin: 0; }
+	#contact { 
+	  -webkit-user-select: none; /* Chrome/Safari */        
+	  -moz-user-select: none; /* Firefox */
+	  -ms-user-select: none; /* IE10+ */
+	  margin: 4em auto;
+	  width: 100px; 
+	  line-height: 30px;
+	  font-weight: 700;
+	  text-align: center;
+	  cursor: pointer;
+	}
+
+	#floater {
+		background-color: #ffdeeb;
+		color: #f444b0;
+	  position: absolute;
+	  top: 93%;
+	  right: 0px;
+	  transition: all .2s ease-in-out;
+	  z-index: 1;
+	}	
+
+	#contactForm { 
+	  display: none;
+
+	  border: 1px solid #808080; 
+	  padding: 2em;
+	  width: 400px;
+	  text-align: center;
+	  background: #fff;
+	  position: fixed;
+	  top:50%;
+	  left:52%;
+	  transform: translate(-50%,-50%);
+	  -webkit-transform: translate(-50%,-50%)
+	  
+	}
+
+	input, textarea { 
+	  margin: .8em auto;
+	  font-family: inherit; 
+	  text-transform: inherit; 
+	  font-size: inherit;
+	  
+	  display: block; 
+	  width: 280px; 
+	  padding: .4em;
+	}
+
+	textarea { 
+		height: 80px; 
+		resize: none; 
+	}
+
 /*Footer*/
 
 footer {
 	background: #ffdeeb;
 	color: #f444b0;
 	font-size: 13px;
-	height: 40px;
+	height: 48px;
 	z-index: 1;
 }
 
 /*Media*/
 
 w: 960, 738, 549, 305
+
+

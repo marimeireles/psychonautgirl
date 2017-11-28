@@ -23,9 +23,7 @@ for (var i = 0; i < 180; i++) {
 	var left = Math.floor(Math.random() * width-15);
 	var top = Math.floor(Math.random() * height-15);
 	var rnd = Math.floor(Math.random() * weighedElems.length);
-				document.getElementById("sky").insertAdjacentHTML('afterbegin', '<div class = "' + weighedElems[rnd] + '" style = "top: ' + top + 'px; left: ' + left + 'px;"></div>' );
-
-
+	document.getElementById("sky").insertAdjacentHTML('afterbegin', '<div class = "' + weighedElems[rnd] + '" style = "top: ' + top + 'px; left: ' + left + 'px;"></div>' );
 }
 
 
@@ -39,6 +37,25 @@ $(window).scroll(function() {
     var top = winScrollTop + winHeight - floaterHeight - fromBottom;
     $('#floater').css({'top': top + 'px'});
 });
+
+$(function() {   
+    // contact form animations
+    $('#contact').click(function() {
+        $('#contactForm').fadeToggle();
+    })
+    
+    $(document).mouseup(function (e) {
+        var container = $("#contactForm");
+
+        if (!container.is(e.target) // if the target of the click isn't the container...
+            && container.has(e.target).length === 0) // ... nor a descendant of the container
+        {
+            container.fadeOut();
+        }
+    });
+
+});
+
 
 });
 

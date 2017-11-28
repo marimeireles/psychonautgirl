@@ -31,23 +31,24 @@
 			<div class="container portfolio-content text-center">
 				<br>
 				<img class="rectangles" src="images/rectangles.png">
-				<p class="text-about-project">Meu nome é Mariana Meireles, estudante de graduação de Engenharia Elétrica na UFMG, apaixonada por tecnologia.</p>
-				<p class="text-about-project">Atualmente, estou focando em desenvolvimento web, mas, já realizei alguns projetos usando C, no passado.</p>
-				<p class="text-about-project">Também já fiz alguns trabalhos como freelancer em design.</p>
-				<p class="text-about-project">Você pode conhecer mais sobre meus projetos pessoais acessando os links abaixos.</p>
+				<p class="text-about-project">Meu nome é Mariana Meireles, estudante de graduação de Engenharia Elétrica na UFMG.</p>
+				<p class="text-about-project">Gosto muito da área de computação e mesmo estudando Elétrica todos os projetos que já realizei na área tem o foco em programação. Atualmente estou construindo uma biblioteca usando C e C++ para utilizar um módulo de rádio. Há um pouco sobre esse meu trabalho no Github.</p>
+				<p class="text-about-project">Também me interesso por design, UX e usabilidade no geral, por isso, constantemente procuro aprender mais sobre essa área, acredito que como desenvolvedora front-end essa parte não pode ficar de lado. No Behance há alguns projetos freelance que completei.</p>
+				<p class="text-about-project">Além disso, experimentar coisas novas é estimulante e útil, estou sempre desenvolvendo algum projeto diferente no Codepen para aprimorar minhas habilidades.</p>
+				<p class="text-about-project">Obrigada pela visita! Para falar comigo você pode usar o botão "Entre em contato" ou diretamente por meio do meu <a onClick="javascript:window.open('mailto:marian.meireles@gmail.com', 'Mail');event.preventDefault()" href="marian.meireles@gmail.com">email</a>. </p>
 				<br><br>
 				<div class="row">
 					<div class="col-md-3">
-						<a href="https://github.com/marimeireles/"><i class="fa fa-github" aria-hidden="true"></i></a>
+						<a target="_blank" href="https://github.com/marimeireles/"><i class="fa fa-github" aria-hidden="true"></i></a>
 					</div>
 					<div class="col-md-3">
-						<a href="https://codepen.io/marimeireles/"><i class="fa fa-codepen" aria-hidden="true"></i></a>
+						<a target="_blank" href="https://codepen.io/marimeireles/"><i class="fa fa-codepen" aria-hidden="true"></i></a>
 					</div>
 					<div class="col-md-3">
-						<a href="https://www.behance.net/marianmeireef2"><i class="fa fa-behance" aria-hidden="true"></i></a>
+						<a target="_blank" href="https://www.behance.net/marianmeireef2"><i class="fa fa-behance" aria-hidden="true"></i></a>
 					</div>
 					<div class="col-md-3">
-						<a href="https://www.linkedin.com/in/mariana-meireles-401437124/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+						<a target="_blank" href="https://www.linkedin.com/in/mariana-meireles-401437124/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 					</div>															
 				</div>
 				<br><br>
@@ -57,7 +58,17 @@
 		</div>
 
 	</div>
-	<div id="floater" class="btn"><a onClick="javascript:window.open('mailto:marian.meireles@gmail.com', 'Mail');event.preventDefault()" href="marian.meireles@gmail.com">Entre em contato!</a></div>
+	<!-- contact -->
+		<div id="floater" class="btn button-aesthetic"><a id="contact">Entre em contato!</a>
+				<div id="contactForm" class="text-center align-middle">
+			  	<form method="POST" action="http://formspree.io/marian.meireles@gmail.com">
+				    <input placeholder="Nome" type="text" />
+				    <textarea placeholder="Mensagem"></textarea>
+				    <input value="Enviar" class="button-aesthetic-small" type="submit" />
+				    <input value="Resetar" class="button-aesthetic-small" type="reset" />
+			 		</form>
+				</div>
+		</div>
 </body>
 
 <footer>
