@@ -6,7 +6,7 @@ description: "My first two weeks as an Outreachy intern @Mozilla"
 keywords: "mozilla, personal"
 ---
 
-tl;dr: I’m so happy & grateful for this opportunity, my team made me feel very welcomed and helped me preserve a dear part of my personality.
+tl;dr: I’m so happy & grateful for this opportunity, my team made me feel very welcomed and helped me to preserve a dear part of my personality.
 
 Hello world!
 (is it too corny?)
