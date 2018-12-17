@@ -1,9 +1,9 @@
 # Site settings
 title_left    : "Psychonaut"
 title_right   : "girl" # default: ""
-description   : "A blog."
+description   : "A blog"
 keywords      : ""
-url           : http://psychonautgirl.space/ # site url
+url           : http://psychonautgirl.space # site url
 baseurl       : "/blog" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "" # image uri like logo/cover image for site seo
 
