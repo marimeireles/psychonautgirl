@@ -5,13 +5,59 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Dec 2018 13:43:01 -0200</pubDate>
-    <lastBuildDate>Mon, 17 Dec 2018 13:43:01 -0200</lastBuildDate>
+    <pubDate>Thu, 20 Dec 2018 16:38:29 -0200</pubDate>
+    <lastBuildDate>Thu, 20 Dec 2018 16:38:29 -0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
-        <title>The quick, brown fox jumps over a lazy dog</title>
-        <description>&lt;p&gt;ashduashauhsdd&lt;/p&gt;
+        <title>This is a journey into HTTP/2: building blocks</title>
+        <description>&lt;p&gt;As a performance intern working with the Webcompat team part of my initial proposal was to update the Webcompat server to HTTP/2. But what is HTTP/2? What’s the difference between HTTP1.1, HTTPS and HTTP/2? Newer is always better? How should I know if I should implement it on my website? We’ll dive in into the basics and I’ll give you the building blocks to understand a little bit about internet protocols and in later articles I’ll introduce you to my process of analysis and implementation of an HTTP/2 server focused on improving Webcompat’s website performance, hopefully that will give you some insights about how to improve your own server performance.&lt;/p&gt;
+
+&lt;p&gt;HTTP1.1 stands for Hypertext Transfer Protocol version 1.1 and it’s a standardized way of computers talk to each other through hyperlinks. HTTP1.1 defines &lt;strong&gt;methods&lt;/strong&gt; like GET that retrieves data and POST that sends it, those requests and responses have to be treated synchronous opening one TCP connection for each one of them, which might slow things a bit; HTTP1.1 implements &lt;strong&gt;status&lt;/strong&gt; there are responses to the methods like 404 not found or 200 that means that a request was successful;and HTTP &lt;strong&gt;header&lt;/strong&gt; fields, which sometimes can be used to fetch data with the HEAD method. HTTP is stateless, which means there is no link between two requests being successively carried out on the same connection, sometimes you may to have a “memory” to store preferences of an user or a cart on an e-commerce and for that HTTP implements &lt;strong&gt;cookies&lt;/strong&gt;. HTTP also defines &lt;strong&gt;caching&lt;/strong&gt;, a very relevant tool for performance. Caching is the way to save data locally in order to decrease the number of requests you have to make to another computer, W3C offers &lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html&quot;&gt;extensive documentation&lt;/a&gt; about it. If you want to get a deeper understanding on how HTTP1.1 works MDN has this &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview&quot;&gt;great overview article&lt;/a&gt; about it, you can follow up the links, I recommend reading the entire section.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http-1.png&quot; alt=&quot;http11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;font: cloudflare&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;HTTPS is a safer way to transfer data between computers. HTTPS websites encrypts the data you send and receive using TLS/SSL and the websites have to be certified by authorities on the internet that ensures that you are exchanging information with who you think you are, here is a link if you’re interested in learning more about HTTPS. When we’re talking about performance it seems obvious that HTTPS will have a bigger cost than HTTP because of the extra encrypting process, but according to this website’s tests their results are pretty similar with HTTPS being approximately 1% slower than HTTP.&lt;/p&gt;
+
+&lt;p&gt;Finally, HTTP/2 implements the same tools that HTTP1.1 does, but on top of that it has some sweet new things. HTTP/2 as opposed to HTTP1.1 is a multiplexed protocol which means it can handle parallel requests; it’s implemented with a is a binary protocol which allows the use of improved optimization techniques; it compresses headers; and it allows a server to populate data in a client cache, in advance of it being required, through a mechanism called the server push. Besides that, all of the browsers only support HTTP/2 if they’re over TLS which means they’re always encrypted.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http-compare.png&quot; alt=&quot;http11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;font: cloudflare&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;These are the basic differences between the three protocols. Now that you have your feet wet on the water it’s time to learn how to run analysis and find out if HTTP/2 is good for you.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Dec 2018 00:00:00 -0200</pubDate>
+        <link>http://localhost:4000/2018/journey-into-http2-building-blocks/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/journey-into-http2-building-blocks/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>My first two weeks as an Outreachy intern @Mozilla</title>
+        <description>&lt;p&gt;tl;dr: I’m so happy &amp;amp; grateful for this opportunity, my team made me feel very welcomed and helped me to preserve a dear part of my personality.&lt;/p&gt;
+
+&lt;p&gt;Hello world!
+(is it too corny?)&lt;/p&gt;
+
+&lt;p&gt;My name is Mariana, I’m from Brazil, I like to admire the landscape in the end of a warm, sunny day; foods that are made to eat with your bare hands; and to listen to post-punk music while I wash the dishes. I dislike when my paintings get smudged and there is no way to fix it; long hanging plants that tickle you when you pass near them; and drivers who don’t respect cyclists. I’m a 22 yo electrical engineering student @UFMG and recently I just got accepted to work as an Outreachy intern for Mozilla. Mozilla has this great meeting with all its employees every 6 months, an All Hands meeting, and I went to the latest one which happened at Orlando two weeks ago.&lt;/p&gt;
+
+&lt;p&gt;Let me give you a little bit of context: I’ve always had these child-like traits which I really liked and nurtured — looking at the world with constant interest; being sincere with my emotions and how I show them to people; trying not to care too much about what other people think; and living my own thing. I say it’s child-like because when I spot these traits it’s mainly when I’m around kids (I have a smaller sister and a cousin and I’m really close to them). They’re full of excitement when something is great and disapproval when something is not. They’re explorers and interested and passionate and I just love that about them. Unfortunately, I got to the conclusion that these traits are not well looked upon in workplaces or universities. When I looked around me for role models they were all very serious and restrained. I thought that adults knew so many things, that life was just less bright, nothing would be as exciting as it was when you were younger because “you kinda already felt like that before, so whatever :p”. I felt that if I wanted to become one of them, start to get serious, get a good job, be respected and accepted I’d have to start acting like that, hiding my feelings and trying to normalize my experiences so they kinda start looking all the same. I had just been accepted to this life-changing opportunity that is working for Mozilla and I didn’t want to blow it up by doing something unpopular like calling out someone that was sexist; or making a silly joke.&lt;/p&gt;
+
+&lt;p&gt;I went to All Hands as insecure as I could be. My English isn’t great, I don’t know enough about anything, everybody is a better programmer than I am, I’m a fraud — all of these imposter syndrome feelings I fight with everyday — and this new sad feeling about having to give up a dear part of my personality.&lt;/p&gt;
+
+&lt;p&gt;The first person I met was Mike, my mentor. He gave me a hug and handed me my super awesome MacBook Pro in which I’m writing this post. I had heard so many good things about Mike from everybody who had interacted with him that when I met him I felt immediately comfortable by his side :) (and spoiler alert: he’s really nice, the rumors were true). He then introduced me to the gray-haired tall man that lives in Japan and looked very austere and polite while answering my Github PRs: Karl, my other mentor. I didn’t really know anything about Karl🐄, only that he looked like a really professional guy and liked forests. Later that day I also met with Kate, the last intern and current contributor (she’s also super nice and approachable, we talked on IRC and I already knew she was awesome), Adam, Den, Guillaume and Thomas my other team mates that I didn’t know quite well.&lt;/p&gt;
+
+&lt;p&gt;I’m not gonna be specific about how these people made me realize I was completely wrong because it’d be an extremely long post. Not only the people in my team, but everybody at Mozilla. Lizz, the diversity &amp;amp; inclusion manager, gave the coolest workshop about impostor syndrome, and made me feel welcomed and like I really belonged there. Not once did I hear a sexist word (in a tech meeting with 1200 ppl, yea, it’s true). Mike was in charge of the jokes so I didn’t even had to make any, he was this super busy, competent guy but at the same time very playful and cool. Karl, Kate &amp;amp; Guillaume, which were the people that I hanged out with the most, proved me wrong by being some of the most passionate, and true, and joyful non-children I ever met and made this fear that I had of having to be stiff and dry as a dead cicada go away. Adam, Den &amp;amp; Thomas were super nice and made me feel welcomed with every action and word and I wish we had done more things together!&lt;/p&gt;
+
+&lt;p&gt;In fact, everybody on my team helped me to feel reassured that I could be accepted the way I am (thank you, ppl! ❤) and even though I think I’m super lucky for getting into this team, I suspect most — or maybe all — of the other Mozilla teams might be just as welcoming. The All Hands was awesome.&lt;/p&gt;
+
+&lt;p&gt;My second week was kinda tough because I was sick but I’m really enjoying working with such a capable group of people that respect me and support me, it’s really rewarding to work for an ideal you believe in, which in Mozilla’s case is keeping the internet open and accessible to all. Every day when I open my computer and start to work I’m feeling happy (this feeling is overwhelmed by anger and frustration when I’m struggling with a bug — but it’s fine). I’m grateful for these last two weeks and I hope I can help make a difference!&lt;/p&gt;
+
+&lt;p&gt;This is just a personal post about some of the things I experienced. I didn’t really say anything about the Outreachy program, but I really encourage you to go to their website and learn about it and participate. You can do it! :)&lt;/p&gt;
 </description>
         <pubDate>Mon, 17 Dec 2018 00:00:00 -0200</pubDate>
         <link>http://localhost:4000/2018/two-weeks-at-mozilla/</link>
