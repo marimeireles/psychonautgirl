@@ -13,6 +13,11 @@ title: Home
           <a href="{{ post.url }}" >{{ post.title }}</a>
       </div>
     {% endfor %}
+{% if page.image %}
+  <meta property="og:image" content="/assets/images/http-compare.png">
+{% else %}
+  <meta property="og:image" content="/assets/images/http-compare.png">
+{% endif %}
     {% for post in site.posts %}
       {% unless post.next %}
         <h2 class="category-title">{{ post.date | date: '%Y' }}</h2>

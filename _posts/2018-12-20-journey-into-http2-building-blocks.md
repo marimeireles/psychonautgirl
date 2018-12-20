@@ -4,7 +4,6 @@ title: "This is a journey into HTTP/2: building blocks"
 comments: true
 description: "This is a journey into HTTP/2: building blocks"
 keywords: "http2, server, performance"
-thumbnail: /assets/images/http-compare.png
 ---
 
 As a performance intern working with the Webcompat team part of my initial proposal was to update the Webcompat server to HTTP/2. But what is HTTP/2? What's the difference between HTTP1.1, HTTPS and HTTP/2? Newer is always better? How should I know if I should implement it on my website? We'll dive in into the basics and I'll give you the building blocks to understand a little bit about internet protocols and in later articles I'll introduce you to my process of analysis and implementation of an HTTP/2 server focused on improving Webcompat's website performance, hopefully that will give you some insights about how to improve your own server performance.
@@ -20,7 +19,7 @@ HTTPS is a safer way to transfer data between computers. HTTPS websites encrypts
 Finally, HTTP/2 implements the same tools that HTTP1.1 does, but on top of that it has some sweet new things. HTTP/2 as opposed to HTTP1.1 is a multiplexed protocol which means it can handle parallel requests; it's implemented with a is a binary protocol which allows the use of improved optimization techniques; it compresses headers; and it allows a server to populate data in a client cache, in advance of it being required, through a mechanism called the server push. Besides that, all of the browsers only support HTTP/2 if they're over TLS which means they're always encrypted.
 
 
-![http11](/assets/images/http-compare.png)
+![http-compare](/assets/images/http-compare.png)
 
 [source: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
 
