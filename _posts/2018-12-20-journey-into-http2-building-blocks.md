@@ -4,7 +4,7 @@ title: "This is a journey into HTTP/2: building blocks"
 comments: true
 description: "This is a journey into HTTP/2: building blocks"
 keywords: "http2, server, performance"
-image: /assets/images/http-compare.png
+thumbnail: /assets/images/http-compare.png
 ---
 
 As a performance intern working with the Webcompat team part of my initial proposal was to update the Webcompat server to HTTP/2. But what is HTTP/2? What's the difference between HTTP1.1, HTTPS and HTTP/2? Newer is always better? How should I know if I should implement it on my website? We'll dive in into the basics and I'll give you the building blocks to understand a little bit about internet protocols and in later articles I'll introduce you to my process of analysis and implementation of an HTTP/2 server focused on improving Webcompat's website performance, hopefully that will give you some insights about how to improve your own server performance.

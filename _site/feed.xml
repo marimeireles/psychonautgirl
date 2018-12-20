@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 20 Dec 2018 16:38:29 -0200</pubDate>
-    <lastBuildDate>Thu, 20 Dec 2018 16:38:29 -0200</lastBuildDate>
+    <pubDate>Thu, 20 Dec 2018 17:09:07 -0200</pubDate>
+    <lastBuildDate>Thu, 20 Dec 2018 17:09:07 -0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -17,7 +17,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/http-1.png&quot; alt=&quot;http11&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;font: cloudflare&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;source: cloudflare&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;HTTPS is a safer way to transfer data between computers. HTTPS websites encrypts the data you send and receive using TLS/SSL and the websites have to be certified by authorities on the internet that ensures that you are exchanging information with who you think you are, here is a link if you’re interested in learning more about HTTPS. When we’re talking about performance it seems obvious that HTTPS will have a bigger cost than HTTP because of the extra encrypting process, but according to this website’s tests their results are pretty similar with HTTPS being approximately 1% slower than HTTP.&lt;/p&gt;
 
@@ -25,7 +25,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/http-compare.png&quot; alt=&quot;http11&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;font: cloudflare&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.cloudflare.com/http-2-for-web-developers/&quot;&gt;source: cloudflare&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;These are the basic differences between the three protocols. Now that you have your feet wet on the water it’s time to learn how to run analysis and find out if HTTP/2 is good for you.&lt;/p&gt;
 </description>
