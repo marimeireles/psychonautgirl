@@ -12,7 +12,7 @@ HTTP1.1 stands for Hypertext Transfer Protocol version 1.1 and it's a standardiz
 
 ![http11](/assets/images/http-1.png)
 
-[font: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
+[source: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
 
 HTTPS is a safer way to transfer data between computers. HTTPS websites encrypts the data you send and receive using TLS/SSL and the websites have to be certified by authorities on the internet that ensures that you are exchanging information with who you think you are, here is a link if you're interested in learning more about HTTPS. When we're talking about performance it seems obvious that HTTPS will have a bigger cost than HTTP because of the extra encrypting process, but according to this website's tests their results are pretty similar with HTTPS being approximately 1% slower than HTTP.
 
@@ -21,7 +21,7 @@ Finally, HTTP/2 implements the same tools that HTTP1.1 does, but on top of that 
 
 ![http11](/assets/images/http-compare.png)
 
-[font: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
+[source: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
 
 
 These are the basic differences between the three protocols. Now that you have your feet wet on the water it's time to learn how to run analysis and find out if HTTP/2 is good for you.
