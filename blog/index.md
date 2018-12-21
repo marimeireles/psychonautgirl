@@ -1,16 +1,6 @@
 ---
-layout: default
-title: Home
----
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-<html>
-<head>
-    <title>Psychonaut Girl</title>
-</head>
-<body>
-    <div class="container">
-    <p>it's under construction but we have a</p>
-    <h3><a href="/blog">blog</a></h3>
-    </div>
-</body>
-</html>
+layout: home
+---
