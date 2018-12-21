@@ -1,38 +1,83 @@
----
-layout: default
-title: Home
----
 
-{% include intro.html %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Psychonaut Girl - Mariana Meireles</title>
 
-<section class="post-list">
-  <div class="container">
-    {% for post in site.categories.blog %}
-      <div>
-          <a href="{{ post.url }}" ><img src="{{ post.thumbnail }}" />
-          <a href="{{ post.url }}" >{{ post.title }}</a>
-      </div>
-    {% endfor %}
-{% if page.image %}
-  <meta property="og:image" content="/assets/images/http-compare.png">
-{% else %}
-  <meta property="og:image" content="/assets/images/http-compare.png">
-{% endif %}
-    {% for post in site.posts %}
-      {% unless post.next %}
-        <h2 class="category-title">{{ post.date | date: '%Y' }}</h2>
-      {% else %}
-        {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-        {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-        {% if year != nyear %}
-          <h2 class="category-title">{{ post.date | date: '%Y' }}</h2>
-        {% endif %}
-      {% endunless %}
-      <article class="post-item">
-        <span class="post-meta date-label">{{ post.date | date: "%b %d" }}</span>
-        <div class="article-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">{{ post.title }}</a></div>
-      </article>
-    {% endfor %}
-  </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-</section>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="fonts/fonts.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container-fluid purple-gradient" id="sky">      
+        <div class="row">
+            <div class="col-md-9">
+                <a href="index.html"><h1 class="site-title">Psychonaut Girl</h1></a>
+            </div>
+            <div class="col-md-3 text-right">
+                <img class="planet  img-fluid rounded float-right" src="images/planet.png">
+            </div>
+        </div>
+        <div class="container content-container">
+            <div class="row text-center">
+                <span><h1 class="my-name">Mariana Meireles</h1></span>
+                <div class="row">
+                    <div class="col-md-5 text-right">
+                        <br><br>
+                        <a href="portfolio.html"><button class="button-transparent btn">Portfolio</button></a>
+                    </div>                      
+                    <div class="col-md-2 text-center">
+                        <img class="rectangles" src="images/rectangles.png">
+                    </div>
+                    <div class="col-md-5 text-left">
+                        <br><br>
+                        <div class="row">
+                            <a href="about-me.html"><button class="button-transparent btn">Sobre mim</button></a>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h1 class="my-name">Desenvolvedora</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <img class="astronaut" src="images/astronaut-girl.png">
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <!-- contact -->
+        <div id="floater" class="btn button-aesthetic"><a id="contact">Entre em contato!</a>
+                <div id="contactForm" class="text-center align-middle">
+                <form method="POST" action="http://formspree.io/marian.meireles@gmail.com">
+                    <input placeholder="Nome" type="text" />
+                    <textarea placeholder="Mensagem"></textarea>
+                    <input value="Enviar" class="button-aesthetic-small" type="submit" />
+                    <input value="Resetar" class="button-aesthetic-small" type="reset" />
+                    </form>
+                </div>
+        </div>
+</body>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+        <p class="text-center" style="margin-top: 10px;">Design e código por Mariana Meireles</p>
+            </div>
+    </div>
+    </div>
+</footer>
+</html>
+
