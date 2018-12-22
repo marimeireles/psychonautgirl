@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "My first two weeks as an Outreachy intern @Mozilla"
 comments: true
 description: "My first two weeks as an Outreachy intern @Mozilla"

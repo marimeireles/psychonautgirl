@@ -1,9 +1,9 @@
 ---
 ---
-@import "{{ site.theme }}";
-@import 'jekyll-theme-cayman';
 
+@import "minima";
+@import "minima/syntax-highlighting";
 
 * {
-    font-family: monospace;
+    font-family: monospace !important;
 }

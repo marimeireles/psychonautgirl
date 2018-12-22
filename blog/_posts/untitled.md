@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "This is a journey into HTTP/2: building blocks"
 comments: true
 description: "This is a journey into HTTP/2: website analyses"
