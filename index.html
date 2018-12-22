@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="fonts/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="script.js"></script>
@@ -17,66 +18,68 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
-<body>
-    <div class="container-fluid purple-gradient" id="sky">      
-        <div class="row">
-            <div class="col-md-9">
-                <a href="index.html"><h1 class="site-title">Psychonaut Girl</h1></a>
-            </div>
-            <div class="col-md-3 text-right">
-                <img class="planet  img-fluid rounded float-right" src="images/planet.png">
-            </div>
+<body class="container purple-gradient" id="sky" style="height: 100%">
+    <div class="container-fluid">
+    <!-- header -->
+        <div class="col-md-9">
+            <a href="index.html"><h1 class="site-title">Psychonaut Girl</h1></a>
         </div>
-        <div class="container content-container">
+        <div class="col-md-3 text-right">
+            <img class="planet  img-fluid rounded float-right" src="images/planet.png">
+        </div>
+    <!-- content -->
             <div class="row text-center">
+                <br><br>
                 <span><h1 class="my-name">Mariana Meireles</h1></span>
                 <div class="row">
-                    <div class="col-md-5 text-right">
-                        <br><br>
-                        <a href="portfolio.html"><button class="button-transparent btn">Portfolio</button></a>
-                    </div>                      
-                    <div class="col-md-2 text-center">
+                    <div class="col-sm-5 text-right">
+                        <br><br><br><br>
+                        <div class="row">
+                            <a href="blog/"><button class="button-transparent btn button-transparent-text"><h4><strong>Blog</strong></h4></button></a>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <a href="portfolio.html"><button class="button-transparent btn button-transparent-text"><h4><strong>Portfolio</strong></h4></button></a>
+                        </div>
+                        <br>
+                    </div>
+                    <br><br>
+                    <div class="col-md-2">
                         <img class="rectangles" src="images/rectangles.png">
                     </div>
+                    <br><br>
                     <div class="col-md-5 text-left">
-                        <br><br>
                         <div class="row">
-                            <a href="about-me.html"><button class="button-transparent btn">Sobre mim</button></a>
-                            <br><br>
+                            <a href="resume.html"><button class="button-transparent btn button-transparent-text"><h4><strong>Resume</strong></h4></button></a>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <a href="about-me.html"><button class="button-transparent btn button-transparent-text"><h4><strong>About me</strong></h4></button></a>
                         </div>
                     </div>
+
                 </div>
-                <div class="row">
-                    <h1 class="my-name">Desenvolvedora</h1>
+                <div class="container-fluid">
+                    <img style="float:left" class="astronaut img-responsive" src="images/astronaut-girl.png">
                 </div>
-                <div class="row">
-                    <div class="col-md-12 text-left">
-                        <img class="astronaut" src="images/astronaut-girl.png">
-                    </div>
-                </div>      
             </div>
-        </div>
-    </div>
     <!-- contact -->
-        <div id="floater" class="btn button-aesthetic"><a id="contact">Entre em contato!</a>
-                <div id="contactForm" class="text-center align-middle">
+        <div id="floater" class="btn button-aesthetic" style="z-index: 100000"><a id="contact">Talk to me!</a>
+            <div id="contactForm" class="text-center align-middle">
                 <form method="POST" action="http://formspree.io/marian.meireles@gmail.com">
                     <input placeholder="Nome" type="text" />
                     <textarea placeholder="Mensagem"></textarea>
                     <input value="Enviar" class="button-aesthetic-small" type="submit" />
                     <input value="Resetar" class="button-aesthetic-small" type="reset" />
-                    </form>
-                </div>
+                </form>
+            </div>
         </div>
+    </div>
 </body>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-        <p class="text-center" style="margin-top: 10px;">Design e código por Mariana Meireles</p>
-            </div>
-    </div>
+<footer class="row footer navbar-fixed-bottom">
+    <div class="col-md-12">
+        <p class="text-center" style="margin-top: 10px;">Hand crafted with 🎔 by Mariana Meireles</p>
     </div>
 </footer>
 </html>

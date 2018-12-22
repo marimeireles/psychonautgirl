@@ -1,0 +1,18 @@
+# Setup
+title:        Psychonaut Girl
+tagline:      
+baseurl:      ""
+paginate:     1
+locale:       "en"
+
+# About/contact
+author:
+  name:       Mariana Meireles
+  url:        http://psychonautgirl.space/
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
