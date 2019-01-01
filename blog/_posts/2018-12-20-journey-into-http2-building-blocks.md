@@ -10,7 +10,7 @@ As a performance intern working with the Webcompat team part of my initial propo
 
 HTTP1.1 stands for Hypertext Transfer Protocol version 1.1 and it's a standardized way of computers talk to each other through hyperlinks. HTTP1.1 defines **methods** like GET that retrieves data and POST that sends it, those requests and responses have to be treated synchronous opening one TCP connection for each one of them, which might slow things a bit; HTTP1.1 implements **status** there are responses to the methods like 404 not found or 200 that means that a request was successful;and HTTP **header** fields, which sometimes can be used to fetch data with the HEAD method. HTTP is stateless, which means there is no link between two requests being successively carried out on the same connection, sometimes you may to have a "memory" to store preferences of an user or a cart on an e-commerce and for that HTTP implements **cookies**. HTTP also defines **caching**, a very relevant tool for performance. Caching is the way to save data locally in order to decrease the number of requests you have to make to another computer, W3C offers [extensive documentation](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html) about it. If you want to get a deeper understanding on how HTTP1.1 works MDN has this [great overview article](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) about it, you can follow up the links, I recommend reading the entire section.
 
-![http11](/assets/images/http-1.png)
+![http11](/assets/blog/http-1.png)
 
 [source: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
 
@@ -19,7 +19,7 @@ HTTPS is a safer way to transfer data between computers. HTTPS websites encrypts
 Finally, HTTP/2 implements the same tools that HTTP1.1 does, but on top of that it has some sweet new stuff. HTTP/2 as opposed to HTTP1.1 is a multiplexed protocol which means it can handle parallel requests, that often means your page will load faster; it's implemented with a binary protocol which allows the use of improved optimization techniques; it compresses headers; and it allows a server to populate data in a client cache, in advance of it being required, through a mechanism called the server push. Besides that, all of the browsers only support HTTP/2 if they're over TLS which means HTTP/2 websites are always encrypted.
 
 
-![http-compare](/assets/images/http-compare.png)
+![http-compare](/assets/blog/http-compare.png)
 
 [source: cloudflare](https://blog.cloudflare.com/http-2-for-web-developers/)
 
