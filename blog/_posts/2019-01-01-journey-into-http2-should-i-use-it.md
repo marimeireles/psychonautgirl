@@ -7,7 +7,7 @@ keywords: "http2, server, performance"
 ---
 
 
-In my previous blog post I gave a small introduction on the main differences between the HTTP protocols. In this article I want to help you understand if you need HTTP/2 on your website and if you decide you do, how to use the `push`resource to improve your website speed.
+In my [previous blog post](https://psychonautgirl.space/blog/2018/12/20/journey-into-http2-building-blocks.html) I gave a small introduction on the main differences between the HTTP protocols. In this article I want to help you understand if you need HTTP/2 on your website and if you decide you do, how to use the `push`resource to improve your website speed.
 
 ### Is HTTP/2 worth it?
 
