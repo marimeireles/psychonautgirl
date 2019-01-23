@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "This is a journey in to HTTP/2 - Diving in to performance analysis: the push"
+title: "This is a journey in to HTTP/2: Diving in to performance analysis the push"
 comments: true
 description: "This is a journey in to HTTP/2 - Diving in to performance analysis: the push"
 keywords: "mozilla, personal"
