@@ -9,13 +9,13 @@ keywords: "design"
 # A new design for a psychonaut girl
 
 I've been wanting to change my website's design for quite a long time now. It's an old design and it doesn't represent who I am anymore.
-I'm tired of this super pink 🌟 corny thing ugh.
+I'm tired of this super pink 🌟 corny thing (ugh).
 
 ![psychonaut](/assets/blog/psychonaut.png)
 
 I think design is super cool but unfortunatly I never took the time to study it so I'm not great at it and the best way I found to create something new was to get a lot of references from people who are awesome at creating stuff.
 
- Because I think my currently website is \*too MUCH\* I wanted to implement a more minimalist thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you it's not easy to abstract the beauty on geocities websites' designs) and I remembered a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
+ Because I think my currently website is \*too MUCH\* I wanted to implement a more minimalist thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you, it's not easy to abstract the beauty on geocities websites' designs) and fortunately I remembered a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
 
 ![beyond_actvismo_logo](/assets/blog/beyond_logo.png)
 
