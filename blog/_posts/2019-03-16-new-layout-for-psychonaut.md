@@ -15,7 +15,7 @@ I'm tired of this super pink 🌟 corny thing ugh.
 
 I think design is super cool but unfortunatly I never took the time to study it so I'm not great at it and the best way I found to create something new was to get a lot of references from people who are awesome at creating stuff.
 
- Because I think my currently website is \*to MUCH\* I wanted to implement a more minimalist thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you it's not easy to abstract the beauty on geocities website's designs) and I remember a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
+ Because I think my currently website is \*too MUCH\* I wanted to implement a more minimalist thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you it's not easy to abstract the beauty on geocities websites' designs) and I remembered a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
 
 ![beyond_actvismo_logo](/assets/blog/beyond_logo.png)
 
@@ -39,9 +39,9 @@ After contouring my reference image I got all the coordinates I needed from my d
 
 I edited the coordinates with my fav text editor and created some big integer arrays with them.
 
-I've used this lib called [5pjs](https://p5js.org) that is an implementation in javascript of Processing with this [code](https://gist.github.com/marimeireles/37b104e1fcf6b0ad9c65a08087fdf182) and that thing up there is what I got!
+I've used this lib called [p5js](https://p5js.org) that is an implementation in javascript of Processing with this [code](https://gist.github.com/marimeireles/37b104e1fcf6b0ad9c65a08087fdf182) and that thing up there is what I got!
 
-The more lines you make the more the self-drawing drawing will look like your original draw. 5pjs offers a lot of different objects and shapes that may fits your drawing best than just using lines like I did.
+The more lines you make the more the self-drawing drawing will look like your original draw. p5js offers a lot of different objects and shapes that may fits your drawing best than just using lines like I did.
 
 I decided not to use this drawing as a central piece of my website design because it didn't click to me as much as I thought it would but I wanted to share it anyway! I still have no clue of where to go from here, if you have some cool tips about design to give me I wanna hear them! Find me on the web and tell me about it.
 
