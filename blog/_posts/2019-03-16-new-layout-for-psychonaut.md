@@ -15,11 +15,11 @@ I'm tired of this super pink 🌟 corny thing ugh.
 
 I think design is super cool but unfortunatly I never took the time to study it so I'm not great at it and the best way I found to create something new was to get a lot of references from people who are awesome at creating stuff.
 
- Because I think my currently website is \*to MUCH\* I wanted to implement a more minimalistic thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you it's not easy to abstract the beauty on geocities website's designs) and I remember a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
+ Because I think my currently website is \*to MUCH\* I wanted to implement a more minimalist thing this time. I've been flirting a lot with geocities, 90's, oldschoolishy designs and I want to get a result as cool as Jenn's [site](http://jennmoney.biz/) by the end of this project. So I have a lot of confusing design ideas in my head (because let me tell you it's not easy to abstract the beauty on geocities website's designs) and I remember a project I contributed to a couple of years ago called Beyond Activismo. They have this awesome logo:
 
 ![beyond_actvismo_logo](/assets/blog/beyond_logo.png)
 
-And by the time I contributed they had a video that showed their logo drewing itself, like completing the dots and I thought it was wild!
+And by the time I contributed they had a video that showed their logo drawing itself, like completing the dots and I thought it was wild!
 
 # D draw!
 
@@ -27,7 +27,7 @@ I decided I wanted something like Beyond Actvismo had in my website and I though
 
 ![girl](/assets/blog/girl.gif)
 
-I'm not great at drawning, so what I did was get a reference image from the internet and I tried to draw something alike. I chose this cool draw by Tara Anand. Tara's draw is on the left and mine on the right:
+I'm not great at drawing, so what I did was get a reference image from the internet and I tried to draw something alike. I chose this cool draw by Tara Anand. Tara's draw is on the left and mine on the right:
 
 ![comparing_girls](/assets/blog/comparing_girls.png)
 
@@ -46,4 +46,5 @@ The more lines you make the more the self-drawing draw will look like your origi
 I decided not to use this draw as a central piece of my website design because it didn't click to me as much as I thought it would but I wanted to share it anyway! I still have no clue of where to go from here, if you have some cool tips about design to give me I wanna hear them! Find me on the web and tell me about it.
 
 Processing is a really cool tool and you can get some awesome results out of it. Feel free to use and modify this small tool I created. If you create something cool with it, let me know!
+
 
