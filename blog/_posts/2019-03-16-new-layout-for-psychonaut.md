@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Psychonautgirl's design & how to make a self-drawing draw with processing"
+title: "Psychonautgirl's design & how to make a self-drawing drawing with processing"
 comments: true
 description: "A new design for psychonaut girl"
 keywords: "design"
@@ -27,11 +27,11 @@ I decided I wanted something like Beyond Actvismo had in my website and I though
 
 ![girl](/assets/blog/girl.gif)
 
-I'm not great at drawing, so what I did was get a reference image from the internet and I tried to draw something alike. I chose this cool draw by Tara Anand. Tara's draw is on the left and mine on the right:
+I'm not great at drawing, so what I did was get a reference image from the internet and I tried to drawing something alike. I chose this cool drawing by Tara Anand. Tara's drawing is on the left and mine on the right:
 
 ![comparing_girls](/assets/blog/comparing_girls.png)
 
-I designed a canvas that allows me to upload a reference image from my computer, that lets me draw lines on it and also gives me the coordinates of those lines. The code to this canvas can be found [here](https://gist.github.com/marimeireles/ff03c44321b4e891f3e0c0a6ca9984f7). You can save it as an .html file and run it in your computer!
+I designed a canvas that allows me to upload a reference image from my computer, that lets me drawing lines on it and also gives me the coordinates of those lines. The code to this canvas can be found [here](https://gist.github.com/marimeireles/ff03c44321b4e891f3e0c0a6ca9984f7). You can save it as an .html file and run it in your computer!
 
 After contouring my reference image I got all the coordinates I needed from my devtools log:
 
@@ -41,9 +41,9 @@ I edited the coordinates with my fav text editor and created some big integer ar
 
 I've used this lib called [5pjs](https://p5js.org) that is an implementation in javascript of Processing with this [code](https://gist.github.com/marimeireles/37b104e1fcf6b0ad9c65a08087fdf182) and that thing up there is what I got!
 
-The more lines you make the more the self-drawing draw will look like your original draw. 5pjs offers a lot of different objects and shapes that may fits your drawing best than just using lines like I did.
+The more lines you make the more the self-drawing drawing will look like your original draw. 5pjs offers a lot of different objects and shapes that may fits your drawing best than just using lines like I did.
 
-I decided not to use this draw as a central piece of my website design because it didn't click to me as much as I thought it would but I wanted to share it anyway! I still have no clue of where to go from here, if you have some cool tips about design to give me I wanna hear them! Find me on the web and tell me about it.
+I decided not to use this drawing as a central piece of my website design because it didn't click to me as much as I thought it would but I wanted to share it anyway! I still have no clue of where to go from here, if you have some cool tips about design to give me I wanna hear them! Find me on the web and tell me about it.
 
 Processing is a really cool tool and you can get some awesome results out of it. Feel free to use and modify this small tool I created. If you create something cool with it, let me know!
 
