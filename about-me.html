@@ -70,23 +70,12 @@
 	<!-- contact -->
 		<div id="floater" style="z-index: 9999999999" class="btn button-aesthetic"><a id="contact">contact me!</a>
 				<div id="contactForm" class="text-center align-middle">
-					<form
-					  action="https://formspree.io/xzbjwaoq"
-					  method="POST"
-					>
-					  <label>
-					    your email:
-					    <input type="text" name="_replyto">
-					  </label>
-					  <label>
-					    your message:
-					    <textarea name="message"></textarea>
-					  </label>
-
-					  <!-- your other form fields go here -->
-
-					  <button type="submit">send!</button>
-					</form>
+			  	<form method="POST" action="https://formspree.io/xzbjwaoq">
+				    <input placeholder="your email" type="text" />
+				    <textarea placeholder="your message"></textarea>
+				    <input value="send" class="button-aesthetic-small" type="submit" />
+				    <input value="reset" class="button-aesthetic-small" type="reset" />
+			 		</form>
 				</div>
 		</div>
 </body>
