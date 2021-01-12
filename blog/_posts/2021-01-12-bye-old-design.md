@@ -12,15 +12,15 @@ I'm in this vibe of documenting everything in my life, so this blog post is an a
 
 Here is is the main page with the iconic footer floating in the middle of the screen problem that happens in some screens that I know of for about 4 years but haven't done nothing since.
 
-![main](main-original.png)
+![main](/assets/blog/old-design/main-original.png)
 
 My projects page:
 
-![projects](projects-original.png)
+![projects](/assets/blog/old-design/projects-original.png)
 
 And the cute but cringy about me:
 
-![about](about-original.png)
+![about](/assets/blog/old-design/about-original.png)
 
 Let's see how long I can stand a super boring website.
 
