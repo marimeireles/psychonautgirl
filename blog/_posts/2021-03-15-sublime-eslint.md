@@ -14,13 +14,17 @@ Also, make sure you're running an updated version of NodeJS.
 
 1. Add `eslint` as a local dependency.
 
-`npm install eslint`
+```
+npm install eslint
+```
 
 This will fetch the latest version of `eslint` and add it to your `package.json` file.
 
 2. Install the sublime extension with npm
 
-`npm install stylelint_d`
+```
+npm install stylelint_d
+```
 
 3. Within Sublime Text, bring up the Command Palette and type install. Among the commands you should see Package Control: Install Package. If that command is not highlighted, use the keyboard or mouse to select it. There will be a pause of a few seconds while Package Control fetches the list of available plugins.
 
@@ -28,7 +32,9 @@ When the plugin list appears, type stylelint_d. Among the entries you should see
 
 4. Run:
 
-`eslint --init`
+```
+eslint --init
+```
 
 and configure it as you like.
 
