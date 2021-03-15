@@ -52,7 +52,7 @@ In order for stylelint_d to be executed by SublimeLinter, you must ensure that i
 
 Once you have installed and configured stylelint_d, you can proceed to install the SublimeLinter-contrib-stylelint_d plugin if it is not yet installed.
 
-## Further resources
+## Further resources:
 
 Part of this text was cced from the following repos:
 
