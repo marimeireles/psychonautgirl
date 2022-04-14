@@ -1,6 +1,7 @@
 /*This code is mostly done by a guy on openprocessing that I don't know how to find anymore.
 it's not mine, sorry person :'(*/
 
+
 var imgs = [];
 var imgIndex = -1;
 var img;
@@ -171,15 +172,16 @@ function preload() {
 
 function setup() {
     if(windowWidth < 600)
-    createCanvas(windowWidth, windowWidth);
+    var myCanvas = createCanvas(windowWidth, windowWidth);
     else 
-    createCanvas(600, 600);
+    var myCanvas = createCanvas(600, 600);
   img = createImage(width, height);
   nextImage();
   paint = new Paint(createVector(width/2, height/2));
   // background(255, 255, 255);
   colorMode(RGB, 255, 255, 255, 255);
   noLoop();
+  myCanvas.parent("marianadraw");
 }
 
 function draw() {
