@@ -249,26 +249,25 @@ const throttle = (func, limit) => {
   }
 }
 
-const triggerHeight = 600;
-let calledSetup = false;
+const triggerHeight = 1; //change this val if I change the position of my drawing on the screen
+let calledSetup = true;
 
 const handleScroll = (ev) => {
-  console.log('scrolling baby', ev);
-  console.log(window.pageYOffset, document.body.clientHeight, document.body.clientHeight - window.pageYOffset, triggerHeight);
-  console.log();
+  // console.log('scrolling baby', ev);
+  // console.log(window.pageYOffset, document.body.clientHeight, document.body.clientHeight - window.pageYOffset, triggerHeight);
+  // console.log();
 
-  if (calledSetup) {
-    return false;
-  }
+  // if (calledSetup) {
+  //   return false;
+  // }
 
-  if ((document.body.clientHeight - window.pageYOffset) < (triggerHeight + document.documentElement.clientHeight)) {
-    console.log('are we there yet?');
-    calledSetup = true;
+  // if ((document.body.clientHeight - window.pageYOffset) < (triggerHeight + document.documentElement.clientHeight)) {
+  //   console.log('are we there yet?');
+  //   calledSetup = true;
     loop();
-  }
+  // }
 }
 
 window.onload = () => {
-  console.log('window loaded');
   document.addEventListener('scroll', throttle(handleScroll, 100));
 }
