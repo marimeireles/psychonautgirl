@@ -2,8 +2,8 @@ I've been thinking a lot about how to be impactful in open source, and something
 
 Reading Nadia Eghb's book is giving me a different, maybe closer to reality perspective on open source.
 
-One thing we need in order to fund these internships is money. I have my (biased) perspective of someone who was introduced in the ecossystem through one of these programs, but also the perspective of an open source contributor with years of experience in onboarding people and building and participating community and the several isolated data points of friends and colleagues who either agree with my positions or share the same background as me.
-But besides individual data I want to create real source of information to show people that this is not only a kind idea but also an effective action towards the upkeep and expansion of open source.
+One thing we need in order to fund these internships is money. I have my (biased) perspective of someone who was introduced in the ecossystem through one of these programs, but also the perspective of an open source contributor with years of experience in onboarding people and building and participating communities and the several isolated data points of friends and colleagues who either agree with my positions or share the same background as me.
+Besides individual data I want to create a real source of information to show people that this is not only a kind idea but also an effective action towards the upkeep and expansion of open source.
 
 Regarding research:
 
