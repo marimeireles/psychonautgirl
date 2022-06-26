@@ -1,6 +1,13 @@
-I've been thinking a lot about how to be impactful in open source, and something that always come up is the topic of having paid internships for people who are interested in open source.
+# INDEX
 
-Reading Nadia Eghb's book is giving me a different, maybe closer to reality perspective on open source.
+* [open internships](open-internships)
+* [ethos of open source](ethos-of-open-source)
+
+*Relevant blogposts to this dicussion under the #research category of my [blog](https://cyborgdream.github.io/categories/research/).*
+
+## open internships
+
+I've been thinking a lot about how to be impactful in open source, and something that always come up is the topic of having paid internships for people who are interested in open source.
 
 One thing we need in order to fund these internships is money. I have my (biased) perspective of someone who was introduced in the ecossystem through one of these programs, but also the perspective of an open source contributor with years of experience in onboarding people and building and participating communities and the several isolated data points of friends and colleagues who either agree with my positions or share the same background as me.
 Besides individual data I want to create a real source of information to show people that this is not only a kind idea but also an effective action towards the upkeep and expansion of open source.
@@ -22,3 +29,28 @@ Regarding research:
         - Scrape data from GH
         - Run the analysis on the data and answer these questions
     d) We could also start with just developing forms that we offer to the people we got in touch with so they can run it and send us back the results.
+
+### Connections
+
+- DISC is working towards something like this? I think something is being layed out. I need to ask on the next meeting that will happen 30.06.22 and update
+- In the last PyLadies meeting I've brought up the topic in a very raw form, but the girls seem to be interested in helping the research idea. Maren seems like it'd be happy to hold workshops for the development of this idea. I have to get in touch with Paloma because she did a similar project in saucelabs building a tool to tell how "complete" your open source repository is and this is some way of improving or measuring health in the ecossystem.
+
+## ethos of open source
+
+To improve open source we have to first understand it.
+
+- organizational formats
+    - anarchy
+        - Markets Not Capitalism: Individualist Anarchism Against Bosses, Inequality, Corporate Power, and Structural Poverty
+        - On Anarchism by Chomsky -> not sure how useful, gives a perspective on the history of anarchism and proletarian organizations, doesn't seem too related. but I should finish it
+        - Steal this book -> it's just a historical social commentary on poor counter culture bummie hippies living in the US, but I really like the "criminal" perspective. I should also finish this book and try to write about this high level idea of this kind of persona 
+    - organizational theory
+        - mushtaq khan cool dude -> [infinite resources](https://80000hours.org/podcast/episodes/mushtaq-khan-institutional-economics/) I'd like to go through
+- history of open source
+    - [stallman's blog](https://stallman.org/) -> the ideas behind free software are great and impractible. It's a very relevant source of material to understand the purist's perspective and the ideas of the main proponent of this movement.
+    - the cathedral and the bazaar -> good analysis on a technical perspective of old open source contribution systems, completely overlooks the social aspects of it, which is both expected for the time and a less relevant subject since everyone was basically one homegeneous blob. Also it's [Eric S. Raymond](http://www.catb.org/~esr/personal.html)
+    - linux foundation's podcast -> I should listen to it
+    - open source surveys conducted by github -> they're great, but only go to 2015 or 17? Have to find the links again.
+    - Working in public the making and maintenance - Nadia Eghb -> the way she talks about GH is really annoying to me, I'm not sure if it's some personal grudges against orgs (specially Microsoft) or if it's reasonable. She also didn't do a good job at summarizing the ideas on the cathedral and the bazaar (or maybe they're just different from my interpretation? I should look for more input)
+- current context of open science
+  
