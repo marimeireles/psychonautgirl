@@ -80,3 +80,13 @@ To improve open source we have to first understand it.
 - https://en.unesco.org/science-sustainable-future/open-science/recommendation
 
 - https://blog.scikit-learn.org/events/sprints-value/
+
+#### input from people
+
+several people:
+
+do the code maintanence. put code out there that's dirty or not universally working is bad
+
+v from RSE:
+
+we need to make it easier to already have the data organized/ with metadata. A good example is from  the neuro community - the BIDS standard was developed as a simple organization / metadata format for brain images and associated metadata and a whole suite of tooling was created around it to create and validate BIDS datasets.
