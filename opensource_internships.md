@@ -46,6 +46,15 @@ To improve open source we have to first understand it.
         - Steal this book -> it's just a historical social commentary on poor counter culture bummie hippies living in the US, but I really like the "criminal" perspective. I should also finish this book and try to write about this high level idea of this kind of persona 
     - organizational theory
         - mushtaq khan cool dude -> [infinite resources](https://80000hours.org/podcast/episodes/mushtaq-khan-institutional-economics/) I'd like to go through
+            -   [Institutions and Development](https://eprints.soas.ac.uk/31595/)
+            -   [Digitizing Taxation and Premature Formalization in Developing Countries](https://eprints.soas.ac.uk/35296/)
+            -   [Knowledge, Skills and Organizational Capabilities for Structural Transformation](https://eprints.soas.ac.uk/25971/)
+            -   [Political Settlements and the Design of Technology Policy](https://eprints.soas.ac.uk/17297/)
+            -   [Governance and Growth: History, Ideology and Methods of Proof](https://eprints.soas.ac.uk/17299/)
+            -   [Digital identities: a political settlements analysis of asymmetric power and information](https://eprints.soas.ac.uk/32531/) (working paper)
+            -   [Tackling Corruption through Productivity](https://theknowshow.net/2021/03/16/tackling-corruption-through-productivity/)
+            -   [Why Nations Fail: The Origins of Power, Prosperity, and Poverty](https://www.penguinrandomhouse.com/books/205014/why-nations-fail-by-daron-acemoglu-and-james-a-robinson/)
+            -   [_The Logic of Political Survival_](https://mitpress.mit.edu/books/logic-political-survival)
         - audrey tang -> works on open democracy
 - history of open source
     - [stallman's blog](https://stallman.org/) -> the ideas behind free software are great and impractible. It's a very relevant source of material to understand the purist's perspective and the ideas of the main proponent of this movement.
@@ -58,27 +67,16 @@ To improve open source we have to first understand it.
 #### unorganized food for thought links
 
 - https://nathanschneider.info/articles/EhmkeHackCurio.pdf
-
 - https://www.colorado.edu/lab/medlab/2020/04/29/hows-open-source-governance-working-you
-
 - https://nathanschneider.info/articles/CultureWarOpenSource.pdf
-
 - https://nathanschneider.info/articles/Musk.pdf\
-
 - https://mediarxiv.org/ucy8n/
-
 - https://nathanschneider.info/articles/CryptoeconReboot.pdf
-
 - https://nathanschneider.info/articles/BigTechWired.pdf
-
 - https://dirt.substack.com/p/dirt-solidarity?s=r
-
 - https://tasshin.com/blog/monastic-strategy/
-
 - https://the-turing-way.netlify.app/welcome.html
-
 - https://en.unesco.org/science-sustainable-future/open-science/recommendation
-
 - https://blog.scikit-learn.org/events/sprints-value/
 
 #### input from people
