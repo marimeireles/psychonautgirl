@@ -30,7 +30,7 @@ Regarding research:
         - Run the analysis on the data and answer these questions
     d) We could also start with just developing forms that we offer to the people we got in touch with so they can run it and send us back the results.
 
-### Connections
+#### connections
 
 - DISC is working towards something like this? I think something is being layed out. I need to ask on the next meeting that will happen 30.06.22 and update
 - In the last PyLadies meeting I've brought up the topic in a very raw form, but the girls seem to be interested in helping the research idea. Maren seems like it'd be happy to hold workshops for the development of this idea. I have to get in touch with Paloma because she did a similar project in saucelabs building a tool to tell how "complete" your open source repository is and this is some way of improving or measuring health in the ecossystem.
@@ -55,7 +55,7 @@ To improve open source we have to first understand it.
     - Working in public the making and maintenance - Nadia Eghb -> the way she talks about GH is really annoying to me, I'm not sure if it's some personal grudges against orgs (specially Microsoft) or if it's reasonable. She also didn't do a good job at summarizing the ideas on the cathedral and the bazaar (or maybe they're just different from my interpretation? I should look for more input)
 - current context of open science
   
-### unorganized food for thought links
+#### unorganized food for thought links
 
 - https://nathanschneider.info/articles/EhmkeHackCurio.pdf
 
