@@ -78,6 +78,8 @@ To improve open source we have to first understand it.
 - https://the-turing-way.netlify.app/welcome.html
 - https://en.unesco.org/science-sustainable-future/open-science/recommendation
 - https://blog.scikit-learn.org/events/sprints-value/
+- https://www.openscapes.org/
+    -  https://www.nature.com/articles/d41586-019-03335-4
 
 #### input from people
 
