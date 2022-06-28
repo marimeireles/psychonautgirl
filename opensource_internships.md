@@ -61,7 +61,7 @@ To improve open source we have to first understand it.
         - The critics of Elinor Ostrom's work and more on Tragedy of the commons
         - Producing Open Source Software by Karl Fogel
 - history of open source
-    - [stallman's blog](https://stallman.org/) -> the ideas behind free software are great and impractible. It's a very relevant source of material to understand the purist's perspective and the ideas of the main proponent of this movement.
+    - [stallman's blog](https://stallman.org/) -> the ideas behind free software are absolutely great but also often very impractible. It's a very relevant source of material to understand the purist's perspective and the ideas of the main proponent of this movement.
     - the cathedral and the bazaar -> good analysis on a technical perspective of old open source contribution systems, completely overlooks the social aspects of it, which is both expected for the time and a less relevant subject since everyone was basically one homegeneous blob. Also it's [Eric S. Raymond](http://www.catb.org/~esr/personal.html)
     - linux foundation's podcast -> I should listen to it
     - open source surveys conducted by github -> they're great, but only go to 2015 or 17? Have to find the links again.
