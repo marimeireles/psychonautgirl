@@ -40,10 +40,11 @@ Regarding research:
 To improve open source we have to first understand it.
 
 - organizational formats
-    - anarchy
+    - anarchy/socioeconomic perspective
         - Markets Not Capitalism: Individualist Anarchism Against Bosses, Inequality, Corporate Power, and Structural Poverty
         - On Anarchism by Chomsky -> not sure how useful, gives a perspective on the history of anarchism and proletarian organizations, doesn't seem too related. but I should finish it
         - Steal this book -> it's just a historical social commentary on poor counter culture bummie hippies living in the US, but I really like the "criminal" perspective. I should also finish this book and try to write about this high level idea of this kind of persona 
+        - [Building Ethical Software Under Capitalism](https://archive.fosdem.org/2020/schedule/event/capitalismethicaloss/)
     - organizational theory
         - mushtaq khan cool dude -> [infinite resources](https://80000hours.org/podcast/episodes/mushtaq-khan-institutional-economics/) I'd like to go through
             -   [Institutions and Development](https://eprints.soas.ac.uk/31595/)
@@ -56,6 +57,9 @@ To improve open source we have to first understand it.
             -   [Why Nations Fail: The Origins of Power, Prosperity, and Poverty](https://www.penguinrandomhouse.com/books/205014/why-nations-fail-by-daron-acemoglu-and-james-a-robinson/)
             -   [_The Logic of Political Survival_](https://mitpress.mit.edu/books/logic-political-survival)
         - audrey tang -> works on open democracy
+        - Governing the Commons by Elinor Ostrom
+        - The critics of Elinor Ostrom's work and more on Tragedy of the commons
+        - Producing Open Source Software by Karl Fogel
 - history of open source
     - [stallman's blog](https://stallman.org/) -> the ideas behind free software are great and impractible. It's a very relevant source of material to understand the purist's perspective and the ideas of the main proponent of this movement.
     - the cathedral and the bazaar -> good analysis on a technical perspective of old open source contribution systems, completely overlooks the social aspects of it, which is both expected for the time and a less relevant subject since everyone was basically one homegeneous blob. Also it's [Eric S. Raymond](http://www.catb.org/~esr/personal.html)
@@ -80,6 +84,17 @@ To improve open source we have to first understand it.
 - https://blog.scikit-learn.org/events/sprints-value/
 - https://www.openscapes.org/
     -  https://www.nature.com/articles/d41586-019-03335-4
+
+#### good resources
+
+- fsfe's recommendations on open software: https://download.fsfe.org/policy/letters/20170105-horizon2020-position-paper.pdf
+- unesco's recommendations on open software: https://en.unesco.org/science-sustainable-future/open-science/recommendation
+- ethic of open source:
+    - googman wilson on the morality of open source: https://dev.to/degoodmanwilson/open-source-is-broken-g60 
+    - ethical licensing, ethical OSS: ethicalsource.dev/
+- open science in numbers, by the EU digital open science program: https://ec.europa.eu/info/research-and-innovation/strategy/strategy-2020-2024/our-digital-future/open-science_en
+- [Reproducibility of scientific results in the EU](https://op.europa.eu/o/opportal-service/download-handler?identifier=6bc538ad-344f-11eb-b27b-01aa75ed71a1&format=pdf&language=en&productionSystem=cellar&part=)
+- [Providing researchers with the skills and competencies they need to practise Open Science EU](https://op.europa.eu/en/publication-detail/-/publication/3b4e1847-c9ca-11e7-8e69-01aa75ed71a1/language-en/format-PDF/source-172515559)
 
 #### input from people
 
