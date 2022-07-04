@@ -116,3 +116,4 @@ https://numun.fund/apply/
     - we have the know how, i'd love to hire an intern and work closely with them
     - go to conferences, advertise our thing, talk to people
 - for the most money may be an opportunity for numfocus stuff
+- https://opensource.com/submission-style-guide this might be a good place for advertising this idea and just generally talking about my thought on open source 
