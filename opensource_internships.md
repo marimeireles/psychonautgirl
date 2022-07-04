@@ -2,6 +2,7 @@
 
 * [open internships](open-internships)
 * [ethos of open source](ethos-of-open-source)
+* [grants](grants)
 
 *Relevant blogposts to this dicussion under the #research category of my [blog](https://cyborgdream.github.io/categories/research/).*
 
@@ -33,6 +34,7 @@ Regarding research:
 #### connections
 
 - DISC is working towards something like this? I think something is being layed out. I need to ask on the next meeting that will happen 30.06.22 and update
+    - no updates in the meeting, waitin for input from chat
 - In the last PyLadies meeting I've brought up the topic in a very raw form, but the girls seem to be interested in helping the research idea. Maren seems like it'd be happy to hold workshops for the development of this idea. I have to get in touch with Paloma because she did a similar project in saucelabs building a tool to tell how "complete" your open source repository is and this is some way of improving or measuring health in the ecossystem.
 
 ## ethos of open source
@@ -105,3 +107,12 @@ do the code maintanence. put code out there that's dirty or not universally work
 v from RSE:
 
 we need to make it easier to already have the data organized/ with metadata. A good example is from  the neuro community - the BIDS standard was developed as a simple organization / metadata format for brain images and associated metadata and a whole suite of tooling was created around it to create and validate BIDS datasets.
+
+### grants
+
+https://numun.fund/apply/
+- to put up in place the software that will give you open source data on the repos
+    - research on how to do it
+    - we have the know how, i'd love to hire an intern and work closely with them
+    - go to conferences, advertise our thing, talk to people
+- for the most money may be an opportunity for numfocus stuff
