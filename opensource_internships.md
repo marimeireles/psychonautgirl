@@ -3,6 +3,7 @@
 * [open internships](open-internships)
 * [ethos of open source](ethos-of-open-source)
 * [grants](grants)
+* [community building](community-building)
 
 *Relevant blogposts to this dicussion under the #research category of my [blog](https://cyborgdream.github.io/categories/research/).*
 
@@ -86,6 +87,8 @@ To improve open source we have to first understand it.
 - https://blog.scikit-learn.org/events/sprints-value/
 - https://www.openscapes.org/
     -  https://www.nature.com/articles/d41586-019-03335-4
+-  https://www.jofreeman.com/joreen/tyranny.htm (Recommended by dave, UP on my priority list)
+-  https://www.colorado.edu/lab/medlab/2021/07/15/community-rules-simple-templates-great-communities (Recommended by dave, UP on my priority list)
 
 #### good resources
 
@@ -111,7 +114,7 @@ v from RSE:
 
 we need to make it easier to already have the data organized/ with metadata. A good example is from  the neuro community - the BIDS standard was developed as a simple organization / metadata format for brain images and associated metadata and a whole suite of tooling was created around it to create and validate BIDS datasets.
 
-### grants
+## grants
 
 https://numun.fund/apply/
 - to put up in place the software that will give you open source data on the repos
@@ -120,3 +123,9 @@ https://numun.fund/apply/
     - go to conferences, advertise our thing, talk to people
 - for the most money may be an opportunity for numfocus stuff
 - https://opensource.com/submission-style-guide this might be a good place for advertising this idea and just generally talking about my thought on open source 
+
+## community building
+
+#### examples of communities who had a it right
+
+- scratch people [[1]](https://www.bryanbraun.com/2022/07/16/scratch-is-a-big-deal/), how much of this success is due to the pandamic? does is matter? is our world for ever verandedt because of it
