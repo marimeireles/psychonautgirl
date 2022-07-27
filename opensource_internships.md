@@ -97,6 +97,9 @@ To improve open source we have to first understand it.
 - open science in numbers, by the EU digital open science program: https://ec.europa.eu/info/research-and-innovation/strategy/strategy-2020-2024/our-digital-future/open-science_en
 - [Reproducibility of scientific results in the EU](https://op.europa.eu/o/opportal-service/download-handler?identifier=6bc538ad-344f-11eb-b27b-01aa75ed71a1&format=pdf&language=en&productionSystem=cellar&part=)
 - [Providing researchers with the skills and competencies they need to practise Open Science EU](https://op.europa.eu/en/publication-detail/-/publication/3b4e1847-c9ca-11e7-8e69-01aa75ed71a1/language-en/format-PDF/source-172515559)
+- 📙 [The Art of Community: Building the New Age of Participation Second Edition](https://www.amazon.com/gp/product/1449312063/ref=as_li_qf_sp_asin_tl?ie=UTF8&tag=jobaho-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1449312063) - Jono Bacon
+- 👥 [Center for Scientific Collaboration and Community Engagement](https://www.cscce.org/) - They offer courses on how to nurture scientific software communities, not sure how much free stuff it's available here. Recommended by Melissa as a good resource.
+- 📙 [People Powered](https://stage.jonobacon.com/books/peoplepowered/) - Jono Bacon
 
 #### input from people
 
