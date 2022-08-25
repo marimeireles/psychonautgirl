@@ -4,6 +4,7 @@
 * [ethos of open source](ethos-of-open-source)
 * [grants](grants)
 * [community building](community-building)
+* [cybernomics](cybernomics)
 
 *Relevant blogposts to this dicussion under the #research category of my [blog](https://cyborgdream.github.io/categories/research/).*
 
@@ -31,6 +32,8 @@ Regarding research:
         - Scrape data from GH
         - Run the analysis on the data and answer these questions
     d) We could also start with just developing forms that we offer to the people we got in touch with so they can run it and send us back the results.
+
+So much was contributed by my beautiful community, it can be found in [this document](https://docs.google.com/document/d/1Gz8uGNveMYkTQsXozMPmqdVsvqxmJ5DE8HseJi885UI/edit?usp=sharing). Lots of WIP, lots of great stuff.
 
 #### connections
 
@@ -124,8 +127,20 @@ https://numun.fund/apply/
 - for the most money may be an opportunity for numfocus stuff
 - https://opensource.com/submission-style-guide this might be a good place for advertising this idea and just generally talking about my thought on open source 
 
+gitcoin
+- what's the state of crypto?
+
 ## community building
 
-#### examples of communities who had a it right
+#### people trying
 
 - scratch people [[1]](https://www.bryanbraun.com/2022/07/16/scratch-is-a-big-deal/), how much of this success is due to the pandamic? does is matter? is our world for ever verandedt because of it
+- https://www.microsolidarity.cc/
+- https://neighborhoodsf.com/
+- mars (I should write a blogpost on my thoughts on what's good and bad about mars)
+
+## cybernomics
+
+- do my ideas around organization and open source make sense in this context? is this even a broad enough term?
+    - read https://www.ruankeyun.com/cybernomics 's books
+- https://ai.objectives.institute/
