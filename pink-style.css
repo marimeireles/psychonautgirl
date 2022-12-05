@@ -57,7 +57,10 @@ a {
 @media (max-width: 980px) {
   .wp-post-image {
           display: none;
-  } 
+  }
+  .title {
+    font-size: 2.8rem;
+  }
 }
 
 /*stars*/
