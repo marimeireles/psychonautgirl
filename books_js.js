@@ -1,7 +1,7 @@
 const pastelColors = [
-  "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF",
-  "#E0BBE4", "#957DAD", "#D291BC", "#FEC8D8", "#FFDFD3",
-  "#B2B2B2", "#E5E5E5", "#E2F3C7", "#C3D0EF", "#F5D1E9",
+  "#FFB3BA", "#FFDFBA", "#ffd900", "#90ee90", "#BAE1FF",
+  "#E0BBE4", "#957DAD", "#D291BC", "#FEC8D8", "#ffd2c8",
+  "#B2B2B2", "#F5CBF6", "#abff14", "#C3D0EF", "#ff91a8",
   "#F9D1D1", "#A8D0DB", "#D6E2BF", "#F1D0B8", "#E9C9F1"
 ];
 
@@ -20,7 +20,7 @@ const cuteColors = [
 
 let labelColors = {};
 
-function getColorForLabelType(label) {
+function getColorForLabel(label) {
   if (!labelColors[label]) {
     let colorIndex = Object.keys(labelColors).length % pastelColors.length;
     labelColors[label] = pastelColors[colorIndex];
@@ -42,17 +42,18 @@ function renderTable(rowsData) {
 
   rowsData.forEach(rowData => {
     var row = document.createElement("tr");
-    let typeColorType = getColorForLabelStatus(rowData.status);
+    let typeColor = getColorForLabelStatus(rowData.status);
 
     if (Array.isArray(rowData.type)) {
       row.innerHTML = `
         <td>${rowData.name}</td>
-        <td><span class="badge" style="background-color: ${typeColorType};">${rowData.status}</span></td>`;
+        <td><span class="badge" style="background-color: ${typeColor};">${rowData.status}</span></td>`;
         const tdEl = document.createElement("td");
         var i = 0;
       rowData.type.forEach(labelType => {
-        let typeColor = getColorForLabelType(labelType);
-        tdEl.innerHTML = tdEl.innerHTML.concat(`<span class="badge" style="background-color: ${typeColorType}; margin-right: 10px;">${labelType}</span>`);
+        labelType = labelType.replace(/\s+/g, '');
+        let typeColor = getColorForLabel(labelType);
+        tdEl.innerHTML = tdEl.innerHTML.concat(`<span class="badge" style="background-color: ${typeColor}; margin-right: 10px;">${labelType}</span>`);
       });
       row.innerHTML = row.innerHTML.concat(`<td>${tdEl.innerHTML}</td>`);
       row.innerHTML = row.innerHTML.concat(`
@@ -62,25 +63,17 @@ function renderTable(rowsData) {
 
     else {
       let typeColorStatus = getColorForLabelStatus(rowData.status);
-      let typeColorType = getColorForLabelStatus(rowData.type);
+      let typeColor = getColorForLabelStatus(rowData.type);
       row.innerHTML = `
         <td>${rowData.name}</td>
         <td><span class="badge" style="background-color: ${typeColorStatus};">${rowData.status}</span></td>
-        <td><span class="badge" style="background-color: ${typeColorType};">${rowData.type}</span></td>
+        <td><span class="badge" style="background-color: ${typeColor};">${rowData.type}</span></td>
         <td>${rowData.author}</td>
       `;
     }
 
     tableBody.appendChild(row);
   });
-}
-
-function sortByType(rowsData) {
-  return rowsData.sort((a, b) => a.type.localeCompare(b.type));
-}
-
-function sortByStatus(rowsData) {
-  return rowsData.sort((a, b) => a.status.localeCompare(b.status));
 }
 
 function renderStatusDropdown(statuses) {
@@ -108,6 +101,7 @@ function renderTypeDropdown(labels) {
   let dropdownMenu = document.getElementById("typeDropdownMenu");
   dropdownMenu.innerHTML = '';
   labels = labels.filter(item => !Array.isArray(item));
+  console.log(labels)
 
   labels.forEach(label => {
     let menuItem = document.createElement("li");
@@ -128,8 +122,7 @@ function renderTypeDropdown(labels) {
 
 let tableData = [];
 
-// Replace this with the URL of your CSV file
-const csvFileUrl = "https://github.com/marimeireles/psychonautgirl/blob/master/my_books.csv";
+const csvFileUrl = "https://cdn.jsdelivr.net/gh/marimeireles/psychonautgirl@master/my_books.csv";
 
 fetch(csvFileUrl)
   .then((response) => {
@@ -141,7 +134,7 @@ fetch(csvFileUrl)
   .then((content) => {
     let lines = content.split("\n");
 
-    let tableData = [];
+    // Removed the redeclaration of tableData here
 
     for (let i = 1; i < lines.length; i++) {
       let cells = lines[i].split(",");
