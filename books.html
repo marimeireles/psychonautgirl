@@ -8,47 +8,46 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
-    /*    clouds*/
-.clouds {
-  position: fixed;
-  pointer-events: none;
-  z-index: -1;
-}
+    /*clouds*/
+    .clouds {
+      position: fixed;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-.cloud {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0);
-  transition: transform 1s, opacity 1s;
-  z-index: -999;
-}
+    .cloud {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      transition: transform 1s, opacity 1s;
+      z-index: -999;
+    }
 
-.cloud.visible {
-  opacity: 1;
-  transform: scale(1);
-}
+    .cloud.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-
-@keyframes floatAndFade {
-  0% {
-    transform: scale(2);
-    opacity: 0;
-  }
-  10% {
-    transform: scale(30);
-    opacity: 1;
-  }
-  90% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-}
+    @keyframes floatAndFade {
+      0% {
+        transform: scale(2);
+        opacity: 0;
+      }
+      10% {
+        transform: scale(30);
+        opacity: 1;
+      }
+      90% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
 
 
     /*end of clouds*/
@@ -107,12 +106,21 @@
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
+
+    p {
+      font-family: 'Pacifico', cursive;
+      color: #c5eafa;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
   </style>
 </head>
 
 <body>
   <h1>Reading list</h1>
   <div class="container">
+    <p>Last edited: May 3, 2023</p>
     <table class="table table-striped" id="dataTable">
       <thead>
         <tr>

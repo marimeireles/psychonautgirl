@@ -2,20 +2,13 @@ const pastelColors = [
   "#FFB3BA", "#FFDFBA", "#ffd900", "#90ee90", "#BAE1FF",
   "#E0BBE4", "#957DAD", "#D291BC", "#FEC8D8", "#ffd2c8",
   "#B2B2B2", "#F5CBF6", "#abff14", "#C3D0EF", "#ff91a8",
-  "#F9D1D1", "#A8D0DB", "#D6E2BF", "#F1D0B8", "#E9C9F1"
+  "#F9D1D1", "#A8D0DB", "#D6E2BF", "#F1D0B8", "#E9C9F1",
 ];
 
 const cuteColors = [
-  '#FF69B4',
-  '#FF6347',
-  '#FFA500',
-  '#00BFFF',
-  '#FF1493',
-  '#FF4500',
-  '#800080',
-  '#9400D3',
-  '#FF7F50',
-  '#008080'
+  '#FF69B4', '#FF6347', '#FFA500', '#00BFFF', '#FF1493',
+  '#FF4500', '#800080', '#9400D3', '#FF7F50', '#008080',
+  "#F5CBF6",
 ];
 
 let labelColors = {};
