@@ -1,0 +1,7 @@
+defaults:
+  - scope:
+      path: ""
+    values:
+      headers:
+        Content-Security-Policy: "default-src 'none'; style-src 'unsafe-inline'; sandbox allow-forms allow-scripts; base-uri 'self'"
+
