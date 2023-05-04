@@ -115,7 +115,7 @@ function renderTypeDropdown(labels) {
 
 let tableData = [];
 
-const csvFileUrl = "https://marimeireles.github.io/psychonautgirl/my_books.csv";
+const csvFileUrl = "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/my_books.csv";
 
 fetch(csvFileUrl)
   .then((response) => {
