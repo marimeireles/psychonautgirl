@@ -125,19 +125,27 @@ fetch(csvFileUrl)
     return response.text();
   })
   .then((content) => {
-    let lines = content.split("\n");
+    let lines = content.split("\n").filter(line => line.trim()); // Filter out empty lines
+    console.log(lines);
 
-    // Removed the redeclaration of tableData here
+    // Initialize tableData as an empty array
+    let tableData = [];
 
     for (let i = 1; i < lines.length; i++) {
-      let cells = lines[i].split(",");
+      console.log(lines[i])
+      let cells = lines[i].split(";");
 
-      if (cells.length < 4) {
+      // Continue if there are fewer than 4 meaningful cells
+      if (cells.length < 3) {
+        console.log('continue')
         continue;
       }
 
+      // Handling for the Type field which can contain semicolon-separated values
       if (cells[2].includes(";")) {
-        cells[2] = cells[2].split(";");
+        cells[2] = cells[2].split(";").map(item => item.trim());
+      } else {
+        cells[2] = [cells[2].trim()];
       }
 
       let rowData = {
@@ -146,9 +154,12 @@ fetch(csvFileUrl)
         type: cells[2],
         author: cells[3].trim(),
       };
+      console.log('rowData', rowData);
 
       tableData.push(rowData);
     }
+    // Optional: log the entire table data to see the collection
+    console.log(tableData);
 
     renderTable(tableData);
 
