@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloudy Sky Background</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #87CEEB; /* Soft blue sky */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="skyCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('skyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set the canvas to full window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight + 700;
+
+    // Function to generate random numbers within a range
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    class Cloud {
+        constructor() {
+            this.x = random(0, canvas.width);
+            this.y = random(0, canvas.height / 2);
+            this.size = random(60, 120);
+            this.speed = random(0.04, 0.1);
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; // Semi-transparent white
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 0.5, this.y - this.size * 0.4, this.size * 0.7, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 1.5, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        update() {
+            this.x += this.speed;
+            if (this.x - this.size > canvas.width) {
+                this.x = 0 - this.size;
+                this.y = random(0, canvas.height / 2);
+            }
+        }
+    }
+
+    // Create multiple clouds
+    const clouds = [];
+    for (let i = 0; i < 20; i++) {
+        clouds.push(new Cloud());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        clouds.forEach(cloud => {
+            cloud.draw();
+            cloud.update();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Ensure the canvas resizes with the window
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+</body>
+</html>
+
