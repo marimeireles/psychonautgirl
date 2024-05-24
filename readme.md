@@ -1,5 +1,7 @@
 This whole thing is free for you to use, study, share & improve.
 
+![](https://fsfe.org/contribute/promopics/ilovefs-sticker_burgundy_thumb.png)
+
 ---
 
 If you're interested in copying the CSV visualizer, be my guest!
