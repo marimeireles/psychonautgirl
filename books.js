@@ -1,6 +1,10 @@
 // Sample data
 const dataString = 
 `Name,Status,Type,Author,Notes
+    Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
+Shambhala: The Sacred Path of the Warrior,Want to read,buddhism,Chogyam Trungpa
+Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
+On Having No Head, Read,buddhism,Douglas Edison Harding
 Cooperative Game Theory and Applications,Want to read,game-theory,Imma Curiel
 Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
 Difficult Conversations,Want to read,psychology,Douglas Stone et al.
@@ -10,7 +14,7 @@ Consciousness Explained,Reading,consciousness,Daniel C. Dennet
 The Knowledge Machine,Want to read,philosophy,Michael Strevens
 Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
 Problem of Truth,Want to read,philosophy,Peter Vardi
-The Logic of Scientific Discovery,Want to read,philosophy,Popper
+The Logic of Scientific Discovery,Reading,philosophy,Popper
 The Other Significant Others,Want to read,psychology  
 A Treatise of Human Nature,Want to read,philosophy,Hume,
 Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
@@ -23,7 +27,7 @@ The Social Instinct: How Cooperation Shaped the World,Want to read,psychology; b
 Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
 Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
 The Emergence of Organizations and Markets,Want to read,economics; history,John F. Padgett & Walter W. Powell,
-Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Want to read,history; economics,James C. Scott,
+Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Reading,history; economics,James C. Scott,
 Famine Affluence and Morality,Want to read,philosophy,Peter Singer,
 The Art of Statistics: How to Learn from Data,Want to read,math,David Spiegelhalter,
 If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
