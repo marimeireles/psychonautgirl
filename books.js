@@ -1,7 +1,8 @@
 // Sample data
 const dataString = 
 `Name,Status,Type,Author,Notes
-    Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
+Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
+Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
 Shambhala: The Sacred Path of the Warrior,Want to read,buddhism,Chogyam Trungpa
 Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
 On Having No Head, Read,buddhism,Douglas Edison Harding
