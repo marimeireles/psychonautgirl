@@ -1,10 +1,13 @@
-// Sample data
 const dataString = 
 `Name,Status,Type,Author,Notes
-How to Travel with a Salmon: and other stories,Reading,fiction,Umberto Eco
+The Hitchhiker's Guide to the Galaxy,Read,sci-fi,,
+The Restaurant at the End of the Universe,Read,sci-fi,,
+Life the Universe and Everything,Read,sci-fi,,
+So Long and Thanks for All the Fish,Read,sci-fi,,
+Mostly Harmless,Read,sci-fi,,
+How to Travel with a Salmon: and Other Stories,Reading,fiction,Umberto Eco
 Snowcrash,Stalled,sci-fi
 Neuromancer,Read,sci-fi
-Monalisa Overdrive,Stalled,sci-fi
 The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
 Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
@@ -489,7 +492,7 @@ Thinking Fast and Slow,Stalled,psychology,Daniel Kahneman Patrick Egan et al.,
 Monalisa Overdrive,Stalled,sci-fi,,
 On Writing Well,Stalled,writing,,
 Reinforcement Learning: An Introduction,Reference,computer-science,Sutton & Richard S.,
-The Beginning of Infinity,Reference,physics,David Deutsch,
+The Beginning of Infinity,Read,physics,David Deutsch,
 Agent Based Models of Geographical Systems,Reference,agent-based-modelling,,
 Color and Light,Reference,art,,
 Images of Enlightenment,Reference,buddhism,,
@@ -888,7 +891,7 @@ Saxon Stories: Sword Song,Abandoned,fiction,,
 Harry Potter e o Calice de Fogo,Abandoned,fiction,,
 The Adventures of Sherlock Holmes,Abandoned,fiction,,
 Game of Thrones,Abandoned,fiction,,
-Gone with the Wind,Abandoned,fiction,,
+Gone With the Wind,Abandoned,fiction,,
 The Chronicles of Narnia,Abandoned,fiction,,
 The Name of the Rose,Abandoned,fiction,,
 The Trial,Abandoned,fiction,,
