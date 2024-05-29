@@ -1,11 +1,17 @@
 // Sample data
 const dataString = 
 `Name,Status,Type,Author,Notes
+How to Travel with a Salmon: and other stories,Reading,fiction,Umberto Eco
+Snowcrash,Stalled,sci-fi
+Neuromancer,Read,sci-fi
+Monalisa Overdrive,Stalled,sci-fi
+The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
+Men Machines and Modern Times,Want to read,history,Elting E. Morison
 Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
 Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
 Shambhala: The Sacred Path of the Warrior,Want to read,buddhism,Chogyam Trungpa
 Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
-On Having No Head, Read,buddhism,Douglas Edison Harding
+On Having No Head,Read,buddhism,Douglas Edison Harding
 Cooperative Game Theory and Applications,Want to read,game-theory,Imma Curiel
 Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
 Difficult Conversations,Want to read,psychology,Douglas Stone et al.
@@ -148,7 +154,7 @@ A Brief History of the Future: From Radio Days to Internet Years in a Lifetime,W
 A Brief History of Computing,Want to read,computer-science; history,,
 @War: The Rise of the Military-Internet Complex,Want to read,computer-science; history,,
 Quantum Computing Since Democritus,Want to read,computer-science; history; math; physics,Scott Aaronson,
-The Nature of Computation,Want to read,computer-science; math,,
+The Nature of Mathematical Modeling,Want to read,computer-science; math,Neil Geshenfeld,
 An Introduction to Statistical Learning: With Applications in R,Want to read,computer-science; math,,
 Computers and Intractability: A Guide to the Theory of NP-Completeness,Want to read,computer-science; math,,
 Principles of Computational Modelling in Neuroscience,Want to read,computer-science; neuroscience,,
@@ -851,7 +857,6 @@ I; Robot,Read,sci-fi,Asimov,
 2001: Space Odyssey,Read,sci-fi,,
 Foundation,Read,sci-fi,,
 Do Androids Dream of Electric Sheep?,Read,sci-fi,,
-Neuromancer Series,Read,sci-fi,,
 The Naked Sun,Read,sci-fi,Asimov,
 The Caves of Steel,Read,sci-fi,,
 Project Hail Mary,Read,sci-fi,,
