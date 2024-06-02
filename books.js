@@ -1,11 +1,14 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-Radical Markets,Glen Weil,Want to Read,economics
-The Hitchhiker's Guide to the Galaxy,Read,sci-fi,,
-The Restaurant at the End of the Universe,Read,sci-fi,,
-Life the Universe and Everything,Read,sci-fi,,
-So Long and Thanks for All the Fish,Read,sci-fi,,
-Mostly Harmless,Read,sci-fi,,
+Zen Mind Beginner's Mind,Reading,buddhism,Shunryū Suzuki
+Diversity and Complexity,Want to read,complex-systems,Scott E. Page
+Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
+Radical Markets,Want to Read,economics,Glen Weil
+The Hitchhiker's Guide to the Galaxy,Read,sci-fi,Douglas Adams,
+The Restaurant at the End of the Universe,Read,sci-fi,Douglas Adams,
+Life the Universe and Everything,Read,sci-fi,Douglas Adams,
+So Long and Thanks for All the Fish,Read,sci-fi,Douglas Adams,
+Mostly Harmless,Read,sci-fi,Douglas Adams,
 How to Travel with a Salmon: and Other Stories,Reading,fiction,Umberto Eco
 Snowcrash,Stalled,sci-fi
 Neuromancer,Read,sci-fi
