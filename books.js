@@ -1,5 +1,10 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Good Sex: Getting Off Without Checking Out,Want to read,buddhism;sex,Jessica Graham
+Orthodox Chinese Buddhism,Want to read,buddhism,Sheng-yen
+Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
+The Science of Enlightenment: How Meditation Works,,Want to read,buddhism,Shinzen Young
+Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Reading,buddhism,Shunryū Suzuki
 Diversity and Complexity,Want to read,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
@@ -41,7 +46,7 @@ The Social Instinct: How Cooperation Shaped the World,Want to read,psychology; b
 Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
 Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
 The Emergence of Organizations and Markets,Want to read,economics; history,John F. Padgett & Walter W. Powell,
-Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Reading,history; economics,James C. Scott,
+Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Reading,history; economics; urbanism,James C. Scott,Great and unexpected insights against communism coming from the far-left.
 Famine Affluence and Morality,Want to read,philosophy,Peter Singer,
 The Art of Statistics: How to Learn from Data,Want to read,math,David Spiegelhalter,
 If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
@@ -568,7 +573,7 @@ Roaring Silence,Read,buddhism,,
 Buddha,Read,buddhism; comics,,
 Demian,Read,buddhism; fiction,Hesse,
 Siddharta,Read,buddhism; fiction,,
-The Art of Sexual Ecstasy,Read,buddhism; magic,,
+The Art of Sexual Ecstasy,Read,buddhism; magic;sex,,
 Tao Te Ching,Read,buddhism; philosophy,,
 Alone with Others,Read,buddhism; philosophy,,
 The Internal Game of Tennis,Read,buddhism; psychology; sports,,
