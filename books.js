@@ -1,9 +1,10 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Karmamudra: The Yoga of Bliss,Want to read,buddhism;sex,Nida Chenagtsang
 Good Sex: Getting Off Without Checking Out,Want to read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Want to read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
-The Science of Enlightenment: How Meditation Works,,Want to read,buddhism,Shinzen Young
+The Science of Enlightenment: How Meditation Works,Want to read,buddhism,Shinzen Young
 Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Reading,buddhism,Shunryū Suzuki
 Diversity and Complexity,Want to read,complex-systems,Scott E. Page
