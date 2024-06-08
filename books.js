@@ -6,7 +6,7 @@ Orthodox Chinese Buddhism,Want to read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
 The Science of Enlightenment: How Meditation Works,Want to read,buddhism,Shinzen Young
 Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
-Zen Mind Beginner's Mind,Reading,buddhism,Shunryū Suzuki
+Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
 Diversity and Complexity,Want to read,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
 Radical Markets,Want to Read,economics,Glen Weil
@@ -16,7 +16,7 @@ Life the Universe and Everything,Read,sci-fi,Douglas Adams,
 So Long and Thanks for All the Fish,Read,sci-fi,Douglas Adams,
 Mostly Harmless,Read,sci-fi,Douglas Adams,
 How to Travel with a Salmon: and Other Stories,Reading,fiction,Umberto Eco
-Snowcrash,Stalled,sci-fi
+Snowcrash,Stalled,sci-fi,Neal Stephenson,
 Neuromancer,Read,sci-fi
 The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
@@ -47,7 +47,7 @@ The Social Instinct: How Cooperation Shaped the World,Want to read,psychology; b
 Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
 Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
 The Emergence of Organizations and Markets,Want to read,economics; history,John F. Padgett & Walter W. Powell,
-Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Reading,history; economics; urbanism,James C. Scott,Great and unexpected insights against communism coming from the far-left.
+Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Read,history; economics; urbanism,James C. Scott,Great and unexpected insights against communism coming from the far-left.
 Famine Affluence and Morality,Want to read,philosophy,Peter Singer,
 The Art of Statistics: How to Learn from Data,Want to read,math,David Spiegelhalter,
 If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
@@ -58,7 +58,7 @@ A Mathematician's Apology,Want to read,math; philosophy,G.H. Hardy,
 Evolutionary Dynamics: Exploring the Equations of Life,Want to read,evolution; biology; math,Martin Nowak,
 Dilla Time,Want to read,biography,Dan Charnas,
 Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
-The Long Way to a Small Angry Planet,Want to read,sci-fi,Becky Chambers,
+The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
 The Science of Enlightenment,Want to read,buddhism,Shinzen Young,
 Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
 Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
@@ -348,7 +348,7 @@ The Federalist Papers,Want to read,history; philosophy,,
 The Wretched of the Earth,Want to read,history; philosophy,Frantz Fanon,
 Quantum: Einstein Bohr and the Great Debate about the Nature of Reality,Want to read,history; physics,Kumar,
 The Matter of Everything: How Curiosity Physics and Improbable Experiments Changed the World,Want to read,history; physics,Suzie Sheehy,
-Mild Children,Want to read,history; sci-fi,Hand Moravec ,
+Mild Children,Want to read,history; sci-fi,Hand Moravec,
 A Myriad of Tongues,Want to read,language,,
 The Case Against Reality,Want to read,magic,Donald Hoffman,
 Existential Kink,Want to read,magic,,
@@ -446,7 +446,6 @@ A Fire Upon the Deep,Want to read,sci-fi,,
 Diaspora,Want to read,sci-fi,,
 Cryptonomicon,Want to read,sci-fi,,
 A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
-Snow Crash,Want to read,sci-fi,Neal Stephenson,
 Island,Want to read,sci-fi,Asimov,
 Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
 Nonlinear Dynamics and Chaos,Want to read,systems-theory; complex-systems; physics,Strogatz Steven H.,
@@ -868,7 +867,7 @@ Hitchhiker's Guide Collection,Read,sci-fi,Douglas Adams,
 Dune Messiah,Read,sci-fi,Frank Herbert,
 I; Robot,Read,sci-fi,Asimov,
 2001: Space Odyssey,Read,sci-fi,,
-Foundation,Read,sci-fi,,
+Foundation,Read,sci-fi,Asimov,
 Do Androids Dream of Electric Sheep?,Read,sci-fi,,
 The Naked Sun,Read,sci-fi,Asimov,
 The Caves of Steel,Read,sci-fi,,
