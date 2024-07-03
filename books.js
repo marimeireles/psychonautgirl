@@ -1,21 +1,30 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Cognitive Science: An Introduction to the Science of the Mind, Jose Luis Bermudez
+Macroeconomics,Want to read,economics,Mankiw
+Algebra,Want to read,math,Serge Lang
+The Theory of Groups and Quantum Mechanics,Want to read,Weyl
+Representation Theory: A First Course,Want to read,math,Fulton & Harris
+Introduction to Statistical Inference,Want to read,math,Kiefer
+Data Analysis: A Bayesian Tutorial,Want to read,math,Skilling & Sivia
+Bishop's Pattern Recognition and Machine Learning,Want to read,computer-science,Christopher M. Bishop 
+Salinsky & Frances-White's The Improv Handbook,Want to read,comedy,Tom Salinsky and Deborah Frances-White 
 Does Altruism Exist?: Culture Genes and the Welfare of Others,Want to read,evolution;philosophy,David Sloan Wilson
 This View of Life: Completing the Darwinian Revolution,Want to read,coordination;evolution,David Sloan Wilson
 Right Concentration,Reference,buddhism,Leigh Brasington
-The Three-Body Problem,Want to read,sci-fi,Ken Liu
+The Three-Body Problem,Read,sci-fi,Ken Liu
 At Home in Mitford,Want to read,fiction,Jan Karon
-Good Omens,Want to read, fiction, Terry Pratchett and Neil Gaiman
+Good Omens,Abandoned, fiction, Terry Pratchett and Neil Gaiman
 Karmamudra: The Yoga of Bliss,Want to read,buddhism;sex,Nida Chenagtsang
-Good Sex: Getting Off Without Checking Out,Want to read,buddhism;sex,Jessica Graham
-Orthodox Chinese Buddhism,Want to read,buddhism,Sheng-yen
+Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
+Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
 The Science of Enlightenment: How Meditation Works,Want to read,buddhism,Shinzen Young
 Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
 Diversity and Complexity,Reading,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
-Radical Markets,Want to Read,economics,Glen Weil
+Radical Markets,Want to read,economics,Glen Weil
 The Hitchhiker's Guide to the Galaxy,Read,sci-fi,Douglas Adams,
 The Restaurant at the End of the Universe,Read,sci-fi,Douglas Adams,
 Life the Universe and Everything,Read,sci-fi,Douglas Adams,
@@ -126,7 +135,7 @@ LSD My Problem Child,Want to read,biography; drugs,Albert Hofmann,
 My View of the World,Want to read,biography; philosophy,Schroedigner,
 The Song of the Cell: An Exploration of Medicine and the New Human,Want to read,biology,,
 Master Builder: How the New Science of the Cell is Rewriting the Story of Life,Want to read,biology; evolution,,
-Why Buddhism Is True,Want to read,buddhism,Bachelor,
+Why Buddhism Is True,Reading,buddhism,Bachelor,
 Regenesis: Feeding the World Without Devouring the Planet,Want to read,climate,,
 All We Can Save: Truth; Courage and Solutions for the Climate Crisis,Want to read,climate,,
 Complex Ecology,Want to read,climate; complex-systems,,
@@ -354,8 +363,8 @@ Quantum: Einstein Bohr and the Great Debate about the Nature of Reality,Want to 
 The Matter of Everything: How Curiosity Physics and Improbable Experiments Changed the World,Want to read,history; physics,Suzie Sheehy,
 Mild Children,Want to read,history; sci-fi,Hand Moravec,
 A Myriad of Tongues,Want to read,language,,
-The Case Against Reality,Want to read,magic,Donald Hoffman,
-Existential Kink,Want to read,magic,,
+The Case Against Reality,Want to read,magic;questionable-research,Donald Hoffman,
+Existential Kink,Read,magic;questionable-research,,
 Doing Bayesian Data Analysis: A Tutorial with R JAGS and Stan,Want to read,math,,
 Proof and the Art of Mathematics,Want to read,math,Hamkins,
 Mathematics: Its Content Methods and Meaning,Want to read,math,Aleksandrov and Kolmogorov,
@@ -471,7 +480,7 @@ Markets Not Capitalism,Stalled,anarchism; economics,,
 A Queda do Céu,Stalled,anthropology,,
 Behave,Stalled,anthropology; behaviorism; neuroscience; psychology; questionable-research,,
 You Are an Artist: Assignments to Spark Creation,Stalled,art,,
-Active Inference,Stalled,behaviorism; math; neuroscience; physics; systems-theory,Thomas Parr,
+Active Inference,Stalled,math; neuroscience; physics; philosophy,Thomas Parr,
 Wir Kindern vom Zoo Bahnhof,Stalled,biography,Christiane F.,
 Memories Dreams Reflections,Stalled,biography,Jung,
 Entering the Heart of Sun and Moon,Stalled,buddhism,,
