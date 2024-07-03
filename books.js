@@ -1,15 +1,15 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-Cognitive Science: An Introduction to the Science of the Mind, Jose Luis Bermudez
+Cognitive Science An Introduction to the Science of the Mind,Want to read,psychology;neuroscience,Jose Luis Bermudez
 Macroeconomics,Want to read,economics,Mankiw
 Algebra,Want to read,math,Serge Lang
 The Theory of Groups and Quantum Mechanics,Want to read,Weyl
-Representation Theory: A First Course,Want to read,math,Fulton & Harris
+Representation Theory A First Course,Want to read,math,Fulton & Harris
 Introduction to Statistical Inference,Want to read,math,Kiefer
-Data Analysis: A Bayesian Tutorial,Want to read,math,Skilling & Sivia
+Data Analysis A Bayesian Tutorial,Want to read,math,Skilling & Sivia
 Bishop's Pattern Recognition and Machine Learning,Want to read,computer-science,Christopher M. Bishop 
 Salinsky & Frances-White's The Improv Handbook,Want to read,comedy,Tom Salinsky and Deborah Frances-White 
-Does Altruism Exist?: Culture Genes and the Welfare of Others,Want to read,evolution;philosophy,David Sloan Wilson
+Does Altruism Exist? Culture Genes and the Welfare of Others,Want to read,evolution;philosophy,David Sloan Wilson
 This View of Life: Completing the Darwinian Revolution,Want to read,coordination;evolution,David Sloan Wilson
 Right Concentration,Reference,buddhism,Leigh Brasington
 The Three-Body Problem,Read,sci-fi,Ken Liu
