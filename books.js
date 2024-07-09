@@ -1,9 +1,14 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Logicomix,Want to read,comics,Apostolos Doxiadis
+The Miracle of Mindfulness,Read,buddhism,Thich Nhat Hanh
+Deschooling Society,Want to read,education,Ivan Illich
+Free schools,Want to read,education,Jonathan Kozol
+The Ignorant Schoolmaster,Want to read,education,Jacques Rancière
 Cognitive Science An Introduction to the Science of the Mind,Want to read,psychology;neuroscience,Jose Luis Bermudez
 Macroeconomics,Want to read,economics,Mankiw
 Algebra,Want to read,math,Serge Lang
-The Theory of Groups and Quantum Mechanics,Want to read,Weyl
+The Theory of Groups and Quantum Mechanics,Want to read,math;physics,Weyl
 Representation Theory A First Course,Want to read,math,Fulton & Harris
 Introduction to Statistical Inference,Want to read,math,Kiefer
 Data Analysis A Bayesian Tutorial,Want to read,math,Skilling & Sivia
@@ -135,7 +140,7 @@ LSD My Problem Child,Want to read,biography; drugs,Albert Hofmann,
 My View of the World,Want to read,biography; philosophy,Schroedigner,
 The Song of the Cell: An Exploration of Medicine and the New Human,Want to read,biology,,
 Master Builder: How the New Science of the Cell is Rewriting the Story of Life,Want to read,biology; evolution,,
-Why Buddhism Is True,Reading,buddhism,Bachelor,
+Why Buddhism Is True,Abandoned,buddhism,Bachelor,Very introductory to buddhist practices.
 Regenesis: Feeding the World Without Devouring the Planet,Want to read,climate,,
 All We Can Save: Truth; Courage and Solutions for the Climate Crisis,Want to read,climate,,
 Complex Ecology,Want to read,climate; complex-systems,,
@@ -449,7 +454,7 @@ Predictably Irrational: The Hidden Forces That Shape Our Decisions,Want to read,
 The Shape of Thought: How Mental Adaptations Evolve,Want to read,psychology; evolution,H. Clark Barrett,
 Children of Time,Want to read,sci-fi,,
 Enders Game,Want to read,sci-fi,,
-Stories of Your Life and Others,Want to read,sci-fi,Ted Chiang,
+Stories of Your Life and Others,Reading,sci-fi,Ted Chiang,
 Hyperion,Want to read,sci-fi,Dan Simmons,
 Blindsight,Want to read,sci-fi,Peter Watts,
 Sword & Citadel,Want to read,sci-fi,Gene Wolf,
@@ -499,7 +504,7 @@ Ficciones,Stalled,fiction,Jorge Luis Borges,
 Der Mann mit der Ledertasche,Stalled,fiction,Bukowski,
 The Plague,Stalled,fiction,,
 War and Peace,Stalled,fiction,,
-13th Age,Stalled,games,,
+13th Age,Reference,games,,
 Mathematical Proofs: A transition to advanced mathematics,Stalled,math,,
 The Joy of Abstraction ,Stalled,math; systems-theory,Cheng,
 Surfing Uncertainty,Stalled,neuroscience,Clarke,
