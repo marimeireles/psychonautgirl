@@ -1,5 +1,8 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Tudo é rio,Read,fiction,Carla Madeira
+The Language Instinct,Want to read,psychology;evolution;consciousness,Steben Pinker
+The Society of Mind,Reading,consciousness;computer-science,Marvin Minsky
 Logicomix,Want to read,comics,Apostolos Doxiadis
 The Miracle of Mindfulness,Read,buddhism,Thich Nhat Hanh
 Deschooling Society,Want to read,education,Ivan Illich
@@ -53,7 +56,7 @@ A Guide to the Good Life,Read,philosophy; psychology,William Irvine
 Consciousness Explained,Reading,consciousness,Daniel C. Dennet
 The Knowledge Machine,Want to read,philosophy,Michael Strevens
 Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
-Problem of Truth,Want to read,philosophy,Peter Vardi
+What is Truth,Want to read,philosophy,Peter Vardy
 The Logic of Scientific Discovery,Reading,philosophy,Popper
 The Other Significant Others,Want to read,psychology  
 A Treatise of Human Nature,Want to read,philosophy,Hume,
@@ -454,7 +457,7 @@ Predictably Irrational: The Hidden Forces That Shape Our Decisions,Want to read,
 The Shape of Thought: How Mental Adaptations Evolve,Want to read,psychology; evolution,H. Clark Barrett,
 Children of Time,Want to read,sci-fi,,
 Enders Game,Want to read,sci-fi,,
-Stories of Your Life and Others,Reading,sci-fi,Ted Chiang,
+Stories of Your Life and Others,Read,sci-fi,Ted Chiang,
 Hyperion,Want to read,sci-fi,Dan Simmons,
 Blindsight,Want to read,sci-fi,Peter Watts,
 Sword & Citadel,Want to read,sci-fi,Gene Wolf,
@@ -507,7 +510,7 @@ War and Peace,Stalled,fiction,,
 13th Age,Reference,games,,
 Mathematical Proofs: A transition to advanced mathematics,Stalled,math,,
 The Joy of Abstraction ,Stalled,math; systems-theory,Cheng,
-Surfing Uncertainty,Stalled,neuroscience,Clarke,
+Surfing Uncertainty,Stalled,neuroscience;consciousness,Clarke,
 The Nichomachean Ethics,Stalled,philosophy,Aristotle,
 Being and Nothingness,Stalled,philosophy,Sartre,
 Meditations,Stalled,philosophy,Marcus Aurelius,
