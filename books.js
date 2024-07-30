@@ -1,7 +1,9 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-Tudo é rio,Read,fiction,Carla Madeira
-The Language Instinct,Want to read,psychology;evolution;consciousness,Steben Pinker
+How Asia Works,Reading,economics;history,Joe Studwell,
+Norwegian Wood,Want to read,fiction,Haruki Murakami,
+Tudo é rio,Read,fiction,Carla Madeira,
+The Language Instinct,Want to read,psychology;evolution;consciousness,Steven Pinker
 The Society of Mind,Reading,consciousness;computer-science,Marvin Minsky
 Logicomix,Want to read,comics,Apostolos Doxiadis
 The Miracle of Mindfulness,Read,buddhism,Thich Nhat Hanh
@@ -27,7 +29,7 @@ Karmamudra: The Yoga of Bliss,Want to read,buddhism;sex,Nida Chenagtsang
 Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
-The Science of Enlightenment: How Meditation Works,Want to read,buddhism,Shinzen Young
+The Science of Enlightenment: How Meditation Works,Read,buddhism,Shinzen Young
 Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
 Diversity and Complexity,Reading,complex-systems,Scott E. Page
@@ -45,10 +47,10 @@ The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
 Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
 Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
-Shambhala: The Sacred Path of the Warrior,Want to read,buddhism,Chogyam Trungpa
+Shambhala: The Sacred Path of the Warrior,Reading,buddhism,Chogyam Trungpa
 Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
 On Having No Head,Read,buddhism,Douglas Edison Harding
-Cooperative Game Theory and Applications,Want to read,game-theory,Imma Curiel
+Cooperative Game Theory and Applications,Want to read,game-theory;coordination,Imma Curiel
 Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
 Difficult Conversations,Want to read,psychology,Douglas Stone et al.
 The Book of Joy,Read,buddhism,Dalai Lama and Desmond Tutu
@@ -58,7 +60,7 @@ The Knowledge Machine,Want to read,philosophy,Michael Strevens
 Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
 What is Truth,Want to read,philosophy,Peter Vardy
 The Logic of Scientific Discovery,Reading,philosophy,Popper
-The Other Significant Others,Want to read,psychology  
+The Other Significant Others,Read,psychology,,Not a lot of content, unfortunately.
 A Treatise of Human Nature,Want to read,philosophy,Hume,
 Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
 Philosophical Investigations,Want to read,philosophy,Wittgenstein,
@@ -82,7 +84,6 @@ Evolutionary Dynamics: Exploring the Equations of Life,Want to read,evolution; b
 Dilla Time,Want to read,biography,Dan Charnas,
 Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
 The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
-The Science of Enlightenment,Want to read,buddhism,Shinzen Young,
 Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
 Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
 I Am a Strange Loop,Want to read,philosophy; psychology; math,Douglas R. Hofstadter,
@@ -114,7 +115,6 @@ A Billion Wicked Thoughts: What the Internet Tells Us About Sexual Relationships
 Technology of the Oppressed: Inequity and the Digital Mundane in Favelas of Brazil,Want to read,anthropology; computer-science,,
 Discipline and Punish: The Birth of the Prison,Want to read,anthropology;governance,Foucault,
 The Collapse of Complex Societies,Want to read,anthropology; coordination; economics; history,Joseph A. Tainter,
-Capital and Ideology,Want to read,anthropology; economics; philosophy,Piketty,
 Secret of Our Success ,Want to read,anthropology; evolution,,
 On Human Nature,Want to read,anthropology; evolution; philosophy; psychology,E. O. Wilson,
 War and Peace and War: The Rise and Fall of Empires,Want to read,anthropology; history,Peter Turchin,
@@ -462,7 +462,7 @@ Hyperion,Want to read,sci-fi,Dan Simmons,
 Blindsight,Want to read,sci-fi,Peter Watts,
 Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
-Permutation City,Want to read,sci-fi,Greg Egan,
+Permutation City,Read,sci-fi,Greg Egan,
 A Fire Upon the Deep,Want to read,sci-fi,,
 Diaspora,Want to read,sci-fi,,
 Cryptonomicon,Want to read,sci-fi,,
