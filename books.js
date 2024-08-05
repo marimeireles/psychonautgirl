@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Age of Em,Reading,futurism,Robin Hanson,
 How Asia Works,Reading,economics;history,Joe Studwell,
 Norwegian Wood,Want to read,fiction,Haruki Murakami,
 Tudo é rio,Read,fiction,Carla Madeira,
@@ -47,7 +48,7 @@ The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
 Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
 Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
-Shambhala: The Sacred Path of the Warrior,Reading,buddhism,Chogyam Trungpa
+Shambhala: The Sacred Path of the Warrior,Abandoned,buddhism;magic,Chogyam Trungpa,
 Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
 On Having No Head,Read,buddhism,Douglas Edison Harding
 Cooperative Game Theory and Applications,Want to read,game-theory;coordination,Imma Curiel
@@ -73,8 +74,8 @@ Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
 Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
 The Emergence of Organizations and Markets,Want to read,economics; history,John F. Padgett & Walter W. Powell,
 Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Read,history; economics; urbanism,James C. Scott,Great and unexpected insights against communism coming from the far-left.
-Famine Affluence and Morality,Want to read,philosophy,Peter Singer,
-The Art of Statistics: How to Learn from Data,Want to read,math,David Spiegelhalter,
+Famine Affluence and Morality,Read,philosophy,Peter Singer,
+The Art of Statistics: How to Learn from Data,Reading,math,David Spiegelhalter,
 If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
 Supercooperators: The Mathematics of Evolution Altruism and Human Behaviour,Want to read,coordination; evolution,Martin Nowak,
 The Nature of Computation,Want to read,computer-science; math,Cristopher Moore & Stephan Mertens,
