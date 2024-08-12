@@ -1,8 +1,9 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Cyberiad,Reading,sci-fi,Stanisław Lem
 The Age of Em,Reading,futurism,Robin Hanson,
 How Asia Works,Reading,economics;history,Joe Studwell,
-Norwegian Wood,Want to read,fiction,Haruki Murakami,
+Norwegian Wood,Reading,fiction,Haruki Murakami,
 Tudo é rio,Read,fiction,Carla Madeira,
 The Language Instinct,Want to read,psychology;evolution;consciousness,Steven Pinker
 The Society of Mind,Reading,consciousness;computer-science,Marvin Minsky
@@ -41,7 +42,7 @@ The Restaurant at the End of the Universe,Read,sci-fi,Douglas Adams,
 Life the Universe and Everything,Read,sci-fi,Douglas Adams,
 So Long and Thanks for All the Fish,Read,sci-fi,Douglas Adams,
 Mostly Harmless,Read,sci-fi,Douglas Adams,
-How to Travel with a Salmon: and Other Stories,Reading,fiction,Umberto Eco
+How to Travel with a Salmon: and Other Stories,Read,fiction,Umberto Eco
 Snowcrash,Stalled,sci-fi,Neal Stephenson,
 Neuromancer,Read,sci-fi
 The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
@@ -807,7 +808,7 @@ Angústia,Read,fiction; psychology,Graciliano Ramos,
 White Nights,Read,fiction; psychology,,
 Steppenwolf,Read,fiction; psychology,,
 Notes from the Underground,Read,fiction; psychology,,
-Go for Beginners,Read,games,,
+Go for Beginners,Reading,games,,
 The Way to Go,Read,games,,
 Tormenta,Read,games,,
 Tagmar,Read,games,,
