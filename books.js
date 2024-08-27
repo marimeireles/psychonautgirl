@@ -1,5 +1,7 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Factfulness,Read,economics;philosophy,Hans Rosling
+Dynamical Systems in Neuroscience,neuroscience,Eugene M. M Izhikevich
 The Cyberiad,Reading,sci-fi,Stanisław Lem
 The Age of Em,Reading,futurism,Robin Hanson,
 How Asia Works,Reading,economics;history,Joe Studwell,
