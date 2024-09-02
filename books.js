@@ -1,8 +1,9 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
 Factfulness,Read,economics;philosophy,Hans Rosling
-Dynamical Systems in Neuroscience,neuroscience,Eugene M. M Izhikevich
-The Cyberiad,Reading,sci-fi,Stanisław Lem
+Dynamical Systems in Neuroscience,Want to read,neuroscience,Eugene M. M Izhikevich
+The Cyberiad,Read,sci-fi,Stanisław Lem
 The Age of Em,Reading,futurism,Robin Hanson,
 How Asia Works,Reading,economics;history,Joe Studwell,
 Norwegian Wood,Reading,fiction,Haruki Murakami,
@@ -424,7 +425,7 @@ What Is Life? with Mind and Matter and Autobiographical Sketches,Want to read,ph
 Rationality and the Reflective Mind,Want to read,philosophy; psychology,Stanovich,
 Science Fictions: The Epidemic of Fraud Bias Negligence and Hype in Science,Want to read,philosophy; psychology,Stuart Ritchie,
 Spacetime and Geometry: An Introduction to General Relativity ,Want to read,physics,Sean Carroll,
-How to Make an Apple Pie from Scratch: In Search of the Recipe for Our Universe,Want to read,physics,Harry Cliff,
+How to Make an Apple Pie from Scratch,Reading,physics,Harry Cliff,
 Einstein's Universe,Want to read,physics,Nigel Calder,
 Parallel Worlds: A Journey through Creation Higher Dimensions and the Future of the Cosmos,Want to read,physics,Michio Kaku,
 String of Beads,Want to read,poetry,Shikishi,
