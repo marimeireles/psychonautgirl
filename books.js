@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Emotional Intelligence,Want to read,psychology,Daniel Goleman
 Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
 Factfulness,Read,economics;philosophy,Hans Rosling
 Dynamical Systems in Neuroscience,Want to read,neuroscience,Eugene M. M Izhikevich
