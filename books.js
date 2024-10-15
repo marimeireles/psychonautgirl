@@ -7,7 +7,7 @@ Broke: Fixing Britain’s poverty crisis,Reading,economics,Tom Clark
 I Want to Keep Smashing Myself Until I Am Whole,Want to read,philosophy,Elias Canetti and Joshua Cohen
 Why Greatness Cannot Be Planned,Want to read,computer-science;psychology,Kenneth O. Stanley and Joel Lehman
 Models of My Life,Want to read,philosophy;economics,Herbert Simon
-The Complex World,Want to read,complex-systems;Krakauer
+The Complex World,Want to read,complex-systems,Krakauer
 The Democracy Project,Want to read,history;anthropology;economics,David Graeber
 A Book of Noises,Want to read,music,Caspar Henderson
 The Moment of Complexity,Want to read,complex-systems,Mike Taylor
