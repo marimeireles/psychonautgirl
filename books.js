@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Heroic Heart,Want to read,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
 My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
