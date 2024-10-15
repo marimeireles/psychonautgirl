@@ -1,13 +1,30 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+River Out of Eden,Want to read,evolution;history,Richard Dawkins
+Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
+My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
+Broke: Fixing Britain’s poverty crisis,Reading,economics,Tom Clark
+I Want to Keep Smashing Myself Until I Am Whole,Want to read,philosophy,Elias Canetti and Joshua Cohen
+Why Greatness Cannot Be Planned,Want to read,computer-science;psychology,Kenneth O. Stanley and Joel Lehman
+Models of My Life,Want to read,philosophy;economics,Herbert Simon
+The Complex World,Want to read,complex-systems;Krakauer
+The Democracy Project,Want to read,history;anthropology;economics,David Graeber
+A Book of Noises,Want to read,music,Caspar Henderson
+The Moment of Complexity,Want to read,complex-systems,Mike Taylor
+Cooperation: A Political Economic and Social Theory,Want to read,coordination;game-theory,Harcourt
+The Tyranny of the Ideal,Want to read,philosophy,Gerald F Gaus
+Post-scarcity Anarchism,Want to read,anarchism;economics,Murray Bookchin
+The Problem of Induction,Want to read,philosophy,Hume
+The Usefulness of Useless Knowledge,Want to read,philosophy,Abraham Flexner and Robbert Dijkgraaf
+Chaos,Want to read,physics;complex-systems,James Gleick
 Emotional Intelligence,Want to read,psychology,Daniel Goleman
 Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
 Factfulness,Read,economics;philosophy,Hans Rosling
 Dynamical Systems in Neuroscience,Want to read,neuroscience,Eugene M. M Izhikevich
 The Cyberiad,Read,sci-fi,Stanisław Lem
 The Age of Em,Reading,futurism,Robin Hanson,
-How Asia Works,Reading,economics;history,Joe Studwell,
-Norwegian Wood,Reading,fiction,Haruki Murakami,
+How Asia Works,Read,economics;history,Joe Studwell,
+Norwegian Wood,Stalled,fiction,Haruki Murakami,
 Tudo é rio,Read,fiction,Carla Madeira,
 The Language Instinct,Want to read,psychology;evolution;consciousness,Steven Pinker
 The Society of Mind,Reading,consciousness;computer-science,Marvin Minsky
@@ -31,7 +48,6 @@ Right Concentration,Reference,buddhism,Leigh Brasington
 The Three-Body Problem,Read,sci-fi,Ken Liu
 At Home in Mitford,Want to read,fiction,Jan Karon
 Good Omens,Abandoned, fiction, Terry Pratchett and Neil Gaiman
-Karmamudra: The Yoga of Bliss,Want to read,buddhism;sex,Nida Chenagtsang
 Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
@@ -393,7 +409,6 @@ Linear Algebra and Its Applications,Want to read,math,Gilbert Strang,
 Concrete Mathematics: A Foundation for Computer Science,Want to read,math; computer-science,,
 The Road to Reality,Want to read,math; philosophy; physics,,
 The Theoretical Minimum: What You Need to Know to Start Doing Physics,Want to read,math; physics,Leonard Susskind,
-Nonlinear Dynamics and Chaos: With Applications to Physics; Biology; Chemistry; and Engineering,Want to read,math; physics,,
 Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems,Want to read,neuroscience,Peter Dayan and Abbott,
 Cognition in Practice: Mind Mathematics and Culture in Everyday Life,Want to read,neuroscience,,
 Metamagical Themas: Questing for the Essence of Mind and Pattern,Want to read,neuroscience; coordination; computer-science; game-theory,David Hofstadter,
@@ -472,7 +487,7 @@ Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 A Fire Upon the Deep,Want to read,sci-fi,,
-Diaspora,Want to read,sci-fi,,
+Diaspora,Want to read,sci-fi,Greg Egan,
 Cryptonomicon,Want to read,sci-fi,,
 A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
