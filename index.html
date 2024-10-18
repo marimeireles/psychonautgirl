@@ -5,42 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS sheets -->
     <link rel="stylesheet" type="text/css" href="pink-style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- TODO: I can improve loading speed by just importing the necessary code to handle the tabs -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- stars -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="pink-script.js"></script>
-<script>
-$(document).ready(function() {
-    // Manually trigger showing tabs to work with Bootstrap 4 JS
-    $('a[data-toggle="tab"]').on('click', function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-
-    // Update URL hash when tab changes
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        history.pushState({}, '', e.target.hash);
-    });
-
+    <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
     // Show tab based on URL hash on page load
     var hash = window.location.hash;
     if (hash) {
-        $('a[data-toggle="tab"][href="' + hash + '"]').tab('show');
+        var tabTriggerEl = document.querySelector('a[href="' + hash + '"]');
+        if (tabTriggerEl) {
+            var tab = new bootstrap.Tab(tabTriggerEl);
+            tab.show();
+        }
     }
 
+    // Update URL hash when tab changes
+    var tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
+    tabLinks.forEach(function(link) {
+        link.addEventListener('shown.bs.tab', function(e) {
+            history.pushState({}, '', e.target.hash);
+        });
+    });
+
     // Handle back/forward navigation to show correct tab
-    $(window).on('hashchange', function() {
+    window.addEventListener('hashchange', function() {
         var newHash = window.location.hash;
-        $('a[data-toggle="tab"][href="' + newHash + '"]').tab('show');
+        var tabTriggerEl = document.querySelector('a[href="' + newHash + '"]');
+        if (tabTriggerEl) {
+            var tab = new bootstrap.Tab(tabTriggerEl);
+            tab.show();
+        }
     });
 });
-</script>
 
+    </script>
 
     <title>ｍａｒｉａｎａ　ｍｅｉｒｅｌｅｓ</title>
   </head>
@@ -95,34 +101,34 @@ $(document).ready(function() {
             <div class="form-group">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#hello" role="tab">
+                  <a class="nav-link active" data-bs-toggle="tab" href="#hello" role="tab">
                   hello
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#engineering" role="tab">
+                  <a class="nav-link" data-bs-toggle="tab" href="#engineering" role="tab">
                   engineering
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#research" role="tab">
+                  <a class="nav-link" data-bs-toggle="tab" href="#research" role="tab">
                   research
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#community" role="tab">
+                  <a class="nav-link" data-bs-toggle="tab" href="#community" role="tab">
                   community
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#activism" role="tab">
+                  <a class="nav-link" data-bs-toggle="tab" href="#activism" role="tab">
                   activism
                   </a>
                 </li>
               </ul>
               <div class="tab-content container">
                 <br>
-                <div id="hello" class="tab-pane fade show active paragraph" role="tabpanel">
+                <div id="hello" class="tab-pane fade paragraph show active" role="tabpanel">
                   <a href="#hello"></a>
                   <p>I care about effectively employing my efforts in ways that will improve the world.</p>
                   <p>I research the fundamentals of coordination within dynamic systems <a href="Modeling_Cooperation_in Heterogeneous_Multi-Agent_Systems.pdf">[1]</a>,<a href="https://docs.google.com/presentation/d/1a3Dc969Lc4xaHohcjnDenScpFtLa842JdTFG2QPSZO8">[2]</a> and graph neural networks (GNNs) in the Max Planck Institute <a href="https://docs.google.com/presentation/d/1qNhLt7FFfQka0aSX4D0q9qhrmb8DxmW7rduh2XF7xrA/edit?usp=sharing">[3]</a>,<a href="Detection_and_Characterization_of_Evolutionary_Patterns_Through_GNNs.pdf">[4]</a>.</p>
@@ -130,8 +136,8 @@ $(document).ready(function() {
                   <p>In the context of GNNs, I develop solutions that improve information retrieval in ontologies and provide a reliable source of truth for LLMs.</p>
                   <p>I've also recently started a non-profit to onboard programmers from developing nations into global open source projects. Learn more about it at <a href="https://opensourcejourney.org/">opensourcejourney.org</a>.</p>
                 </div>
-                <div id="engineer" class="tab-pane fade container paragraph" role="tabpanel">
-                  <a href="#engineer"></a>
+                <div id="engineering" class="tab-pane fade paragraph" role="tabpanel">
+                  <a href="#engineering"></a>
                   <p>I am seeking opportunities to work with organizations that are uplifting to the world.</p>
                   <p>I've worked as a software engineer for several years and most of my work was within open-source organizations. I consider myself a Systems Engineer and a Backend Engineer, developing libraries for other developers and scientists. I have contributed to projects such as Farama's Zoo, PyScript, Jupyter, PySide, Mozilla Webcompat, Qt, Firefox, whynot, conda-forge, and many others.</p>
                   <p>I'm an Open Knowledge Foundation Expert.</p>
@@ -141,7 +147,7 @@ $(document).ready(function() {
                   <p>You can access my talks, workshops, classes, and podcasts at this <a href="https://github.com/marimeireles/talks/">link</a> and check out my hack projects that I tackle alone or with friends <a href="https://marimeireles.notion.site/ba473e6b20464b63bb6417a3d5e284c0?v=fd6def1276a9491eb766811161ed7ed9&pvs=4">here</a>.</p>
                   <p>If you're a tech recruiter, please respond to these <a href="https://e7a1xatfr0q.typeform.com/to/ScImy663">two quick questions</a>, and I will get back to you!</p>
                 </div>
-                <div id="research" class="tab-pane fade container paragraph" role="tabpanel">
+                <div id="research" class="tab-pane fade paragraph" role="tabpanel">
                   <a href="#research"></a>
                   <a>coordination:</a>
                   <p> I'm a Cooperative AI researcher. I'm interested in understanding what are the underlying characteristics that are important for fostering cooperation among heterogeneous actors.</p>
@@ -162,7 +168,7 @@ $(document).ready(function() {
                   <a>consciousness:</a>
                   Developing liquid-neural-net worms, combining them with other models and putting them in the simplest environment I can think of that supports a consciousness testbed. I write notes <a href="https://marimeireles.notion.site/Consciousness-909b4e086587441eb7f43fc2f6d465a4?pvs=4">here</a>.
                 </div>
-                <div id="community" class="tab-pane fade container paragraph" role="tabpanel">
+                <div id="community" class="tab-pane fade paragraph" role="tabpanel">
                   <a href="#community"></a>
                   <p>I found out the way I learn the best is by having the support of a community. Do you want to learn something together? Send me a message! If you want, you can also send me anonymous feedback <a href="https://www.admonymous.co/marimeireles">here</a>.</p>
                   <ul>
@@ -189,7 +195,7 @@ $(document).ready(function() {
                     <br>
                   </ul>
                 </div>
-                <div id="activism" class="tab-pane fade container paragraph" role="tabpanel">
+                <div id="activism" class="tab-pane fade paragraph" role="tabpanel">
                   <a href="#activism"></a>
                   <p>I support several causes: <a href="https://ethicalsource.dev/">ethical open source</a>, <a href="https://en.wikipedia.org/wiki/Animal_Liberation_(book)">animal liberation</a>, the <a href="https://ourworldindata.org/environmental-impacts-of-food?insight=differences-carbon-footprint-foods#key-insights-on-the-environmental-impacts-of-food">decrease</a> in animal-based products consumption, investing in carbon offsets to decrease my CO2 footprint, leveraging democracy through <a href="https://pol.is/home">open democratic practices</a>, <a href="https://postmeritocracy.org/">post meritocracy</a> in my engineering work context, combating disinformation on the Web, <a href="https://80000hours.org/problem-profiles/artificial-intelligence/">AI alignment</a>, <a href="https://ia600605.us.archive.org/15/items/GuerillaOpenAccessManifesto/Goamjuly2008.pdf">open access to knowledge</a>, empowering people to overcome poverty using a) <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">non-traditional methods of pedagogy</a>, b) <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">land redistribution coupled with permaculture</a> and community building in rural contexts c) offering OSS opportunities through <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">internships</a> and <a href="https://marimeireles.com/mentorship.html">mentoring</a> d) respecting people's agency over their own economical future through <a href="https://www.givedirectly.org/">donating money directly</a> to them.</p>
                   <p>These are some of the projects I support:</p>
