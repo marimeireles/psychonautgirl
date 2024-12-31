@@ -175,8 +175,49 @@
     }
 }
 
-}
+@media (max-width: 768px) {
+    h1 {
+        font-size: 4em; /* Reduce the font size for mobile */
+    }
 
+    #search-container {
+        width: 100%; /* Full width for better mobile experience */
+        justify-content: center; /* Center the search bar */
+        margin-bottom: 20px; /* Add some space below the search bar */
+    }
+
+    #searchInput {
+        width: 80%; /* Increase width for better usability */
+        font-size: 1em; /* Adjust font size */
+    }
+
+    #book-container {
+        width: 100%; /* Full width for better mobile experience */
+        justify-content: center; /* Center the form */
+        margin-bottom: 20px; /* Add some space below the form */
+    }
+
+    #bookName {
+        width: 70%; /* Increase width for better usability */
+        font-size: 1em; /* Adjust font size */
+    }
+
+    #table-container {
+        width: 95%; /* Increase width for better mobile experience */
+        overflow-x: auto; /* Add horizontal scroll for the table */
+    }
+
+    table, th, td {
+        font-size: 0.9em; /* Reduce font size for better fit */
+    }
+
+    th, td {
+        min-width: 100px; /* Ensure cells have a minimum width */
+    }
+
+    .send-button {
+        font-size: 0.8em; /* Adjust font size */
+    }
 }
     </style>
 </head>

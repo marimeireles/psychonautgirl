@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS sheets -->
     <link rel="stylesheet" type="text/css" href="pink-style.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- TODO: I can improve loading speed by just importing the necessary code to handle the tabs -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -16,43 +16,74 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="pink-script.js"></script>
     <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-    // Show tab based on URL hash on page load
-    var hash = window.location.hash;
-    if (hash) {
-        var tabTriggerEl = document.querySelector('a[href="' + hash + '"]');
-        if (tabTriggerEl) {
-            var tab = new bootstrap.Tab(tabTriggerEl);
-            tab.show();
+      document.addEventListener("DOMContentLoaded", function() {
+        // Show tab based on URL hash on page load
+        var hash = window.location.hash;
+        if (hash) {
+            var tabTriggerEl = document.querySelector('a[href="' + hash + '"]');
+            if (tabTriggerEl) {
+                var tab = new bootstrap.Tab(tabTriggerEl);
+                tab.show();
+            }
         }
-    }
 
-    // Update URL hash when tab changes
-    var tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
-    tabLinks.forEach(function(link) {
-        link.addEventListener('shown.bs.tab', function(e) {
-            history.pushState({}, '', e.target.hash);
+        // Update URL hash when tab changes
+        var tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
+        tabLinks.forEach(function(link) {
+            link.addEventListener('shown.bs.tab', function(e) {
+                history.pushState({}, '', e.target.hash);
+            });
         });
-    });
 
-    // Handle back/forward navigation to show correct tab
-    window.addEventListener('hashchange', function() {
-        var newHash = window.location.hash;
-        var tabTriggerEl = document.querySelector('a[href="' + newHash + '"]');
-        if (tabTriggerEl) {
-            var tab = new bootstrap.Tab(tabTriggerEl);
-            tab.show();
-        }
-    });
-});
-
+        // Handle back/forward navigation to show correct tab
+        window.addEventListener('hashchange', function() {
+            var newHash = window.location.hash;
+            var tabTriggerEl = document.querySelector('a[href="' + newHash + '"]');
+            if (tabTriggerEl) {
+                var tab = new bootstrap.Tab(tabTriggerEl);
+                tab.show();
+            }
+        });
+      });
     </script>
-
     <title>ｍａｒｉａｎａ　ｍｅｉｒｅｌｅｓ</title>
+    <style>
+      /* Mobile-specific styles */
+      @media (max-width: 767.98px) {
+        .card {
+          margin-bottom: 1rem;
+        }
+        .nav-tabs {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+        }
+        .nav-tabs .nav-item {
+          display: inline-block;
+          float: none;
+        }
+        .table-responsive {
+          display: block;
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .fixed-bottom {
+          position: relative !important;
+          width: 100% !important;
+          opacity: 0.6 !important;
+        }
+        .col-md-3, .col-md-7 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    </style>
   </head>
   <body class="body" id="sky">
-    <img class="fixed-bottom justify-content-start wp-post-image img-fluid"src="girl.png" style="width: 40rem; opacity: 0.4; z-index: -1 !important;">
-    <div class="container text-center " >
+    <img class="fixed-bottom justify-content-start wp-post-image img-fluid" src="girl.png" style="width: 40rem; opacity: 0.4; z-index: -1 !important;">
+    <div class="container text-center">
       <div class="row align-items-start">
         <h1 class="title">@marimeireles</h1>
       </div>
@@ -62,13 +93,13 @@ document.addEventListener("DOMContentLoaded", function() {
       <br>
       <div class="row align-items-start text" style="z-index: 999 !important;">
         <div class="col-sm-1"></div>
-        <div class="col-md-3 " style="opacity: 1;">
+        <div class="col-md-3" style="opacity: 1;">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Mariana Meireles</h5>
               <h6 class="card-subtitle mb-2 pg-text-muted">[she/her]</h6>
               <div class="row">
-                <div class="col-sm-4 ">
+                <div class="col-sm-4">
                   <ul class="list-group">
                     <li class="list-group-item"><a href="https://kolektiva.social/@marimeireles"><i class="fa-brands fa-mastodon"></i></a></li>
                     <li class="list-group-item"><a href="https://discord.com/channels/3l3ktr4#8165"><i class="fa-brands fa-discord"></i></a></li>
@@ -78,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li class="list-group-item"><a href="https://calendar.app.google/TxR1iiyEriso6AqL9"><i class="fa-solid fa-video"></i></a></li>
                   </ul>
                 </div>
-                <div class="col-sm-8 ">
+                <div class="col-sm-8">
                   <ul class="list-group list-group-flush">
                     <a href="https://marimeireles.com/cv.pdf">
                       <li class="list-group-item">CV
@@ -101,29 +132,19 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="form-group">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" data-bs-toggle="tab" href="#hello" role="tab">
-                  hello
-                  </a>
+                  <a class="nav-link active" data-bs-toggle="tab" href="#hello" role="tab">hello</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#engineering" role="tab">
-                  engineering
-                  </a>
+                  <a class="nav-link" data-bs-toggle="tab" href="#engineering" role="tab">engineering</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#research" role="tab">
-                  research
-                  </a>
+                  <a class="nav-link" data-bs-toggle="tab" href="#research" role="tab">research</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#community" role="tab">
-                  community
-                  </a>
+                  <a class="nav-link" data-bs-toggle="tab" href="#community" role="tab">community</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#activism" role="tab">
-                  activism
-                  </a>
+                  <a class="nav-link" data-bs-toggle="tab" href="#activism" role="tab">activism</a>
                 </li>
               </ul>
               <div class="tab-content container">
@@ -160,81 +181,4 @@ document.addEventListener("DOMContentLoaded", function() {
                   <p>I'm currently enrolled in MIT's MicroMasters Program in Data, Economics, and Development Policy because I hope to gain a better understanding on how to be more effective about supporting and developing poverty alleviation policies.
                   I care about support people from unprivileged backgrounds by having a fitting <a href="https://www.notion.so/marimeireles/Pedagogical-ethos-for-kids-impacted-with-poverty-aacad2d96f3c422199524255878b2f07?pvs=4" target="_blank">pedagogical ethos</a> to their contexts, <a href="https://www.notion.so/marimeireles/Familiar-permaculture-project-Brazil-0277fccccb7740c49cc0845b824e9d10?pvs=4" target="_blank">teaching farmers about permaculture and supporting them with community and grants</a> and <a href="https://www.notion.so/marimeireles/Increasing-internet-access-b377c40a21ba483ebec686afc0a508c5?pvs=4" target="_blank">increasing internet access in the world</a>.</p>
                   <a>open knowledge:</a>
-                  <p>I find a lot of significance and love in the open/libre internet. Liberating knowledge and fostering cultural and scientific development deeply resonates with many of my personal principles and working towards making the digital world more accessible and comfortable for all is a very fulfilling mission to me.</p>
-                  <p>My main form of action on this front has been the advocacy of both the ethos and the practice of open source and open science.</p>
-                  <p>2024 update: I am now highly uncertain about the advantages of open-licensing everywhere. I am still very much pro-open access manifesto, but this is now restricted to culture and scientific and engineering advancements in computer science only.</p>
-                  <a>governance:</a>
-                  <p>Increasing interoperability and people's agency in a world of machines and humans. I keep some notes <a href="https://www.notion.so/marimeireles/Governance-and-open-source-63235d5f677448cfb411db8dbed19fc4">here</a>.</p>
-                  <a>consciousness:</a>
-                  Developing liquid-neural-net worms, combining them with other models and putting them in the simplest environment I can think of that supports a consciousness testbed. I write notes <a href="https://marimeireles.notion.site/Consciousness-909b4e086587441eb7f43fc2f6d465a4?pvs=4">here</a>.
-                </div>
-                <div id="community" class="tab-pane fade paragraph" role="tabpanel">
-                  <a href="#community"></a>
-                  <p>I found out the way I learn the best is by having the support of a community. Do you want to learn something together? Send me a message! If you want, you can also send me anonymous feedback <a href="https://www.admonymous.co/marimeireles">here</a>.</p>
-                  <ul>
-                    <li><b>Intentional co-living</b>: I'm starting <a href="https://marimeireles.notion.site/Berlin-intentional-community-living-2d346f0f86a04d55b596da65ad56c7e9">an intentional community in Berlin</a>. It's loosely centered around hacker-house, music making, scientific and spiritual exploration and just being a huge nerd. If you are interested, please send me an email introducing yourself.
-                    </li>
-                    <br>
-                    <li><b>Supper and salon</b>: I host dinners and salons in Berlin. Themes we talked about include "The limits of free speech", "Spirituality and rituals", "Rethinking future socio-economic structures and institutions", "How to be moral", etc. If you are a Berliner or a passer-by and would like to join we welcome first-timers, just send me an email!</li>
-                    <br>
-                    <li><b>Buddhism</b>: I mainly practice Dzogchen Tibetan Buddhism, but I enjoy learning about all traditions. I'm part of an <a href="https://aroencyclopaedia.org/shared/text/i/information_in_01_introduction_eng.php">Aro</a> sangha in Berlin and you're welcome to join us if you're interested and respectful. I'm also interested in meditating with others and sharing curious states of consciousness (non-related with drug-usage as I follow the 5 precepts).</li>
-                    <br>
-                    <li><b>Literature</b>: I love reading and discussing things I learn. Do you want to read together? Or maybe recommend be a book? Check my <a href="https://marimeireles.com/books.html">reading list</a>, maybe we can chill in a cafe or park and share our thoughts after a reading session. I also write or post short texts or poems I like <a href="https://lettersfortheevanescents.mataroa.blog/">here</a>.</li>
-                    <br>
-                    <li><b>Multimedia Artist</b>: It's really fun to be the girl taking care of lights at events. I've built my own DMX controller, and I'm somewhat versed in being scrappy with electronics. I also try to be artsy with Touch Designer, I mainly focus on interactive art. Check some of my <a href="https://github.com/marimeireles/touchdesigner-toes/tree/master">toes</a>. Here's a <a href="https://www.behance.net/marianameireles">link</a> for a portfolio I'm building. I'm open for hire and to collaborate in this kind of work.</li>
-                    <br>
-                    <li><b>Drawing</b>: I'm a <a href="https://www.deviantart.com/marimeireles/gallery">beginner tattoo artist</a>. To me, this is a very special practice and one of the few things that are sacred to me. I'm open to tattooing new people, if you're interested, send me an email. I'm looking for a monk to get a Sak Yant done, please let me know if you know anyone in Europe that is able to bless it. I tattoo myself and friends. I also know the basics of painting with spray, and I want to learn more, I would very much like to learn together. I also want to improve in watercolor and drawing, for that I like to go out on small friend dates and paint in the park.</li>
-                    <br>
-                    <li><b>AI Art*</b>: In the past, I've experimented with <a href="https://colab.research.google.com/drive/1hcUHPLk98zN_V89Z0U5nMUhabPjWk05k?userstoinvite=zeynepsatir35%40gmail.com&actionButton=1">GANs</a> and created some <a href="https://www.deviantart.com/marimeireles/gallery/82011542/gan-designs-2021">cool tattoo designs</a>. I've also worked with story telling and agent-based modeling LLMs. Would love to collaborate with artists as a software engineer! For more of my AI projects check my <a href="https://www.behance.net/marianameireles">Behance</a>.</li>
-                    <br>
-                    <li><b>Music</b>: Music theory, music producing (mainly electronic but also interested in analog jams), djing, foxdot(and similar shenanigans). I play the guitar and sing a bit, trying to be better at my Bossa Nova. Also looking for riot grrrls to play some punk rock with.</li>
-                    <br>
-                    <li><b>Flow</b>: Dragon staff, hula-hoop, fire flow, yoga. Anything flowey, I'm always looking for people to share these practices with.</li>
-                    <br>
-                    <li><b>Sports</b>: I am practicing calisthenics mixed in with some free weight lifting. I think it's fun to practice with friends, as we can teach each other stuff. I go to a nearby calisthenics park, but open to travel for a calisthenics date. I also really like bouldering and am member at a cool climbing gym! If interested, ask me which.</li>
-                    <br>
-                  </ul>
-                </div>
-                <div id="activism" class="tab-pane fade paragraph" role="tabpanel">
-                  <a href="#activism"></a>
-                  <p>I support several causes: <a href="https://ethicalsource.dev/">ethical open source</a>, <a href="https://en.wikipedia.org/wiki/Animal_Liberation_(book)">animal liberation</a>, the <a href="https://ourworldindata.org/environmental-impacts-of-food?insight=differences-carbon-footprint-foods#key-insights-on-the-environmental-impacts-of-food">decrease</a> in animal-based products consumption, investing in carbon offsets to decrease my CO2 footprint, leveraging democracy through <a href="https://pol.is/home">open democratic practices</a>, <a href="https://postmeritocracy.org/">post meritocracy</a> in my engineering work context, combating disinformation on the Web, <a href="https://80000hours.org/problem-profiles/artificial-intelligence/">AI alignment</a>, <a href="https://ia600605.us.archive.org/15/items/GuerillaOpenAccessManifesto/Goamjuly2008.pdf">open access to knowledge</a>, empowering people to overcome poverty using a) <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">non-traditional methods of pedagogy</a>, b) <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">land redistribution coupled with permaculture</a> and community building in rural contexts c) offering OSS opportunities through <a href="https://marimeireles.notion.site/Poverty-alleviation-6cc16e6e2e3e49d19ed9112aec79d5cf?pvs=4">internships</a> and <a href="https://marimeireles.com/mentorship.html">mentoring</a> d) respecting people's agency over their own economical future through <a href="https://www.givedirectly.org/">donating money directly</a> to them.</p>
-                  <p>These are some of the projects I support:</p>
-                  <ul>
-                    <li><a href="https://www.linkedin.com/company/84894279/">Women of Color Code</a>: This program seeks to unite WoC and other members of minoritized groups to battle feelings of isolation and marginalization that are prevalent in educational institutions and industry settings. Women of Color Code is an initiative funded by AstroPy. I offer 1:1 mentorships, workshops, and webinars. I also co-organize the group. If you're interested in either becoming a mentor or offering webinars for our group, get in touch! We offer monetary compensations to our contributors!</li>
-                  </ul>
-                  <ul>
-                    <li><a href="https://www.redi-school.org/">ReDI</a>: In response to the refugee crisis, the ReDI School was founded: a vocational training program teaching digital skills to migrants and locals. I currently help as a mentor, but you could be a teacher of software or design, or if you have good organizational skills, you can help folks with the administration of the school!</li>
-                  </ul>
-                  <ul>
-                    <li><a href="https://berlin.pyladies.com/">PyLadies Berlin</a>: The global PyLadies mentorship group has a focus on helping more women become active participants and leaders in the Python open-source community with the mission to promote, educate and advance a diverse Python community through outreach, education, conferences, events and social gatherings. PyLadies aims to provide a friendly support network for women and a bridge to the larger Python world. I'm helping to organize the group. You can join the meetup group, organize talks or classes. Hit me up and we'll figure out something together. Disclaimer: we don't care about your gender :) just come!</li>
-                  </ul>
-                  <ul>
-                    <li><a href="https://www.frauenloop.org/">Frauen Loop</a>: FrauenLoop offers a diverse network of women tech professionals who train motivated, women-identified persons in computer programming. There are many ways to help, from software to administration work.</li>
-                  </ul>
-                  <p>I believe women have the right to have full control over their own bodies:</p>
-                  <ul>
-                    <li>
-                      <p>Doctors in Germany are not allowed to post factual information on abortions on their websites. Other websites are allowed to post this information, though. <a href="https://fragdenstaat.de/aktionen/219a/">Frag Den Staat</a> is currently providing resources on the subject in German, English, and Turkish.</p>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li><a href="https://www.womenonwaves.org/en/">Women on Waves</a> is a Dutch nongovernmental organization created in 1999 by Dutch physician Rebecca Gomperts in order to bring reproductive health services, particularly non-surgical abortion services and education, to women in countries with restrictive abortion laws. If the value of their products is inaccessible to you, I want to help, send me an email.</li>
-                  </ul>
-                  <p>*AI art:</p>
-                  <ul>
-                    <li>
-                      <p>I believe it's hard to throttle technological development, which is not always good for our culture, institutions, and people. However, I also believe it's quite possible to harness these technologies in an ethical and uplifting way.</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-1"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <footer style="height: 20px;">
-  </body>
-</html>
+                  <p>I find a lot of significance and love in the open/libre internet. Liberating knowledge and fostering cultural and scientific development deeply resonates with many of my personal principles and working towards making the digital
