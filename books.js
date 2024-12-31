@@ -5,7 +5,7 @@ Consider Phlebas,Want to read,sci-fi,Iain M. Banks
 Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
 Living With Complexity,Want to read,complexity,Donald A. Norman
-Modern Man in Search of a Soul,Reading,psicology,Jung
+Modern Man in Search of a Soul,Read,psicology,Jung
 The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
@@ -61,7 +61,7 @@ Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
 The Science of Enlightenment: How Meditation Works,Read,buddhism,Shinzen Young
 Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
-Diversity and Complexity,Reading,complex-systems,Scott E. Page
+Diversity and Complexity,Stalled,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
 Radical Markets,Want to read,economics,Glen Weil
 The Hitchhiker's Guide to the Galaxy,Read,sci-fi,Douglas Adams,
@@ -88,7 +88,7 @@ Consciousness Explained,Reading,consciousness,Daniel C. Dennet
 The Knowledge Machine,Want to read,philosophy,Michael Strevens
 Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
 What is Truth,Want to read,philosophy,Peter Vardy
-The Logic of Scientific Discovery,Reading,philosophy,Popper
+The Logic of Scientific Discovery,Stalled,philosophy,Popper
 The Other Significant Others,Read,psychology,,Not a lot of content, unfortunately.
 A Treatise of Human Nature,Want to read,philosophy,Hume,
 Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
@@ -506,7 +506,7 @@ The (Mis)Behavior of Markets,Want to read,systems-theory; math; economics,Mandel
 A First Course in Chaotic Dynamical Systems: Theory and Experiment ,Want to read,systems-theory; physics,,
 Does God Play Dice?: The New Mathematics of Chaos ,Want to read,systems-theory; physics; math,,
 Dream States,Want to read,urbanism,,
-Gödel Escher Bach: An Eternal Golden Braid,Stalled,computer-science; math; physics,,
+Gödel Escher Bach: An Eternal Golden Braid,Stalled,computer-science;math;physics;Hofstadter,,
 Crime and Punishment,Stalled,fiction,,
 The Ministry for the Future,Stalled,sci-fi,Kim Stanley,
 The Omnivore’s Dilemma ,Stalled,agroecology; anthropology,,
