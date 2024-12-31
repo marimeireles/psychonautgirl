@@ -1,6 +1,12 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-The Heroic Heart,Want to read,buddhism,Jetsunma Tenzin Palmo
+Surprised by Joy: The Shape of My Early Life,Want to read,autobiography;christianity,C.S. Lewis
+Consider Phlebas,Want to read,sci-fi,Iain M. Banks
+Opression and liberty,Reading,philosophy;economics,Simone Weil
+How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
+Living With Complexity,Want to read,complexity,Donald A. Norman
+Modern Man in Search of a Soul,Reading,psicology,Jung
+The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
 My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
@@ -86,7 +92,7 @@ The Logic of Scientific Discovery,Reading,philosophy,Popper
 The Other Significant Others,Read,psychology,,Not a lot of content, unfortunately.
 A Treatise of Human Nature,Want to read,philosophy,Hume,
 Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
-Philosophical Investigations,Want to read,philosophy,Wittgenstein,
+Philosophical Investigations,Reading,philosophy,Wittgenstein,
 Secrets of Divine Love: A Spiritual Journey into the Heart of Islam,Want to read,philosophy; islam,Helwa,
 From Darkness Into Light,Want to read,philosophy; islam,Helwa,
 Zen and the Art of Motorcycles,Read,philosophy,Robert Pirsig,
@@ -100,7 +106,7 @@ Famine Affluence and Morality,Read,philosophy,Peter Singer,
 The Art of Statistics: How to Learn from Data,Reading,math,David Spiegelhalter,
 If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
 Supercooperators: The Mathematics of Evolution Altruism and Human Behaviour,Want to read,coordination; evolution,Martin Nowak,
-The Nature of Computation,Want to read,computer-science; math,Cristopher Moore & Stephan Mertens,
+The Nature of Computation,Reading,computer-science; math,Cristopher Moore & Stephan Mertens,
 Category Theory for the Sciences,Want to read,math,David I. Spivak,
 A Mathematician's Apology,Want to read,math; philosophy,G.H. Hardy,
 Evolutionary Dynamics: Exploring the Equations of Life,Want to read,evolution; biology; math,Martin Nowak,
@@ -109,7 +115,7 @@ Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
 The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
 Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
 Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
-I Am a Strange Loop,Want to read,philosophy; psychology; math,Douglas R. Hofstadter,
+I Am a Strange Loop,Reading,philosophy; psychology; math,Douglas R. Hofstadter,
 Gathering Moss,Want to read,biology,Robin Wall Kimmerer,
 Reading Lessons,Want to read,education,Carol Atherton,
 What Capitalism Needs Forgotten Lessons of Great Economists,Want to read,economics,John L Campbell John A. Hall,
@@ -136,7 +142,7 @@ African Fractals,Want to read,anthropology; art,,
 The Secret of Our Success: How Culture Is Driving Human Evolution; Domesticating Our Species; and Making Us Smarter,Want to read,anthropology; behaviorism; evolution; history; psychology,Joseph Henrich,
 A Billion Wicked Thoughts: What the Internet Tells Us About Sexual Relationships,Want to read,anthropology; computer-science,,
 Technology of the Oppressed: Inequity and the Digital Mundane in Favelas of Brazil,Want to read,anthropology; computer-science,,
-Discipline and Punish: The Birth of the Prison,Want to read,anthropology;governance,Foucault,
+Discipline and Punish: The Birth of the Prison,Reading,philosophy;history,Foucault,
 The Collapse of Complex Societies,Want to read,anthropology; coordination; economics; history,Joseph A. Tainter,
 Secret of Our Success ,Want to read,anthropology; evolution,,
 On Human Nature,Want to read,anthropology; evolution; philosophy; psychology,E. O. Wilson,
@@ -230,7 +236,7 @@ End Times: Elites Counter-Elites and the Path of Political Disintegration,Want t
 Where There Is No Government,Want to read,governance,Joireman,
 Patterns of Democracy,Want to read,governance,Arend Lijphart,
 The Death and Life of Great American Cities,Want to read,governance;urbanism,,
-Governing the Commons,Want to read,governance,Elinor Ostrom,
+Governing the Commons,Read,governance;game-theory,Elinor Ostrom,
 Systems Thinking for Social Change,Want to read,governance,,
 Regenerative Leadership,Want to read,governance,Giles Hutchins & Laura Storm,
 The End of Poverty,Want to read,economics; economics,Sach,
@@ -488,7 +494,7 @@ Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 A Fire Upon the Deep,Want to read,sci-fi,,
-Diaspora,Want to read,sci-fi,Greg Egan,
+Diaspora,Reading,sci-fi,Greg Egan,
 Cryptonomicon,Want to read,sci-fi,,
 A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
