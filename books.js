@@ -1,6 +1,7 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-Surprised by Joy: The Shape of My Early Life,Want to read,autobiography;christianity,C.S. Lewis
+On Virtue Ethics,Want to read,philosophy,Rosalind Hursthouse
+Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity,C.S. Lewis
 Consider Phlebas,Want to read,sci-fi,Iain M. Banks
 Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
@@ -475,7 +476,7 @@ The Dream Songs,Want to read,poetry,John Berryman,
 Flow: The Psychology of Optimal Experience,Want to read,psychology,,
 The Body Keeps the Score: Brain Mind and Body in the Healing of Trauma,Want to read,psychology,Kolk,
 How Emotions Are Made: The Secret Life of the Brain,Want to read,psychology,,
-The Red Book,Want to read,psychology,,
+The Red Book,Reading,psychology,Jung,
 The Anxiety and Depression Work Book,Want to read,psychology,,
 Nonviolent Communication: A Language of Life,Want to read,psychology,,
 Inadequate Equilibria,Want to read,psychology,Eliezer Yudkowsky,
@@ -541,7 +542,7 @@ War and Peace,Stalled,fiction,,
 Mathematical Proofs: A transition to advanced mathematics,Stalled,math,,
 The Joy of Abstraction ,Stalled,math; systems-theory,Cheng,
 Surfing Uncertainty,Stalled,neuroscience;consciousness,Clarke,
-The Nichomachean Ethics,Stalled,philosophy,Aristotle,
+The Nichomachean Ethics,Reading,philosophy,Aristotle,
 Being and Nothingness,Stalled,philosophy,Sartre,
 Meditations,Stalled,philosophy,Marcus Aurelius,
 Geneology of Morals,Stalled,philosophy,Nietzsche,
