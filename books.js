@@ -1,5 +1,8 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Learn Physics with Functional Programming,Want to read,physics,Scott N. Walck
+An Introduction to Automata Theory Languages and Computation,Want to read,computer-science,Hopcroft
+Structure and Interpretation of Classical Mechanics,Want to read,physics,Sussman
 On Virtue Ethics,Want to read,philosophy,Rosalind Hursthouse
 Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity,C.S. Lewis
 Consider Phlebas,Want to read,sci-fi,Iain M. Banks
