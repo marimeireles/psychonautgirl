@@ -10,7 +10,7 @@ Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
 Living With Complexity,Want to read,complexity,Donald A. Norman
 Modern Man in Search of a Soul,Read,psicology,Jung
-The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
+The Heroic Heart,Reading,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
 My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
@@ -119,7 +119,7 @@ Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
 The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
 Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
 Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
-I Am a Strange Loop,Reading,philosophy; psychology; math,Douglas R. Hofstadter,
+I Am a Strange Loop,Reading,philosophy; math; biography,Douglas R. Hofstadter,
 Gathering Moss,Want to read,biology,Robin Wall Kimmerer,
 Reading Lessons,Want to read,education,Carol Atherton,
 What Capitalism Needs Forgotten Lessons of Great Economists,Want to read,economics,John L Campbell John A. Hall,
