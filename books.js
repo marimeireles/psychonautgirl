@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Jung's Map of the Soul,Read,psychology,
 Learn Physics with Functional Programming,Want to read,physics,Scott N. Walck
 An Introduction to Automata Theory Languages and Computation,Want to read,computer-science,Hopcroft
 Structure and Interpretation of Classical Mechanics,Want to read,physics,Sussman
@@ -28,7 +29,7 @@ Post-scarcity Anarchism,Want to read,anarchism;economics,Murray Bookchin
 The Problem of Induction,Want to read,philosophy,Hume
 The Usefulness of Useless Knowledge,Want to read,philosophy,Abraham Flexner and Robbert Dijkgraaf
 Chaos,Want to read,physics;complex-systems,James Gleick
-Emotional Intelligence,Want to read,psychology,Daniel Goleman
+Emotional Intelligence,Read,psychology,Daniel Goleman
 Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
 Factfulness,Read,economics;philosophy,Hans Rosling
 Dynamical Systems in Neuroscience,Want to read,neuroscience,Eugene M. M Izhikevich
@@ -777,7 +778,6 @@ Da Vinci Code,Read,fiction,,
 A Sala De Âmbar,Read,fiction,,
 I Ching,Reference,magic,,
 The Sun Also Rises,Read,fiction,,
-The Death of Ivan Ilych,Read,fiction,,
 Kholstomer,Read,fiction,Tolstoi,
 Fight Club,Read,fiction,Bukowski,
 The Hobbit,Read,fiction,Tolkien,
