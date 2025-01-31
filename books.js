@@ -147,7 +147,7 @@ African Fractals,Want to read,anthropology; art,,
 The Secret of Our Success: How Culture Is Driving Human Evolution; Domesticating Our Species; and Making Us Smarter,Want to read,anthropology; behaviorism; evolution; history; psychology,Joseph Henrich,
 A Billion Wicked Thoughts: What the Internet Tells Us About Sexual Relationships,Want to read,anthropology; computer-science,,
 Technology of the Oppressed: Inequity and the Digital Mundane in Favelas of Brazil,Want to read,anthropology; computer-science,,
-Discipline and Punish: The Birth of the Prison,Reading,philosophy;history,Foucault,
+Discipline and Punish: The Birth of the Prison,Read,philosophy;history,Foucault,Like every Foucault book this could have been a couple of pages long paper couldn't it?
 The Collapse of Complex Societies,Want to read,anthropology; coordination; economics; history,Joseph A. Tainter,
 Secret of Our Success ,Want to read,anthropology; evolution,,
 On Human Nature,Want to read,anthropology; evolution; philosophy; psychology,E. O. Wilson,
