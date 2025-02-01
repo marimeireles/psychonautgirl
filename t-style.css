@@ -1,19 +1,20 @@
 .body {
-    background-color: #EFD700;
+    background-color: black;
     min-height: 2000px;
     font-family: monospace;
+    color: white !important;
+    text-decoration: none !important;
 }
 
 .title {
     font-size: 500%;
-    color: text-dark;
 }
 
 .terminal {
     font-family: monospace;
+    text-decoration: none !important;
 }
 
 .terminal-text {
-    color: #EFD700;
 }
 

@@ -1,42 +1,215 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="t-style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <!-- Ma face -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <link rel="stylesheet" type="text/css" href="t-style.css">
-
-    <title>🔥 𝖕𝖘𝖞𝖈𝖍𝖔𝖓𝖆𝖚𝖙 𝖌𝖎𝖗𝖑 🔥</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- External CSS and Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="t-style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- p5.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" 
+          integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>🔥 𝖕𝖘𝖞𝖈𝖍𝖔𝖓𝖆𝖚𝖙 𝖌𝖎𝖗𝖑 🔥</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    /* The canvas is fixed to the bottom and sized to cover ~30% of the window height */
+    canvas {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
 </head>
-<body class="body text-dark container">
-    <div class="row align-items-start">
-        <div class="col-5"></div>
-        <div class="position-relative col-4">
-        <img src="images/fire.gif" style="height: 30px"><b>Lit people</b><img src="images/fire.gif" style="height: 30px">
-        <br><br>
-        </div>
-        <p>TODO: update this with detailed info about these great folks!</p>
-        <br><br><br>
-    </div>
-    <br><br><br>
-    <<
-        <a class="link-dark" href="https://karenzshea.com/">Karen Shea</a> |
-        <a class="link-dark" href="https://reub.in">Reuben Morais</a> |
-        <a class="link-dark" href="https://dflate.io/">Gregor Weber</a> |
-        <a class="link-dark" href="https://jcelerier.name/">Jean-Michael Celerier</a> |
-        <a class="link-dark" href="https://camila.codes/"> Camila San</a> |
-        <a class="link-dark" href="https://www.otsukare.info"> Karl Dubost</a> |
-        <a class="link-dark" href="https://software.gay/">Frederic Marx</a> |
-        <a class="link-dark" href="https://nickstares.com/">Nick Stares</a> |
-        <a class="link-dark" href="https://morganrivers.github.io/">Morgan Rivers</a>
-        >>
+<body class="body container">
+<!-- Retro Webring Section -->
+<div style="text-align: center; background: #EFD700; border: 3px double #000; padding: 15px; font-family: 'Comic Sans MS', cursive; margin: 20px auto; max-width: 800px;">
+  <!-- Title Section -->
+  <div style="margin-bottom: 10px;">
+    <img src="images/fire.gif" alt="fire" style="height: 30px; vertical-align: middle;">
+    <span style="font-size: 2em; font-weight: bold; color: black; margin: 0 10px;">Lit People</span>
+    <img src="images/fire.gif" alt="fire" style="height: 30px; vertical-align: middle;">
+  </div>
 
-    </div>
-    <br><br><br><br>
-<img src="ma-Flaggen2.gif" style="height: 40px"> Be excellent to each other.
+  <!-- Information Paragraph -->
+  <p style="font-size: 1.2em; color: #333; margin: 10px 0;">
+    Click to find out more about these lovies:
+  </p>
+
+  <!-- Webring Links -->
+  <div style="display: inline-block; background: black; border: 2px solid #000; padding: 5px 10px; margin-bottom: 15px;">
+    &lt;&lt; 
+    <a href="https://karenzshea.com/" style="color: #d32f2f; text-decoration: none;">Karen Shea</a> |
+    <a href="https://reub.in" style="color: #d32f2f; text-decoration: none;">Reuben Morais</a> |
+    <a href="https://dflate.io/" style="color: #d32f2f; text-decoration: none;">Gregor Weber</a> |
+    <a href="https://jcelerier.name/" style="color: #d32f2f; text-decoration: none;">Jean-Michael Celerier</a> |
+    <a href="https://camila.codes/" style="color: #d32f2f; text-decoration: none;">Camila San</a> |
+    <a href="https://www.otsukare.info" style="color: #d32f2f; text-decoration: none;">Karl Dubost</a> |
+    <a href="https://software.gay/" style="color: #d32f2f; text-decoration: none;">Frederic Marx</a> |
+    <a href="https://nickstares.com/" style="color: #d32f2f; text-decoration: none;">Nick Stares</a> |
+    <a href="https://morganrivers.github.io/" style="color: #d32f2f; text-decoration: none;">Morgan Rivers</a>
+    &gt;&gt;
+  </div>
+
+  <!-- Footer Message -->
+  <div>
+    <img src="ma-Flaggen2.gif" alt="flag" style="height: 40px; vertical-align: middle;"> 
+    <span style="font-size: 1.3em; font-weight: bold; color: #000; margin-left: 10px;">Be excellent to each other.</span>
+  </div>
+</div>
+<br>
+<div class="d-flex justify-content-center align-items-center vh-100">
+<pre>
+                                _,.-------.,_
+                            ,;~'             '~;,
+                          ,;                     ;,
+                         ;                         ;
+                        ,'                         ',
+                       ,;                           ;,
+                       ; ;      .           .      ; ;
+                       | ;   ______       ______   ; |
+                       |  `/~"     ~" . "~     "~\'  |
+                       |  ~  ,-~~~^~, | ,~^~~~-,  ~  |
+                        |   |        }:{        |   |
+                        |   l       / | \       !   |
+                        .~  (__,.--" .^. "--.,__)  ~.
+                        |     ---;' / | \ `;---     |
+                         \__.       \/^\/       .__/
+                          V| \                 / |V
+       __                  | |T~\___!___!___/~T| |                  _____
+    .-~  ~"-.              | |`IIII_I_I_I_IIII'| |               .-~     "-.
+   /         \             |  \,III I I I III,/  |              /           Y
+  Y          ;              \   `~~~~~~~~~~'    /               i           |
+  `.   _     `._              \   .       .   /               __)         .'
+    )=~         `-.._           \.    ^    ./           _..-'~         ~"<_
+ .-~                 ~`-.._       ^~~~^~~~^       _..-'~                   ~.
+/                          ~`-.._           _..-'~                           Y
+{        .~"-._                  ~`-.._ .-'~                  _..-~;         ;
+ `._   _,'     ~`-.._                  ~`-.._           _..-'~     `._    _.-
+    ~~"              ~`-.._                  ~`-.._ .-'~              ~~"~
+  .----.            _..-'  ~`-.._                  ~`-.._          .-~~~~-.
+ /      `.    _..-'~             ~`-.._                  ~`-.._   (        ".
+Y        `=--~                  _..-'  ~`-.._                  ~`-'         |
+|                         _..-'~             ~`-.._                         ;
+`._                 _..-'~                         ~`-.._            -._ _.'
+   "-.="      _..-'~                                     ~`-.._        ~`.
+    /        `.                                                ;          Y
+   Y           Y                                              Y           |
+   |           ;                                              `.          /
+   `.       _.'                                                 "-.____.-'
+     ~-----"
+</pre>
+</div>
+
+
+  <!-- p5.js particle system for fire at the bottom -->
+  <script>
+    // Array to hold fire particles
+    let particles = [];
+    // How many particles to spawn per frame
+    const spawnRate = 5;
+    // Define what fraction of the window height the canvas should use
+    const canvasHeightFactor = 1;
+
+    function setup() {
+      // Create a canvas that spans the full width and only the bottom ~30% of the window height
+      createCanvas(windowWidth, 500 * canvasHeightFactor);
+      pixelDensity(1); // For a more “retro” look
+    }
+
+    function draw() {
+      // Use a semi-transparent black background to create a fading trail effect
+      background(0, 0, 0, 100);
+      
+      // Spawn new particles along the bottom edge of the canvas
+      for (let i = 0; i < spawnRate; i++) {
+        particles.push(new Particle(random(width), height));
+      }
+      
+      // Update and draw each particle
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.update();
+        p.display();
+        // Remove the particle if its life has expired
+        if (p.isDead()) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+
+    // A simple Particle class for our fire effect
+    class Particle {
+      constructor(x, y) {
+        // Start at a given (x, y) position (along the bottom edge)
+        this.x = x;
+        this.y = y;
+        // Initial velocity: mostly upward with a little horizontal drift
+        this.vx = random(-1, 1);
+        this.vy = random(-3, -1);
+        // Lifespan (used for fading out)
+        this.life = 255;
+        // Random size for variety
+        this.size = random(10, 20);
+      }
+      
+      update() {
+        // Move the particle according to its velocity
+        this.x += this.vx;
+        this.y += this.vy;
+        // Slightly reduce the velocity over time to simulate drag
+        this.vx *= 0.99;
+        this.vy *= 0.99;
+        // Decrease the life value to eventually fade out the particle
+        this.life -= 4;
+      }
+      
+      // display() {
+      //   noStroke();
+      //   // Map the remaining life to an alpha value
+      //   const alpha = map(this.life, 0, 255, 0, 255);
+      //   /* 
+      //      To mimic a flame's color transition, we'll have the particles 
+      //      start with a warm yellow and shift toward red as they fade.
+      //   */
+      //   const r = 255; // Red stays strong
+      //   const g = map(this.life, 0, 255, 0, 200); // Green fades from 200 to 0
+      //   const b = 0;
+      //   fill(r, g, b, alpha);
+      //   ellipse(this.x, this.y, this.size);
+      // }
+
+    display() {
+      noStroke();
+      // Map the remaining life to an alpha value
+      const alpha = map(this.life, 0, 255, 0, 255);
+      // To mimic a flame's color transition, we'll have the particles 
+      // start with a warm yellow and shift toward red as they fade.
+      const r = 255; // Red stays strong
+      const g = map(this.life, 0, 255, 0, 200); // Green fades from 200 to 0
+      const b = 0;
+      fill(r, g, b, alpha);
+      
+      // Set rectMode to CENTER so the square is drawn centered on (this.x, this.y)
+      rectMode(CENTER);
+      rect(this.x, this.y, this.size, this.size);
+    }
+      
+      isDead() {
+        return this.life <= 0;
+      }
+    }
+
+    // When the window is resized, adjust the canvas size accordingly
+    function windowResized() {
+      resizeCanvas(windowWidth, 500 * canvasHeightFactor);
+    }
+  </script>
 </body>
 </html>
