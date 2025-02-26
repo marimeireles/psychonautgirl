@@ -1,5 +1,16 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Distress,Want to read,sci-fi,Greg Egan
+Picturing Quantum Processes,Want to read,physics,Bob Coecke and Stefano Gogioso
+Invisible Cities,Want to read,fiction,Italo Calvino
+Narciss and Goldmund,Want to read,fiction,Hesse
+The Perennial Philosophy,Want to read,philosophy,Huxley
+What it is like to be a Bat,Want to read,philosophy,Thomas Nagel
+On Certainty,Want to read,philosophy,Wittgenstein
+Embodied Mind: Cognitive Science and Human Experience,Want to read,psychology;philosophy,Francisco Varela
+Reinventing the sacred: A new view of science reason and religion,Want to read,philosophy,Stuart Kauffman
+The tao is silent,Reading,buddhism;philosophy,Raymon Smullyan
+The Autobiography of a Super-Tramp,Read,autobiography,H. W. Davis
 Jung's Map of the Soul,Read,psychology,
 Learn Physics with Functional Programming,Want to read,physics,Scott N. Walck
 An Introduction to Automata Theory Languages and Computation,Want to read,computer-science,Hopcroft
@@ -11,7 +22,7 @@ Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
 Living With Complexity,Want to read,complexity,Donald A. Norman
 Modern Man in Search of a Soul,Read,psicology,Jung
-The Heroic Heart,Reading,buddhism,Jetsunma Tenzin Palmo
+The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
 My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
@@ -120,7 +131,7 @@ Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
 The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
 Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
 Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
-I Am a Strange Loop,Reading,philosophy; math; biography,Douglas R. Hofstadter,
+I Am a Strange Loop,Read,philosophy; math; biography,Douglas R. Hofstadter,
 Gathering Moss,Want to read,biology,Robin Wall Kimmerer,
 Reading Lessons,Want to read,education,Carol Atherton,
 What Capitalism Needs Forgotten Lessons of Great Economists,Want to read,economics,John L Campbell John A. Hall,
@@ -149,7 +160,6 @@ A Billion Wicked Thoughts: What the Internet Tells Us About Sexual Relationships
 Technology of the Oppressed: Inequity and the Digital Mundane in Favelas of Brazil,Want to read,anthropology; computer-science,,
 Discipline and Punish: The Birth of the Prison,Read,philosophy;history,Foucault,Like every Foucault book this could have been a couple of pages long paper couldn't it?
 The Collapse of Complex Societies,Want to read,anthropology; coordination; economics; history,Joseph A. Tainter,
-Secret of Our Success ,Want to read,anthropology; evolution,,
 On Human Nature,Want to read,anthropology; evolution; philosophy; psychology,E. O. Wilson,
 War and Peace and War: The Rise and Fall of Empires,Want to read,anthropology; history,Peter Turchin,
 Ultrasociety,Want to read,anthropology; history; systems-theory,Peter Turchin,
@@ -320,7 +330,7 @@ The Origins of Species,Want to read,evolution,,
 The Machinery of Life,Want to read,evolution; biology,David S. Goodsell,
 Evolution and the Theory of Games,Want to read,evolution; math; systems-theory,John Maynard Smith,
 A History of the Human Brain: From the Sea Sponge to CRISPR; How Our Brain Evolved,Want to read,evolution; neuroscience,Bret Stekta,
-How to Travel with a Salmon: And Other Essays,Want to read,fiction,Umberto Eco,
+How to Travel with a Salmon: And Other Essays,Read,fiction,Umberto Eco,
 Fahrenheit 451,Want to read,fiction,,
 The Sound and the Fury,Want to read,fiction,William Faulkner
 The High King,Want to read,fiction,,
@@ -339,7 +349,7 @@ The Sound and Fury,Want to read,fiction,,
 Howl’s Moving Castle,Want to read,fiction,,
 David Copperfield,Want to read,fiction,,
 Oliver Twist,Want to read,fiction,,
-The Call of the Wild,Want to read,fiction,,
+The Call of the Wild,Read,fiction,,
 And Then There Were None,Want to read,fiction,,
 The Girl With the Dragon Tattoo,Want to read,fiction,,
 Dungeon Crawler Karl,Want to read,fiction,,
@@ -499,7 +509,7 @@ Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 A Fire Upon the Deep,Want to read,sci-fi,,
-Diaspora,Reading,sci-fi,Greg Egan,
+Diaspora,Read,sci-fi,Greg Egan,
 Cryptonomicon,Want to read,sci-fi,,
 A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
@@ -546,7 +556,7 @@ War and Peace,Stalled,fiction,,
 Mathematical Proofs: A transition to advanced mathematics,Stalled,math,,
 The Joy of Abstraction ,Stalled,math; systems-theory,Cheng,
 Surfing Uncertainty,Stalled,neuroscience;consciousness,Clarke,
-The Nichomachean Ethics,Reading,philosophy,Aristotle,
+The Nichomachean Ethics,Read,philosophy,Aristotle,
 Being and Nothingness,Stalled,philosophy,Sartre,
 Meditations,Stalled,philosophy,Marcus Aurelius,
 Geneology of Morals,Stalled,philosophy,Nietzsche,
