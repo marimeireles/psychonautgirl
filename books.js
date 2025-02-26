@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Spectrum of Ecstasy,Reading,buddhism,Khandro Dechen and Ngakpa Chogyam
 Distress,Want to read,sci-fi,Greg Egan
 Picturing Quantum Processes,Want to read,physics,Bob Coecke and Stefano Gogioso
 Invisible Cities,Want to read,fiction,Italo Calvino
@@ -70,7 +71,7 @@ This View of Life: Completing the Darwinian Revolution,Want to read,coordination
 Right Concentration,Reference,buddhism,Leigh Brasington
 The Three-Body Problem,Read,sci-fi,Ken Liu
 At Home in Mitford,Want to read,fiction,Jan Karon
-Good Omens,Abandoned, fiction, Terry Pratchett and Neil Gaiman
+Good Omens,Abandoned,fiction, Terry Pratchett and Neil Gaiman
 Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
@@ -604,7 +605,6 @@ Um Curso de Geometria Analitica e Algebra Linear,Reference,math,Reginaldo,
 On Numbers and Games,Reference,math; systems-theory,Conway,
 The Problems of Philosophy,Reference,philosophy,Bertrand Russel,
 The Art of Electronics,Reference,physics,Paul Horowitz,
-Practical Programming for Strength Training ,Reference,sports,,
 Introduction to Graph Theory,Reference,systems-theory,Richard Trudeau,
 Frankenstein,Read,fiction,Mary Shelley,
 How to Be Compassionate,Read,buddhism,Dalai Lama,
