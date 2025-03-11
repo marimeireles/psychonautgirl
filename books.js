@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Computer and the Brain,neuroscience;computer-science,Von Neumann
 Spectrum of Ecstasy,Reading,buddhism,Khandro Dechen and Ngakpa Chogyam
 Distress,Want to read,sci-fi,Greg Egan
 Picturing Quantum Processes,Want to read,physics,Bob Coecke and Stefano Gogioso
@@ -534,7 +535,7 @@ Markets Not Capitalism,Stalled,anarchism; economics,,
 A Queda do Céu,Stalled,anthropology,,
 Behave,Stalled,anthropology; behaviorism; neuroscience; psychology; questionable-research,,
 You Are an Artist: Assignments to Spark Creation,Stalled,art,,
-Active Inference,Stalled,math; neuroscience; physics; philosophy,Thomas Parr,
+Active Inference,Reading,neuroscience; computer-science; math,Thomas Parr,
 Wir Kindern vom Zoo Bahnhof,Stalled,biography,Christiane F.,
 Memories Dreams Reflections,Stalled,biography,Jung,
 Entering the Heart of Sun and Moon,Stalled,buddhism,,
@@ -548,7 +549,7 @@ Thinking in Systems,Stalled,coordination; systems-theory,Donella Meadows,
 Pihkal: A Chemical Love Story,Stalled,drugs,,
 Sacred Economics,Stalled,economics; magic,,
 How to Solve It: A New Aspect of Mathematical Method,Stalled,education; math,Polya,
-Infinite Jest,Stalled,fiction,David Foster Wallace,
+Infinite Jest,Reading,fiction,David Foster Wallace,
 Ficciones,Stalled,fiction,Jorge Luis Borges,
 Der Mann mit der Ledertasche,Stalled,fiction,Bukowski,
 The Plague,Stalled,fiction,,
