@@ -1,6 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-The Computer and the Brain,neuroscience;computer-science,Von Neumann
+The Computer and the Brain,Read,neuroscience;computer-science,Von Neumann
 Spectrum of Ecstasy,Reading,buddhism,Khandro Dechen and Ngakpa Chogyam
 Distress,Want to read,sci-fi,Greg Egan
 Picturing Quantum Processes,Want to read,physics,Bob Coecke and Stefano Gogioso
@@ -950,7 +950,7 @@ Data Science from Scratch,Read,computer-science,,
 Ishmael,Abandoned,anthropology; fiction; questionable-research,,
 Sapiens,Abandoned,anthropology; questionable-research,Yuval Noah Harari,
 The Creative Act,Abandoned,art,,
-A Guide to the Bodhisattva Way,Abandoned,buddhism,,
+A Guide to the Bodhisattva Way,Reading,buddhism,,
 Spawn ,Abandoned,comics; fiction,,
 In a Flight of Starlings,Abandoned,complex-systems; biography,Giorgio Parisi,
 Grokking Deep Learning,Abandoned,computer-science,,
