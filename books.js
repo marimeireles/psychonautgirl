@@ -1,5 +1,9 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
+The Unbearable Lightness of Being,Reading,fiction;philosophy,Milan Kundera
+Ant Architecture,Reading,biology,Walter R Tschinkel
+Shadows at Noon,Reading,history,Joya Chatterji
 The Computer and the Brain,Read,neuroscience;computer-science,Von Neumann
 Spectrum of Ecstasy,Reading,buddhism,Khandro Dechen and Ngakpa Chogyam
 Distress,Want to read,sci-fi,Greg Egan
@@ -19,7 +23,7 @@ An Introduction to Automata Theory Languages and Computation,Want to read,comput
 Structure and Interpretation of Classical Mechanics,Want to read,physics,Sussman
 On Virtue Ethics,Want to read,philosophy,Rosalind Hursthouse
 Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity,C.S. Lewis
-Consider Phlebas,Want to read,sci-fi,Iain M. Banks
+Consider Phlebas,Reading,sci-fi,Iain M. Banks
 Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
 Living With Complexity,Want to read,complexity,Donald A. Norman
