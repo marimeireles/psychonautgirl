@@ -1,5 +1,20 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Feeling of Life Itself,Want to read,consciousness,Koch
+High Weirdness,Want to read,drugs,magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
+Wild Swans: Three Daughters of China,history;biography,Jung Chang
+Wild Geese,Want to read,poetry,Mary Oliver
+Shadows of the mind,Want to read,consciousness,Penrose
+Letters to a Young Poet,Want to read,poetry,Rainer Maria Rilke 
+Spacetime and Geometry: An Introduction to General Relativity,Want to read,physics, Sean Carroll
+Philebus,Want to read,philosophy,Plato
+Gorgias,Want to read,philosophy,Plato
+Science and the Modern World,Want to read,philosophy;physics,Whitehead
+Terra Ignota,Want to read,sci-fi,Palmer
+Always Coming Home,Want to read,sci-fi,Le Guin
+And Architecture,Reading,biology,Tschinkel
+God is a verb,Reading,judaism;magic,David A. Cooper
+An Enquiry Concerning Human Understanding,Reading,philosophy,Hume
 The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
 The Unbearable Lightness of Being,Reading,fiction;philosophy,Milan Kundera
 Ant Architecture,Reading,biology,Walter R Tschinkel
@@ -71,7 +86,7 @@ Introduction to Statistical Inference,Want to read,math,Kiefer
 Data Analysis A Bayesian Tutorial,Want to read,math,Skilling & Sivia
 Bishop's Pattern Recognition and Machine Learning,Want to read,computer-science,Christopher M. Bishop 
 Salinsky & Frances-White's The Improv Handbook,Want to read,comedy,Tom Salinsky and Deborah Frances-White 
-Does Altruism Exist? Culture Genes and the Welfare of Others,Want to read,evolution;philosophy,David Sloan Wilson
+Does Altruism Exist? Culture Genes and the Welfare of Others,Read,evolution;philosophy,David Sloan Wilson
 This View of Life: Completing the Darwinian Revolution,Want to read,coordination;evolution,David Sloan Wilson
 Right Concentration,Reference,buddhism,Leigh Brasington
 The Three-Body Problem,Read,sci-fi,Ken Liu
@@ -97,7 +112,11 @@ Neuromancer,Read,sci-fi
 The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
 Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
-Peace Is Every Step,Want to read,buddhism,Thich Nhat Hanh
+You Are Here,Read,buddhism,Thich Nhat Hanh
+The Art Of Living,Read,buddhism,Thich Nhat Hanh
+The Art of Mindful Living,Read,buddhism,Thich Nhat Hanh
+Call Me By My True Names,Want to read,buddhism;poetry,Thich Nhat Hanh
+Peace Is Every Step,Read,buddhism,Thich Nhat Hanh
 Shambhala: The Sacred Path of the Warrior,Abandoned,buddhism;magic,Chogyam Trungpa,
 Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
 On Having No Head,Read,buddhism,Douglas Edison Harding
