@@ -2,7 +2,7 @@ const dataString =
 `Name,Status,Type,Author,Notes
 The Feeling of Life Itself,Want to read,consciousness,Koch
 High Weirdness,Want to read,drugs,magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
-Wild Swans: Three Daughters of China,history;biography,Jung Chang
+Wild Swans: Three Daughters of China,Want to read,history;biography,Jung Chang
 Wild Geese,Want to read,poetry,Mary Oliver
 Shadows of the mind,Want to read,consciousness,Penrose
 Letters to a Young Poet,Want to read,poetry,Rainer Maria Rilke 
@@ -12,6 +12,7 @@ Gorgias,Want to read,philosophy,Plato
 Science and the Modern World,Want to read,philosophy;physics,Whitehead
 Terra Ignota,Want to read,sci-fi,Palmer
 Always Coming Home,Want to read,sci-fi,Le Guin
+And Architecture,Reading,biology,Tschinkel
 God is a verb,Reading,judaism;magic,David A. Cooper
 An Enquiry Concerning Human Understanding,Reading,philosophy,Hume
 The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
