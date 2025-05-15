@@ -1,7 +1,7 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
 The Feeling of Life Itself,Want to read,consciousness,Koch
-High Weirdness,Want to read,drugs,magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
+High Weirdness,Want to read,drugs;magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
 Wild Swans: Three Daughters of China,Want to read,history;biography,Jung Chang
 Wild Geese,Want to read,poetry,Mary Oliver
 Shadows of the mind,Want to read,consciousness,Penrose
