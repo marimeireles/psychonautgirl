@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Wisdom of Insecurity,Read,buddhism,Allan Watts
 The dark forest,Reading,sci-fi,Cixin Liu
 The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
 Ulysses,Reading,fiction,James Joyce
