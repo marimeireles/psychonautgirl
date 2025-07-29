@@ -1,22 +1,39 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The dark forest,Reading,sci-fi,Cixin Liu
+The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
+Ulysses,Reading,fiction,James Joyce
+King lear,Want to read,fiction,Shakespeare
+Introduction to Topological Manifolds,Want to read,math,John M. Lee
+Mathematical Structure of Syntactic Merge,Want to read,math;language,Matilda
+Why Greatness Cannot Be Planned,Reading,philosophy,Kenneth O. Stanley and Joel Lehman
+Population Games and Evolutionary Dynamics,Reading,math;game-theory;evolution,Sandholm
+Magic Science and Religion and the Scope of Rationality,Reading,anthropology;religion;history,Stanley Jeyaraja Tambiah
+The Calculus of Selfishness,Reading,math;game-theory,Sigmund
+The Essential Rilke,Reading,poetry,Rilse
+The Rebel,Want to read,fiction;philosophy,Camus
+Ode to a Nightingale,Want to read,poetry,John Keats
+Who Gets What and Why,Want to read,economics,Alvin E. Roth
+1q94,Want to read,fiction,Murakami
+Small Moral Works,Want to read,philosophy,Giacomo Leopardi
+Ramayana,Reading,religion;hinduism,Valmiki
+Essays on the Gita,Want to read,religion;hinduism,Aurobindo
 The Feeling of Life Itself,Want to read,consciousness,Koch
 High Weirdness,Want to read,drugs;magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
 Wild Swans: Three Daughters of China,Want to read,history;biography,Jung Chang
 Wild Geese,Want to read,poetry,Mary Oliver
 Shadows of the mind,Want to read,consciousness,Penrose
-Letters to a Young Poet,Want to read,poetry,Rainer Maria Rilke 
+Letters to a Young Poet,Read,poetry,Rainer Maria Rilke 
 Spacetime and Geometry: An Introduction to General Relativity,Want to read,physics, Sean Carroll
 Philebus,Want to read,philosophy,Plato
 Gorgias,Want to read,philosophy,Plato
-Science and the Modern World,Want to read,philosophy;physics,Whitehead
+Science and the Modern World,Reading,philosophy;physics,Whitehead
 Terra Ignota,Want to read,sci-fi,Palmer
 Always Coming Home,Want to read,sci-fi,Le Guin
-And Architecture,Reading,biology,Tschinkel
 God is a verb,Reading,judaism;magic,David A. Cooper
-An Enquiry Concerning Human Understanding,Reading,philosophy,Hume
+An Enquiry Concerning Human Understanding,Abandoned,philosophy,Hume
 The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
-The Unbearable Lightness of Being,Reading,fiction;philosophy,Milan Kundera
+The Unbearable Lightness of Being,Read,fiction;philosophy,Milan Kundera
 Ant Architecture,Reading,biology,Walter R Tschinkel
 Shadows at Noon,Reading,history,Joya Chatterji
 The Computer and the Brain,Read,neuroscience;computer-science,Von Neumann
@@ -60,7 +77,7 @@ The Tyranny of the Ideal,Want to read,philosophy,Gerald F Gaus
 Post-scarcity Anarchism,Want to read,anarchism;economics,Murray Bookchin
 The Problem of Induction,Want to read,philosophy,Hume
 The Usefulness of Useless Knowledge,Want to read,philosophy,Abraham Flexner and Robbert Dijkgraaf
-Chaos,Want to read,physics;complex-systems,James Gleick
+Chaos,Reading,physics;complex-systems,James Gleick
 Emotional Intelligence,Read,psychology,Daniel Goleman
 Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
 Factfulness,Read,economics;philosophy,Hans Rosling
