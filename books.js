@@ -1,7 +1,7 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
-The dark forest,Reading,sci-fi,Cixin Liu
+The dark forest,Read,sci-fi,Cixin Liu
 The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
 Ulysses,Reading,fiction,James Joyce
 King lear,Want to read,fiction,Shakespeare
@@ -551,7 +551,6 @@ Blindsight,Want to read,sci-fi,Peter Watts,
 Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
-A Fire Upon the Deep,Want to read,sci-fi,,
 Diaspora,Read,sci-fi,Greg Egan,
 Cryptonomicon,Want to read,sci-fi,,
 A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
