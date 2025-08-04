@@ -1,5 +1,6 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+The Player of Games,Reading,sci-fi,Ian Banks
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
 The dark forest,Read,sci-fi,Cixin Liu
 The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
@@ -56,7 +57,7 @@ An Introduction to Automata Theory Languages and Computation,Want to read,comput
 Structure and Interpretation of Classical Mechanics,Want to read,physics,Sussman
 On Virtue Ethics,Want to read,philosophy,Rosalind Hursthouse
 Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity,C.S. Lewis
-Consider Phlebas,Reading,sci-fi,Iain M. Banks
+Consider Phlebas,Stalled,sci-fi,Iain M. Banks
 Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
 Living With Complexity,Want to read,complexity,Donald A. Norman
