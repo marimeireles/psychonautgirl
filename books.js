@@ -1,18 +1,20 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
-The Player of Games,Reading,sci-fi,Ian Banks
+Alcibiades,Read,philosophy,Plato
+The Vital Question,Want to read,biology;teleology,
+The Player of Games,Read,sci-fi,Ian Banks
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
-The dark forest,Read,sci-fi,Cixin Liu
+The Dark Forest,Read,sci-fi,Cixin Liu
 The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
 Ulysses,Reading,fiction,James Joyce
-King lear,Want to read,fiction,Shakespeare
+King Lear,Read,fiction,Shakespeare
 Introduction to Topological Manifolds,Want to read,math,John M. Lee
 Mathematical Structure of Syntactic Merge,Want to read,math;language,Matilda
 Why Greatness Cannot Be Planned,Reading,philosophy,Kenneth O. Stanley and Joel Lehman
 Population Games and Evolutionary Dynamics,Reading,math;game-theory;evolution,Sandholm
 Magic Science and Religion and the Scope of Rationality,Reading,anthropology;religion;history,Stanley Jeyaraja Tambiah
 The Calculus of Selfishness,Reading,math;game-theory,Sigmund
-The Essential Rilke,Reading,poetry,Rilse
+The Essential Rilke,Read,poetry,Rilse
 The Rebel,Want to read,fiction;philosophy,Camus
 Ode to a Nightingale,Want to read,poetry,John Keats
 Who Gets What and Why,Want to read,economics,Alvin E. Roth
@@ -126,7 +128,7 @@ Life the Universe and Everything,Read,sci-fi,Douglas Adams,
 So Long and Thanks for All the Fish,Read,sci-fi,Douglas Adams,
 Mostly Harmless,Read,sci-fi,Douglas Adams,
 How to Travel with a Salmon: and Other Stories,Read,fiction,Umberto Eco
-Snowcrash,Stalled,sci-fi,Neal Stephenson,
+Snowcrash,Read,sci-fi,Neal Stephenson,
 Neuromancer,Read,sci-fi
 The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
 Men Machines and Modern Times,Want to read,history,Elting E. Morison
@@ -156,7 +158,7 @@ Philosophical Investigations,Reading,philosophy,Wittgenstein,
 Secrets of Divine Love: A Spiritual Journey into the Heart of Islam,Want to read,philosophy; islam,Helwa,
 From Darkness Into Light,Want to read,philosophy; islam,Helwa,
 Zen and the Art of Motorcycles,Read,philosophy,Robert Pirsig,
-The Wisdom of Insecurity,Want to read,philosophy,Alan Watts,
+The Wisdom of Insecurity,Read,philosophy,Alan Watts,
 The Social Instinct: How Cooperation Shaped the World,Want to read,psychology; biology,Nichola Raihani,
 Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
 Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
@@ -195,7 +197,6 @@ A Networked Self: Identity Community and Culture on Social Network Sites,Want to
 Ethics: Origin and Development,Want to read,anarchism; philosophy,Peter Kropotkin,
 Squatting in Europe,Want to read,anarchism; urbanism,,
 The Mushroom at the End of the World,Want to read,anthropology,,
-Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Want to read,anthropology,James C. Scott,
 Moral Tribes: Emotion Reason and the Gap Between Us and Them,Want to read,anthropology,,
 The Evolution of Civilizations,Want to read,anthropology,,
 African Fractals,Want to read,anthropology; art,,
@@ -547,14 +548,14 @@ The Shape of Thought: How Mental Adaptations Evolve,Want to read,psychology; evo
 Children of Time,Want to read,sci-fi,,
 Enders Game,Want to read,sci-fi,,
 Stories of Your Life and Others,Read,sci-fi,Ted Chiang,
-Hyperion,Want to read,sci-fi,Dan Simmons,
+Hyperion,Read,sci-fi,Dan Simmons,
 Blindsight,Want to read,sci-fi,Peter Watts,
 Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 Diaspora,Read,sci-fi,Greg Egan,
 Cryptonomicon,Want to read,sci-fi,,
-A Fire Upon the Deep ,Want to read,sci-fi,Vernor Vinge,
+A Fire Upon the Deep,Read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
 Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
 Nonlinear Dynamics and Chaos,Want to read,systems-theory; complex-systems; physics,Strogatz Steven H.,
