@@ -156,67 +156,182 @@
           font-size: 0.9em;
         }
 
-        @media (max-width: 1280px) {
+        @media (max-width: 1280px) and (min-width: 1025px) {
     #book-container {
         display: flex;
-        flex-wrap: wrap; /* Allow items to wrap to the next row */
-        gap: 100px; /* Adds space between items */
-        align-items: center; /* Keeps items aligned properly */
+        flex-wrap: wrap;
+        gap: 100px;
+        align-items: center;
     }
 
     #search-container {
-        flex: 0 0 20%; /* Forces search-container to take full width in the row */
+        flex: 0 0 20%;
         display: flex;
-        justify-content: flex-end; /* Align search input to the right, if needed */
+        justify-content: flex-end;
     }
 
     #searchInput {
-        width: 20%; /* Keeps the search input at 20% width */
+        width: 20%;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    h1 {
+        font-size: 5em;
+        margin: 30px 0;
+    }
+
+    #search-container {
+        width: 85%;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+    }
+
+    #searchInput {
+        width: 40%;
+        font-size: 1.1em;
+    }
+
+    #book-container {
+        width: 85%;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+    }
+
+    #book-container form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #bookName {
+        width: 400px !important;
+        font-size: 0.9em;
+    }
+
+    .send-button {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
+
+    #table-container {
+        width: 85%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table, th, td {
+        font-size: 1em;
+    }
+
+    th, td {
+        min-width: 100px;
+        padding: 8px;
     }
 }
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 4em; /* Reduce the font size for mobile */
+        font-size: 3em;
+        margin: 20px 0;
     }
 
     #search-container {
-        width: 100%; /* Full width for better mobile experience */
-        justify-content: center; /* Center the search bar */
-        margin-bottom: 20px; /* Add some space below the search bar */
+        width: 90%;
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
     #searchInput {
-        width: 80%; /* Increase width for better usability */
-        font-size: 1em; /* Adjust font size */
+        width: 100%;
+        font-size: 1em;
     }
 
     #book-container {
-        width: 100%; /* Full width for better mobile experience */
-        justify-content: center; /* Center the form */
-        margin-bottom: 20px; /* Add some space below the form */
+        width: 90%;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+    }
+
+    #book-container form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #book-container label {
+        text-align: center;
+        width: 100%;
     }
 
     #bookName {
-        width: 70%; /* Increase width for better usability */
-        font-size: 1em; /* Adjust font size */
-    }
-
-    #table-container {
-        width: 95%; /* Increase width for better mobile experience */
-        overflow-x: auto; /* Add horizontal scroll for the table */
-    }
-
-    table, th, td {
-        font-size: 0.9em; /* Reduce font size for better fit */
-    }
-
-    th, td {
-        min-width: 100px; /* Ensure cells have a minimum width */
+        width: 100% !important;
+        max-width: 100%;
+        font-size: 1em;
     }
 
     .send-button {
-        font-size: 0.8em; /* Adjust font size */
+        font-size: 1em;
+        padding: 8px 20px;
+    }
+
+    #table-container {
+        width: 95%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 0.85em;
+    }
+
+    th, td {
+        min-width: 80px;
+        padding: 8px 5px;
+    }
+
+    th:first-child, td:first-child {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+        margin: 15px 0;
+    }
+
+    #book-container {
+        font-size: 1em;
+    }
+
+    table, th, td {
+        font-size: 0.75em;
+    }
+
+    th, td {
+        min-width: 60px;
+        padding: 6px 3px;
+    }
+
+    th:first-child, td:first-child {
+        min-width: 100px;
+    }
+
+    .tag {
+        font-size: 0.75em;
+        padding: 3px 6px;
     }
 }
     </style>
