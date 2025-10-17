@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <title>♡ ｂｏｏｋ　ｌｉｓｔ ♡</title>
+    <style>
+        @font-face {
+            font-family: 'Cookiemonster-gv11';
+            src: url('fonts/Cookiemonster-gv11.ttf') format('truetype');
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 8em;
+            z-index: 999;
+            font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        body {
+            margin: 0;
+            background: #87CEEB; /* Soft blue sky */
+            font-family: 'Indie Flower', 'Patrick Hand', cursive;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        #main-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 0px;
+        }
+        #table-container {
+            width: 80%;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            border: 3px solid rgba(0, 0, 0, 0.6);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Space at the bottom for scrolling */
+        }
+        #searchInput {
+            border: 2px solid rgba(0, 0, 0, 0.6);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 10px 10px; /* Padding for better appearance */
+            outline: none; /* Remove default outline */
+            width: 20%;
+            font-size: 1.05em; /* Increase font size */
+            font-family: 'Indie Flower', 'Patrick Hand', cursive;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            z-index: 999;
+        }
+        #searchInput:focus {
+            background-color: #ffffff; /* Change background color on focus */
+        }
+        #bookName {
+            border: 2px solid rgba(0, 0, 0, 0.6);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 10px 10px; /* Padding for better appearance */
+            outline: none; /* Remove default outline */
+/*            width: 30%;*/
+            height: 40%;
+            font-size: 0.7em; /* Increase font size */
+            font-family: 'Indie Flower', 'Patrick Hand', cursive;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+        }
+
+        #bookName:focus {
+            background-color: #ffffff; /* Change background color on focus */
+        }
+        #search-container {
+            width: 80%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+        #book-container {
+            width: 80%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: -48px;
+            font-size: 1.5em; /* Increase font size */
+            font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            z-index: 999;
+        }
+        #bookInput {
+            border-radius: 25px; /* Rounded corners */
+            padding: 10px 10px; /* Padding for better appearance */
+            outline: none; /* Remove default outline */
+/*            width: 10%;*/
+            font-size: 1.05em; /* Increase font size */
+            font-family: 'Times New Roman', serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+        }
+
+        #bookInput:focus {
+            background-color: #ffffff; /* Change background color on focus */
+        }
+        table, th, td {
+            border-collapse: collapse;
+            padding: 5px;
+            font-size: 1.1em;
+        }
+
+        tr {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+        }
+
+
+        th, td {
+            text-align: left;
+        }
+        th {
+            font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            border-bottom: none;
+            font-size: 1.5em;
+            min-width: 120px;
+        }
+        .arrow {
+            cursor: pointer;
+        }
+        .status-column {
+            padding-right: 20px; /* Adjust the value as needed for the desired space */
+        }
+
+        .status-column,
+        td:nth-child(2) {
+            padding-right: 20px; /* Ensure this applies to all rows */
+        }
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9em;
+        }
+       .send-button {
+        font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+          background-color: rgba(255, 255, 255, 0);
+          color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+          border: none;
+          border-radius: 25px;
+          cursor: pointer;
+          font-size: 0.9em;
+        }
+
+        @media (max-width: 1280px) and (min-width: 1025px) {
+    #book-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 100px;
+        align-items: center;
+    }
+
+    #search-container {
+        flex: 0 0 20%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    #searchInput {
+        width: 20%;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    h1 {
+        font-size: 5em;
+        margin: 30px 0;
+    }
+
+    #search-container {
+        width: 85%;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+    }
+
+    #searchInput {
+        width: 40%;
+        font-size: 1.1em;
+    }
+
+    #book-container {
+        width: 85%;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+    }
+
+    #book-container form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #bookName {
+        width: 400px !important;
+        font-size: 0.9em;
+    }
+
+    .send-button {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
+
+    #table-container {
+        width: 85%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table, th, td {
+        font-size: 1em;
+    }
+
+    th, td {
+        min-width: 100px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3em;
+        margin: 20px 0;
+    }
+
+    #search-container {
+        width: 90%;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    #searchInput {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    #book-container {
+        width: 90%;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+    }
+
+    #book-container form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #book-container label {
+        text-align: center;
+        width: 100%;
+    }
+
+    #bookName {
+        width: 100% !important;
+        max-width: 100%;
+        font-size: 1em;
+    }
+
+    .send-button {
+        font-size: 1em;
+        padding: 8px 20px;
+    }
+
+    #table-container {
+        width: 95%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 0.85em;
+    }
+
+    th, td {
+        min-width: 80px;
+        padding: 8px 5px;
+    }
+
+    th:first-child, td:first-child {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+        margin: 15px 0;
+    }
+
+    #book-container {
+        font-size: 1em;
+    }
+
+    table, th, td {
+        font-size: 0.75em;
+    }
+
+    th, td {
+        min-width: 60px;
+        padding: 6px 3px;
+    }
+
+    th:first-child, td:first-child {
+        min-width: 100px;
+    }
+
+    .tag {
+        font-size: 0.75em;
+        padding: 3px 6px;
+    }
+}
+    </style>
+</head>
+
+<body>
+<h1>Reading List</h1>
+<canvas id="skyCanvas"></canvas>
+<div id="main-content">
+    <div id="book-container">
+      <form
+        action="https://formspree.io/f/xjvndedd"
+        method="POST">
+            <label for="bookName">Recommend a book:</label>
+            <input type="text" id="bookName" name="bookName" placeholder="t y p e . . ."  style="width:500px">
+            <button type="submit" class="send-button"> <b>(send)</b>
+            </button>
+        </form>
+    </div>
+
+    <div id="search-container">
+        <input type="text" id="searchInput" placeholder="s e a r c h . . ." onkeyup="filterData()">
+    </div>
+    <div id="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Name <span class="arrow" onclick="sortData('Name', 'asc')">↑</span><span class="arrow" onclick="sortData('Name', 'desc')">↓</span></th>
+                    <th class="status-column">Status <span class="arrow" onclick="sortData('Status', 'asc')">↑</span><span class="arrow" onclick="sortData('Status', 'desc')">↓</span></th>
+
+                    <th>Type <span class="arrow" onclick="sortData('Type', 'asc')">↑</span><span class="arrow" onclick="sortData('Type', 'desc')">↓</span></th>
+                    <th>Author </th>
+                    <th>Notes </th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Dynamic rows here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="books.js"></script>
+
+<script>
+    const canvas = document.getElementById('skyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function adjustCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    adjustCanvasSize();
+    window.addEventListener('resize', adjustCanvasSize);
+
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    class Cloud {
+        constructor() {
+            this.x = random(0, canvas.width);
+            this.y = random(0, canvas.height);
+            this.size = random(60, 120);
+            this.speed = random(0.1, 0.2);
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 0.5, this.y - this.size * 0.4, this.size * 0.7, 0, Math.PI * 2);
+            ctx.arc(this.x + this.size * 1.5, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        update() {
+            this.x += this.speed;
+            if (this.x - this.size > canvas.width) {
+                this.x = 0 - this.size;
+                this.y = random(0, canvas.height / 2);
+            }
+        }
+    }
+
+    const clouds = [];
+    for (let i = 0; i < 20; i++) {
+        clouds.push(new Cloud());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        clouds.forEach(cloud => {
+            cloud.draw();
+            cloud.update();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    function filterData() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById('data-table');
+        const trs = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < trs.length; i++) { // Skip the header row
+            const tds = trs[i].getElementsByTagName('td');
+            let match = false;
+            for (let j = 0; j < tds.length; j++) {
+                if (tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+            trs[i].style.display = match ? '' : 'none';
+        }
+    }
+</script>
+</body>
+</html>

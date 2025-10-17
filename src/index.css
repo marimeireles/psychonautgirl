@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 270 40% 88%;
+    --foreground: 280 30% 25%;
+
+    --card: 300 35% 92%;
+    --card-foreground: 280 30% 25%;
+
+    --popover: 300 35% 92%;
+    --popover-foreground: 280 30% 25%;
+
+    --primary: 330 85% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 280 45% 85%;
+    --secondary-foreground: 280 30% 25%;
+
+    --muted: 290 30% 90%;
+    --muted-foreground: 280 20% 45%;
+
+    --accent: 310 100% 95%;
+    --accent-foreground: 330 70% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 280 25% 60%;
+    --input: 0 0% 100%;
+    --ring: 330 85% 65%;
+
+    --radius: 0;
+    
+    --title-gradient-start: 180 75% 75%;
+    --title-gradient-end: 330 75% 75%;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 15% 15%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 10% 25%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 10% 25%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 210 100% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 25%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 240 10% 35%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 330 100% 85%;
+    --accent-foreground: 330 80% 20%;
+
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 40%;
+    --input: 240 10% 20%;
+    --ring: 210 100% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+@layer utilities {
+  .win95-border {
+    border-style: solid;
+    border-width: 2px;
+    border-color: hsl(0 0% 100%) hsl(0 0% 25%) hsl(0 0% 25%) hsl(0 0% 100%);
+    box-shadow: inset 1px 1px 0 hsl(0 0% 87%), inset -1px -1px 0 hsl(0 0% 50%);
+  }
+  
+  .win95-border-inset {
+    border-style: solid;
+    border-width: 2px;
+    border-color: hsl(0 0% 25%) hsl(0 0% 100%) hsl(0 0% 100%) hsl(0 0% 25%);
+    box-shadow: inset -1px -1px 0 hsl(0 0% 87%), inset 1px 1px 0 hsl(0 0% 50%);
+  }
+  
+  .win95-title {
+    background: linear-gradient(90deg, hsl(var(--title-gradient-start)), hsl(var(--title-gradient-end)));
+  }
+  
+  .taskbar-gradient {
+    background: linear-gradient(180deg, hsl(290 40% 88%), hsl(280 35% 82%));
+  }
+  
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+}
