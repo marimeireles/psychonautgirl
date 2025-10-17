@@ -1,0 +1,1124 @@
+const dataString = 
+`Name,Status,Type,Author,Notes
+Alcibiades,Read,philosophy,Plato
+The Vital Question,Want to read,biology;teleology,
+The Player of Games,Read,sci-fi,Ian Banks
+The Wisdom of Insecurity,Read,buddhism,Allan Watts
+The Dark Forest,Read,sci-fi,Cixin Liu
+The dynamic world of Ukiyo-e,Want to read,art,Kuniyoshi
+Ulysses,Reading,fiction,James Joyce
+King Lear,Read,fiction,Shakespeare
+Introduction to Topological Manifolds,Want to read,math,John M. Lee
+Mathematical Structure of Syntactic Merge,Want to read,math;language,Matilda
+Why Greatness Cannot Be Planned,Reading,philosophy,Kenneth O. Stanley and Joel Lehman
+Population Games and Evolutionary Dynamics,Reading,math;game-theory;evolution,Sandholm
+Magic Science and Religion and the Scope of Rationality,Reading,anthropology;religion;history,Stanley Jeyaraja Tambiah
+The Calculus of Selfishness,Reading,math;game-theory,Sigmund
+The Essential Rilke,Read,poetry,Rilse
+The Rebel,Want to read,fiction;philosophy,Camus
+Ode to a Nightingale,Want to read,poetry,John Keats
+Who Gets What and Why,Want to read,economics,Alvin E. Roth
+1q94,Want to read,fiction,Murakami
+Small Moral Works,Want to read,philosophy,Giacomo Leopardi
+Ramayana,Reading,religion;hinduism,Valmiki
+Essays on the Gita,Want to read,religion;hinduism,Aurobindo
+The Feeling of Life Itself,Want to read,consciousness,Koch
+High Weirdness,Want to read,drugs;magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
+Wild Swans: Three Daughters of China,Want to read,history;biography,Jung Chang
+Wild Geese,Want to read,poetry,Mary Oliver
+Shadows of the mind,Want to read,consciousness,Penrose
+Letters to a Young Poet,Read,poetry,Rainer Maria Rilke 
+Spacetime and Geometry: An Introduction to General Relativity,Want to read,physics, Sean Carroll
+Philebus,Want to read,philosophy,Plato
+Gorgias,Want to read,philosophy,Plato
+Science and the Modern World,Reading,philosophy;physics,Whitehead
+Terra Ignota,Want to read,sci-fi,Palmer
+Always Coming Home,Want to read,sci-fi,Le Guin
+God is a verb,Reading,judaism;magic,David A. Cooper
+An Enquiry Concerning Human Understanding,Abandoned,philosophy,Hume
+The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
+The Unbearable Lightness of Being,Read,fiction;philosophy,Milan Kundera
+Ant Architecture,Reading,biology,Walter R Tschinkel
+Shadows at Noon,Reading,history,Joya Chatterji
+The Computer and the Brain,Read,neuroscience;computer-science,Von Neumann
+Spectrum of Ecstasy,Reading,buddhism,Khandro Dechen and Ngakpa Chogyam
+Distress,Want to read,sci-fi,Greg Egan
+Picturing Quantum Processes,Want to read,physics,Bob Coecke and Stefano Gogioso
+Invisible Cities,Want to read,fiction,Italo Calvino
+Narciss and Goldmund,Want to read,fiction,Hesse
+The Perennial Philosophy,Want to read,philosophy,Huxley
+What it is like to be a Bat,Want to read,philosophy,Thomas Nagel
+On Certainty,Want to read,philosophy,Wittgenstein
+Embodied Mind: Cognitive Science and Human Experience,Want to read,psychology;philosophy,Francisco Varela
+Reinventing the sacred: A new view of science reason and religion,Want to read,philosophy,Stuart Kauffman
+The tao is silent,Reading,buddhism;philosophy,Raymon Smullyan
+The Autobiography of a Super-Tramp,Read,autobiography,H. W. Davis
+Jung's Map of the Soul,Read,psychology,
+Learn Physics with Functional Programming,Want to read,physics,Scott N. Walck
+An Introduction to Automata Theory Languages and Computation,Want to read,computer-science,Hopcroft
+Structure and Interpretation of Classical Mechanics,Want to read,physics,Sussman
+On Virtue Ethics,Want to read,philosophy,Rosalind Hursthouse
+Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity,C.S. Lewis
+Consider Phlebas,Stalled,sci-fi,Iain M. Banks
+Opression and liberty,Reading,philosophy;economics,Simone Weil
+How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
+Living With Complexity,Want to read,complexity,Donald A. Norman
+Modern Man in Search of a Soul,Read,psicology,Jung
+The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
+River Out of Eden,Want to read,evolution;history,Richard Dawkins
+Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
+My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
+Broke: Fixing Britain’s poverty crisis,Reading,economics,Tom Clark
+I Want to Keep Smashing Myself Until I Am Whole,Want to read,philosophy,Elias Canetti and Joshua Cohen
+Why Greatness Cannot Be Planned,Want to read,computer-science;psychology,Kenneth O. Stanley and Joel Lehman
+Models of My Life,Want to read,philosophy;economics,Herbert Simon
+The Complex World,Want to read,complex-systems,Krakauer
+The Democracy Project,Want to read,history;anthropology;economics,David Graeber
+A Book of Noises,Want to read,music,Caspar Henderson
+The Moment of Complexity,Want to read,complex-systems,Mike Taylor
+Cooperation: A Political Economic and Social Theory,Want to read,coordination;game-theory,Harcourt
+The Tyranny of the Ideal,Want to read,philosophy,Gerald F Gaus
+Post-scarcity Anarchism,Want to read,anarchism;economics,Murray Bookchin
+The Problem of Induction,Want to read,philosophy,Hume
+The Usefulness of Useless Knowledge,Want to read,philosophy,Abraham Flexner and Robbert Dijkgraaf
+Chaos,Reading,physics;complex-systems,James Gleick
+Emotional Intelligence,Read,psychology,Daniel Goleman
+Good Economics for Hard Times,Reading,economics,Abhijit and Duflo
+Factfulness,Read,economics;philosophy,Hans Rosling
+Dynamical Systems in Neuroscience,Want to read,neuroscience,Eugene M. M Izhikevich
+The Cyberiad,Read,sci-fi,Stanisław Lem
+The Age of Em,Reading,futurism,Robin Hanson,
+How Asia Works,Read,economics;history,Joe Studwell,
+Norwegian Wood,Stalled,fiction,Haruki Murakami,
+Tudo é rio,Read,fiction,Carla Madeira,
+The Language Instinct,Want to read,psychology;evolution;consciousness,Steven Pinker
+The Society of Mind,Reading,consciousness;computer-science,Marvin Minsky
+Logicomix,Want to read,comics,Apostolos Doxiadis
+The Miracle of Mindfulness,Read,buddhism,Thich Nhat Hanh
+Deschooling Society,Want to read,education,Ivan Illich
+Free schools,Want to read,education,Jonathan Kozol
+The Ignorant Schoolmaster,Want to read,education,Jacques Rancière
+Cognitive Science An Introduction to the Science of the Mind,Want to read,psychology;neuroscience,Jose Luis Bermudez
+Macroeconomics,Want to read,economics,Mankiw
+Algebra,Want to read,math,Serge Lang
+The Theory of Groups and Quantum Mechanics,Want to read,math;physics,Weyl
+Representation Theory A First Course,Want to read,math,Fulton & Harris
+Introduction to Statistical Inference,Want to read,math,Kiefer
+Data Analysis A Bayesian Tutorial,Want to read,math,Skilling & Sivia
+Bishop's Pattern Recognition and Machine Learning,Want to read,computer-science,Christopher M. Bishop 
+Salinsky & Frances-White's The Improv Handbook,Want to read,comedy,Tom Salinsky and Deborah Frances-White 
+Does Altruism Exist? Culture Genes and the Welfare of Others,Read,evolution;philosophy,David Sloan Wilson
+This View of Life: Completing the Darwinian Revolution,Want to read,coordination;evolution,David Sloan Wilson
+Right Concentration,Reference,buddhism,Leigh Brasington
+The Three-Body Problem,Read,sci-fi,Ken Liu
+At Home in Mitford,Want to read,fiction,Jan Karon
+Good Omens,Abandoned,fiction, Terry Pratchett and Neil Gaiman
+Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
+Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
+Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
+The Science of Enlightenment: How Meditation Works,Read,buddhism,Shinzen Young
+Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
+Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
+Diversity and Complexity,Stalled,complex-systems,Scott E. Page
+Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
+Radical Markets,Want to read,economics,Glen Weil
+The Hitchhiker's Guide to the Galaxy,Read,sci-fi,Douglas Adams,
+The Restaurant at the End of the Universe,Read,sci-fi,Douglas Adams,
+Life the Universe and Everything,Read,sci-fi,Douglas Adams,
+So Long and Thanks for All the Fish,Read,sci-fi,Douglas Adams,
+Mostly Harmless,Read,sci-fi,Douglas Adams,
+How to Travel with a Salmon: and Other Stories,Read,fiction,Umberto Eco
+Snowcrash,Read,sci-fi,Neal Stephenson,
+Neuromancer,Read,sci-fi
+The Rise and Fall of American Growth,Want to read,history,Robert J. Gordon
+Men Machines and Modern Times,Want to read,history,Elting E. Morison
+Commoning as a Transformative Social Paradigm,Want to read,anarchism;urbanism,David Bollier
+You Are Here,Read,buddhism,Thich Nhat Hanh
+The Art Of Living,Read,buddhism,Thich Nhat Hanh
+The Art of Mindful Living,Read,buddhism,Thich Nhat Hanh
+Call Me By My True Names,Want to read,buddhism;poetry,Thich Nhat Hanh
+Peace Is Every Step,Read,buddhism,Thich Nhat Hanh
+Shambhala: The Sacred Path of the Warrior,Abandoned,buddhism;magic,Chogyam Trungpa,
+Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
+On Having No Head,Read,buddhism,Douglas Edison Harding
+Cooperative Game Theory and Applications,Want to read,game-theory;coordination,Imma Curiel
+Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
+Difficult Conversations,Want to read,psychology,Douglas Stone et al.
+The Book of Joy,Read,buddhism,Dalai Lama and Desmond Tutu
+A Guide to the Good Life,Read,philosophy; psychology,William Irvine
+Consciousness Explained,Reading,consciousness,Daniel C. Dennet
+The Knowledge Machine,Want to read,philosophy,Michael Strevens
+Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
+What is Truth,Want to read,philosophy,Peter Vardy
+The Logic of Scientific Discovery,Stalled,philosophy,Popper
+The Other Significant Others,Read,psychology,,Not a lot of content, unfortunately.
+A Treatise of Human Nature,Want to read,philosophy,Hume,
+Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
+Philosophical Investigations,Reading,philosophy,Wittgenstein,
+Secrets of Divine Love: A Spiritual Journey into the Heart of Islam,Want to read,philosophy; islam,Helwa,
+From Darkness Into Light,Want to read,philosophy; islam,Helwa,
+Zen and the Art of Motorcycles,Read,philosophy,Robert Pirsig,
+The Wisdom of Insecurity,Read,philosophy,Alan Watts,
+The Social Instinct: How Cooperation Shaped the World,Want to read,psychology; biology,Nichola Raihani,
+Walden Two,Want to read,fiction; philosophy,B.F. Skinner,
+Beyond Freedom and Dignity,Want to read,philosophy,B.F. Skinner,
+The Emergence of Organizations and Markets,Want to read,economics; history,John F. Padgett & Walter W. Powell,
+Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed,Read,history; economics; urbanism,James C. Scott,Great and unexpected insights against communism coming from the far-left.
+Famine Affluence and Morality,Read,philosophy,Peter Singer,
+The Art of Statistics: How to Learn from Data,Reading,math,David Spiegelhalter,
+If You're an Egalitarian How Come You're So Rich?,Want to read,economics; philosophy,G.A. Cohen,
+Supercooperators: The Mathematics of Evolution Altruism and Human Behaviour,Want to read,coordination; evolution,Martin Nowak,
+The Nature of Computation,Reading,computer-science; math,Cristopher Moore & Stephan Mertens,
+Category Theory for the Sciences,Want to read,math,David I. Spivak,
+A Mathematician's Apology,Want to read,math; philosophy,G.H. Hardy,
+Evolutionary Dynamics: Exploring the Equations of Life,Want to read,evolution; biology; math,Martin Nowak,
+Dilla Time,Want to read,biography,Dan Charnas,
+Foundryside,Want to read,sci-fi,Robert Jackson Bennett,
+The Long Way to a Small Angry Planet,Read,sci-fi,Becky Chambers,
+Beyond,Want to read,game-theory; philosophy; psychology,Martin Nowak,
+Finite and Infinite Games,Want to read,philosophy; psychology,James P. Carse,
+I Am a Strange Loop,Read,philosophy; math; biography,Douglas R. Hofstadter,
+Gathering Moss,Want to read,biology,Robin Wall Kimmerer,
+Reading Lessons,Want to read,education,Carol Atherton,
+What Capitalism Needs Forgotten Lessons of Great Economists,Want to read,economics,John L Campbell John A. Hall,
+Lyapunov Exponents,Want to read,complex-systems; physics,Arkady Pikovsky,
+All the Mathematics You Missed,Want to read,math,,
+Chaotic dynamics,Want to read,complex-systems; physics,,
+Chaos in dynamical systems,Want to read,complex-systems; physics,Edward Ott,
+Foundations of Complex-system Theories,Want to read,complex-systems,Sunny Auyang,
+Intellectual Curiosity and the Scientific Revolution,Want to read,history,Toby Huff,
+Tales of Japan,Want to read,fiction,,
+Cognition in the Wild,Want to read,neuroscience,Edwin Hutchins,
+The Economy of Cities,Want to read,economics; urbanism,Jane Jacobs,
+Green Development: Environment and sustainability in the Third World,Want to read,agroecology,,
+Finding the Mother Tree,Want to read,agroecology,,
+Organic Manifesto: How Organic Farming Can Heal Our Planet Feed the World and Keep Us Safe,Want to read,agroecology; economics,,
+A Networked Self: Identity Community and Culture on Social Network Sites,Want to read,anarchism; computer-science; psychology,,
+Ethics: Origin and Development,Want to read,anarchism; philosophy,Peter Kropotkin,
+Squatting in Europe,Want to read,anarchism; urbanism,,
+The Mushroom at the End of the World,Want to read,anthropology,,
+Moral Tribes: Emotion Reason and the Gap Between Us and Them,Want to read,anthropology,,
+The Evolution of Civilizations,Want to read,anthropology,,
+African Fractals,Want to read,anthropology; art,,
+The Secret of Our Success: How Culture Is Driving Human Evolution; Domesticating Our Species; and Making Us Smarter,Want to read,anthropology; behaviorism; evolution; history; psychology,Joseph Henrich,
+A Billion Wicked Thoughts: What the Internet Tells Us About Sexual Relationships,Want to read,anthropology; computer-science,,
+Technology of the Oppressed: Inequity and the Digital Mundane in Favelas of Brazil,Want to read,anthropology; computer-science,,
+Discipline and Punish: The Birth of the Prison,Read,philosophy;history,Foucault,Like every Foucault book this could have been a couple of pages long paper couldn't it?
+The Collapse of Complex Societies,Want to read,anthropology; coordination; economics; history,Joseph A. Tainter,
+On Human Nature,Want to read,anthropology; evolution; philosophy; psychology,E. O. Wilson,
+War and Peace and War: The Rise and Fall of Empires,Want to read,anthropology; history,Peter Turchin,
+Ultrasociety,Want to read,anthropology; history; systems-theory,Peter Turchin,
+A Brief History of Everyone Who Ever Lived: The Stories in Our Genes,Want to read,anthropology; neuroscience,,
+Cosmos,Want to read,anthropology; physics; history,Carl Sagan,
+Cybernetics Art and Ideas,Want to read,art,,
+10 PRINT CHR$(205.5+RND(1)); : GOTO 10,Want to read,art; computer-science; history,,
+Genetics and Analysis of Quantitative Traits,Want to read,behaviorism; evolution,,
+The Bell Curve: Intelligence and Class Structure in American Life,Want to read,behaviorism; psychology; questionable-research,Herrnstein,
+The Confessions,Want to read,biography,,
+The Book of Margery Kempe,Want to read,biography,,
+Essays,Want to read,biography,Augustine,
+Grace Abounding,Want to read,biography,Michel de Montaigne,
+The Narrative of the Captivity and Restoration,Want to read,biography,,
+The Autobiography of Benjamin Franklin,Want to read,biography,,
+Narrative of the Life of Frederick Douglass,Want to read,biography,,
+Incidents in the Life of a Slave Girl,Want to read,biography,,
+Little House on the Prairie,Want to read,biography,,
+The Road from Coorain,Want to read,biography,,
+Black Boy,Want to read,biography,Richard Wright,
+The Autobiography of Malcolm X,Want to read,biography,,
+Hunger of Memory,Want to read,biography,,
+The Year of Magical Thinking,Want to read,biography,,
+LSD My Problem Child,Want to read,biography; drugs,Albert Hofmann,
+My View of the World,Want to read,biography; philosophy,Schroedigner,
+The Song of the Cell: An Exploration of Medicine and the New Human,Want to read,biology,,
+Master Builder: How the New Science of the Cell is Rewriting the Story of Life,Want to read,biology; evolution,,
+Why Buddhism Is True,Abandoned,buddhism,Bachelor,Very introductory to buddhist practices.
+Regenesis: Feeding the World Without Devouring the Planet,Want to read,climate,,
+All We Can Save: Truth; Courage and Solutions for the Climate Crisis,Want to read,climate,,
+Complex Ecology,Want to read,climate; complex-systems,,
+What If,Want to read,comics; computer-science; math; physics,Munroe,
+Ghost in the Shell,Want to read,comics; fiction,,
+Akira,Want to read,comics; fiction,,
+The World of Eden,Want to read,comics; fiction,Moebius,
+When the Wind Blows,Want to read,comics; fiction,Raymond Briggs,
+The Primacy of Doubt: From Quantum Physics to Climate Change,Want to read,complex-systems,Tim Palmer,
+Complex Population Dynamics: A Theoretical/Empirical Synthesis,Want to read,complex-systems; coordination,Peter Turchin,
+Systems Thinking for Social Change,Want to read,complex-systems; coordination,,
+Out of Control,Want to read,complex-systems; coordination; psychology,Kevin Kelly,
+The Age of Prediction: Algorithms and the Shifting Shadow of Risk,Want to read,computer-science,,
+The Essence of Software,Want to read,computer-science,Daniel Jackson,
+Refactoring,Want to read,computer-science,Martin Fowler,
+The Pragmatic Programmer: From Journeyman to Master,Want to read,computer-science,Andy Hunt; Dave Thomas,
+Artificial Intelligence: A Modern Approach,Want to read,computer-science,Russel Norvig,
+Staff Engineer: Leadership Beyond the Management Track,Want to read,computer-science,Will Larson,
+Code,Want to read,computer-science,Charles Petzold,
+Web Assembly in Action,Want to read,computer-science,,
+Compilers: Principles Techniques and Tools,Want to read,computer-science,,
+Waltzing With Bears: Managing Risk on Software Projects,Want to read,computer-science,,
+Fairness and Machine Learning: Limitations and Opportunities,Want to read,computer-science,Solon Barca’s Moritz Hardt and Narayana,
+The Alignment Problem Machine Learning and Human Values,Want to read,computer-science; philosophy,,
+Code: Version 2.0,Want to read,computer-science; governance,,
+Curl,Want to read,computer-science; governance,Guy that made curl,
+The Revolt of The Public and the Crisis of Authority in the New Millennium,Want to read,computer-science; governance,Martin Gurri Arnold Kling,
+The Stack: On Software and Sovereignty ,Want to read,computer-science; governance,,
+Democracy in the Information Age,Want to read,computer-science; governance,Elaine Kamarck; Joseph Nye,
+Accelerating Democracy: Transforming Governance Through Technology,Want to read,computer-science; governance,,
+@ is for Activism: Dissent Resistance and Rebellion in a Digital Culture,Want to read,computer-science; governance,,
+#Republic: Divided Democracy in the Age of Social Media,Want to read,computer-science; governance,Sunstein,
+The Crowdfunding Revolution: Social Networking Meets Venture Financing,Want to read,computer-science; governance; economics,Lawton Marom,
+Abolish Silicon Valley,Want to read,computer-science; governance; economics,,
+A World Without Work,Want to read,computer-science; governance; economics,,
+Active Measures,Want to read,computer-science; disinformation,,
+Geekonomics: The Real Cost of Insecure Software,Want to read,computer-science; economics; info-sec,,
+Art of Doing Science and Engineering: Learning to Learn,Want to read,computer-science; education,,
+A Madman Dreams of Turing Machines,Want to read,computer-science; history,,
+A Computer Called Leo,Want to read,computer-science; history,,
+A Brief History of the Future: From Radio Days to Internet Years in a Lifetime,Want to read,computer-science; history,,
+A Brief History of Computing,Want to read,computer-science; history,,
+@War: The Rise of the Military-Internet Complex,Want to read,computer-science; history,,
+Quantum Computing Since Democritus,Want to read,computer-science; history; math; physics,Scott Aaronson,
+The Nature of Mathematical Modeling,Want to read,computer-science; math,Neil Geshenfeld,
+An Introduction to Statistical Learning: With Applications in R,Want to read,computer-science; math,,
+Computers and Intractability: A Guide to the Theory of NP-Completeness,Want to read,computer-science; math,,
+Principles of Computational Modelling in Neuroscience,Want to read,computer-science; neuroscience,,
+Fundamentals of Computational Neuroscience,Want to read,computer-science; neuroscience,Trappenberg,
+The Computer and the Brain,Want to read,computer-science; neuroscience; systems-theory,Von Neumann,
+Moral AI: And How We Get There,Want to read,computer-science; philosophy,Jana Schalch Borg,
+Hackers & Painters: Big Ideas from the Computer Age,Want to read,computer-science; philosophy,Paul Graham,
+A Gift of Fire: Social Legal and Ethical Issues for Computing Technology,Want to read,computer-science; philosophy,,
+A Dangerous Master: How to Keep Technology from Slipping Beyond Our Control,Want to read,computer-science; philosophy,,
+A Crowd of One: The Future of Individual Identity,Want to read,computer-science; philosophy; psychology,,
+Algorithms to Live By,Want to read,computer-science; psychology,,
+The Conscious Mind: In Search of a Fundamental Theory,Want to read,consciousness; philosophy,David Chalmers,
+The Elephant in the Brain,Want to read,consciousness,,
+Thoughtfulness and the Rule of Law,Want to read,governance,Jeremy Waldron,
+End Times: Elites Counter-Elites and the Path of Political Disintegration,Want to read,governance,Peter Turchin,
+Where There Is No Government,Want to read,governance,Joireman,
+Patterns of Democracy,Want to read,governance,Arend Lijphart,
+The Death and Life of Great American Cities,Want to read,governance;urbanism,,
+Governing the Commons,Read,governance;game-theory,Elinor Ostrom,
+Systems Thinking for Social Change,Want to read,governance,,
+Regenerative Leadership,Want to read,governance,Giles Hutchins & Laura Storm,
+The End of Poverty,Want to read,economics; economics,Sach,
+How the World Really Works,Want to read,economics,Vaclav Smil,
+Controlling Corruption,Want to read,governance; economics,,
+The Great Transformation,Want to read,governance; economics; history,Karl Polanyi,
+Knowledge And Decisions,Want to read,governance; economics; philosophy,Thomas Sowell,
+The Myth of the Rational Voter: Why Democracies Choose Bad Policies,Want to read,governance; economics; psychology,Bryan Caplan,
+Another Now: Dispatches from an Alternative Present,Want to read,governance; fiction,Yanis Varoufakis,Kind of like Postcapitalism but better(?)
+Democracy in America,Want to read,governance; history,Tocqueville,
+Collapse: How Societies Choose to Fail or Succeed ,Want to read,governance; history,Jared Diamond,
+Our Political Nature: The Evolutionary Origins of What Divides Us,Want to read,governance; history; psychology,Avi Tuschman,
+Open Development: Networked Innovations in International Development,Want to read,governance; open-source,,
+Why We're Polarized,Want to read,governance; philosophy,Ezra Klein,
+Economics of Good and Evil,Want to read,economics,,Similar to Poor Economics
+The Persistency of Poverty ,Want to read,economics,,
+The New Economics: A Manifesto,Want to read,economics,Steve Keen,
+Mission Economy,Want to read,economics,Mariana Mazzucato,
+Everything for Everyone,Want to read,economics,,
+Ours to Hack and to Own,Want to read,economics,Schneider,
+Good Capitalism; Bad Capitalism; and the Economics of Growth and Prosperity,Want to read,economics,,
+Basic Economics: A Common Sense Guide to the Economy,Want to read,economics,,
+On Classical Economics,Want to read,economics,Thomas Sowell,
+The Times Complete History of the World,Want to read,economics,Richard Overy,
+The Thank You Economy,Want to read,economics,,
+Doing Economics: A Guide to Understanding and Carrying Out Economic Research,Want to read,economics,,
+How Markets Fail: The Logic of Economic Calamities,Want to read,economics,,
+The Trouble with Markets: Saving Capitalism from Itself,Want to read,economics,,
+Capitalism Socialism and Democracy,Want to read,economics;governance,,
+Building a Sustainable and Desirable Economy-in-Society-in-Nature,Want to read,economics,,
+Understanding Capital: Marx's Economic Theory,Want to read,economics;history,,
+Grassroots and Nonprofit Leadership: A Guide for Organizations in Changing Times,Want to read,economics,,
+Imperialism in the Twenty-First Century: Globalization Super-Exploitation and Capitalism's Final Crisis,Want to read,economics;history,,
+Rethinking Money: How New Currencies Turn Scarcity into Prosperity,Want to read,economics,,
+The Looting Machine: Warlords Oligarchs Corporations Smugglers and the Theft of Africa's Wealth,Want to read,economics,,
+Inequality: What Can Be Done?,Want to read,economics,,
+Politics Is for Power: How to Move Beyond Political Hobbyism Take Action and Make Real Change,Want to read,economics,,
+Small Is Beautiful: Economics as if People Mattered,Want to read,economics,,
+Common Wealth: Economics for a Crowded Planet,Want to read,economics,,
+Social Justice Handbook: Small Steps for a Better World,Want to read,economics,,
+The Local Economy Solution,Want to read,economics,,
+Beyond Growth: The Economics of Sustainable Development,Want to read,economics,,
+The Good Society: The Humane Agenda,Want to read,economics,,
+Local Is Our Future: Steps to an Economics of Happiness,Want to read,economics,,
+Moral Politics: How Liberals and Conservatives Think,Want to read,economics,,
+Social Entrepreneurship: What Everyone Needs to Know,Want to read,economics;governance,,
+Manifesto of the Free People's Union,Want to read,economics,,
+Cities and the Wealth of Nations,Want to read,economics;urbanism,,
+Wikinomics: How Mass Collaboration Changes Everything,Want to read,economics,,
+Creating a Learning Society: A New Approach to Growth Development and Social Progress,Want to read,economics,,
+The Wealth of Nations/The Theory of Moral Sentiments,Want to read,economics,,
+Merchants of Doub,Want to read,economics,,
+You Can't Be Neutral on a Moving Train: A Personal History of Our Times,Want to read,economics,,
+Why Nations Fail,Want to read,economics,Daron Acemoglu and James A. Robinson,
+Inventing the Future: Postcapitalism and a World Without Work,Want to read,economics; anarchism;governance,,
+The Case Against Education: Why the Education System Is a Waste of Time and Money,Want to read,economics; education,Bryan Caplan,
+Atlas Shrugged,Want to read,economics; fiction,Ayn Rand,
+Analyzing Politics,Want to read,economics; game-theory, Kenneth A Shepsle,
+Understanding Power: The Indispensable Chomsky,Want to read,economics; history,,
+The Revolution Will Not be Funded,Want to read,economics; philosophy,,
+The Wisdom of Crowds,Want to read,economics; psychology,James Surowiecki,
+Nudge,Want to read,economics; questionable-research,Sunstein,
+The Tipping Point: How Little Things Can Make a Big Difference,Want to read,economics; questionable-research,Malcolm Gladwell,
+Blind Spots: Why We Fail to Do What's Right and What to Do about It,Want to read,economics; questionable-research,,
+Blindness,Abandoned,fiction,Saramago,So incredibly boring.
+Animal Spirits: How Human Psychology Drives the Economy and Why It Matters for Global Capitalism,Want to read,economics; questionable-research,,
+The Educated Mind,Want to read,education,,
+Seven Complex Lessons in Education for the Future,Want to read,education,Edgar Morin,
+Pedagogy of Freedom,Want to read,education,Paulo Freire,
+Pedagogia do Oprimido,Want to read,education,Paulo Freire,
+How We Learn: The New Science of Education and the Brain,Want to read,education; neuroscience,,
+Power Sex Suicide: Mitochondria and the Meaning of Life,Want to read,evolution,Nick Lane,
+The Selfish Gene,Want to read,evolution,Dawkins,
+Consilience,Want to read,evolution,E. O. Wilson,
+The Origins of Species,Want to read,evolution,,
+The Machinery of Life,Want to read,evolution; biology,David S. Goodsell,
+Evolution and the Theory of Games,Want to read,evolution; math; systems-theory,John Maynard Smith,
+A History of the Human Brain: From the Sea Sponge to CRISPR; How Our Brain Evolved,Want to read,evolution; neuroscience,Bret Stekta,
+How to Travel with a Salmon: And Other Essays,Read,fiction,Umberto Eco,
+Fahrenheit 451,Want to read,fiction,,
+The Sound and the Fury,Want to read,fiction,William Faulkner
+The High King,Want to read,fiction,,
+Taran Wanderer,Want to read,fiction,,
+Solenoid,Want to read,fiction,Mircea Cărtărescu,
+Gilead,Want to read,fiction,,
+The Ballad of Black Tom,Want to read,fiction,,
+I Wonder What Human Flesh Tastes Like,Want to read,fiction,,
+Jade City,Want to read,fiction,Fonda Lee,
+Mistborn,Want to read,fiction,Brandon Sanderson,
+Another Now: Dispatches from an Alternative Present,Want to read,fiction,Yanis Varoufakis,
+Foucault's Pendulum,Want to read,fiction,Umberto Eco,
+The Grail Quest,Want to read,fiction,Bernard Cornwell,
+Into the Wild,Want to read,fiction,,
+The Sound and Fury,Want to read,fiction,,
+Howl’s Moving Castle,Want to read,fiction,,
+David Copperfield,Want to read,fiction,,
+Oliver Twist,Want to read,fiction,,
+The Call of the Wild,Read,fiction,,
+And Then There Were None,Want to read,fiction,,
+The Girl With the Dragon Tattoo,Want to read,fiction,,
+Dungeon Crawler Karl,Want to read,fiction,,
+A Wizard of Earthsea Rimbaud,Want to read,fiction,,
+Lolita,Want to read,fiction,Vladimir Nabokov,
+Man’s Search for Meaning,Want to read,biography; philosophy,Viktor Frankl,
+Waves,Want to read,fiction,Virginia Woolf,
+Mrs Dalloway,Want to read,fiction,Virginia Woolf,
+The Decameron,Want to read,fiction,Boccaccio,
+O Guarani,Want to read,fiction,,
+O Ateneu,Want to read,fiction,,
+Sagarana,Want to read,fiction,,
+The Gambler,Want to read,fiction,Dostoevsky,
+Moby Dick,Want to read,fiction,,
+Don Quixote,Want to read,fiction,,
+The Return of the Native,Want to read,fiction,,
+Madame Bovary,Want to read,fiction,,
+Huckleberry Finn,Want to read,fiction,,
+The Portrait of a Lady,Want to read,fiction,,
+Red Badge of Courage,Want to read,fiction,,
+Seize the Day,Want to read,fiction,,
+One Hundred Years of Solitude,Want to read,fiction,,
+If On A Winter’s Night A Traveler,Want to read,fiction,,
+Beloved,Want to read,fiction,,
+Heart of Darkness,Want to read,fiction,,
+The Things They Carried,Want to read,fiction,,
+The House of Mirth,Want to read,fiction,,
+Mrs. Dalloway,Want to read,fiction,,
+Native Son,Want to read,fiction,,
+Jane Eyre,Want to read,fiction,,
+Uncle Tom's Cabin,Want to read,fiction,,
+The Scarlet Letter,Want to read,fiction,,
+Pilgrim’s Progress,Want to read,fiction,,
+Agamemnon,Want to read,fiction,Aeschylus,
+Oedipus Rex,Want to read,fiction,Sophocles,
+Hippolytus,Want to read,fiction,Euripides,
+The Comedy of Error,Want to read,fiction,William Shakespeare,
+Richard II,Want to read,fiction,William Shakespeare,
+The Spanish Tragedy,Want to read,fiction,Thomas Kyd,
+Doctor Faustus,Want to read,fiction,Christopher Marlowe,
+Life Is a Dream,Want to read,fiction,Pedro Calderon de la Barca,
+Hedda Gabler,Want to read,fiction,Henrik Ibsen,
+The Cherry Orchard,Want to read,fiction,Anton Chekhov,
+Major Barbara,Want to read,fiction,George Bernard Shaw,
+Six Characters in Search of an Author,Want to read,fiction,Luigi Pirandello,
+Mother Courage and Her Children,Want to read,fiction,Bertolt Brecht,
+Death of a Salesman,Want to read,fiction,Arthur Miller,
+Waiting for Godot,Want to read,fiction,Samuel Beckett,
+The Fall,Want to read,fiction; philosophy,Camus,
+Dancing in the Glory of Monsters: The Collapse of the Congo and the Great War of Africa,Want to read,history,,
+The Gulag Archipelago,Want to read,history,,
+The White Pill: A Tale of Good and Evil,Want to read,history,,
+Human Accomplishment,Want to read,history,Charles Murray,
+Slavery and Social Death,Want to read,history,,
+1491: New Revelations of the Americas Before Columbus,Want to read,history,Charles C. Mann,
+The Strange Death of Europe: Immigration Identity Islam,Want to read,history,Douglas Murray,
+How Europe Underdeveloped Africa,Want to read,history,Walter Rodney,
+Histories,Want to read,history,Herodotus,
+The Peloponnesian War,Want to read,history,Thucydides,
+The Power of Geography,Want to read,history;,,
+Common Sense,Want to read,history; philosophy,Thomas Paine,
+The Federalist Papers,Want to read,history; philosophy,,
+The Wretched of the Earth,Want to read,history; philosophy,Frantz Fanon,
+Quantum: Einstein Bohr and the Great Debate about the Nature of Reality,Want to read,history; physics,Kumar,
+The Matter of Everything: How Curiosity Physics and Improbable Experiments Changed the World,Want to read,history; physics,Suzie Sheehy,
+Mild Children,Want to read,history; sci-fi,Hand Moravec,
+A Myriad of Tongues,Want to read,language,,
+The Case Against Reality,Want to read,magic;questionable-research,Donald Hoffman,
+Existential Kink,Read,magic;questionable-research,,
+Doing Bayesian Data Analysis: A Tutorial with R JAGS and Stan,Want to read,math,,
+Proof and the Art of Mathematics,Want to read,math,Hamkins,
+Mathematics: Its Content Methods and Meaning,Want to read,math,Aleksandrov and Kolmogorov,
+The Fractal Geometry of Nature   The Fractal Geometry of Nature ,Want to read,math,Mandelbrot,
+Linear Algebra and Its Applications,Want to read,math,Gilbert Strang,
+Categories for the Working Mathematician,Want to read,math,Saunders Mac Lane,
+Gödel's Proof,Want to read,math,,
+Div Grad Curl and All That: An Informal Text on Vector Calculus,Want to read,math,Harry Schey,
+Linear Algebra and Its Applications,Want to read,math,Gilbert Strang,
+Concrete Mathematics: A Foundation for Computer Science,Want to read,math; computer-science,,
+The Road to Reality,Want to read,math; philosophy; physics,,
+The Theoretical Minimum: What You Need to Know to Start Doing Physics,Want to read,math; physics,Leonard Susskind,
+Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems,Want to read,neuroscience,Peter Dayan and Abbott,
+Cognition in Practice: Mind Mathematics and Culture in Everyday Life,Want to read,neuroscience,,
+Metamagical Themas: Questing for the Essence of Mind and Pattern,Want to read,neuroscience; coordination; computer-science; game-theory,David Hofstadter,
+How We Learn: Why Brains Learn Better Than Any Machine . . . for Now,Want to read,neuroscience; psychology,,
+Models of the Mind: How Physics Engineering and Mathematics Have Shaped Our Understanding of the Brain,Want to read,neuroscience; psychology,Grace Lindsay,
+Why Zebras Don't Get Ulcers,Want to read,neuroscience; psychology,Sapolsky,
+The Elephant in the Brain,Want to read,neuroscience; psychology,,
+Why We Sleep,Want to read,neuroscience; questionable-research,Matthew Walker,
+Open Sources: Voices from the Open Source Revolution,Want to read,open-source,,
+Free Software Free Society,Want to read,open-source,Stallman,
+On the Shortness of Life,Want to read,philosophy,Seneca,
+Popper Selections,Want to read,philosophy,David Miller,
+Tractatus Logico-Philosophicus,Want to read,philosophy,,
+The Skeptics' Guide to the Universe: How to Know What's Really Real in a World Increasingly Full of Fake,Want to read,philosophy,Steven Novella,
+After Virtue,Want to read,philosophy,,
+Consider the Lobster: And Other Essays,Want to read,philosophy,David Foster Wallace,
+Waking Up: A Guide to Spirituality Without Religion,Want to read,philosophy,Sam Harris,
+The Trouble with Being Born,Want to read,philosophy,Emil Cioran,
+Letters to a Young Contrarian,Want to read,philosophy,Christopher Hitchens,
+The Open Society and Its Enemies,Want to read,philosophy,Karl Popper,
+After Virtue,Want to read,philosophy,,
+Nausea,Want to read,philosophy,Sartre,
+Animal Rights: A Very Short Introduction,Want to read,philosophy,,
+Epistemic Risk and the Demands of Rationality,Want to read,philosophy,,
+Being and Time,Want to read,philosophy,Heidegger,
+The Sofist,Want to read,philosophy,,
+Consilience: The Unity of Knowledge ,Want to read,philosophy; evolution,E. O. Wilson,
+Mind-body Problem,Want to read,philosophy; fiction,Rebecca Goldstein,
+What Is Life? with Mind and Matter and Autobiographical Sketches,Want to read,philosophy; physics; biology,Erwin Schrödinger,
+Rationality and the Reflective Mind,Want to read,philosophy; psychology,Stanovich,
+Science Fictions: The Epidemic of Fraud Bias Negligence and Hype in Science,Want to read,philosophy; psychology,Stuart Ritchie,
+Spacetime and Geometry: An Introduction to General Relativity ,Want to read,physics,Sean Carroll,
+How to Make an Apple Pie from Scratch,Reading,physics,Harry Cliff,
+Einstein's Universe,Want to read,physics,Nigel Calder,
+Parallel Worlds: A Journey through Creation Higher Dimensions and the Future of the Cosmos,Want to read,physics,Michio Kaku,
+String of Beads,Want to read,poetry,Shikishi,
+Unforgotten Dreams,Want to read,poetry,Shotetsu,
+Poemas Malditos Gostosos e Gozosos,Want to read,poetry,,
+The Gold Cell,Want to read,poetry,Sharon Olds,
+26 poetas hoje,Want to read,poetry,,
+Pale Fire,Want to read,poetry,Nabokov,
+The Iliad,Want to read,poetry,Homer,
+The Odyssey,Want to read,poetry,Homer,
+Sappho,Want to read,poetry,Sappho,
+The Aeneid,Want to read,poetry,Virgil,
+Canterbury Tales,Want to read,poetry,Geoffrey Chaucer,
+Sonnets,Want to read,poetry,William Shakespeare,
+Paradise Lost,Want to read,poetry,John Milton,
+The Rape of the Lock,Want to read,poetry, Alexander Pope,
+The Prelude,Want to read,poetry,William Wordsworth,
+Leaves of Grass,Want to read,poetry,Walt Whitman,
+Middlemarch,Want to read,poetry,George Eliot,
+The Waste Land,Want to read,poetry,T.S. Eliot,
+The Love Song of J. Alfred Prufrock,Want to read,poetry,T.S. Eliot,
+Four Quartets,Want to read,poetry,T.S. Eliot,
+The Dream Songs,Want to read,poetry,John Berryman,
+Flow: The Psychology of Optimal Experience,Want to read,psychology,,
+The Body Keeps the Score: Brain Mind and Body in the Healing of Trauma,Want to read,psychology,Kolk,
+How Emotions Are Made: The Secret Life of the Brain,Want to read,psychology,,
+The Red Book,Reading,psychology,Jung,
+The Anxiety and Depression Work Book,Want to read,psychology,,
+Nonviolent Communication: A Language of Life,Want to read,psychology,,
+Inadequate Equilibria,Want to read,psychology,Eliezer Yudkowsky,
+How We Change,Want to read,psychology,Polan,
+Radical Acceptance,Want to read,psychology,Tara Brach,
+The Paradox of Choice,Want to read,psychology,,
+Stumbling on Happiness,Want to read,psychology,,
+Predictably Irrational: The Hidden Forces That Shape Our Decisions,Want to read,psychology; economics,,
+The Shape of Thought: How Mental Adaptations Evolve,Want to read,psychology; evolution,H. Clark Barrett,
+Children of Time,Want to read,sci-fi,,
+Enders Game,Want to read,sci-fi,,
+Stories of Your Life and Others,Read,sci-fi,Ted Chiang,
+Hyperion,Read,sci-fi,Dan Simmons,
+Blindsight,Want to read,sci-fi,Peter Watts,
+Sword & Citadel,Want to read,sci-fi,Gene Wolf,
+The Peace War,Want to read,sci-fi,Vernor Vinge,
+Permutation City,Read,sci-fi,Greg Egan,
+Diaspora,Read,sci-fi,Greg Egan,
+Cryptonomicon,Want to read,sci-fi,,
+A Fire Upon the Deep,Read,sci-fi,Vernor Vinge,
+Island,Want to read,sci-fi,Asimov,
+Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
+Nonlinear Dynamics and Chaos,Want to read,systems-theory; complex-systems; physics,Strogatz Steven H.,
+Deep Simplicity: Bringing Order to Chaos and Complexity ,Want to read,systems-theory; complex-systems; physics,John Gribbin,
+Sync: The Emerging Science of Spontaneous Order ,Want to read,systems-theory; history,,
+The (Mis)Behavior of Markets,Want to read,systems-theory; math; economics,Mandelbrot,
+A First Course in Chaotic Dynamical Systems: Theory and Experiment ,Want to read,systems-theory; physics,,
+Does God Play Dice?: The New Mathematics of Chaos ,Want to read,systems-theory; physics; math,,
+Dream States,Want to read,urbanism,,
+Gödel Escher Bach: An Eternal Golden Braid,Stalled,computer-science;math;physics;Hofstadter,,
+Crime and Punishment,Stalled,fiction,,
+The Ministry for the Future,Stalled,sci-fi,Kim Stanley,
+The Omnivore’s Dilemma ,Stalled,agroecology; anthropology,,
+Rules Without Rulers,Stalled,anarchism,,
+Anarcho-syndicalism: Theory and Practice,Stalled,anarchism,,
+On Anarchism,Stalled,anarchism,Chomsky,
+Ferramentas para Autonomia,Stalled,anarchism; governance,,
+Markets Not Capitalism,Stalled,anarchism; economics,,
+A Queda do Céu,Stalled,anthropology,,
+Behave,Stalled,anthropology; behaviorism; neuroscience; psychology; questionable-research,,
+You Are an Artist: Assignments to Spark Creation,Stalled,art,,
+Active Inference,Reading,neuroscience; computer-science; math,Thomas Parr,
+Wir Kindern vom Zoo Bahnhof,Stalled,biography,Christiane F.,
+Memories Dreams Reflections,Stalled,biography,Jung,
+Entering the Heart of Sun and Moon,Stalled,buddhism,,
+Complexity: A Guided Tour,Stalled,complex-systems,Mitchell,
+Which Side Are You On?,Stalled,governance,Thomas Geoghegan,
+Postcapitalism,Stalled,governance; economics,,
+The Origins of Political Order,Stalled,governance; economics; history,Fukuyama,
+The Digital Party,Stalled,governance; open-source,,
+Antifragile,Stalled,coordination; questionable-research,,
+Thinking in Systems,Stalled,coordination; systems-theory,Donella Meadows,
+Pihkal: A Chemical Love Story,Stalled,drugs,,
+Sacred Economics,Stalled,economics; magic,,
+How to Solve It: A New Aspect of Mathematical Method,Stalled,education; math,Polya,
+Infinite Jest,Reading,fiction,David Foster Wallace,
+Ficciones,Stalled,fiction,Jorge Luis Borges,
+Der Mann mit der Ledertasche,Stalled,fiction,Bukowski,
+The Plague,Stalled,fiction,,
+War and Peace,Stalled,fiction,,
+13th Age,Reference,games,,
+Mathematical Proofs: A transition to advanced mathematics,Stalled,math,,
+The Joy of Abstraction ,Stalled,math; systems-theory,Cheng,
+Surfing Uncertainty,Stalled,neuroscience;consciousness,Clarke,
+The Nichomachean Ethics,Read,philosophy,Aristotle,
+Being and Nothingness,Stalled,philosophy,Sartre,
+Meditations,Stalled,philosophy,Marcus Aurelius,
+Geneology of Morals,Stalled,philosophy,Nietzsche,
+Being and Time,Stalled,philosophy,,
+Causation Prediction and Search,Stalled,philosophy; math,,
+Boitempo ,Stalled,poetry,Drummond ,
+Thinking Fast and Slow,Stalled,psychology,Daniel Kahneman Patrick Egan et al.,
+Monalisa Overdrive,Stalled,sci-fi,,
+On Writing Well,Stalled,writing,,
+Reinforcement Learning: An Introduction,Reference,computer-science,Sutton & Richard S.,
+The Beginning of Infinity,Read,physics,David Deutsch,
+Agent Based Models of Geographical Systems,Reference,agent-based-modelling,,
+Color and Light,Reference,art,,
+Images of Enlightenment,Reference,buddhism,,
+The Mind Illuminated,Reference,buddhism,Culadasa,
+Worlds of Transformation,Reference,buddhism; art,,
+The Theory of Complex Systems,Reference,complex-systems; computer-science; math,,
+Cellular Automata And Complexity: Collected Papers,Reference,complex-systems; computer-science; math; systems-theory,Wolfram,
+Architecture Patterns With Python,Reference,computer-science,,
+Robust Python,Reference,computer-science,,
+Machine Learning: A Probabilistic Perspective,Reference,computer-science,Kevin Murphy,
+Deep Learning,Reference,computer-science,,
+The Rust Programming Language,Reference,computer-science,,
+Algorithms,Reference,computer-science,Sedwick,
+Essential TypeScript,Reference,computer-science,Adam Freeman,
+Effective Modern C++,Reference,computer-science,Meyers,
+Introduction to Algorithms,Reference,computer-science,Cormen,
+Web Assembly the Definitive Guide,Reference,computer-science,,
+Fluent Python,Reference,computer-science,,
+Test Driven Development ,Reference,computer-science,Kant Beck,
+Hands-On Machine Learning with Scikit-Learn and TensorFlow,Reference,computer-science,,
+Python for Data Analysis,Reference,computer-science; math,,
+A New Kind of Science,Reference,computer-science; math,Wolfram,
+Cellular Automata and Complexity,Reference,computer-science; math; systems-theory,Wolfram,
+Game Theory: An Introduction,Reference,game-theory,Tadelis,
+Essentials of Game Theory,Reference,game-theory,Yoav Shoham Kevin Leyton-Brown,
+Multiagent systems: algorithmic game-theoretic and logical foundations,Reference,game-theory; agent-based-modelling,Yoav Shoham Kevin Leyton-Brown,
+Behavioral Game Theory: Experiments in Strategic Interaction,Reference,game-theory; behaviorism,Colin Camerer,
+A History of Western Philosophy,Reference,history; philosophy,Bertrand Russel,
+All of Statistics,Reference,math,,
+Introduction to Probability,Reference,math,Joseph K. Blitzstein,
+Probability Theory: The Logic of Science,Reference,math,E.T. Jaynes,
+Calculus,Reference,math,James Stewart,
+Um Curso de Geometria Analitica e Algebra Linear,Reference,math,Reginaldo,
+On Numbers and Games,Reference,math; systems-theory,Conway,
+The Problems of Philosophy,Reference,philosophy,Bertrand Russel,
+The Art of Electronics,Reference,physics,Paul Horowitz,
+Introduction to Graph Theory,Reference,systems-theory,Richard Trudeau,
+Frankenstein,Read,fiction,Mary Shelley,
+How to Be Compassionate,Read,buddhism,Dalai Lama,
+The Topmost Yoga System,Read,anthropology; questionable-research,,
+Essential Yoga,Read,sport; buddhism,,
+Multiagent Systems: A Modern Approach to Distributed Artificial Intelligence,Read,agent-based-modelling,,
+Modeling Social Behavior Mathematical and Agent-Based,Read,agent-based-modelling,Smaldino,
+The One-Straw Revolution,Read,agroecology,,
+Technological Slavery,Read,anarchism,,
+Steal This Book,Read,anarchism,,
+Walden,Read,anarchism; biography; climate,,
+Plunder of the Commons,Read,anarchism; climate; governance; economics,Guy Standing,
+V for Vendetta,Read,anarchism; comics; fiction,,
+Community Rules,Read,anarchism; governance; open-source,,
+Banqueiro Anarquista,Read,anarchism; economics; fiction,,
+The Social Conquest of Earth,Read,anthropology; evolution,E. O. Wilson,
+Mitos e Lendas Nórdicas,Read,anthropology; fiction,,
+Guns Germs and Steel,Read,anthropology; history; questionable-research,,
+The Dawn of Everything,Read,anthropology; philosophy,,
+The Righteous Mind,Read,anthropology; philosophy; questionable-research,,
+Charles Evan’s Pocket Book to Watercolor Artists,Read,art,,
+Asterios Polyp,Read,art; comics; fiction,,
+The Design of Everyday Things,Read,art; computer-science; psychology,,
+Surely You're Joking Mr. Feynman!,Read,biography,,
+What Do You Care What Other People Think,Read,biography,,
+Deep Thinking,Read,biography,Kasparov,
+Ludwig Wittgenstein: The Duty of Genius,Read,biography,Ray Monk,
+Persepolis,Read,biography; comics,,
+Maus,Read,biography; comics; history,,
+The Man Who Knew Infinity: A Life of the Genius Ramanujan,Read,biography; math,,
+Roaring Silence,Read,buddhism,,
+Buddha,Read,buddhism; comics,,
+Demian,Read,buddhism; fiction,Hesse,
+Siddharta,Read,buddhism; fiction,,
+The Art of Sexual Ecstasy,Read,buddhism; magic;sex,,
+Tao Te Ching,Read,buddhism; philosophy,,
+Alone with Others,Read,buddhism; philosophy,,
+The Internal Game of Tennis,Read,buddhism; psychology; sports,,
+O Evangelho Segundo O Espiritismo,Read,christianity,Allan Kardec,
+Violetas na Janela,Read,christianity,,
+Livro dos Espíritos,Read,christianity,Allan Kardec,
+O Grande Amigo de Deus,Read,christianity; fiction,Caldwell,
+Servos de Deus,Read,christianity; fiction,Caldwell,
+Medico de Homens e de Almas,Read,christianity; fiction,Caldwell,
+Every Species is a Masterpiece,Read,climate,E. O. Wilson,
+Billions and Billions,Read,climate; philosophy,Carl Sagan,
+Pale Blue Dot,Read,climate; physics,,
+Sabrina,Read,comics,,
+The Best We Could Do,Read,comics; biography,,
+Heaven No Hell,Read,comics; fiction,Michael Deforge,
+100 Bullets,Read,comics; fiction,,
+Jerusalem,Read,comics; fiction,,
+Batman: The Killing Joke,Read,comics; fiction,,
+Batman: Year One,Read,comics; fiction,,
+The Dark Knight Returns,Read,comics; fiction,,
+Elektra Dead or Alive,Read,comics; fiction,,
+Sin City,Read,comics; fiction,,
+Ronin,Read,comics; fiction,Miller,
+Vagabond,Read,comics; fiction,Takehiko Inoue,
+The Walking Dead,Read,comics; fiction,Robert Kirkman,
+Blade of the Immortal,Read,comics; fiction,Hiroaki Samura,
+Crisis on Infinite Earths,Read,comics; fiction,,
+300,Read,comics; fiction,,
+Swamp Thing,Read,comics; fiction,,
+Black Hole,Read,comics; fiction,,
+Death Note,Read,comics; fiction,,
+Scott Pilgrim,Read,comics; fiction,,
+Y; The Last Man,Read,comics; fiction,,
+Batman: Year One,Read,comics; fiction,,
+Preacher,Read,comics; fiction,,
+Sweet Tooth,Read,comics; fiction,,
+Blankets,Read,comics; fiction,,
+Transmetropolitan,Read,comics; fiction,,
+Habibi,Read,comics; fiction,,
+Conan of Cimmeria,Read,comics; fiction,Robert E. Howard,
+Sandman Series,Read,comics; fiction,,
+Watchmen Series,Read,comics; fiction,,
+The Incal,Read,comics; fiction,Jodorowsky,
+The Incal,Read,comics; sci-fi,,
+Making Things Work: Solving Complex Problems in a Complex World,Read,complex-systems; coordination,Yaneer Bar-Yam,
+The Evolution of Cooperation,Read,complex-systems; coordination; game-theory,Axelrod,
+Mastering Python High Performance,Read,computer-science,Fernando Doglio,
+Python High Performance,Read,computer-science,Gabriele Lanaro,
+Effective Python: 90 Specific Ways to Write Better Python,Read,computer-science,,
+A Philosophy of Software Design,Read,computer-science,,
+Developer Hegemony,Read,computer-science,,
+C++: How to Program,Read,computer-science,Deitel,
+C++ for Programmers,Read,computer-science,Deitel,
+Algoritmos e Estrutura de Dados,Read,computer-science,Ziviani,
+Clean Architecture,Read,computer-science,,
+Surveillance Capitalism,Read,computer-science,,
+Mindstorms: Children Computers And Powerful Ideas,Read,computer-science; education,,
+The Book of Why,Read,computer-science; math; philosophy,Judea Pearl ,
+The Art of Community,Read,computer-science; open-source,Bacon,
+Working in Public,Read,computer-science; open-source; questionable-research,,
+Utopia,Read,governance,Thomas More,
+The Handbook for Radical Local Democracy,Read,governance; economics,,
+Poor Economics,Read,economics,Abhijit Banerjee; Esther Duflo,
+Greenpilled,Read,economics; questionable-research,,
+Producing Open Source Software,Read,computer-science; open-source,Karl Fogel,
+The Prince,Read,governance; philosophy,,
+Vier Tage Woche,Read,psychology,,
+The Pragmatist's Guide to Governance,Read,governance; questionable-research,,
+The Doors of Perception,Read,drugs; philosophy,Albert Hofmann,
+Debt,Read,economics,,
+Who Rules the World,Read,economics,,
+Manufacturing Consent,Read,economics,,
+Utopia for Realists: And How We Can Get There,Read,economics,Rutger Bregman,
+Poverty by America,Read,economics,Matthew Desmond,
+The Origin of Wealth,Read,economics,,
+Capital and Ideology ,Read,economics; history,Piketty ,
+Doughnut Economics,Read,economics; history; questionable-research,,
+The Wealth of Networks,Read,economics; open-source,,
+The Well Educated Mind,Read,education; questionable-research,Susan Wise Bauer,
+The Castle of Llyr,Read,fiction,,
+The Black Cauldron,Read,fiction,,
+The Book of Three,Read,fiction,,
+The Man in the High Castle,Read,fiction,,
+Maktub,Read,fiction,,
+Brida,Read,fiction,,
+Memorias de Emilia,Read,fiction,,
+Tonico e Carnica,Read,fiction,,
+Garra de Campeão,Read,fiction,,
+Comedias para Se Ler na Escola,Read,fiction,Verissimo,
+Sozinha no Mundo,Read,fiction,,
+O Menino do Dedo Verde,Read,fiction,,
+A Ilha Perdida,Read,fiction,,
+O Escaravelho do Diabo,Read,fiction,,
+As Aventuras de Xisto,Read,fiction,,
+The Sorcerer of the North,Read,fiction,,
+The Battle for Skandia,Read,fiction,,
+The Icebound Land,Read,fiction,,
+The Burning Bridge,Read,fiction,,
+The Ruins of Gorlan,Read,fiction,,
+Sharpe's Fortress,Read,fiction,,
+Sharpe’s Triumph,Read,fiction,,
+Sharpe’s Tiger,Read,fiction,,
+Saxon Stories: The Lords of the North,Read,fiction,,
+Saxon Stories: The Pale Horseman,Read,fiction,,
+Saxon Stories: The Last Kingdom,Read,fiction,,
+Roverandom,Read,fiction,Tolkien,
+The Idiot,Read,fiction,Dostoevsky,
+Overstory,Read,fiction,Richard Powers,
+Os Sete Gatinhos,Read,fiction,Nelson Rodrigues,
+Não Se Pode Amar e Ser Feliz ao Mesmo Tempo,Read,fiction,Nelson Rodrigues,
+A Vida Como Ela É,Read,fiction,Nelson Rodrigues,
+Poliana Moça,Read,fiction,,
+Poliana,Read,fiction,,
+A Series of Unfortunate Events,Read,fiction,,
+The Arabian Nights,Read,fiction,,
+The Lost Symbol,Read,fiction,,
+The Ring of the Nibelung,Read,fiction,,
+Beowulf,Read,fiction,,
+Hamlet,Read,fiction,,
+The Three Musketeers,Read,fiction,,
+Wuthering Heights,Read,fiction,,
+O Cortiço,Read,fiction,,
+O Homem de Cabeça de Papelão,Read,fiction,,
+The Archer's Tale,Read,fiction,Bernard Cornwell,
+The Old Man and the Sea,Read,fiction,,
+The Call of Cthulhu,Read,fiction,,
+Necronomicon,Read,fiction,,
+The Mists of Avalon,Read,fiction,,
+Running With Wolves,Read,fiction,,
+Faust,Read,fiction,,
+The Sorrows of Young Werther,Read,fiction,,
+Romeo and Juliet,Read,fiction,,
+The Little Prince,Read,fiction,,
+The Wise Man's Fear,Read,fiction,,
+Ranger's Apprentice Series,Read,fiction,,
+Name of the Wind,Read,fiction,,
+At the Mountains of Madness,Read,fiction,Lovecraft,
+Eragon,Read,fiction,,
+Harry Potter e o Prisioneiro de Azkaban,Read,fiction,,
+Harry Potter e a Camara Secre,Read,fiction,,
+Harry Potter e a Pedra Filosofal,Read,fiction,,
+Gulliver's Travels,Read,fiction,,
+Digital Fortress,Read,fiction,,
+Angels and Demons,Read,fiction,,
+Da Vinci Code,Read,fiction,,
+A Sala De Âmbar,Read,fiction,,
+I Ching,Reference,magic,,
+The Sun Also Rises,Read,fiction,,
+Kholstomer,Read,fiction,Tolstoi,
+Fight Club,Read,fiction,Bukowski,
+The Hobbit,Read,fiction,Tolkien,
+Breaking Dawn,Read,fiction,,
+Twilight Saga,Read,fiction,,
+Dracula,Read,fiction,,
+Pride and Prejudice,Read,fiction,Jane Austen,
+The Sky is Falling,Read,fiction,Sydney Sheldon,
+The Pilgrimage,Read,fiction,Paulo Coelho,
+If Tomorrow Comes,Read,fiction,Sydney Sheldon,
+Memories of Midnight,Read,fiction,Sydney Sheldon,
+A Strange in the Mirror,Read,fiction,Sydney Sheldon,
+Carrie,Read,fiction,Stephan King,
+À Espera de um Milagre,Read,fiction,Stephan King,
+The Shining,Read,fiction,Stephan King,
+The Earth is the Lord's,Read,fiction,Caldwell,
+The Valley of Horses,Read,fiction,,
+The Clan of the Cave Bear,Read,fiction,,
+Inferno,Read,fiction,,
+Quincas Borba,Read,fiction,Machado de Assis,
+Ensaion Sobre a Lucidez,Read,fiction,,
+Animal Farm,Read,fiction,Orwell,
+The Catcher in the Rye,Read,fiction,Paulo Coelho,
+Veronika Decide Morrer,Read,fiction,,
+Metamorphosis,Read,fiction,Paulo Coelho,
+O Alquimista,Read,fiction,Paulo Coelho,
+Estrela da Manhã,Read,fiction,Lispector,
+Memórias de um Sargento de Milícia,Read,fiction,,
+São Bernardo,Read,fiction,Graciliano Ramos,
+Vidas Secas,Read,fiction,Graciliano Ramos,
+Noite na Taverna,Read,fiction,Alvares de Azevedo,
+Morte e Vida Severina,Read,fiction,,
+Grande Sertão Veredas,Abandoned,fiction,João Guimarães Rosa,
+A Paixão Segundo G.H,Read,fiction,,
+Uma Aprendizagem ou O Livro dos Prazeres,Read,fiction,,
+A Hora da Estrela,Read,fiction,,
+The Death of Ivan Illych,Read,fiction,,
+Dead Souls,Read,fiction,Gogol,
+O Fazedor de Velhos,Read,fiction,,
+Lord of the Flies,Read,fiction,,
+O Cortiço,Read,fiction,,
+Memórias Póstumas de Brás Cubas,Read,fiction,,
+Alice’s Adventures in Wonderland,Read,fiction,,
+Moreninha,Read,fiction,,
+The Picture of Dorian Gray,Read,fiction,,
+Dracula,Read,fiction,,
+Iracema,Read,fiction,,
+Triste Fim de Policarpo Quaresma,Read,fiction,,
+Nine Princess in Amber,Read,fiction,,
+Lord of the Rings,Read,fiction,,
+The Call of Cthulhu and Other Weird Stories,Read,fiction,,
+The Brothers Karamazov,Read,fiction,,
+Anna Karenina,Read,fiction,,
+Candide,Read,fiction; philosophy,Voltaire,
+The Stranger,Read,fiction; philosophy,,
+The Age of Reason,Read,fiction; philosophy,Sartre,
+Angústia,Read,fiction; psychology,Graciliano Ramos,
+White Nights,Read,fiction; psychology,,
+Steppenwolf,Read,fiction; psychology,,
+Notes from the Underground,Read,fiction; psychology,,
+Go for Beginners,Reading,games,,
+The Way to Go,Read,games,,
+Tormenta,Read,games,,
+Tagmar,Read,games,,
+Fiasco,Read,games,,
+Changeling: The Lost,Read,games,,
+Mage: The Awakening,Read,games,,
+Dungeon World,Read,games,,
+Numenera,Read,games,,
+Mage: The Ascension,Read,games,,
+World of Darkness,Read,games,,
+Vampire the Masquerade,Read,games,,
+Pathfinder,Read,games,,
+Savage Worlds,Read,games,,
+Fate,Read,games,,
+Cyberpunk 2020,Read,games,,
+GURPS 2,Read,games,,
+Dungeon and Dragons 5,Read,games,,
+Dungeon and Dragons 3.5,Read,games,,
+Dungeon and Dragons 2,Read,games,,
+Dungeon and Dragons 3,Read,games,,
+On Tennis,Read,games; biography,David Foster Wallace,
+Shadowrun,Read,games; sci-fi,,
+GURPS Cyberpunk,Read,games; sci-fi,,
+Star Wars: Edge of the Empire,Read,games; sci-fi,,
+Star Wars Roleplaying Game,Read,games; sci-fi,,
+Eclipse Phase,Read,games; sci-fi,,
+1808,Read,history,,
+Quilombos: Resistência ao Escravismo,Read,history,,
+Casa-Grande Senzala,Read,history,Gilberto Freyre,
+Between the World and Me,Read,history,,
+The Road to Serfdom,Read,history,von Hayek,
+On Tyranny,Read,history,Timothy Snyder,
+The Origins of Totalitarianism,Read,history;,Hannah Arendt,
+The Secret,Read,magic,,
+The Prophet,Read,magic,Khalil,
+The Book of Five Rings,Read,magic; philosophy,,
+You Are the One You’ve Been Waiting For,Read,magic; psychology,,
+99 Variations on a Proof,Read,math,,
+How to Change Your Mind,Stalled,neuroscience; psychology; drugs,Michael Pollan,
+The Cathedral and the Bazaar,Read,open-source,,
+The Coproduction of Open Source Software by Volunteers and Big Tech Firms,Read,open-source,,
+The Art of Logic,Read,philosophy,Cheng,
+80000 Hours,Read,philosophy,,
+A Little History of Philosophy,Read,philosophy,,
+On the Genealogy of Morality,Read,philosophy,Nietzsche,
+The Republic,Read,philosophy,Plato,
+The Art of War,Read,philosophy,,
+The Myth of Sisyphus,Read,philosophy,Camus,
+Symposium,Read,philosophy,Plato,
+Fedon,Read,philosophy,Plato,
+Thus Spoke Zarathustra,Read,philosophy,,
+50 Philosophy Ideas,Read,philosophy,,
+What We Owe the Future,Read,philosophy,William MacASkill,
+Superintelligence,Read,philosophy,Nick Bostrom,
+The Life You Can Save,Read,philosophy,Peter Singer,
+Leviathan,Read,philosophy,Thomas Hobbes,
+The Daily Stoic,Read,philosophy,,
+How to Be Perfect,Read,philosophy; questionable-research,,
+Howl,Read,poetry,Ginsberg,
+Bagagem,Read,poetry,Adelia Prado,
+Antologia Poetica,Read,poetry,Cecilia Meireles,
+Toda Poesia,Read,poetry,Paulo Leminski,
+Morte e Vida Severina,Read,poetry,,
+Eu,Read,poetry,Augusto dos Anjos,
+Antologia Poética,Read,poetry,Vinicius de Morais,
+Veinte poemas de amor y una canción desesperada,Read,poetry,,
+Poesia de Fernando Pessoa,Read,poetry,,
+A Rosa do Povo,Read,poetry,Carlos Drummond de Andrade,
+Sim: Existo Dentro do Meu Corpo,Read,poetry,,
+O Livro do Desassossego,Read,psychology,,
+All About Love,Read,psychology,Bell Hooks,
+Chatter: The Voice in Our Head Why It Matters and How to Harness It ,Read,psychology,,
+Man and His Symbols,Read,psychology; magic,Jung and others,
+The Archetypes and the Collective Unconscious,Read,psychology; magic,Jung,
+Atomic Habits,Read,psychology; questionable-research,,
+Deep Work,Read,psychology; questionable-research,,
+How to Win Friends and Influence People,Read,psychology; questionable-research,,
+I Have No Mouth and I Must Scream,Read,sci-fi,,
+The Bicentennial Man,Read,sci-fi,Isaac Asimov,
+The Dispossessed: An Ambiguous Utopia,Read,sci-fi,,
+Hitchhiker's Guide Collection,Read,sci-fi,Douglas Adams,
+Dune Messiah,Read,sci-fi,Frank Herbert,
+I; Robot,Read,sci-fi,Asimov,
+2001: Space Odyssey,Read,sci-fi,,
+Foundation,Read,sci-fi,Asimov,
+Do Androids Dream of Electric Sheep?,Read,sci-fi,,
+The Naked Sun,Read,sci-fi,Asimov,
+The Caves of Steel,Read,sci-fi,,
+Project Hail Mary,Read,sci-fi,,
+1984,Read,sci-fi,Orwell,
+Dune,Read,sci-fi,,
+Brave New World,Read,sci-fi,,
+Red Mars,Read,sci-fi,Kim Stanley,
+Practical Programming for Strength Training,Read,sports,,
+Starting Strength,Read,sports,,
+Complex Adaptive Systems,Read,systems-theory; complex-systems,John H. Miller,
+Data Science from Scratch,Read,computer-science,,
+Ishmael,Abandoned,anthropology; fiction; questionable-research,,
+Sapiens,Abandoned,anthropology; questionable-research,Yuval Noah Harari,
+The Creative Act,Abandoned,art,,
+A Guide to the Bodhisattva Way,Reading,buddhism,,
+Spawn ,Abandoned,comics; fiction,,
+In a Flight of Starlings,Abandoned,complex-systems; biography,Giorgio Parisi,
+Grokking Deep Learning,Abandoned,computer-science,,
+Structure and Interpretation of Computer Programs,Abandoned,computer-science,,
+Clean Code: A Handbook of Agile Software Craftsmanship,Abandoned,computer-science,,
+Think Bayes,Abandoned,computer-science; math,,
+Invisible Women,Abandoned,computer-science; philosophy,,
+Superforcasting,Abandoned,psychology,,
+The Relevance of the Communist Manifesto,Abandoned,economics,Žižek,
+Enlightenment Now,Abandoned,economics; questionable-research,Steven Pinker,
+By the River Piedra I Sat Down and Wept,Abandoned,fiction,,
+Sharpe's Prey,Abandoned,fiction,,
+Saxon Stories: Sword Song,Abandoned,fiction,,
+Harry Potter e o Calice de Fogo,Abandoned,fiction,,
+The Adventures of Sherlock Holmes,Abandoned,fiction,,
+Game of Thrones,Abandoned,fiction,,
+Gone With the Wind,Abandoned,fiction,,
+The Chronicles of Narnia,Abandoned,fiction,,
+The Name of the Rose,Abandoned,fiction,,
+The Trial,Abandoned,fiction,,
+The Count of Monte Cristo,Abandoned,fiction,,
+Don Quixote,Abandoned,fiction,,
+Invisible Man,Abandoned,fiction,,
+O Tempo e o Vento,Abandoned,fiction,,
+Lucíola,Abandoned,fiction,,
+The Invisible Man,Abandoned,fiction,Ralph Ellinson,
+The Silmarillon,Abandoned,fiction,,
+3d&t,Abandoned,games,,
+After Tamerlane,Abandoned,history,,
+The Feynman Lectures on Physics,Abandoned,math; physics,,
+Critique of Pure Reason,Abandoned,philosophy,,
+The World as Will and Representation,Abandoned,philosophy,,
+On the Freedom of the Will,Abandoned,philosophy,,
+The Second Sex,Abandoned,philosophy,,
+Beyond Good and Evil,Abandoned,philosophy,,
+The Courage to Be Disliked,Abandoned,psychology,,
+Walkaway,Abandoned,sci-fi,,
+Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`
+
+// Parse the data into an array of objects
+const data = dataString.split('\n').slice(1).map(line => {
+    const [Name, Status, Type, Author, Notes] = line.split(',');
+    return { Name, Status, Type, Author, Notes };
+});
+
+// Function to get color for each type
+const typeColors = {};
+
+function getColorForType(type) {
+    if (!typeColors[type]) {
+        // Generate a pastel color
+        const hue = Math.random() * 360;
+        const saturation = 70 + Math.random() * 30; // Vary saturation between 70% and 100%
+        const lightness = 80 + Math.random() * 10; // Vary lightness between 80% and 90%
+        typeColors[type] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+    return typeColors[type];
+}
+
+// Function to get stronger color for each status
+const statusColors = {};
+
+function getStrongerColorForStatus(status) {
+    if (!statusColors[status]) {
+        const hue = Math.random() * 360;
+        const saturation = 80 + Math.random() * 20; // Vary saturation between 80% and 100%
+        const lightness = 50 + Math.random() * 10; // Vary lightness between 40% and 60%
+        statusColors[status] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+    return statusColors[status];
+}
+
+// Function to create a tag
+function createTag(type, isStronger) {
+    const span = document.createElement('span');
+    span.className = 'tag';
+    if (isStronger) {
+        span.style.backgroundColor = getStrongerColorForStatus(type);
+    } else {
+        span.style.backgroundColor = getColorForType(type);
+    }
+    span.innerText = type;
+    return span;
+}
+
+// Function to display the data
+function displayData(data) {
+    const tableBody = document.getElementById('table-body');
+    tableBody.innerHTML = ''; // Clear previous data
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        Object.keys(item).forEach(key => {
+            const cell = document.createElement('td');
+            if (key === 'Type') {
+                const types = item[key].split(';');
+                types.forEach(type => {
+                    const tag = createTag(type.trim(), false); // Use pastel colors for type
+                    cell.appendChild(tag);
+                });
+            } else if (key === 'Status') {
+                const tag = createTag(item[key].trim(), true); // Use stronger colors for status
+                cell.appendChild(tag);
+            } else {
+                cell.textContent = item[key];
+            }
+            row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+    });
+}
+// Function to sort data
+function sortData(column, direction) {
+    data.sort((a, b) => {
+        return direction === 'asc' ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]);
+    });
+    displayData(data);
+}
+
+// Function to filter data based on search input
+function filterData() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const filteredData = data.filter(item => 
+        Object.values(item).some(value => value.toLowerCase().includes(searchInput))
+    );
+    displayData(filteredData);
+}
+
+// Initial display
+displayData(data);
