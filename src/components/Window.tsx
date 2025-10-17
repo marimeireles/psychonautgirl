@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Rnd } from 'react-rnd';
 import { X, Minus, Square } from 'lucide-react';
 
@@ -30,7 +30,17 @@ export const Window = ({
   onMinimize,
 }: WindowProps) => {
   const [internalIsMinimized, setInternalIsMinimized] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const isMinimized = externalIsMinimized !== undefined ? externalIsMinimized : internalIsMinimized;
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleMinimize = () => {
     const newMinimized = !isMinimized;
@@ -41,6 +51,58 @@ export const Window = ({
     }
   };
 
+  const windowContent = (
+    <div className="win95-border bg-card flex flex-col shadow-lg h-full">
+        {/* Title Bar */}
+        <div className="window-title win95-title flex items-center justify-between px-1 py-1 cursor-move select-none">
+          <div className="flex items-center gap-2 text-primary-foreground font-bold text-sm">
+            {icon && <span className="text-base">{icon}</span>}
+            <span>{title}</span>
+          </div>
+          <div className="flex gap-1">
+            <button
+              onClick={handleMinimize}
+              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+            >
+              <Minus className="w-3 h-3" />
+            </button>
+            <button
+              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+            >
+              <Square className="w-2.5 h-2.5" />
+            </button>
+            <button
+              onClick={onClose}
+              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Window Content */}
+        {!isMinimized && (
+          <div className="p-2 bg-card overflow-auto flex-1">
+            {children}
+          </div>
+        )}
+      </div>
+  );
+
+  // Mobile: fixed position, full width
+  if (isMobile) {
+    return (
+      <div
+        className="fixed top-0 left-0 right-0 bottom-10 m-2 animate-fade-in"
+        style={{ zIndex }}
+        onClick={onFocus}
+      >
+        {windowContent}
+      </div>
+    );
+  }
+
+  // Desktop: draggable and resizable
   return (
     <Rnd
       default={{
@@ -107,41 +169,7 @@ export const Window = ({
         },
       }}
     >
-      <div className="win95-border bg-card flex flex-col shadow-lg h-full">
-        {/* Title Bar */}
-        <div className="window-title win95-title flex items-center justify-between px-1 py-1 cursor-move select-none">
-          <div className="flex items-center gap-2 text-primary-foreground font-bold text-sm">
-            {icon && <span className="text-base">{icon}</span>}
-            <span>{title}</span>
-          </div>
-          <div className="flex gap-1">
-            <button
-              onClick={handleMinimize}
-              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
-            >
-              <Minus className="w-3 h-3" />
-            </button>
-            <button
-              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
-            >
-              <Square className="w-2.5 h-2.5" />
-            </button>
-            <button
-              onClick={onClose}
-              className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
-            >
-              <X className="w-3 h-3" />
-            </button>
-          </div>
-        </div>
-
-        {/* Window Content */}
-        {!isMinimized && (
-          <div className="p-2 bg-card overflow-auto flex-1">
-            {children}
-          </div>
-        )}
-      </div>
+      {windowContent}
     </Rnd>
   );
 };

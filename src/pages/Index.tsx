@@ -83,8 +83,8 @@ const Index = () => {
   const blogIcons: Record<string, string> = {
     "Software": "💻",
     "Research": "🔬",
-    "Community": "🌸",
-    "Activism": "✊",
+    "Community": "🦄",
+    "Activism": "🌈",
   };
 
   const taskbarWindows = [
@@ -117,10 +117,12 @@ const Index = () => {
       className="min-h-screen w-full relative overflow-hidden"
       style={{ backgroundColor: '#f0e6ff' }}
     >
-      <BubbleBackground />
+      <div className="hidden md:block">
+        <BubbleBackground />
+      </div>
 
       {/* Desktop Icons */}
-      <div className="absolute top-4 left-4 flex flex-col gap-4 z-10">
+      <div className="hidden md:flex absolute top-4 left-4 flex-col gap-4 z-10">
         <DesktopIcon
           icon="💬"
           label="Chat"
@@ -158,7 +160,7 @@ const Index = () => {
         <Window
           title="Paint"
           onClose={() => closeWindow("paint")}
-          defaultPosition={{ x: 100, y: 50 }}
+          defaultPosition={{ x: 20, y: 50 }}
           width="w-auto"
           icon="🎨"
           zIndex={windowZIndex["paint"] || 10}
@@ -174,7 +176,7 @@ const Index = () => {
         <Window
           title="Chat Room"
           onClose={() => closeWindow("chat")}
-          defaultPosition={{ x: 600, y: 50 }}
+          defaultPosition={{ x: 200, y: 50 }}
           width="w-[500px]"
           icon="💬"
           zIndex={windowZIndex["chat"] || 10}
@@ -206,7 +208,7 @@ const Index = () => {
         <Window
           title="My Art Gallery"
           onClose={() => closeWindow("gallery")}
-          defaultPosition={{ x: 650, y: 100 }}
+          defaultPosition={{ x: 250, y: 100 }}
           width="w-[450px]"
           icon="🖼️"
           zIndex={windowZIndex["gallery"] || 10}
@@ -222,7 +224,7 @@ const Index = () => {
         <Window
           title="Guestbook"
           onClose={() => closeWindow("guestbook")}
-          defaultPosition={{ x: 200, y: 150 }}
+          defaultPosition={{ x: 40, y: 150 }}
           width="w-[400px]"
           icon="📖"
           zIndex={windowZIndex["guestbook"] || 10}
@@ -238,7 +240,7 @@ const Index = () => {
         <Window
           title="Reading List"
           onClose={() => closeWindow("readingList")}
-          defaultPosition={{ x: 250, y: 100 }}
+          defaultPosition={{ x: 50, y: 100 }}
           width="w-[800px]"
           icon="📚"
           zIndex={windowZIndex["readingList"] || 10}
