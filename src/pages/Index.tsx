@@ -253,22 +253,34 @@ const Index = () => {
       )}
 
       {/* Blog Windows */}
-      {blogWindows.map((blog, index) => (
-        <Window
-          key={blog.id}
-          title={blog.name}
-          onClose={() => closeBlogWindow(blog.id)}
-          defaultPosition={{ x: 300 + index * 150, y: 80 + index * 100 }}
-          width="w-[450px]"
-          icon={blogIcons[blog.name] || "📝"}
-          zIndex={windowZIndex[blog.id] || 10}
-          onFocus={() => bringWindowToFront(blog.id)}
-          isMinimized={minimizedWindows[blog.id]}
-          onMinimize={(minimized) => handleMinimize(blog.id, minimized)}
-        >
-          <BlogWindow blogName={blog.name} />
-        </Window>
-      ))}
+      {blogWindows.map((blog, index) => {
+        // Define specific positions for each blog type
+        const blogPositions: Record<string, { x: number; y: number }> = {
+          "Software": { x: 300, y: 80 },
+          "Research": { x: 450, y: 180 },
+          "Community": { x: 320, y: 120 },
+          "Activism": { x: 380, y: 140 },
+        };
+
+        const position = blogPositions[blog.name] || { x: 300 + index * 150, y: 80 + index * 100 };
+
+        return (
+          <Window
+            key={blog.id}
+            title={blog.name}
+            onClose={() => closeBlogWindow(blog.id)}
+            defaultPosition={position}
+            width="w-[450px]"
+            icon={blogIcons[blog.name] || "📝"}
+            zIndex={windowZIndex[blog.id] || 10}
+            onFocus={() => bringWindowToFront(blog.id)}
+            isMinimized={minimizedWindows[blog.id]}
+            onMinimize={(minimized) => handleMinimize(blog.id, minimized)}
+          >
+            <BlogWindow blogName={blog.name} />
+          </Window>
+        );
+      })}
 
       {/* Start Menu */}
       <StartMenu

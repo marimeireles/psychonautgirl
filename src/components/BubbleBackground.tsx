@@ -85,13 +85,24 @@ export const BubbleBackground = () => {
         // Pulsing opacity for gas-like effect
         const pulseOpacity = bubble.opacity + Math.sin(time + bubble.phase) * 0.1;
 
-        // Draw bubble with stronger blur effect
+        // Draw bubble with stronger blur effect (Safari-compatible)
         ctx.save();
-        ctx.filter = 'blur(60px)';
-        ctx.globalAlpha = Math.max(0.2, Math.min(0.9, pulseOpacity));
-        ctx.fillStyle = bubble.color;
+
+        // Use a radial gradient for blur-like effect (Safari fallback)
+        const gradient = ctx.createRadialGradient(
+          bubble.x, bubble.y, 0,
+          bubble.x, bubble.y, bubble.radius
+        );
+
+        // Parse the hex color and create gradient stops
+        const opacity = Math.max(0.2, Math.min(0.9, pulseOpacity));
+        gradient.addColorStop(0, bubble.color + Math.round(opacity * 255).toString(16).padStart(2, '0'));
+        gradient.addColorStop(0.5, bubble.color + Math.round(opacity * 0.6 * 255).toString(16).padStart(2, '0'));
+        gradient.addColorStop(1, bubble.color + '00');
+
+        ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+        ctx.arc(bubble.x, bubble.y, bubble.radius * 1.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       });

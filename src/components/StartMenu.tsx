@@ -10,8 +10,6 @@ interface StartMenuProps {
 
 export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [programsOpen, setProgramsOpen] = useState(false);
-  const [blogsOpen, setBlogsOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,7 +39,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
   return (
     <div
       ref={menuRef}
-      className="fixed bottom-10 left-0 w-64 md:w-64 win95-border bg-card shadow-2xl z-[100] animate-fade-in max-h-[calc(100vh-3rem)] overflow-y-auto"
+      className="fixed bottom-10 left-0 w-64 win95-border bg-card shadow-2xl z-50 animate-fade-in"
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/30 to-accent/40 px-3 py-6 flex items-center gap-3 border-b-2 border-border">
@@ -55,23 +53,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
       <div className="p-1">
         {/* Programs Section with Submenu */}
         <div className="mb-1 relative group/programs">
-          <button
-            onClick={() => setProgramsOpen(!programsOpen)}
-            onMouseEnter={() => setProgramsOpen(true)}
-            onMouseLeave={() => setProgramsOpen(false)}
-            className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm"
-          >
+          <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
             <Folder className="w-4 h-4" />
             <span className="flex-1">Programs</span>
             <ChevronRight className="w-3 h-3 text-muted-foreground" />
           </button>
 
           {/* Submenu */}
-          <div
-            className={`${programsOpen ? 'block' : 'hidden'} absolute left-full md:left-full left-0 md:top-0 bottom-full md:bottom-auto md:ml-1 mb-1 md:mb-0 w-48 win95-border bg-card shadow-2xl z-[110]`}
-            onMouseEnter={() => setProgramsOpen(true)}
-            onMouseLeave={() => setProgramsOpen(false)}
-          >
+          <div className="hidden group-hover/programs:block absolute left-full top-0 ml-1 w-48 win95-border bg-card shadow-2xl z-50">
             <div className="p-1">
               <MenuItem
                 icon="🎨"
@@ -113,23 +102,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
 
         {/* Blogs Section with Submenu */}
         <div className="mb-1 relative group/blogs">
-          <button
-            onClick={() => setBlogsOpen(!blogsOpen)}
-            onMouseEnter={() => setBlogsOpen(true)}
-            onMouseLeave={() => setBlogsOpen(false)}
-            className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm"
-          >
+          <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
             <Folder className="w-4 h-4" />
             <span className="flex-1">Blogs</span>
             <ChevronRight className="w-3 h-3 text-muted-foreground" />
           </button>
 
           {/* Submenu */}
-          <div
-            className={`${blogsOpen ? 'block' : 'hidden'} absolute left-full md:left-full left-0 md:top-0 bottom-full md:bottom-auto md:ml-1 mb-1 md:mb-0 w-56 win95-border bg-card shadow-2xl z-[110]`}
-            onMouseEnter={() => setBlogsOpen(true)}
-            onMouseLeave={() => setBlogsOpen(false)}
-          >
+          <div className="hidden group-hover/blogs:block absolute left-full top-0 ml-1 w-56 win95-border bg-card shadow-2xl z-50">
             <div className="p-1">
               <MenuItem
                 icon="🤖"
