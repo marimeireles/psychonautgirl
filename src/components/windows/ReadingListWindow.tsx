@@ -68,6 +68,7 @@ export const ReadingListWindow = () => {
   const [bookName, setBookName] = useState("");
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const books = useMemo(() => parseBooks(), []);
 
@@ -99,12 +100,37 @@ export const ReadingListWindow = () => {
     return result;
   }, [books, searchQuery, sortField, sortOrder]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!bookName.trim()) return;
-    // Handle book recommendation submission
-    console.log("Recommended book:", bookName);
-    setBookName("");
+
+    setSubmitStatus("loading");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xjvndedd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bookName: bookName,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setBookName("");
+        // Reset success message after 3 seconds
+        setTimeout(() => setSubmitStatus("idle"), 3000);
+      } else {
+        setSubmitStatus("error");
+        setTimeout(() => setSubmitStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -123,14 +149,26 @@ export const ReadingListWindow = () => {
             onChange={(e) => setBookName(e.target.value)}
             className="win95-border-inset bg-input px-2 py-1 text-sm flex-1 min-w-[200px]"
             placeholder="type..."
+            disabled={submitStatus === "loading"}
           />
           <button
             type="submit"
-            className="win95-border bg-card hover:bg-muted px-3 py-1 text-sm font-bold active:win95-border-inset"
+            className="win95-border bg-card hover:bg-muted px-3 py-1 text-sm font-bold active:win95-border-inset disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={submitStatus === "loading"}
           >
-            send
+            {submitStatus === "loading" ? "sending..." : "send"}
           </button>
         </form>
+        {submitStatus === "success" && (
+          <div className="mt-2 text-sm text-green-700 bg-green-100 border border-green-300 px-2 py-1 rounded">
+            Thank you! Your book recommendation has been sent.
+          </div>
+        )}
+        {submitStatus === "error" && (
+          <div className="mt-2 text-sm text-red-700 bg-red-100 border border-red-300 px-2 py-1 rounded">
+            Oops! Something went wrong. Please try again.
+          </div>
+        )}
       </div>
 
       {/* Search */}
