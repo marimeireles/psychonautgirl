@@ -10,10 +10,11 @@ import { GalleryWindow } from "@/components/windows/GalleryWindow";
 import { GuestbookWindow } from "@/components/windows/GuestbookWindow";
 import { BlogWindow } from "@/components/windows/BlogWindow";
 import { ReadingListWindow } from "@/components/windows/ReadingListWindow";
+import { JobPopupWindow } from "@/components/windows/JobPopupWindow";
 import { BubbleBackground } from "@/components/BubbleBackground";
 import desktopBg from "@/assets/desktop-bg.jpg";
 
-type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList";
+type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup";
 
 interface BlogWindow {
   id: string;
@@ -21,14 +22,14 @@ interface BlogWindow {
 }
 
 const Index = () => {
-  const [openWindows, setOpenWindows] = useState<Set<WindowType>>(new Set(["about"]));
+  const [openWindows, setOpenWindows] = useState<Set<WindowType>>(new Set(["about", "jobPopup"]));
   const [blogWindows, setBlogWindows] = useState<BlogWindow[]>([
     { id: "software-1", name: "Software" },
     { id: "research-1", name: "Research" }
   ]);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
-  const [windowZIndex, setWindowZIndex] = useState<Record<string, number>>({ about: 13, "software-1": 11, "research-1": 12 });
-  const [topZIndex, setTopZIndex] = useState(13);
+  const [windowZIndex, setWindowZIndex] = useState<Record<string, number>>({ about: 13, "software-1": 11, "research-1": 12, jobPopup: 20 });
+  const [topZIndex, setTopZIndex] = useState(20);
   const [minimizedWindows, setMinimizedWindows] = useState<Record<string, boolean>>({});
 
   const openWindow = (window: WindowType) => {
@@ -77,6 +78,7 @@ const Index = () => {
     gallery: { title: "My Art Gallery", icon: "🖼️" },
     guestbook: { title: "Guestbook", icon: "📖" },
     readingList: { title: "Reading List", icon: "📚" },
+    jobPopup: { title: "Looking for Opportunities!", icon: "✨" },
   };
 
   // Build taskbar windows list
@@ -201,6 +203,22 @@ const Index = () => {
           onMinimize={(minimized) => handleMinimize("about", minimized)}
         >
           <AboutWindow />
+        </Window>
+      )}
+
+      {openWindows.has("jobPopup") && (
+        <Window
+          title="Looking for Opportunities!"
+          onClose={() => closeWindow("jobPopup")}
+          defaultPosition={{ x: 350, y: 80 }}
+          width="w-[400px]"
+          icon="✨"
+          zIndex={windowZIndex["jobPopup"] || 20}
+          onFocus={() => bringWindowToFront("jobPopup")}
+          isMinimized={minimizedWindows["jobPopup"]}
+          onMinimize={(minimized) => handleMinimize("jobPopup", minimized)}
+        >
+          <JobPopupWindow />
         </Window>
       )}
 
