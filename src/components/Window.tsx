@@ -51,6 +51,11 @@ export const Window = ({
     }
   };
 
+  // Hide entire window when minimized
+  if (isMinimized) {
+    return null;
+  }
+
   const windowContent = (
     <div className="win95-border bg-card flex flex-col shadow-lg h-full">
         {/* Title Bar */}
@@ -81,11 +86,9 @@ export const Window = ({
         </div>
 
         {/* Window Content */}
-        {!isMinimized && (
-          <div className="p-2 bg-card overflow-auto flex-1">
-            {children}
-          </div>
-        )}
+        <div className="p-2 bg-card overflow-auto flex-1">
+          {children}
+        </div>
       </div>
   );
 
