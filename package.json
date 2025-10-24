@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://marimeireles.com",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp CNAME dist/CNAME",
+    "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
