@@ -94,6 +94,15 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   onClose();
                 }}
               />
+              <MenuItem
+                icon="📝"
+                text="Collaborative Dashboard"
+                onClick={() => {
+                  window.open('/dashboard', '_blank');
+                  onClose();
+                }}
+                showArrow={true}
+              />
             </div>
           </div>
         </div>

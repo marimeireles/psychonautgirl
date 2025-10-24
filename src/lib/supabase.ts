@@ -23,3 +23,11 @@ export interface ChatMessage {
   message: string;
   created_at: string;
 }
+
+export interface CollaborativeDashboard {
+  id: number;
+  content: string;
+  last_updated_by: string;
+  updated_at: string;
+  created_at: string;
+}
