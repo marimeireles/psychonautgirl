@@ -7,10 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html",
-    "build:dev": "vite build --mode development",
+    "predeploy": "git add . && git diff-index --quiet HEAD || git commit -m 'Auto-commit before deploy'",
+    "deploy": "npm run predeploy && git push origin master && npm run build && git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "npm run build && git push origin `git subtree split --prefix dist master`:gh-pages --force"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
