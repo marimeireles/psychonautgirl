@@ -141,7 +141,6 @@ All colors MUST be HSL.
   /* Tiptap Editor Prose Styles */
   .prose {
     color: hsl(var(--foreground));
-    max-width: 65ch;
   }
 
   .prose h1 {

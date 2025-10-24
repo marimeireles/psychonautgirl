@@ -159,7 +159,13 @@ const Dashboard = () => {
         clearTimeout(saveTimeoutRef.current);
       }
       handleSave(editor.getHTML());
-      toast.success("Saved!");
+      toast.success("Saved!", {
+        style: {
+          background: "hsl(330, 100%, 95%)",
+          color: "hsl(330, 70%, 40%)",
+          border: "2px solid hsl(330, 85%, 65%)",
+        },
+      });
     }
   };
 
@@ -315,8 +321,8 @@ const Dashboard = () => {
       </div>
 
       {/* Editor */}
-      <div className="max-w-5xl mx-auto">
-        <div className="win95-border-inset bg-white m-6">
+      <div className="mx-auto px-6">
+        <div className="win95-border-inset bg-white my-6">
           <EditorContent editor={editor} />
         </div>
       </div>
