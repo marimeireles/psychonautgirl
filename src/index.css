@@ -259,4 +259,57 @@ All colors MUST be HSL.
   .ProseMirror:focus {
     outline: none;
   }
+
+  /* Flashcard markdown code blocks */
+  .prose pre {
+    background-color: #ffffff !important;
+    border: 2px solid hsl(var(--border));
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .prose pre code {
+    background-color: transparent !important;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .prose code {
+    background-color: #f6f8fa;
+    color: #24292e;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-family: 'Courier New', Consolas, Monaco, monospace;
+    font-weight: 500;
+    border: 1px solid #e1e4e8;
+  }
+
+  /* Syntax highlighting theme overrides */
+  .hljs {
+    background: #ffffff;
+    padding: 0.5rem;
+  }
+
+  /* Make tables in markdown look good */
+  .prose table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid hsl(var(--border));
+    padding: 0.5em;
+    text-align: left;
+  }
+
+  .prose th {
+    background-color: hsl(var(--muted));
+    font-weight: bold;
+  }
 }

@@ -1,65 +1,23 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
-import Typography from "@tiptap/extension-typography";
 import { supabase, type CollaborativeDashboard } from "@/lib/supabase";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { toast } from "sonner";
-import {
-  Bold,
-  Italic,
-  List,
-  ListOrdered,
-  Heading1,
-  Heading2,
-  Quote,
-  Undo,
-  Redo,
-  Save,
-  Home,
-} from "lucide-react";
+import { Save, Home, Edit, Eye, Bold, Italic, Code, Heading1, Heading2, Heading3, Highlighter, Palette } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [content, setContent] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const [lastUpdatedBy, setLastUpdatedBy] = useState<string>("Anonymous");
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const username = "Anonymous";
   const channelRef = useRef<RealtimeChannel | null>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: {
-          levels: [1, 2, 3],
-        },
-      }),
-      Placeholder.configure({
-        placeholder: "Start typing... ✨",
-      }),
-      Typography,
-    ],
-    content: "",
-    editorProps: {
-      attributes: {
-        class:
-          "prose prose-sm max-w-none focus:outline-none min-h-[calc(100vh-200px)] p-6 text-foreground",
-      },
-    },
-    onUpdate: ({ editor }) => {
-      // Auto-save after 30 seconds of inactivity
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
-      }
-      saveTimeoutRef.current = setTimeout(() => {
-        handleSave(editor.getHTML());
-      }, 30000);
-    },
-  });
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   // Load initial content
   useEffect(() => {
@@ -86,8 +44,19 @@ const Dashboard = () => {
 
       if (error) throw error;
 
-      if (data && editor) {
-        editor.commands.setContent(data.content);
+      if (data) {
+        // Check if content is HTML (from old TipTap) and convert to plain text
+        let contentToSet = data.content || "";
+
+        // If content has HTML tags, strip them for now
+        if (contentToSet.includes('<') && contentToSet.includes('>')) {
+          console.log("Found HTML content, converting to plain text");
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = contentToSet;
+          contentToSet = tempDiv.textContent || tempDiv.innerText || "";
+        }
+
+        setContent(contentToSet);
         setLastUpdatedBy(data.last_updated_by);
         setUpdatedAt(data.updated_at);
       }
@@ -114,8 +83,17 @@ const Dashboard = () => {
           const newData = payload.new as CollaborativeDashboard;
 
           // Only update if the change came from someone else
-          if (newData.last_updated_by !== username && editor) {
-            editor.commands.setContent(newData.content, false);
+          if (newData.last_updated_by !== username) {
+            let contentToSet = newData.content || "";
+
+            // Strip HTML if present
+            if (contentToSet.includes('<') && contentToSet.includes('>')) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = contentToSet;
+              contentToSet = tempDiv.textContent || tempDiv.innerText || "";
+            }
+
+            setContent(contentToSet);
             setLastUpdatedBy(newData.last_updated_by);
             setUpdatedAt(newData.updated_at);
             toast.info(`Updated by ${newData.last_updated_by}`);
@@ -126,15 +104,15 @@ const Dashboard = () => {
   };
 
   const handleSave = useCallback(
-    async (content: string) => {
-      if (!content || saving) return;
+    async (contentToSave: string) => {
+      if (saving) return;
 
       setSaving(true);
       try {
         const { error } = await supabase
           .from("collaborative_dashboard")
           .update({
-            content,
+            content: contentToSave,
             last_updated_by: username,
           })
           .eq("id", 1);
@@ -153,21 +131,61 @@ const Dashboard = () => {
     [username, saving]
   );
 
-  const handleManualSave = () => {
-    if (editor) {
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
-      }
-      handleSave(editor.getHTML());
-      toast.success("Saved!", {
-        style: {
-          background: "hsl(330, 100%, 95%)",
-          color: "hsl(330, 70%, 40%)",
-          border: "2px solid hsl(330, 85%, 65%)",
-        },
-      });
+  const handleContentChange = (newContent: string) => {
+    setContent(newContent);
+
+    // Auto-save after 1 minute of inactivity
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
     }
+    saveTimeoutRef.current = setTimeout(() => {
+      handleSave(newContent);
+    }, 60000);
   };
+
+  const handleDoneEditing = () => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+    handleSave(content);
+    setIsEditing(false);
+    toast.success("Saved!", {
+      style: {
+        background: "hsl(330, 100%, 95%)",
+        color: "hsl(330, 70%, 40%)",
+        border: "2px solid hsl(330, 85%, 65%)",
+      },
+    });
+  };
+
+  const insertMarkdown = (before: string, after: string = '') => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+    const newText = content.substring(0, start) + before + selectedText + after + content.substring(end);
+
+    setContent(newText);
+    handleContentChange(newText);
+
+    // Set cursor position after inserted text
+    setTimeout(() => {
+      textarea.focus();
+      const newCursorPos = start + before.length + selectedText.length;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
+  };
+
+  const formatBold = () => insertMarkdown('**', '**');
+  const formatItalic = () => insertMarkdown('*', '*');
+  const formatCode = () => insertMarkdown('`', '`');
+  const formatH1 = () => insertMarkdown('# ', '');
+  const formatH2 = () => insertMarkdown('## ', '');
+  const formatH3 = () => insertMarkdown('### ', '');
+  const formatHighlight = () => insertMarkdown('<mark style="background-color: #ffb3d9;">', '</mark>');
+  const formatLighterColor = () => insertMarkdown('<span style="color: #d4a5d4;">', '</span>');
 
   if (loading) {
     return (
@@ -178,7 +196,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-16">
       {/* Header */}
       <div className="win95-border bg-card sticky top-0 z-10 shadow-md">
         <div className="max-w-5xl mx-auto px-6 py-4">
@@ -196,143 +214,133 @@ const Dashboard = () => {
                 📝 Collaborative Dashboard
               </h1>
             </div>
+
+            {/* Edit/Done Button */}
+            <button
+              onClick={isEditing ? handleDoneEditing : () => setIsEditing(true)}
+              disabled={saving}
+              className={`win95-border px-3 py-1.5 text-sm hover:bg-accent ${
+                isEditing ? "bg-primary/20" : "bg-white"
+              } disabled:opacity-50 flex items-center gap-2`}
+              title={isEditing ? "Done Editing" : "Edit"}
+            >
+              {isEditing ? <Eye className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
+              <span>{isEditing ? (saving ? "Saving..." : "Done") : "Edit"}</span>
+            </button>
           </div>
 
-          <div className="flex items-center justify-between">
-            {/* Toolbar */}
-            <div className="flex items-center gap-1 flex-wrap">
-              <button
-                onClick={() => editor?.chain().focus().toggleBold().run()}
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("bold") ? "bg-primary/20" : "bg-white"
-                }`}
-                title="Bold"
-              >
-                <Bold className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => editor?.chain().focus().toggleItalic().run()}
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("italic") ? "bg-primary/20" : "bg-white"
-                }`}
-                title="Italic"
-              >
-                <Italic className="w-4 h-4" />
-              </button>
-              <div className="w-px h-6 bg-border mx-1" />
-              <button
-                onClick={() =>
-                  editor?.chain().focus().toggleHeading({ level: 1 }).run()
-                }
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("heading", { level: 1 })
-                    ? "bg-primary/20"
-                    : "bg-white"
-                }`}
-                title="Heading 1"
-              >
-                <Heading1 className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() =>
-                  editor?.chain().focus().toggleHeading({ level: 2 }).run()
-                }
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("heading", { level: 2 })
-                    ? "bg-primary/20"
-                    : "bg-white"
-                }`}
-                title="Heading 2"
-              >
-                <Heading2 className="w-4 h-4" />
-              </button>
-              <div className="w-px h-6 bg-border mx-1" />
-              <button
-                onClick={() => editor?.chain().focus().toggleBulletList().run()}
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("bulletList") ? "bg-primary/20" : "bg-white"
-                }`}
-                title="Bullet List"
-              >
-                <List className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("orderedList") ? "bg-primary/20" : "bg-white"
-                }`}
-                title="Numbered List"
-              >
-                <ListOrdered className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => editor?.chain().focus().toggleBlockquote().run()}
-                className={`win95-border p-1 hover:bg-accent ${
-                  editor?.isActive("blockquote") ? "bg-primary/20" : "bg-white"
-                }`}
-                title="Quote"
-              >
-                <Quote className="w-4 h-4" />
-              </button>
-              <div className="w-px h-6 bg-border mx-1" />
-              <button
-                onClick={() => editor?.chain().focus().undo().run()}
-                disabled={!editor?.can().undo()}
-                className="win95-border p-1 hover:bg-accent bg-white disabled:opacity-50"
-                title="Undo"
-              >
-                <Undo className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => editor?.chain().focus().redo().run()}
-                disabled={!editor?.can().redo()}
-                className="win95-border p-1 hover:bg-accent bg-white disabled:opacity-50"
-                title="Redo"
-              >
-                <Redo className="w-4 h-4" />
-              </button>
-              <div className="w-px h-6 bg-border mx-1" />
-              <button
-                onClick={handleManualSave}
-                disabled={saving}
-                className="win95-border p-1 px-2 hover:bg-accent bg-white disabled:opacity-50 flex items-center gap-1"
-                title="Save Now"
-              >
-                <Save className="w-4 h-4" />
-                <span className="text-xs hidden sm:inline">
-                  {saving ? "Saving..." : "Save"}
-                </span>
-              </button>
-            </div>
+          {/* Formatting Toolbar - Only show when editing */}
+          {isEditing && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1 flex-wrap">
+                <button
+                  onClick={formatBold}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Bold"
+                >
+                  <Bold className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={formatItalic}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Italic"
+                >
+                  <Italic className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={formatCode}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Inline Code"
+                >
+                  <Code className="w-4 h-4" />
+                </button>
+                <div className="w-px h-6 bg-border mx-1" />
+                <button
+                  onClick={formatHighlight}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Highlight (Light Pink)"
+                >
+                  <Highlighter className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={formatLighterColor}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Lighter Color Text"
+                >
+                  <Palette className="w-4 h-4" />
+                </button>
+                <div className="w-px h-6 bg-border mx-1" />
+                <button
+                  onClick={formatH1}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Heading 1"
+                >
+                  <Heading1 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={formatH2}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Heading 2"
+                >
+                  <Heading2 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={formatH3}
+                  className="win95-border p-1 hover:bg-accent bg-white"
+                  title="Heading 3"
+                >
+                  <Heading3 className="w-4 h-4" />
+                </button>
+              </div>
 
-            {/* Last update info */}
-            <div className="text-xs text-muted-foreground hidden md:block">
-              {lastUpdatedBy !== username && (
-                <span>Last updated by {lastUpdatedBy}</span>
-              )}
-              {updatedAt && (
-                <span className="ml-2">
-                  {new Date(updatedAt).toLocaleString()}
-                </span>
-              )}
+              {/* Last update info */}
+              <div className="text-xs text-muted-foreground hidden md:block">
+                {lastUpdatedBy !== username && (
+                  <span>Last updated by {lastUpdatedBy}</span>
+                )}
+                {updatedAt && (
+                  <span className="ml-2">
+                    {new Date(updatedAt).toLocaleString()}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
-      {/* Editor */}
-      <div className="mx-auto px-6">
-        <div className="win95-border-inset bg-white my-6">
-          <EditorContent editor={editor} />
-        </div>
+      {/* Content */}
+      <div className="max-w-5xl mx-auto px-6 py-6">
+        {isEditing ? (
+          /* Edit Mode */
+          <textarea
+            ref={textareaRef}
+            value={content}
+            onChange={(e) => handleContentChange(e.target.value)}
+            className="win95-border-inset w-full min-h-[calc(100vh-250px)] p-6 text-sm resize-none bg-white font-mono"
+            placeholder="Start typing... Markdown supported: [link](url), **bold**, `code`, etc."
+            autoFocus
+          />
+        ) : (
+          /* View Mode - Rendered Markdown */
+          <div className="win95-border bg-white p-8 min-h-[calc(100vh-250px)]">
+            {content ? (
+              <MarkdownRenderer content={content} />
+            ) : (
+              <p className="text-sm text-muted-foreground italic">
+                No content yet. Click "Edit" to start writing.
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Footer */}
       <div className="fixed bottom-0 left-0 right-0 win95-border bg-muted py-2 px-6">
         <div className="max-w-5xl mx-auto">
           <p className="text-xs text-muted-foreground text-center">
-            This is a collaborative space. Anyone can edit! Changes auto-save after
-            30 seconds.
+            Collaborative space. Click "Edit" to write markdown. Auto-saves after 1 minute.
+            Markdown: [link](url), **bold**, `code`, ```js code blocks ```
           </p>
         </div>
       </div>

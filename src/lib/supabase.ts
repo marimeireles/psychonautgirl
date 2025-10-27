@@ -31,3 +31,29 @@ export interface CollaborativeDashboard {
   updated_at: string;
   created_at: string;
 }
+
+// Flashcard types
+export interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+  tags?: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FlashcardReview {
+  id: string;
+  card_id: string;
+  rating: 'easy' | 'good' | 'hard' | 'again';
+  reviewed_at: string;
+  dolphin_state: any; // DolphinSR state object
+}
+
+export interface FlashcardState {
+  card_id: string;
+  dolphin_data: any; // Stores DolphinSR serialized data
+  next_review: string;
+  last_review?: string;
+  updated_at: string;
+}
