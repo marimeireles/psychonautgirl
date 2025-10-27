@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronRight, FileText, Folder, Heart, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface StartMenuProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface StartMenuProps {
 
 export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -98,10 +100,9 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                 icon="📝"
                 text="Collaborative Dashboard"
                 onClick={() => {
-                  window.open('/dashboard', '_blank');
+                  navigate('/dashboard');
                   onClose();
                 }}
-                showArrow={true}
               />
             </div>
           </div>
