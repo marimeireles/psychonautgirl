@@ -18,6 +18,7 @@ export const Taskbar = ({ onStartClick, windows = [], onWindowClick }: TaskbarPr
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
+    console.log('time')
     return () => clearInterval(timer);
   }, []);
 
