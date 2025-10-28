@@ -260,7 +260,7 @@ All colors MUST be HSL.
     outline: none;
   }
 
-  /* Flashcard markdown code blocks */
+  /* Markdown code blocks */
   .prose pre {
     background-color: #ffffff !important;
     border: 2px solid hsl(var(--border));

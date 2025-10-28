@@ -6,7 +6,7 @@
   "homepage": "https://marimeireles.com",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html",
+    "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && touch dist/.nojekyll",
     "predeploy": "git add . && git diff-index --quiet HEAD || git commit -m 'Auto-commit before deploy'",
     "deploy": "npm run predeploy && git push origin master && npm run build && git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "lint": "eslint .",
@@ -47,7 +47,6 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^3.6.0",
-    "dolphinsr": "^0.0.2",
     "embla-carousel-react": "^8.6.0",
     "fabric": "^6.7.1",
     "highlight.js": "^11.11.1",
