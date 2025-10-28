@@ -104,14 +104,6 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   onClose();
                 }}
               />
-              <MenuItem
-                icon="🎴"
-                text="Anki Flashcards"
-                onClick={() => {
-                  navigate('/anki');
-                  onClose();
-                }}
-              />
             </div>
           </div>
         </div>
