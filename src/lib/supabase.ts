@@ -31,3 +31,30 @@ export interface CollaborativeDashboard {
   updated_at: string;
   created_at: string;
 }
+
+export interface AnkiDeck {
+  id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+}
+
+export interface AnkiCard {
+  id: string;
+  deck_id: string;
+  front: string;
+  back: string;
+  ease_factor: number;
+  interval: number;
+  repetitions: number;
+  due_date: string;
+  state: 'new' | 'learning' | 'review';
+  created_at: string;
+}
+
+export interface AnkiReview {
+  id: string;
+  card_id: string;
+  rating: 1 | 2 | 3 | 4;
+  reviewed_at: string;
+}
