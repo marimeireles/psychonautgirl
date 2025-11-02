@@ -51,4 +51,4 @@ ehthumbs.db
 Thumbs.db
 
 # Vite
-vite.config.ts.timestamp-*
+vite.config.ts.timestamp-*.deploy-tmp/
