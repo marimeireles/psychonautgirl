@@ -2,7 +2,7 @@ import { Github, Linkedin, Mail, Video, FileText, BookOpen } from "lucide-react"
 
 export const AboutWindow = () => {
   return (
-    <div className="win95-border-inset bg-white p-4 space-y-4 max-h-[500px] overflow-y-auto">
+    <div className="win95-border-inset bg-white p-4 space-y-4 overflow-y-auto h-full">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-primary mb-2">
           Mariana Meireles

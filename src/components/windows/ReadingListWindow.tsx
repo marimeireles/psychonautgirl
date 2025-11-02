@@ -134,9 +134,9 @@ export const ReadingListWindow = () => {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col h-full gap-3">
       {/* Recommend a book form */}
-      <div className="win95-border bg-muted p-3">
+      <div className="win95-border bg-muted p-3 flex-shrink-0">
         <form onSubmit={handleSubmit} className="flex gap-2 items-center flex-wrap">
           <label htmlFor="bookName" className="text-sm font-bold">
             Recommend a book:
@@ -172,7 +172,7 @@ export const ReadingListWindow = () => {
       </div>
 
       {/* Search */}
-      <div className="flex justify-end">
+      <div className="flex justify-end flex-shrink-0">
         <input
           type="text"
           value={searchQuery}
@@ -183,7 +183,7 @@ export const ReadingListWindow = () => {
       </div>
 
       {/* Books table */}
-      <div className="win95-border-inset bg-white p-2 max-h-[400px] overflow-y-auto">
+      <div className="win95-border-inset bg-white p-2 overflow-y-auto flex-1 min-h-0">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">

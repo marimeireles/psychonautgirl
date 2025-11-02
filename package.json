@@ -6,13 +6,15 @@
   "homepage": "https://marimeireles.com",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && touch dist/.nojekyll",
-    "predeploy": "git add . && git diff-index --quiet HEAD || git commit -m 'Auto-commit before deploy'",
-    "deploy": "npm run predeploy && git push origin master && npm run build && git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && touch dist/.nojekyll",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",

@@ -61,12 +61,12 @@ export const GuestbookWindow = () => {
   };
 
   return (
-    <div className="space-y-3">
-      <div className="win95-border bg-muted p-2 text-sm font-bold">
+    <div className="flex flex-col h-full gap-3">
+      <div className="win95-border bg-muted p-2 text-sm font-bold flex-shrink-0">
         📖 Sign My Guestbook
       </div>
 
-      <form onSubmit={handleSubmit} className="win95-border-inset bg-muted p-3 space-y-2">
+      <form onSubmit={handleSubmit} className="win95-border-inset bg-muted p-3 space-y-2 flex-shrink-0">
         <div>
           <label className="text-xs font-bold block mb-1">Name:</label>
           <input
@@ -97,7 +97,7 @@ export const GuestbookWindow = () => {
         </button>
       </form>
 
-      <div className="win95-border-inset bg-white p-2 max-h-60 overflow-y-auto space-y-2">
+      <div className="win95-border-inset bg-white p-2 overflow-y-auto space-y-2 flex-1 min-h-0">
         {loading ? (
           <div className="text-center text-sm text-muted-foreground py-4">Loading...</div>
         ) : entries.length === 0 ? (

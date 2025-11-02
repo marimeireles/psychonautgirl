@@ -34,6 +34,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
   const interests = [
     { name: "Software", icon: "💻" },
     { name: "Research", icon: "🔬" },
+    { name: "Academic work", icon: "🎓" },
     { name: "Community", icon: "🦄" },
     { name: "Activism", icon: "🌈" },
   ];
@@ -192,7 +193,11 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               icon={interest.icon}
               text={interest.name}
               onClick={() => {
-                onOpenBlog(interest.name);
+                if (interest.name === "Academic work") {
+                  onOpenWindow("academicWork");
+                } else {
+                  onOpenBlog(interest.name);
+                }
                 onClose();
               }}
             />

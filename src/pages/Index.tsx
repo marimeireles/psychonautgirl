@@ -11,10 +11,11 @@ import { GuestbookWindow } from "@/components/windows/GuestbookWindow";
 import { BlogWindow } from "@/components/windows/BlogWindow";
 import { ReadingListWindow } from "@/components/windows/ReadingListWindow";
 import { JobPopupWindow } from "@/components/windows/JobPopupWindow";
+import { AcademicWorkWindow } from "@/components/windows/AcademicWorkWindow";
 import { BubbleBackground } from "@/components/BubbleBackground";
 import desktopBg from "@/assets/desktop-bg.jpg";
 
-type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup";
+type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup" | "academicWork";
 
 interface BlogWindow {
   id: string;
@@ -79,6 +80,7 @@ const Index = () => {
     guestbook: { title: "Guestbook", icon: "📖" },
     readingList: { title: "Reading List", icon: "📚" },
     jobPopup: { title: "Looking for Opportunities!", icon: "✨" },
+    academicWork: { title: "Academic Work", icon: "🎓" },
   };
 
   // Build taskbar windows list
@@ -146,6 +148,11 @@ const Index = () => {
           onClick={() => openBlogWindow("Research")}
         />
         <DesktopIcon
+          icon="🎓"
+          label="Academic Work"
+          onClick={() => openWindow("academicWork")}
+        />
+        <DesktopIcon
           icon="📚"
           label="Reading List"
           onClick={() => openWindow("readingList")}
@@ -195,6 +202,7 @@ const Index = () => {
           title="About me"
           onClose={() => closeWindow("about")}
           defaultPosition={{ x: 150, y: 100 }}
+          defaultSize={{ width: 439, height: 590 }}
           width="w-96"
           icon="🌸"
           zIndex={windowZIndex["about"] || 10}
@@ -270,6 +278,25 @@ const Index = () => {
         </Window>
       )}
 
+      {openWindows.has("academicWork") && (
+        <Window
+          title="Academic Work"
+          onClose={() => closeWindow("academicWork")}
+          defaultPosition={{ x: 20, y: 20 }}
+          defaultSize={{ width: window.innerWidth - 40, height: window.innerHeight - 100 }}
+          width="w-[95vw]"
+          icon="🎓"
+          zIndex={windowZIndex["academicWork"] || 10}
+          onFocus={() => bringWindowToFront("academicWork")}
+          isMinimized={minimizedWindows["academicWork"]}
+          onMinimize={(minimized) => handleMinimize("academicWork", minimized)}
+        >
+          <div className="h-full">
+            <AcademicWorkWindow />
+          </div>
+        </Window>
+      )}
+
       {/* Blog Windows */}
       {blogWindows.map((blog, index) => {
         // Define specific positions for each blog type
@@ -295,7 +322,10 @@ const Index = () => {
             isMinimized={minimizedWindows[blog.id]}
             onMinimize={(minimized) => handleMinimize(blog.id, minimized)}
           >
-            <BlogWindow blogName={blog.name} />
+            <BlogWindow
+              blogName={blog.name}
+              onOpenAcademicWork={() => openWindow("academicWork")}
+            />
           </Window>
         );
       })}

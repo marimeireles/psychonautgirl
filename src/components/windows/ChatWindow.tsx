@@ -96,7 +96,7 @@ export const ChatWindow = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 h-[400px]">
+    <div className="flex flex-col gap-2 h-full">
       {/* Messages Area */}
       <div className="win95-border-inset bg-white flex-1 overflow-y-auto p-2 font-mono text-xs">
         {loading ? (

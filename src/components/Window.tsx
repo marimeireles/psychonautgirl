@@ -1,12 +1,13 @@
-import { ReactNode, useState, useEffect } from 'react';
+import { ReactNode, useState, useEffect, useRef } from 'react';
 import { Rnd } from 'react-rnd';
-import { X, Minus, Square } from 'lucide-react';
+import { X, Minus, Square, Maximize2 } from 'lucide-react';
 
 interface WindowProps {
   title: string;
   children: ReactNode;
   onClose: () => void;
   defaultPosition?: { x: number; y: number };
+  defaultSize?: { width: number; height: number };
   width?: string;
   height?: string;
   icon?: ReactNode;
@@ -21,6 +22,7 @@ export const Window = ({
   children,
   onClose,
   defaultPosition = { x: 100, y: 100 },
+  defaultSize,
   width = 'w-96',
   height = 'h-auto',
   icon,
@@ -31,6 +33,14 @@ export const Window = ({
 }: WindowProps) => {
   const [internalIsMinimized, setInternalIsMinimized] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [previousState, setPreviousState] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const rndRef = useRef<Rnd>(null);
   const isMinimized = externalIsMinimized !== undefined ? externalIsMinimized : internalIsMinimized;
 
   useEffect(() => {
@@ -51,6 +61,37 @@ export const Window = ({
     }
   };
 
+  const handleMaximize = () => {
+    if (!rndRef.current) return;
+
+    if (isMaximized) {
+      // Restore previous state
+      if (previousState) {
+        rndRef.current.updatePosition({ x: previousState.x, y: previousState.y });
+        rndRef.current.updateSize({ width: previousState.width, height: previousState.height });
+      }
+      setIsMaximized(false);
+    } else {
+      // Save current state
+      const currentState = {
+        x: rndRef.current.props.position?.x || defaultPosition.x,
+        y: rndRef.current.props.position?.y || defaultPosition.y,
+        width: rndRef.current.props.size?.width || 384,
+        height: rndRef.current.props.size?.height || 400,
+      };
+      setPreviousState(currentState);
+
+      // Maximize - account for taskbar at bottom
+      const taskbarHeight = 40; // Height of taskbar
+      rndRef.current.updatePosition({ x: 0, y: 0 });
+      rndRef.current.updateSize({
+        width: window.innerWidth,
+        height: window.innerHeight - taskbarHeight,
+      });
+      setIsMaximized(true);
+    }
+  };
+
   // Hide entire window when minimized
   if (isMinimized) {
     return null;
@@ -68,17 +109,21 @@ export const Window = ({
             <button
               onClick={handleMinimize}
               className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+              title="Minimize"
             >
               <Minus className="w-3 h-3" />
             </button>
             <button
+              onClick={handleMaximize}
               className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+              title={isMaximized ? "Restore" : "Maximize"}
             >
               <Square className="w-2.5 h-2.5" />
             </button>
             <button
               onClick={onClose}
               className="win95-border bg-card hover:bg-muted w-5 h-5 flex items-center justify-center active:win95-border-inset"
+              title="Close"
             >
               <X className="w-3 h-3" />
             </button>
@@ -86,7 +131,7 @@ export const Window = ({
         </div>
 
         {/* Window Content */}
-        <div className="p-2 bg-card overflow-auto flex-1">
+        <div className="bg-card flex-1 min-h-0 p-2">
           {children}
         </div>
       </div>
@@ -108,11 +153,12 @@ export const Window = ({
   // Desktop: draggable and resizable
   return (
     <Rnd
+      ref={rndRef}
       default={{
         x: defaultPosition.x,
         y: defaultPosition.y,
-        width: 384,
-        height: 'auto',
+        width: defaultSize?.width || 384,
+        height: defaultSize?.height || 'auto',
       }}
       minWidth={300}
       minHeight={200}
@@ -121,7 +167,8 @@ export const Window = ({
       className="animate-fade-in"
       style={{ zIndex }}
       onMouseDown={onFocus}
-      enableResizing={{
+      disableDragging={isMaximized}
+      enableResizing={isMaximized ? false : {
         top: true,
         right: true,
         bottom: true,

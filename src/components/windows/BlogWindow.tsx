@@ -1,8 +1,9 @@
 interface BlogWindowProps {
   blogName: string;
+  onOpenAcademicWork?: () => void;
 }
 
-export const BlogWindow = ({ blogName }: BlogWindowProps) => {
+export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) => {
   const blogContent = {
     "Software": {
       emoji: "💻",
@@ -31,8 +32,20 @@ export const BlogWindow = ({ blogName }: BlogWindowProps) => {
               <li>• Ethics</li>
             </ul>
           </div>
-          <p className="text-xs"><a href="https://github.com/marimeireles/talks/" target="_blank" className="text-primary hover:underline">Academic work →</a></p>
-          {/*<p className="text-xs"><a href="https://techforgoodresearch.substack.com/" target="_blank" className="text-primary hover:underline">Read my research blog →</a></p>*/}
+          <p className="text-xs">
+            <b>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenAcademicWork?.();
+                }}
+                className="text-primary hover:underline cursor-pointer"
+              >
+                Academic work →
+              </a>
+            </b>
+          </p>
         </div>
       ),
     },
@@ -97,13 +110,13 @@ export const BlogWindow = ({ blogName }: BlogWindowProps) => {
   }
 
   return (
-    <div className="space-y-3">
-      <div className="win95-border bg-gradient-to-r from-primary/10 to-accent/20 p-3 text-center">
+    <div className="flex flex-col h-full gap-3">
+      <div className="win95-border bg-gradient-to-r from-primary/10 to-accent/20 p-3 text-center flex-shrink-0">
         <div className="text-3xl mb-2">{blog.emoji}</div>
         <h2 className="text-lg font-bold text-primary">{blogName}</h2>
       </div>
 
-      <div className="win95-border-inset bg-white p-3 max-h-[400px] overflow-y-auto">
+      <div className="win95-border-inset bg-white p-3 overflow-y-auto flex-1 min-h-0">
         {blog.content}
       </div>
     </div>
