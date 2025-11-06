@@ -267,6 +267,7 @@ const Index = () => {
           title="Reading List"
           onClose={() => closeWindow("readingList")}
           defaultPosition={{ x: 50, y: 100 }}
+          defaultSize={{ width: 600, height: 600 }}
           width="w-[800px]"
           icon="📚"
           zIndex={windowZIndex["readingList"] || 10}
