@@ -61,7 +61,7 @@ export const GuestbookWindow = () => {
   };
 
   return (
-    <div className="flex flex-col h-full gap-3">
+    <div className="flex flex-col h-full gap-3 overflow-y-auto">
       <div className="win95-border bg-muted p-2 text-sm font-bold flex-shrink-0">
         📖 Sign My Guestbook
       </div>

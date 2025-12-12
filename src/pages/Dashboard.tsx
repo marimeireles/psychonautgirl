@@ -133,14 +133,6 @@ const Dashboard = () => {
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
-
-    // Auto-save after 1 minute of inactivity
-    if (saveTimeoutRef.current) {
-      clearTimeout(saveTimeoutRef.current);
-    }
-    saveTimeoutRef.current = setTimeout(() => {
-      handleSave(newContent);
-    }, 60000);
   };
 
   const handleDoneEditing = () => {
@@ -339,7 +331,7 @@ const Dashboard = () => {
       <div className="fixed bottom-0 left-0 right-0 win95-border bg-muted py-2 px-6">
         <div className="max-w-5xl mx-auto">
           <p className="text-xs text-muted-foreground text-center">
-            Collaborative space. Click "Edit" to write markdown. Auto-saves after 1 minute.
+            Collaborative space. Click "Edit" to write markdown. Click "Done" to save.
             Markdown: [link](url), **bold**, `code`, ```js code blocks ```
           </p>
         </div>

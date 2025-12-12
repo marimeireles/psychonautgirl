@@ -2,7 +2,7 @@ import { Mail, Calendar, Sparkles } from "lucide-react";
 
 export const JobPopupWindow = () => {
   return (
-    <div className="win95-border-inset bg-white p-4 space-y-4">
+    <div className="win95-border-inset bg-white p-4 space-y-4 overflow-y-auto h-full">
       {/* Header with sparkles */}
       <div className="text-center space-y-2">
         <div className="flex items-center justify-center gap-2">

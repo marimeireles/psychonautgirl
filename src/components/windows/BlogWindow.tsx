@@ -110,7 +110,7 @@ export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) =>
   }
 
   return (
-    <div className="flex flex-col h-full gap-3">
+    <div className="flex flex-col h-full gap-3 overflow-y-auto">
       <div className="win95-border bg-gradient-to-r from-primary/10 to-accent/20 p-3 text-center flex-shrink-0">
         <div className="text-3xl mb-2">{blog.emoji}</div>
         <h2 className="text-lg font-bold text-primary">{blogName}</h2>

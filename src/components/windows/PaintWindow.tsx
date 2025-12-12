@@ -52,7 +52,7 @@ export const PaintWindow = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 overflow-y-auto h-full">
       {/* Toolbar */}
       <div className="win95-border-inset bg-muted p-2 flex gap-2 items-center flex-wrap">
         <button

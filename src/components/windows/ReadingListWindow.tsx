@@ -134,7 +134,7 @@ export const ReadingListWindow = () => {
   };
 
   return (
-    <div className="flex flex-col h-full gap-3">
+    <div className="flex flex-col h-full gap-3 overflow-y-auto">
       {/* Recommend a book form */}
       <div className="win95-border bg-muted p-3 flex-shrink-0">
         <form onSubmit={handleSubmit} className="flex gap-2 items-center flex-wrap">

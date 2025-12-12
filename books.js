@@ -1,5 +1,8 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Mating in Captivity,Read,psychology,Esther Perel
+Human All Too Human,Reading,philosophy,Nietzsche
+The Fall of Hyperion,Read,sci-fi,Dan Simmons,
 Alcibiades,Read,philosophy,Plato
 The Vital Question,Want to read,biology;teleology,
 The Player of Games,Read,sci-fi,Ian Banks
@@ -411,7 +414,7 @@ The Gambler,Want to read,fiction,Dostoevsky,
 Moby Dick,Want to read,fiction,,
 Don Quixote,Want to read,fiction,,
 The Return of the Native,Want to read,fiction,,
-Madame Bovary,Want to read,fiction,,
+Madame Bovary,Reading,fiction,Gustave Flaubert,
 Huckleberry Finn,Want to read,fiction,,
 The Portrait of a Lady,Want to read,fiction,,
 Red Badge of Courage,Want to read,fiction,,
@@ -554,7 +557,7 @@ Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 Diaspora,Read,sci-fi,Greg Egan,
-Cryptonomicon,Want to read,sci-fi,,
+Cryptonomicon,Read,sci-fi,Neal Stephenson,
 A Fire Upon the Deep,Read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
 Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
@@ -801,7 +804,7 @@ The Arabian Nights,Read,fiction,,
 The Lost Symbol,Read,fiction,,
 The Ring of the Nibelung,Read,fiction,,
 Beowulf,Read,fiction,,
-Hamlet,Read,fiction,,
+Hamlet,Read,fiction,Shakespeare,
 The Three Musketeers,Read,fiction,,
 Wuthering Heights,Read,fiction,,
 O Cortiço,Read,fiction,,

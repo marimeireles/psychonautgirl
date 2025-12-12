@@ -37,7 +37,7 @@ export const GalleryWindow: React.FC = () => {
   ] as const;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 overflow-y-auto h-full">
       <div className="win95-border bg-muted p-2 text-sm font-bold flex items-center justify-between">
         <span>🎨 My Art Gallery</span>
 {/*        <nav className="flex gap-3 text-xs font-normal">
