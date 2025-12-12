@@ -158,7 +158,7 @@ export const Window = ({
         x: defaultPosition.x,
         y: defaultPosition.y,
         width: defaultSize?.width || 384,
-        height: defaultSize?.height || 'auto',
+        height: defaultSize?.height || 500,
       }}
       minWidth={300}
       minHeight={200}
