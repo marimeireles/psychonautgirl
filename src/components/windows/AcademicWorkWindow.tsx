@@ -83,7 +83,7 @@ export const AcademicWorkWindow = () => {
     {
       name: "ORCID",
       description: "My ORCID researcher profile",
-      url: "https://orcid.org/my-orcid?orcid=0000-0001-9227-9798",
+      url: "https://orcid.org/0000-0001-9227-9798",
       icon: faOrcid,
       color: "#a6ce39",
     },
