@@ -1,5 +1,13 @@
 const dataString = 
 `Name,Status,Type,Author,Notes
+Fear and Trembling,Want to read,philosophy;christianity,Kirkgaard
+Boundaries,Want to read,psychology,Henry Cloud
+Salmonella Men on Planet Porno,Want to read,sci-fi,Yasutaka Tsutsui
+Process and Reality,Want to read,philosophy,Whitehead
+Odes,Want to read,poetry,Homer
+A Portrait of the Artist as a Young Man,Want to read,fiction,James Joyce
+There Is No Antimemetics Division,Read,sci-fi;horror,qntm
+Leaves of Grass,Reading,poetry,Whitman
 Mating in Captivity,Read,psychology,Esther Perel
 Human All Too Human,Reading,philosophy,Nietzsche
 The Fall of Hyperion,Read,sci-fi,Dan Simmons,
@@ -353,7 +361,7 @@ Creating a Learning Society: A New Approach to Growth Development and Social Pro
 The Wealth of Nations/The Theory of Moral Sentiments,Want to read,economics,,
 Merchants of Doub,Want to read,economics,,
 You Can't Be Neutral on a Moving Train: A Personal History of Our Times,Want to read,economics,,
-Why Nations Fail,Want to read,economics,Daron Acemoglu and James A. Robinson,
+Why Nations Fail,Read,economics,Daron Acemoglu and James A. Robinson,
 Inventing the Future: Postcapitalism and a World Without Work,Want to read,economics; anarchism;governance,,
 The Case Against Education: Why the Education System Is a Waste of Time and Money,Want to read,economics; education,Bryan Caplan,
 Atlas Shrugged,Want to read,economics; fiction,Ayn Rand,
@@ -393,10 +401,9 @@ Another Now: Dispatches from an Alternative Present,Want to read,fiction,Yanis V
 Foucault's Pendulum,Want to read,fiction,Umberto Eco,
 The Grail Quest,Want to read,fiction,Bernard Cornwell,
 Into the Wild,Want to read,fiction,,
-The Sound and Fury,Want to read,fiction,,
 Howl’s Moving Castle,Want to read,fiction,,
-David Copperfield,Want to read,fiction,,
-Oliver Twist,Want to read,fiction,,
+David Copperfield,Want to read,fiction,Charles Dickens
+Oliver Twist,Want to read,fiction,Charles Dickens,
 The Call of the Wild,Read,fiction,,
 And Then There Were None,Want to read,fiction,,
 The Girl With the Dragon Tattoo,Want to read,fiction,,
@@ -419,7 +426,7 @@ Huckleberry Finn,Want to read,fiction,,
 The Portrait of a Lady,Want to read,fiction,,
 Red Badge of Courage,Want to read,fiction,,
 Seize the Day,Want to read,fiction,,
-One Hundred Years of Solitude,Want to read,fiction,,
+One Hundred Years of Solitude,Want to read,fiction,Gabriel Garcia Marquez
 If On A Winter’s Night A Traveler,Want to read,fiction,,
 Beloved,Want to read,fiction,,
 Heart of Darkness,Want to read,fiction,,
