@@ -1,5 +1,17 @@
-export const dataString =
+const dataString = 
 `Name,Status,Type,Author,Notes
+Selected Poetry,Read,poetry,John Keats
+Fear and Trembling,Want to read,philosophy;christianity,Kirkgaard
+Boundaries,Want to read,psychology,Henry Cloud
+Salmonella Men on Planet Porno,Want to read,sci-fi,Yasutaka Tsutsui
+Process and Reality,Want to read,philosophy,Whitehead
+Odes,Want to read,poetry,Homer
+A Portrait of the Artist as a Young Man,Want to read,fiction,James Joyce
+There Is No Antimemetics Division,Read,sci-fi;horror,qntm
+Leaves of Grass,Reading,poetry,Whitman
+Mating in Captivity,Read,psychology,Esther Perel
+Human All Too Human,Reading,philosophy,Nietzsche
+The Fall of Hyperion,Read,sci-fi,Dan Simmons,
 Alcibiades,Read,philosophy,Plato
 The Vital Question,Want to read,biology;teleology,
 The Player of Games,Read,sci-fi,Ian Banks
@@ -350,7 +362,7 @@ Creating a Learning Society: A New Approach to Growth Development and Social Pro
 The Wealth of Nations/The Theory of Moral Sentiments,Want to read,economics,,
 Merchants of Doub,Want to read,economics,,
 You Can't Be Neutral on a Moving Train: A Personal History of Our Times,Want to read,economics,,
-Why Nations Fail,Want to read,economics,Daron Acemoglu and James A. Robinson,
+Why Nations Fail,Read,economics,Daron Acemoglu and James A. Robinson,
 Inventing the Future: Postcapitalism and a World Without Work,Want to read,economics; anarchism;governance,,
 The Case Against Education: Why the Education System Is a Waste of Time and Money,Want to read,economics; education,Bryan Caplan,
 Atlas Shrugged,Want to read,economics; fiction,Ayn Rand,
@@ -390,10 +402,9 @@ Another Now: Dispatches from an Alternative Present,Want to read,fiction,Yanis V
 Foucault's Pendulum,Want to read,fiction,Umberto Eco,
 The Grail Quest,Want to read,fiction,Bernard Cornwell,
 Into the Wild,Want to read,fiction,,
-The Sound and Fury,Want to read,fiction,,
 Howl’s Moving Castle,Want to read,fiction,,
-David Copperfield,Want to read,fiction,,
-Oliver Twist,Want to read,fiction,,
+David Copperfield,Want to read,fiction,Charles Dickens
+Oliver Twist,Want to read,fiction,Charles Dickens,
 The Call of the Wild,Read,fiction,,
 And Then There Were None,Want to read,fiction,,
 The Girl With the Dragon Tattoo,Want to read,fiction,,
@@ -411,12 +422,12 @@ The Gambler,Want to read,fiction,Dostoevsky,
 Moby Dick,Want to read,fiction,,
 Don Quixote,Want to read,fiction,,
 The Return of the Native,Want to read,fiction,,
-Madame Bovary,Want to read,fiction,,
+Madame Bovary,Reading,fiction,Gustave Flaubert,
 Huckleberry Finn,Want to read,fiction,,
 The Portrait of a Lady,Want to read,fiction,,
 Red Badge of Courage,Want to read,fiction,,
 Seize the Day,Want to read,fiction,,
-One Hundred Years of Solitude,Want to read,fiction,,
+One Hundred Years of Solitude,Want to read,fiction,Gabriel Garcia Marquez
 If On A Winter’s Night A Traveler,Want to read,fiction,,
 Beloved,Want to read,fiction,,
 Heart of Darkness,Want to read,fiction,,
@@ -554,7 +565,7 @@ Sword & Citadel,Want to read,sci-fi,Gene Wolf,
 The Peace War,Want to read,sci-fi,Vernor Vinge,
 Permutation City,Read,sci-fi,Greg Egan,
 Diaspora,Read,sci-fi,Greg Egan,
-Cryptonomicon,Want to read,sci-fi,,
+Cryptonomicon,Read,sci-fi,Neal Stephenson,
 A Fire Upon the Deep,Read,sci-fi,Vernor Vinge,
 Island,Want to read,sci-fi,Asimov,
 Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
@@ -801,7 +812,7 @@ The Arabian Nights,Read,fiction,,
 The Lost Symbol,Read,fiction,,
 The Ring of the Nibelung,Read,fiction,,
 Beowulf,Read,fiction,,
-Hamlet,Read,fiction,,
+Hamlet,Read,fiction,Shakespeare,
 The Three Musketeers,Read,fiction,,
 Wuthering Heights,Read,fiction,,
 O Cortiço,Read,fiction,,
@@ -1030,38 +1041,95 @@ The Second Sex,Abandoned,philosophy,,
 Beyond Good and Evil,Abandoned,philosophy,,
 The Courage to Be Disliked,Abandoned,psychology,,
 Walkaway,Abandoned,sci-fi,,
-Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`;
-
-export interface Book {
-  Name: string;
-  Status: string;
-  Type: string;
-  Author: string;
-  Notes: string;
-}
+Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`
 
 // Parse the data into an array of objects
-export const parseBooks = (): Book[] => {
-  return dataString.split('\n').slice(1).map(line => {
-    // Handle commas within quoted fields
-    const parts: string[] = [];
-    let current = '';
-    let inQuotes = false;
-
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        parts.push(current.trim());
-        current = '';
-      } else {
-        current += char;
-      }
-    }
-    parts.push(current.trim());
-
-    const [Name = '', Status = '', Type = '', Author = '', Notes = ''] = parts;
+const data = dataString.split('\n').slice(1).map(line => {
+    const [Name, Status, Type, Author, Notes] = line.split(',');
     return { Name, Status, Type, Author, Notes };
-  }).filter(book => book.Name); // Filter out empty entries
-};
+});
+
+// Function to get color for each type
+const typeColors = {};
+
+function getColorForType(type) {
+    if (!typeColors[type]) {
+        // Generate a pastel color
+        const hue = Math.random() * 360;
+        const saturation = 70 + Math.random() * 30; // Vary saturation between 70% and 100%
+        const lightness = 80 + Math.random() * 10; // Vary lightness between 80% and 90%
+        typeColors[type] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+    return typeColors[type];
+}
+
+// Function to get stronger color for each status
+const statusColors = {};
+
+function getStrongerColorForStatus(status) {
+    if (!statusColors[status]) {
+        const hue = Math.random() * 360;
+        const saturation = 80 + Math.random() * 20; // Vary saturation between 80% and 100%
+        const lightness = 50 + Math.random() * 10; // Vary lightness between 40% and 60%
+        statusColors[status] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+    return statusColors[status];
+}
+
+// Function to create a tag
+function createTag(type, isStronger) {
+    const span = document.createElement('span');
+    span.className = 'tag';
+    if (isStronger) {
+        span.style.backgroundColor = getStrongerColorForStatus(type);
+    } else {
+        span.style.backgroundColor = getColorForType(type);
+    }
+    span.innerText = type;
+    return span;
+}
+
+// Function to display the data
+function displayData(data) {
+    const tableBody = document.getElementById('table-body');
+    tableBody.innerHTML = ''; // Clear previous data
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        Object.keys(item).forEach(key => {
+            const cell = document.createElement('td');
+            if (key === 'Type') {
+                const types = item[key].split(';');
+                types.forEach(type => {
+                    const tag = createTag(type.trim(), false); // Use pastel colors for type
+                    cell.appendChild(tag);
+                });
+            } else if (key === 'Status') {
+                const tag = createTag(item[key].trim(), true); // Use stronger colors for status
+                cell.appendChild(tag);
+            } else {
+                cell.textContent = item[key];
+            }
+            row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+    });
+}
+// Function to sort data
+function sortData(column, direction) {
+    data.sort((a, b) => {
+        return direction === 'asc' ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]);
+    });
+    displayData(data);
+}
+
+// Function to filter data based on search input
+function filterData() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const filteredData = data.filter(item => 
+        Object.values(item).some(value => value.toLowerCase().includes(searchInput))
+    );
+    displayData(filteredData);
+}
+
+// Initial display
+displayData(data);
