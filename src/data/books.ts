@@ -1,4 +1,12 @@
-const dataString = 
+export interface Book {
+  Name: string;
+  Status: string;
+  Type: string;
+  Author: string;
+  Notes: string;
+}
+
+const dataString =
 `Name,Status,Type,Author,Notes
 Selected Poetry,Read,poetry,John Keats
 Fear and Trembling,Want to read,philosophy;christianity,Kirkgaard
@@ -1043,93 +1051,16 @@ The Courage to Be Disliked,Abandoned,psychology,,
 Walkaway,Abandoned,sci-fi,,
 Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`
 
-// Parse the data into an array of objects
-const data = dataString.split('\n').slice(1).map(line => {
-    const [Name, Status, Type, Author, Notes] = line.split(',');
-    return { Name, Status, Type, Author, Notes };
-});
-
-// Function to get color for each type
-const typeColors = {};
-
-function getColorForType(type) {
-    if (!typeColors[type]) {
-        // Generate a pastel color
-        const hue = Math.random() * 360;
-        const saturation = 70 + Math.random() * 30; // Vary saturation between 70% and 100%
-        const lightness = 80 + Math.random() * 10; // Vary lightness between 80% and 90%
-        typeColors[type] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-    }
-    return typeColors[type];
+// Parse the data into an array of Book objects
+export function parseBooks(): Book[] {
+    return dataString.split('\n').slice(1).map(line => {
+        const [Name, Status, Type, Author, Notes] = line.split(',');
+        return {
+            Name: Name || '',
+            Status: Status || '',
+            Type: Type || '',
+            Author: Author || '',
+            Notes: Notes || ''
+        };
+    }).filter(book => book.Name.trim() !== ''); // Filter out empty lines
 }
-
-// Function to get stronger color for each status
-const statusColors = {};
-
-function getStrongerColorForStatus(status) {
-    if (!statusColors[status]) {
-        const hue = Math.random() * 360;
-        const saturation = 80 + Math.random() * 20; // Vary saturation between 80% and 100%
-        const lightness = 50 + Math.random() * 10; // Vary lightness between 40% and 60%
-        statusColors[status] = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-    }
-    return statusColors[status];
-}
-
-// Function to create a tag
-function createTag(type, isStronger) {
-    const span = document.createElement('span');
-    span.className = 'tag';
-    if (isStronger) {
-        span.style.backgroundColor = getStrongerColorForStatus(type);
-    } else {
-        span.style.backgroundColor = getColorForType(type);
-    }
-    span.innerText = type;
-    return span;
-}
-
-// Function to display the data
-function displayData(data) {
-    const tableBody = document.getElementById('table-body');
-    tableBody.innerHTML = ''; // Clear previous data
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        Object.keys(item).forEach(key => {
-            const cell = document.createElement('td');
-            if (key === 'Type') {
-                const types = item[key].split(';');
-                types.forEach(type => {
-                    const tag = createTag(type.trim(), false); // Use pastel colors for type
-                    cell.appendChild(tag);
-                });
-            } else if (key === 'Status') {
-                const tag = createTag(item[key].trim(), true); // Use stronger colors for status
-                cell.appendChild(tag);
-            } else {
-                cell.textContent = item[key];
-            }
-            row.appendChild(cell);
-        });
-        tableBody.appendChild(row);
-    });
-}
-// Function to sort data
-function sortData(column, direction) {
-    data.sort((a, b) => {
-        return direction === 'asc' ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]);
-    });
-    displayData(data);
-}
-
-// Function to filter data based on search input
-function filterData() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-    const filteredData = data.filter(item => 
-        Object.values(item).some(value => value.toLowerCase().includes(searchInput))
-    );
-    displayData(filteredData);
-}
-
-// Initial display
-displayData(data);

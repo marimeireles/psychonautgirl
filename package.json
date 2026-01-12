@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
+    "prebuild": "node scripts/generate-books-js.js",
     "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && touch dist/.nojekyll",
     "deploy": "bash scripts/deploy.sh"
   },
