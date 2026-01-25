@@ -8,8 +8,12 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+Charter Cities: Opening the Frontier of Development,Want to read,urbanism,
+The Order of Time,Reading,physics
+Individuation in Light of Notions of Form and Information,Reading,philosophy,Gilbert Simondon
+Hyperion,Reading,biography,
 Selected Poetry,Read,poetry,John Keats
-Fear and Trembling,Want to read,philosophy;christianity,Kirkgaard
+Fear and Trembling,Reading,philosophy;christianity,Kirkgaard
 Boundaries,Want to read,psychology,Henry Cloud
 Salmonella Men on Planet Porno,Want to read,sci-fi,Yasutaka Tsutsui
 Process and Reality,Want to read,philosophy,Whitehead
@@ -36,7 +40,6 @@ Magic Science and Religion and the Scope of Rationality,Reading,anthropology;rel
 The Calculus of Selfishness,Reading,math;game-theory,Sigmund
 The Essential Rilke,Read,poetry,Rilse
 The Rebel,Want to read,fiction;philosophy,Camus
-Ode to a Nightingale,Want to read,poetry,John Keats
 Who Gets What and Why,Want to read,economics,Alvin E. Roth
 1q94,Want to read,fiction,Murakami
 Small Moral Works,Want to read,philosophy,Giacomo Leopardi
@@ -46,7 +49,7 @@ The Feeling of Life Itself,Want to read,consciousness,Koch
 High Weirdness,Want to read,drugs;magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
 Wild Swans: Three Daughters of China,Want to read,history;biography,Jung Chang
 Wild Geese,Want to read,poetry,Mary Oliver
-Shadows of the mind,Want to read,consciousness,Penrose
+Shadows of the mind,Reading,consciousness,Penrose
 Letters to a Young Poet,Read,poetry,Rainer Maria Rilke 
 Spacetime and Geometry: An Introduction to General Relativity,Want to read,physics, Sean Carroll
 Philebus,Want to read,philosophy,Plato
@@ -69,7 +72,7 @@ Narciss and Goldmund,Want to read,fiction,Hesse
 The Perennial Philosophy,Want to read,philosophy,Huxley
 What it is like to be a Bat,Want to read,philosophy,Thomas Nagel
 On Certainty,Want to read,philosophy,Wittgenstein
-Embodied Mind: Cognitive Science and Human Experience,Want to read,psychology;philosophy,Francisco Varela
+The Embodied Mind: Cognitive Science and Human Experience,Reading,philosophy;buddhism;,Francisco Varela
 Reinventing the sacred: A new view of science reason and religion,Want to read,philosophy,Stuart Kauffman
 The tao is silent,Reading,buddhism;philosophy,Raymon Smullyan
 The Autobiography of a Super-Tramp,Read,autobiography,H. W. Davis
@@ -90,7 +93,6 @@ Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
 My Spiritual Autobiography,Read,biography;buddhism,Dalai Lama
 Broke: Fixing Britain’s poverty crisis,Reading,economics,Tom Clark
 I Want to Keep Smashing Myself Until I Am Whole,Want to read,philosophy,Elias Canetti and Joshua Cohen
-Why Greatness Cannot Be Planned,Want to read,computer-science;psychology,Kenneth O. Stanley and Joel Lehman
 Models of My Life,Want to read,philosophy;economics,Herbert Simon
 The Complex World,Want to read,complex-systems,Krakauer
 The Democracy Project,Want to read,history;anthropology;economics,David Graeber
@@ -166,14 +168,14 @@ Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
 Difficult Conversations,Want to read,psychology,Douglas Stone et al.
 The Book of Joy,Read,buddhism,Dalai Lama and Desmond Tutu
 A Guide to the Good Life,Read,philosophy; psychology,William Irvine
-Consciousness Explained,Reading,consciousness,Daniel C. Dennet
+Consciousness Explained,Read,consciousness,Daniel C. Dennet
 The Knowledge Machine,Want to read,philosophy,Michael Strevens
 Social Engineering,Want to read,psychology,Robert W. Gehl & Sean T. Lawson
 What is Truth,Want to read,philosophy,Peter Vardy
 The Logic of Scientific Discovery,Stalled,philosophy,Popper
-The Other Significant Others,Read,psychology,,Not a lot of content, unfortunately.
+The Other Significant Others,Read,psychology,,Not a lot of content unfortunately.
 A Treatise of Human Nature,Want to read,philosophy,Hume,
-Phenomenology of Perception,Want to read,philosophy,Maurice Merleau-Ponty,
+Phenomenology of Perception,Reading,philosophy,Maurice Merleau-Ponty,
 Philosophical Investigations,Reading,philosophy,Wittgenstein,
 Secrets of Divine Love: A Spiritual Journey into the Heart of Islam,Want to read,philosophy; islam,Helwa,
 From Darkness Into Light,Want to read,philosophy; islam,Helwa,
@@ -310,7 +312,6 @@ A Dangerous Master: How to Keep Technology from Slipping Beyond Our Control,Want
 A Crowd of One: The Future of Individual Identity,Want to read,computer-science; philosophy; psychology,,
 Algorithms to Live By,Want to read,computer-science; psychology,,
 The Conscious Mind: In Search of a Fundamental Theory,Want to read,consciousness; philosophy,David Chalmers,
-The Elephant in the Brain,Want to read,consciousness,,
 Thoughtfulness and the Rule of Law,Want to read,governance,Jeremy Waldron,
 End Times: Elites Counter-Elites and the Path of Political Disintegration,Want to read,governance,Peter Turchin,
 Where There Is No Government,Want to read,governance,Joireman,
@@ -378,7 +379,7 @@ Analyzing Politics,Want to read,economics; game-theory, Kenneth A Shepsle,
 Understanding Power: The Indispensable Chomsky,Want to read,economics; history,,
 The Revolution Will Not be Funded,Want to read,economics; philosophy,,
 The Wisdom of Crowds,Want to read,economics; psychology,James Surowiecki,
-Nudge,Want to read,economics; questionable-research,Sunstein,
+Nudge,Read,economics; questionable-research,Sunstein,
 The Tipping Point: How Little Things Can Make a Big Difference,Want to read,economics; questionable-research,Malcolm Gladwell,
 Blind Spots: Why We Fail to Do What's Right and What to Do about It,Want to read,economics; questionable-research,,
 Blindness,Abandoned,fiction,Saramago,So incredibly boring.
@@ -537,7 +538,7 @@ The Gold Cell,Want to read,poetry,Sharon Olds,
 26 poetas hoje,Want to read,poetry,,
 Pale Fire,Want to read,poetry,Nabokov,
 The Iliad,Want to read,poetry,Homer,
-The Odyssey,Want to read,poetry,Homer,
+The Odyssey,Reading,fiction,Homer,
 Sappho,Want to read,poetry,Sappho,
 The Aeneid,Want to read,poetry,Virgil,
 Canterbury Tales,Want to read,poetry,Geoffrey Chaucer,
