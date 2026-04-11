@@ -303,7 +303,7 @@ A Gift of Fire: Social Legal and Ethical Issues for Computing Technology,Want to
 A Dangerous Master: How to Keep Technology from Slipping Beyond Our Control,Want to read,computer-science; philosophy,,
 A Crowd of One: The Future of Individual Identity,Want to read,computer-science; philosophy; psychology,,
 Algorithms to Live By,Want to read,computer-science; psychology,,
-The Conscious Mind: In Search of a Fundamental Theory,Want to read,consciousness; philosophy,David Chalmers,
+The Conscious Mind: In Search of a Fundamental Theory,Reading,consciousness; philosophy,David Chalmers,
 Thoughtfulness and the Rule of Law,Want to read,governance,Jeremy Waldron,
 End Times: Elites Counter-Elites and the Path of Political Disintegration,Want to read,governance,Peter Turchin,
 Where There Is No Government,Want to read,governance,Joireman,
