@@ -13,7 +13,7 @@ The Order of Time,Reading,physics
 Individuation in Light of Notions of Form and Information,Reading,philosophy,Gilbert Simondon
 Hyperion,Reading,biography,
 Selected Poetry,Read,poetry,John Keats
-Fear and Trembling,Reading,philosophy;christianity,Kirkgaard
+Fear and Trembling,Read,philosophy;christianity,Kirkgaard
 Boundaries,Want to read,psychology,Henry Cloud
 Salmonella Men on Planet Porno,Want to read,sci-fi,Yasutaka Tsutsui
 Process and Reality,Want to read,philosophy,Whitehead
@@ -25,7 +25,7 @@ Mating in Captivity,Read,psychology,Esther Perel
 Human All Too Human,Reading,philosophy,Nietzsche
 The Fall of Hyperion,Read,sci-fi,Dan Simmons,
 Alcibiades,Read,philosophy,Plato
-The Vital Question,Want to read,biology;teleology,
+The Vital Question,Read,biology;teleology,Nick Lane
 The Player of Games,Read,sci-fi,Ian Banks
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
 The Dark Forest,Read,sci-fi,Cixin Liu
@@ -1050,7 +1050,24 @@ The Second Sex,Abandoned,philosophy,,
 Beyond Good and Evil,Abandoned,philosophy,,
 The Courage to Be Disliked,Abandoned,psychology,,
 Walkaway,Abandoned,sci-fi,,
-Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`
+Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin
+Advances in Applied Self-Organizing Systems,Want to read,complex-systems; computer-science,Mikhail Prokopenko
+Talking Nets: An Oral History of Neural Networks,Want to read,neuroscience; computer-science; history,James A. Anderson and Edward Rosenfeld
+Love Songs,Want to read,poetry,Sara Teasdale
+Matter and Memory,Want to read,philosophy,Henri Bergson
+Functional Differential Geometry,Want to read,math; physics; computer-science,Gerald Jay Sussman and Jack Wisdom
+Beyond Darwin,Want to read,biology; evolution,Bruce H. Lipton and Patricia King
+The Book of Infinity,Want to read,math; philosophy,Joel David Hamkins
+The Art of Poetry,Want to read,poetry,Shira Wolosky
+Schattenfroh,Want to read,fiction,Michael Lentz
+Capitalist Realism,Read,economics; philosophy,Mark Fisher
+Long Walk to Freedom,Read,biography; history,Nelson Mandela
+The Tale of Genji,Read,fiction,Murasaki Shikibu
+Hagakure: The Book of the Samurai,Read,philosophy,Yamamoto Tsunetomo
+Essays in Idleness and Hojoki,Want to read,philosophy,Yoshida Kenko
+The C.S. Lewis Essential Audio Library,Want to read,christianity,C.S. Lewis
+Ethical Know-How: Action Wisdom and Cognition,Want to read,philosophy; buddhism,Francisco J. Varela
+Why I Am Not a Buddhist,Want to read,philosophy; buddhism,Evan Thompson`
 
 // Parse the data into an array of Book objects
 export function parseBooks(): Book[] {
