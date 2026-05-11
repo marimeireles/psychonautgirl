@@ -106,6 +106,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                 }}
               />
               <MenuItem
+                icon="🔨"
+                text="Project ideas"
+                onClick={() => {
+                  onOpenWindow("projects");
+                  onClose();
+                }}
+              />
+              <MenuItem
                 icon="🧠"
                 text="Anki Flashcards"
                 onClick={() => {
@@ -221,6 +229,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
           text="About"
           onClick={() => {
             onOpenWindow("about");
+            onClose();
+          }}
+        />
+        <MenuItem
+          icon="📰"
+          text="News"
+          onClick={() => {
+            onOpenWindow("news");
             onClose();
           }}
         />

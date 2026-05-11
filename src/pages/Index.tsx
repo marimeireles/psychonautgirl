@@ -12,10 +12,13 @@ import { BlogWindow } from "@/components/windows/BlogWindow";
 import { ReadingListWindow } from "@/components/windows/ReadingListWindow";
 import { JobPopupWindow } from "@/components/windows/JobPopupWindow";
 import { AcademicWorkWindow } from "@/components/windows/AcademicWorkWindow";
+import { ProjectsWindow } from "@/components/windows/ProjectsWindow";
+import { NewsWindow } from "@/components/windows/NewsWindow";
 import { BubbleBackground } from "@/components/BubbleBackground";
+import { SparkleTrail } from "@/components/SparkleTrail";
 import desktopBg from "@/assets/desktop-bg.jpg";
 
-type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup" | "academicWork";
+type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup" | "academicWork" | "projects" | "news";
 
 interface BlogWindow {
   id: string;
@@ -81,6 +84,8 @@ const Index = () => {
     readingList: { title: "Reading List", icon: "📚" },
     jobPopup: { title: "Looking for Opportunities!", icon: "✨" },
     academicWork: { title: "Academic Work", icon: "🎓" },
+    projects: { title: "Project ideas", icon: "🔨" },
+    news: { title: "News", icon: "📰" },
   };
 
   // Build taskbar windows list
@@ -124,44 +129,56 @@ const Index = () => {
       <div className="hidden md:block">
         <BubbleBackground />
       </div>
+      <SparkleTrail />
 
       {/* Desktop Icons */}
-      <div className="hidden md:flex absolute top-4 left-4 flex-col gap-4 z-10">
-        <DesktopIcon
-          icon="💬"
-          label="Chat"
-          onClick={() => openWindow("chat")}
-        />
-        <DesktopIcon
-          icon="📖"
-          label="Guestbook"
-          onClick={() => openWindow("guestbook")}
-        />
-        <DesktopIcon
-          icon="💻"
-          label="Software"
-          onClick={() => openBlogWindow("Software")}
-        />
-        <DesktopIcon
-          icon="🔬"
-          label="Research"
-          onClick={() => openBlogWindow("Research")}
-        />
-        <DesktopIcon
-          icon="🎓"
-          label="Academic Work"
-          onClick={() => openWindow("academicWork")}
-        />
-        <DesktopIcon
-          icon="📚"
-          label="Reading List"
-          onClick={() => openWindow("readingList")}
-        />
-        <DesktopIcon
-          icon="🌸"
-          label="About"
-          onClick={() => openWindow("about")}
-        />
+      <div className="hidden md:flex absolute top-4 left-4 gap-4 z-10">
+        {/* Column 1 */}
+        <div className="flex flex-col gap-4">
+          <DesktopIcon
+            icon="💬"
+            label="Chat"
+            onClick={() => openWindow("chat")}
+          />
+          <DesktopIcon
+            icon="📖"
+            label="Guestbook"
+            onClick={() => openWindow("guestbook")}
+          />
+          <DesktopIcon
+            icon="💻"
+            label="Software"
+            onClick={() => openBlogWindow("Software")}
+          />
+          <DesktopIcon
+            icon="🔬"
+            label="Research"
+            onClick={() => openBlogWindow("Research")}
+          />
+          <DesktopIcon
+            icon="🎓"
+            label="Academic Work"
+            onClick={() => openWindow("academicWork")}
+          />
+          <DesktopIcon
+            icon="📚"
+            label="Reading List"
+            onClick={() => openWindow("readingList")}
+          />
+        </div>
+        {/* Column 2 */}
+        <div className="flex flex-col gap-4 justify-end">
+          <DesktopIcon
+            icon="📰"
+            label="News"
+            onClick={() => openWindow("news")}
+          />
+          <DesktopIcon
+            icon="🌸"
+            label="About"
+            onClick={() => openWindow("about")}
+          />
+        </div>
       </div>
 
       {/* Windows */}
@@ -201,8 +218,8 @@ const Index = () => {
         <Window
           title="About me"
           onClose={() => closeWindow("about")}
-          defaultPosition={{ x: 150, y: 100 }}
-          defaultSize={{ width: 439, height: 590 }}
+          defaultPosition={{ x: 150, y: 40 }}
+          defaultSize={{ width: 439, height: 660 }}
           width="w-96"
           icon="🌸"
           zIndex={windowZIndex["about"] || 10}
@@ -250,8 +267,9 @@ const Index = () => {
         <Window
           title="Guestbook"
           onClose={() => closeWindow("guestbook")}
-          defaultPosition={{ x: 40, y: 150 }}
-          width="w-[400px]"
+          defaultPosition={{ x: 40, y: 60 }}
+          defaultSize={{ width: 650, height: 450 }}
+          width="w-[650px]"
           icon="📖"
           zIndex={windowZIndex["guestbook"] || 10}
           onFocus={() => bringWindowToFront("guestbook")}
@@ -298,12 +316,46 @@ const Index = () => {
         </Window>
       )}
 
+      {openWindows.has("projects") && (
+        <Window
+          title="Projects"
+          onClose={() => closeWindow("projects")}
+          defaultPosition={{ x: 100, y: 80 }}
+          defaultSize={{ width: 700, height: 500 }}
+          width="w-[800px]"
+          icon="🔧"
+          zIndex={windowZIndex["projects"] || 10}
+          onFocus={() => bringWindowToFront("projects")}
+          isMinimized={minimizedWindows["projects"]}
+          onMinimize={(minimized) => handleMinimize("projects", minimized)}
+        >
+          <ProjectsWindow />
+        </Window>
+      )}
+
+      {openWindows.has("news") && (
+        <Window
+          title="News"
+          onClose={() => closeWindow("news")}
+          defaultPosition={{ x: 500, y: 60 }}
+          defaultSize={{ width: 350, height: 500 }}
+          width="w-[350px]"
+          icon="📰"
+          zIndex={windowZIndex["news"] || 10}
+          onFocus={() => bringWindowToFront("news")}
+          isMinimized={minimizedWindows["news"]}
+          onMinimize={(minimized) => handleMinimize("news", minimized)}
+        >
+          <NewsWindow />
+        </Window>
+      )}
+
       {/* Blog Windows */}
       {blogWindows.map((blog, index) => {
         // Define specific positions for each blog type
         const blogPositions: Record<string, { x: number; y: number }> = {
           "Software": { x: 300, y: 80 },
-          "Research": { x: 450, y: 180 },
+          "Research": { x: 450, y: 40 },
           "Community": { x: 320, y: 120 },
           "Activism": { x: 380, y: 140 },
         };

@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://marimeireles.com",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/generate-books-js.js && vite",
     "lint": "eslint .",
     "prebuild": "node scripts/generate-books-js.js",
     "build": "vite build && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && touch dist/.nojekyll",

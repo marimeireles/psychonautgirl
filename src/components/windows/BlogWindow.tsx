@@ -25,11 +25,13 @@ export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) =>
           <div className="win95-border bg-muted p-2">
             <h4 className="font-bold mb-1">Focus Areas</h4>
             <ul className="space-y-1 text-xs">
-              <li>• Coordination & cooperative AI</li>
-              <li>• Evolutionary biology & teleology</li>
-              <li>• Reinforcement learning</li>
+              <li>• AI Alignment & cooperation</li>
+              <li>• Theoretical evolutionary biology</li>
+              <li>• Theoretical neuroscience</li>
               <li>• Complex systems</li>
+              <li>• Cybersecurity</li>
               <li>• Ethics</li>
+              <li>• Phenomenology</li>
             </ul>
           </div>
           <p className="text-xs">

@@ -4,7 +4,7 @@ import React from "react";
 import { ExternalLink, GraduationCap } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogleScholar, faOrcid, faDocker } from "@fortawesome/free-brands-svg-icons";
-import { faBrain, faNetworkWired, faRobot } from "@fortawesome/free-solid-svg-icons";
+import { faBrain, faNetworkWired, faRobot, faFlask } from "@fortawesome/free-solid-svg-icons";
 
 // Small helper to robustly open external links in a new tab.
 const openInNewTab = (url: string) => {
@@ -90,6 +90,14 @@ export const AcademicWorkWindow = () => {
   ];
 
   const academicRepos = [
+    {
+      name: "zoo-eval",
+      description: "Web agent evaluation harness using The Zoo",
+      url: "https://github.com/marimeireles/zoo-eval/tree/ICLR",
+      preview: "https://placehold.co/600x400/e0d5ff/6b5b95?text=Zoo+Eval",
+      icon: faFlask,
+      iconColor: "#EC4899",
+    },
     {
       name: "The Zoo",
       description: "Reproducible simulated web environment for LLM agent end-to-end testing",

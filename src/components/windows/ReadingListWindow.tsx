@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { parseBooks, type Book } from "@/data/books";
-import { CloudBackground } from "@/components/CloudBackground";
+
 
 type SortField = keyof Book;
 type SortOrder = "asc" | "desc";
@@ -136,7 +136,6 @@ export const ReadingListWindow = () => {
 
   return (
     <div className="flex flex-col h-full gap-3 overflow-y-auto relative">
-      <CloudBackground />
       {/* Recommend a book form */}
       <div className="win95-border bg-muted p-3 flex-shrink-0 relative z-10">
         <form onSubmit={handleSubmit} className="flex gap-2 items-center flex-wrap">
