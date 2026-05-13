@@ -18,7 +18,13 @@ VITE_SUPABASE_ANON_KEY=your_key_here
 
 ---
 
-In order to update the reading-list you have to directly edit the file here: `public/books.js`
+## Updating the reading list
+
+1. Edit `src/data/books.ts` — one book per line in the CSV: `Name,Status,Type,Author,Notes`
+   - Status: `Read`, `Reading`, `Want to read`, `Stalled`, `Abandoned`, `Reference`
+   - Type: use semicolons for multiple tags (e.g. `philosophy;buddhism`)
+2. `public/books.js` is auto-generated — don't edit it directly.
+   It syncs automatically on `npm run dev` and `npm run build` via `scripts/generate-books-js.js`.
 
 ---
 

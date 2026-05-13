@@ -3,10 +3,10 @@ const dataString =
 Charter Cities: Opening the Frontier of Development,Want to read,urbanism,
 The Order of Time,Reading,physics
 Individuation in Light of Notions of Form and Information,Reading,philosophy,Gilbert Simondon
-Hyperion,Reading,biography,
+Hyperion,Read,biography,
 Selected Poetry,Read,poetry,John Keats
-Fear and Trembling,Reading,philosophy;christianity,Kirkgaard
-Boundaries,Want to read,psychology,Henry Cloud
+Fear and Trembling,Read,philosophy;christianity,Kirkgaard
+Boundaries,Read,psychology,Henry Cloud
 Salmonella Men on Planet Porno,Want to read,sci-fi,Yasutaka Tsutsui
 Process and Reality,Want to read,philosophy,Whitehead
 Odes,Want to read,poetry,Homer
@@ -17,7 +17,7 @@ Mating in Captivity,Read,psychology,Esther Perel
 Human All Too Human,Reading,philosophy,Nietzsche
 The Fall of Hyperion,Read,sci-fi,Dan Simmons,
 Alcibiades,Read,philosophy,Plato
-The Vital Question,Want to read,biology;teleology,
+The Vital Question,Read,biology;teleology,Nick Lane
 The Player of Games,Read,sci-fi,Ian Banks
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
 The Dark Forest,Read,sci-fi,Cixin Liu
@@ -26,7 +26,7 @@ Ulysses,Reading,fiction,James Joyce
 King Lear,Read,fiction,Shakespeare
 Introduction to Topological Manifolds,Want to read,math,John M. Lee
 Mathematical Structure of Syntactic Merge,Want to read,math;language,Matilda
-Why Greatness Cannot Be Planned,Reading,philosophy,Kenneth O. Stanley and Joel Lehman
+Why Greatness Cannot Be Planned,Read,philosophy,Kenneth O. Stanley and Joel Lehman
 Population Games and Evolutionary Dynamics,Reading,math;game-theory;evolution,Sandholm
 Magic Science and Religion and the Scope of Rationality,Reading,anthropology;religion;history,Stanley Jeyaraja Tambiah
 The Calculus of Selfishness,Reading,math;game-theory,Sigmund
@@ -423,7 +423,7 @@ The Gambler,Want to read,fiction,Dostoevsky,
 Moby Dick,Want to read,fiction,,
 Don Quixote,Want to read,fiction,,
 The Return of the Native,Want to read,fiction,,
-Madame Bovary,Reading,fiction,Gustave Flaubert,
+Madame Bovary,Read,fiction,Gustave Flaubert,
 Huckleberry Finn,Want to read,fiction,,
 The Portrait of a Lady,Want to read,fiction,,
 Red Badge of Courage,Want to read,fiction,,
@@ -1042,7 +1042,25 @@ The Second Sex,Abandoned,philosophy,,
 Beyond Good and Evil,Abandoned,philosophy,,
 The Courage to Be Disliked,Abandoned,psychology,,
 Walkaway,Abandoned,sci-fi,,
-Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin`
+Complex Population Dynamics,Abandoned,systems-theory,Peter Turchin
+Advances in Applied Self-Organizing Systems,Want to read,complex-systems; computer-science,Mikhail Prokopenko
+Talking Nets: An Oral History of Neural Networks,Want to read,neuroscience; computer-science; history,James A. Anderson and Edward Rosenfeld
+Love Songs,Want to read,poetry,Sara Teasdale
+Matter and Memory,Want to read,philosophy,Henri Bergson
+Functional Differential Geometry,Want to read,math; physics; computer-science,Gerald Jay Sussman and Jack Wisdom
+Beyond Darwin,Want to read,biology; evolution,Bruce H. Lipton and Patricia King
+The Book of Infinity,Want to read,math; philosophy,Joel David Hamkins
+The Art of Poetry,Want to read,poetry,Shira Wolosky
+Schattenfroh,Want to read,fiction,Michael Lentz
+Capitalist Realism,Read,economics; philosophy,Mark Fisher
+Long Walk to Freedom,Read,biography; history,Nelson Mandela
+The Tale of Genji,Read,fiction,Murasaki Shikibu
+Hagakure: The Book of the Samurai,Read,philosophy,Yamamoto Tsunetomo
+Essays in Idleness and Hojoki,Want to read,philosophy,Yoshida Kenko
+The C.S. Lewis Essential Audio Library,Want to read,christianity,C.S. Lewis
+Ethical Know-How: Action Wisdom and Cognition,Want to read,philosophy; buddhism,Francisco J. Varela
+Why I Am Not a Buddhist,Want to read,philosophy; buddhism,Evan Thompson
+O Grande Mentecapto,Read,fiction,Fernando Sabino`
 
 // Parse the data into an array of objects
 const data = dataString.split('\n').slice(1).map(line => {

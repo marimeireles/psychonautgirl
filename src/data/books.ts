@@ -1,11 +1,3 @@
-// HOW TO UPDATE BOOKS:
-// 1. Edit the CSV below (one book per line): Name,Status,Type,Author,Notes
-//    - Status: Read, Reading, Want to read, Stalled, Abandoned, Reference
-//    - Type: use semicolons for multiple tags (e.g. philosophy;buddhism)
-// 2. Run: node scripts/generate-books-js.js
-//    (also runs automatically on `npm run dev` and `npm run build`)
-//    This syncs public/books.js (standalone reading-list.html page).
-
 export interface Book {
   Name: string;
   Status: string;
@@ -16,6 +8,7 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+Melhores contos,Read,fiction,Fernando Sabino
 Charter Cities: Opening the Frontier of Development,Want to read,urbanism,
 The Order of Time,Reading,physics
 Individuation in Light of Notions of Form and Information,Reading,philosophy,Gilbert Simondon
