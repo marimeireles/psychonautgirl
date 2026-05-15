@@ -219,8 +219,8 @@ const Index = () => {
           title="About me"
           onClose={() => closeWindow("about")}
           defaultPosition={{ x: 150, y: 40 }}
-          defaultSize={{ width: 439, height: 660 }}
-          width="w-96"
+          defaultSize={{ width: 600, height: 600 }}
+          width="w-[600px]"
           icon="🌸"
           zIndex={windowZIndex["about"] || 10}
           onFocus={() => bringWindowToFront("about")}
@@ -338,8 +338,8 @@ const Index = () => {
           title="News"
           onClose={() => closeWindow("news")}
           defaultPosition={{ x: 500, y: 60 }}
-          defaultSize={{ width: 350, height: 500 }}
-          width="w-[350px]"
+          defaultSize={{ width: 600, height: 600 }}
+          width="w-[600px]"
           icon="📰"
           zIndex={windowZIndex["news"] || 10}
           onFocus={() => bringWindowToFront("news")}
