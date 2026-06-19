@@ -8,6 +8,7 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+Sync: The Emerging Science of Spontaneous Order ,Read,complex-systems; history,Strogatz,
 Melhores contos,Read,fiction,Fernando Sabino
 Charter Cities: Opening the Frontier of Development,Want to read,urbanism,
 The Order of Time,Reading,physics
@@ -568,7 +569,6 @@ Island,Want to read,sci-fi,Asimov,
 Linked: How Everything Is Connected to Everything Else,Want to read,systems-theory,,
 Nonlinear Dynamics and Chaos,Want to read,systems-theory; complex-systems; physics,Strogatz Steven H.,
 Deep Simplicity: Bringing Order to Chaos and Complexity ,Want to read,systems-theory; complex-systems; physics,John Gribbin,
-Sync: The Emerging Science of Spontaneous Order ,Want to read,systems-theory; history,,
 The (Mis)Behavior of Markets,Want to read,systems-theory; math; economics,Mandelbrot,
 A First Course in Chaotic Dynamical Systems: Theory and Experiment ,Want to read,systems-theory; physics,,
 Does God Play Dice?: The New Mathematics of Chaos ,Want to read,systems-theory; physics; math,,
