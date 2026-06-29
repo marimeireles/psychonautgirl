@@ -17,6 +17,26 @@ interface WindowProps {
   onMinimize?: (minimized: boolean) => void;
 }
 
+const TASKBAR_HEIGHT = 40;
+const MIN_WIDTH = 300;
+const MIN_HEIGHT = 200;
+
+const clampToViewport = (
+  pos: { x: number; y: number },
+  size: { width: number; height: number }
+) => {
+  if (typeof window === 'undefined') {
+    return { x: pos.x, y: pos.y, width: size.width, height: size.height };
+  }
+  const maxW = window.innerWidth;
+  const maxH = Math.max(MIN_HEIGHT, window.innerHeight - TASKBAR_HEIGHT);
+  const width = Math.max(MIN_WIDTH, Math.min(size.width, maxW));
+  const height = Math.max(MIN_HEIGHT, Math.min(size.height, maxH));
+  const x = Math.max(0, Math.min(pos.x, maxW - width));
+  const y = Math.max(0, Math.min(pos.y, maxH - height));
+  return { x, y, width, height };
+};
+
 export const Window = ({
   title,
   children,
@@ -43,6 +63,13 @@ export const Window = ({
   const rndRef = useRef<Rnd>(null);
   const isMinimized = externalIsMinimized !== undefined ? externalIsMinimized : internalIsMinimized;
 
+  const [initialBounds] = useState(() =>
+    clampToViewport(defaultPosition, {
+      width: defaultSize?.width || 384,
+      height: defaultSize?.height || 500,
+    })
+  );
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -51,6 +78,26 @@ export const Window = ({
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (!rndRef.current || isMaximized) return;
+      const pos = rndRef.current.getDraggablePosition();
+      const el = rndRef.current.getSelfElement() as HTMLElement | null;
+      const currentSize = el
+        ? { width: el.offsetWidth, height: el.offsetHeight }
+        : { width: initialBounds.width, height: initialBounds.height };
+      const clamped = clampToViewport(pos, currentSize);
+      if (clamped.x !== pos.x || clamped.y !== pos.y) {
+        rndRef.current.updatePosition({ x: clamped.x, y: clamped.y });
+      }
+      if (clamped.width !== currentSize.width || clamped.height !== currentSize.height) {
+        rndRef.current.updateSize({ width: clamped.width, height: clamped.height });
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMaximized, initialBounds.width, initialBounds.height]);
 
   const handleMinimize = () => {
     const newMinimized = !isMinimized;

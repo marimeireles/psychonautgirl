@@ -5,6 +5,11 @@ import { ExternalLink, GraduationCap } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogleScholar, faOrcid, faDocker } from "@fortawesome/free-brands-svg-icons";
 import { faBrain, faNetworkWired, faRobot, faFlask } from "@fortawesome/free-solid-svg-icons";
+import { focusAreas } from "@/data/focusAreas";
+
+interface AcademicWorkWindowProps {
+  onOpenFocusArea?: (focusAreaId: string) => void;
+}
 
 // Small helper to robustly open external links in a new tab.
 const openInNewTab = (url: string) => {
@@ -71,7 +76,7 @@ const LinkCard = ({ href, className = "", children, ariaLabel }: LinkCardProps) 
   );
 };
 
-export const AcademicWorkWindow = () => {
+export const AcademicWorkWindow = ({ onOpenFocusArea }: AcademicWorkWindowProps = {}) => {
   const academicProfiles = [
     {
       name: "Google Scholar",
@@ -227,6 +232,49 @@ export const AcademicWorkWindow = () => {
 
       {/* Content */}
       <div className="p-6 space-y-8">
+        {/* Focus Areas Section */}
+        <section>
+          <h2 className="text-xl font-bold text-primary mb-4 flex items-center">
+            Focus Areas
+          </h2>
+          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
+            {focusAreas.map((area) => (
+              <button
+                key={area.id}
+                type="button"
+                onMouseDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenFocusArea?.(area.id);
+                }}
+                className="win95-border bg-card hover:bg-muted/50 p-4 flex items-start justify-between gap-3 transition-all duration-200 cursor-pointer text-left"
+                aria-label={`Open ${area.name}`}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0"
+                    style={{ backgroundColor: `${area.color}20` }}
+                  >
+                    {area.icon}
+                  </div>
+                  <div>
+                    <div
+                      className="text-base font-semibold hover:text-primary transition-colors"
+                      style={{ color: area.color }}
+                    >
+                      {area.name}
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-1">
+                      Click to read more
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+
         {/* Academic Profiles Section */}
         <section>
           <h2 className="text-xl font-bold text-primary mb-4 flex items-center">

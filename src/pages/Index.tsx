@@ -12,8 +12,10 @@ import { BlogWindow } from "@/components/windows/BlogWindow";
 import { ReadingListWindow } from "@/components/windows/ReadingListWindow";
 import { JobPopupWindow } from "@/components/windows/JobPopupWindow";
 import { AcademicWorkWindow } from "@/components/windows/AcademicWorkWindow";
+import { FocusAreaWindow } from "@/components/windows/FocusAreaWindow";
 import { ProjectsWindow } from "@/components/windows/ProjectsWindow";
 import { NewsWindow } from "@/components/windows/NewsWindow";
+import { focusAreas, type FocusArea } from "@/data/focusAreas";
 import { BubbleBackground } from "@/components/BubbleBackground";
 import { SparkleTrail } from "@/components/SparkleTrail";
 import desktopBg from "@/assets/desktop-bg.jpg";
@@ -31,6 +33,7 @@ const Index = () => {
     { id: "software-1", name: "Software" },
     { id: "research-1", name: "Research" }
   ]);
+  const [openFocusAreas, setOpenFocusAreas] = useState<FocusArea[]>([]);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [windowZIndex, setWindowZIndex] = useState<Record<string, number>>({ about: 13, "software-1": 11, "research-1": 12, jobPopup: 20 });
   const [topZIndex, setTopZIndex] = useState(20);
@@ -65,6 +68,27 @@ const Index = () => {
     setBlogWindows(blogWindows.filter(b => b.id !== id));
     const newZIndex = { ...windowZIndex };
     delete newZIndex[id];
+    setWindowZIndex(newZIndex);
+  };
+
+  const openFocusAreaWindow = (areaId: string) => {
+    const area = focusAreas.find((a) => a.id === areaId);
+    if (!area) return;
+    const windowId = `focus-${areaId}`;
+    if (!openFocusAreas.find((a) => a.id === areaId)) {
+      setOpenFocusAreas([...openFocusAreas, area]);
+    }
+    if (minimizedWindows[windowId]) {
+      setMinimizedWindows({ ...minimizedWindows, [windowId]: false });
+    }
+    bringWindowToFront(windowId);
+  };
+
+  const closeFocusAreaWindow = (areaId: string) => {
+    setOpenFocusAreas(openFocusAreas.filter((a) => a.id !== areaId));
+    const windowId = `focus-${areaId}`;
+    const newZIndex = { ...windowZIndex };
+    delete newZIndex[windowId];
     setWindowZIndex(newZIndex);
   };
 
@@ -106,6 +130,11 @@ const Index = () => {
       id: blog.id,
       title: blog.name,
       icon: blogIcons[blog.name] || "📝",
+    })),
+    ...openFocusAreas.map((area) => ({
+      id: `focus-${area.id}`,
+      title: area.name,
+      icon: area.icon,
     })),
   ];
 
@@ -311,7 +340,7 @@ const Index = () => {
           onMinimize={(minimized) => handleMinimize("academicWork", minimized)}
         >
           <div className="h-full">
-            <AcademicWorkWindow />
+            <AcademicWorkWindow onOpenFocusArea={openFocusAreaWindow} />
           </div>
         </Window>
       )}
@@ -379,6 +408,33 @@ const Index = () => {
               blogName={blog.name}
               onOpenAcademicWork={() => openWindow("academicWork")}
             />
+          </Window>
+        );
+      })}
+
+      {/* Focus Area Windows */}
+      {openFocusAreas.map((area, index) => {
+        const windowId = `focus-${area.id}`;
+        const baseX = 220 + (index % 4) * 40;
+        const baseY = 80 + (index % 4) * 30;
+        // Roughly 1/3 of a typical macOS viewport
+        const fwidth = Math.min(560, typeof window !== "undefined" ? window.innerWidth - 40 : 560);
+        const fheight = Math.min(620, typeof window !== "undefined" ? window.innerHeight - 100 : 620);
+        return (
+          <Window
+            key={windowId}
+            title={area.name}
+            onClose={() => closeFocusAreaWindow(area.id)}
+            defaultPosition={{ x: baseX, y: baseY }}
+            defaultSize={{ width: fwidth, height: fheight }}
+            width={`w-[${fwidth}px]`}
+            icon={area.icon}
+            zIndex={windowZIndex[windowId] || 10}
+            onFocus={() => bringWindowToFront(windowId)}
+            isMinimized={minimizedWindows[windowId]}
+            onMinimize={(minimized) => handleMinimize(windowId, minimized)}
+          >
+            <FocusAreaWindow focusAreaId={area.id} />
           </Window>
         );
       })}
