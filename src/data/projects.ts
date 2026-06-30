@@ -16,14 +16,18 @@ Dynamical system simulations inside SimCity|Using this software https://github.c
 `
 
 export function parseProjects(): Project[] {
-    // A row contains pipes (|). Lines without pipes are continuations of the
-    // previous row — allows multi-line descriptions in the source.
+    // A complete row has exactly 3 pipes (4 fields). Keep appending lines until
+    // we reach that count — this allows multi-line descriptions even when the
+    // trailing fields (status, tags) land on a continuation line.
     const rows: string[] = [];
+    let buffer = '';
     for (const line of dataString.split('\n')) {
-        if (line.includes('|')) {
-            rows.push(line);
-        } else if (rows.length > 0 && line.trim() !== '') {
-            rows[rows.length - 1] += ' ' + line.trim();
+        if (line.trim() === '') continue;
+        buffer = buffer === '' ? line : `${buffer} ${line.trim()}`;
+        const pipeCount = (buffer.match(/\|/g) || []).length;
+        if (pipeCount >= 3) {
+            rows.push(buffer);
+            buffer = '';
         }
     }
     return rows.slice(1).map(row => {
