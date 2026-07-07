@@ -139,8 +139,19 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
           <div className="hidden group-hover/blogs:block absolute left-full top-0 ml-1 w-56 win95-border bg-card shadow-2xl z-50">
             <div className="p-1">
               <MenuItem
+                icon="🏛️"
+                text="Arete Telos"
+                tooltip="A substack on virtue, purpose, and living the good life."
+                onClick={() => {
+                  window.open('https://aretetelos.substack.com/', '_blank');
+                  onClose();
+                }}
+                showArrow={true}
+              />
+              <MenuItem
                 icon="🤖"
                 text="Do Cyborgs Dream of Bionic Sheep?"
+                tooltip="Notes on AI, consciousness, and human-machine futures."
                 onClick={() => {
                   window.open('https://cyborgdream.github.io/', '_blank');
                   onClose();
@@ -150,6 +161,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="📝"
                 text="Medium"
+                tooltip="Longer-form essays on tech, science, and open source."
                 onClick={() => {
                   window.open('https://medium.com/@mari-meir', '_blank');
                   onClose();
@@ -157,17 +169,9 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                 showArrow={true}
               />
               <MenuItem
-                icon="🔬"
-                text="Tech for Good Research"
-                onClick={() => {
-                  window.open('https://techforgoodresearch.substack.com/', '_blank');
-                  onClose();
-                }}
-                showArrow={true}
-              />
-              <MenuItem
                 icon="📡"
                 text="Wireless Hippie"
+                tooltip="Small experiments and notes from the indie web."
                 onClick={() => {
                   window.open('https://wireless-hippie.neocities.org/', '_blank');
                   onClose();
@@ -177,6 +181,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="✍️"
                 text="Letters for the Evanescents"
+                tooltip="Short texts and poems for the fleeting."
                 onClick={() => {
                   window.open('https://lettersfortheevanescents.mataroa.blog/', '_blank');
                   onClose();
@@ -259,17 +264,27 @@ interface MenuItemProps {
   text: string;
   onClick?: () => void;
   showArrow?: boolean;
+  tooltip?: string;
 }
 
-const MenuItem = ({ icon, text, onClick, showArrow = false }: MenuItemProps) => {
+const MenuItem = ({ icon, text, onClick, showArrow = false, tooltip }: MenuItemProps) => {
   return (
-    <button
-      onClick={onClick}
-      className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left group text-sm"
-    >
-      <span className="text-base">{icon}</span>
-      <span className={`flex-1 ${showArrow ? 'underline' : ''}`}>{text}</span>
-      {showArrow && <ExternalLink className="w-3 h-3 text-muted-foreground" />}
-    </button>
+    <div className="relative group/item">
+      <button
+        onClick={onClick}
+        className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm"
+      >
+        <span className="text-base">{icon}</span>
+        <span className={`flex-1 ${showArrow ? 'underline' : ''}`}>{text}</span>
+        {showArrow && <ExternalLink className="w-3 h-3 text-muted-foreground" />}
+      </button>
+      {tooltip && (
+        <div
+          className="hidden group-hover/item:block absolute left-full top-1/2 -translate-y-1/2 ml-2 w-48 win95-border bg-card px-2 py-1.5 text-xs shadow-2xl z-[60] pointer-events-none"
+        >
+          {tooltip}
+        </div>
+      )}
+    </div>
   );
 };

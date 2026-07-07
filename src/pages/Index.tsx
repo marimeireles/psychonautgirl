@@ -41,6 +41,9 @@ const Index = () => {
 
   const openWindow = (window: WindowType) => {
     setOpenWindows(new Set(openWindows).add(window));
+    if (minimizedWindows[window]) {
+      setMinimizedWindows({ ...minimizedWindows, [window]: false });
+    }
     bringWindowToFront(window);
   };
 
@@ -60,6 +63,9 @@ const Index = () => {
       setBlogWindows([...blogWindows, { id: newId, name: blogName }]);
       bringWindowToFront(newId);
     } else {
+      if (minimizedWindows[existingBlog.id]) {
+        setMinimizedWindows({ ...minimizedWindows, [existingBlog.id]: false });
+      }
       bringWindowToFront(existingBlog.id);
     }
   };
@@ -297,8 +303,8 @@ const Index = () => {
           title="Guestbook"
           onClose={() => closeWindow("guestbook")}
           defaultPosition={{ x: 40, y: 60 }}
-          defaultSize={{ width: 650, height: 450 }}
-          width="w-[650px]"
+          defaultSize={{ width: 700, height: 450 }}
+          width="w-[700px]"
           icon="📖"
           zIndex={windowZIndex["guestbook"] || 10}
           onFocus={() => bringWindowToFront("guestbook")}
@@ -362,12 +368,23 @@ const Index = () => {
         </Window>
       )}
 
-      {openWindows.has("news") && (
+      {openWindows.has("news") && (() => {
+        const vw = typeof window !== "undefined" ? window.innerWidth : 1280;
+        const vh = typeof window !== "undefined" ? window.innerHeight - 40 : 760;
+        const newsSize = {
+          width: Math.min(720, Math.max(500, Math.round(vw * 0.45))),
+          height: Math.min(780, Math.max(500, Math.round(vh * 0.75))),
+        };
+        const newsPos = {
+          x: Math.max(20, Math.round((vw - newsSize.width) / 2)),
+          y: Math.max(20, Math.round((vh - newsSize.height) / 2)),
+        };
+        return (
         <Window
           title="News"
           onClose={() => closeWindow("news")}
-          defaultPosition={{ x: 500, y: 60 }}
-          defaultSize={{ width: 600, height: 600 }}
+          defaultPosition={newsPos}
+          defaultSize={newsSize}
           width="w-[600px]"
           icon="📰"
           zIndex={windowZIndex["news"] || 10}
@@ -377,7 +394,8 @@ const Index = () => {
         >
           <NewsWindow />
         </Window>
-      )}
+        );
+      })()}
 
       {/* Blog Windows */}
       {blogWindows.map((blog, index) => {
