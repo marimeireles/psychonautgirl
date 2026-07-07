@@ -8,6 +8,22 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+Sources of the Self: The Making of the Modern Identity,Want to read,philosophy,Charles Taylor
+Intelligence as Adaptive Behaviour,Want to read,computer-science; neuroscience,Randall D. Beer
+Understanding Computers and Cognition: A New Foundation for Design,Want to read,computer-science; philosophy,Terry Winograd
+The Book of Delights: Essays,Want to read,fiction,Ross Gay
+Simulacra and Simulation,Want to read,philosophy,Jean Baudrillard
+The Evolving Self: Problem and Process in Human Development,Want to read,psychology,Robert Kegan
+The Dark Enlightenment,Want to read,philosophy,Nick Land
+Foundation and Earth,Want to read,sci-fi,Isaac Asimov
+Foundation's Edge,Want to read,sci-fi,Isaac Asimov
+Second Foundation,Want to read,sci-fi,Isaac Asimov
+Foundation and Empire,Want to read,sci-fi,Isaac Asimov
+Leviathan Wakes,Want to read,sci-fi,James S.A. Corey
+Solaris,Want to read,sci-fi,Stanisław Lem
+Phenomenology of Spirit,Reading,philosophy,Hegel
+The Gay Science,Reading,philosophy,Nietzsche
+The Emperor's New Mind,Reading,consciousness; physics,Roger Penrose
 Sync: The Emerging Science of Spontaneous Order ,Read,complex-systems; history,Strogatz,
 Melhores contos,Read,fiction,Fernando Sabino
 Charter Cities: Opening the Frontier of Development,Want to read,urbanism,
@@ -44,7 +60,7 @@ The Rebel,Want to read,fiction;philosophy,Camus
 Who Gets What and Why,Want to read,economics,Alvin E. Roth
 1q94,Want to read,fiction,Murakami
 Small Moral Works,Want to read,philosophy,Giacomo Leopardi
-Ramayana,Reading,religion;hinduism,Valmiki
+Ramayana,Read,religion;hinduism,Valmiki
 Essays on the Gita,Want to read,religion;hinduism,Aurobindo
 The Feeling of Life Itself,Want to read,consciousness,Koch
 High Weirdness,Want to read,drugs;magic,Philip K. Dick Terence McKenna and Robert Anton Wilson
@@ -59,7 +75,7 @@ Science and the Modern World,Reading,philosophy;physics,Whitehead
 Terra Ignota,Want to read,sci-fi,Palmer
 Always Coming Home,Want to read,sci-fi,Le Guin
 God is a verb,Reading,judaism;magic,David A. Cooper
-An Enquiry Concerning Human Understanding,Abandoned,philosophy,Hume
+An Enquiry Concerning Human Understanding,Reading,philosophy,Hume
 The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
 The Unbearable Lightness of Being,Read,fiction;philosophy,Milan Kundera
 Ant Architecture,Reading,biology,Walter R Tschinkel
@@ -72,7 +88,7 @@ Narciss and Goldmund,Want to read,fiction,Hesse
 The Perennial Philosophy,Want to read,philosophy,Huxley
 What it is like to be a Bat,Want to read,philosophy,Thomas Nagel
 On Certainty,Want to read,philosophy,Wittgenstein
-The Embodied Mind: Cognitive Science and Human Experience,Reading,philosophy;buddhism;,Francisco Varela
+The Embodied Mind: Cognitive Science and Human Experience,Read,philosophy;buddhism;,Francisco Varela
 Reinventing the sacred: A new view of science reason and religion,Want to read,philosophy,Stuart Kauffman
 The tao is silent,Reading,buddhism;philosophy,Raymon Smullyan
 The Autobiography of a Super-Tramp,Read,autobiography,H. W. Davis
@@ -511,11 +527,11 @@ The Open Society and Its Enemies,Want to read,philosophy,Karl Popper,
 Nausea,Want to read,philosophy,Sartre,
 Animal Rights: A Very Short Introduction,Want to read,philosophy,,
 Epistemic Risk and the Demands of Rationality,Want to read,philosophy,,
-Being and Time,Want to read,philosophy,Heidegger,
+Being and Time,Reading,philosophy,Heidegger,
 The Sofist,Want to read,philosophy,,
 Consilience: The Unity of Knowledge ,Want to read,philosophy; evolution,E. O. Wilson,
 Mind-body Problem,Want to read,philosophy; fiction,Rebecca Goldstein,
-What Is Life? with Mind and Matter and Autobiographical Sketches,Want to read,philosophy; physics; biology,Erwin Schrödinger,
+What Is Life? with Mind and Matter and Autobiographical Sketches,Reading,philosophy; physics; biology,Erwin Schrödinger,
 Rationality and the Reflective Mind,Want to read,philosophy; psychology,Stanovich,
 Science Fictions: The Epidemic of Fraud Bias Negligence and Hype in Science,Want to read,philosophy; psychology,Stuart Ritchie,
 How to Make an Apple Pie from Scratch,Reading,physics,Harry Cliff,
