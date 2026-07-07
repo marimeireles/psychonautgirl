@@ -141,7 +141,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="🏛️"
                 text="Arete Telos"
-                tooltip="A substack on virtue, purpose, and living the good life."
+                tooltip="Thoughts on human flourishing"
                 onClick={() => {
                   window.open('https://aretetelos.substack.com/', '_blank');
                   onClose();
@@ -151,7 +151,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="🤖"
                 text="Do Cyborgs Dream of Bionic Sheep?"
-                tooltip="Notes on AI, consciousness, and human-machine futures."
+                tooltip="A software engineering diary"
                 onClick={() => {
                   window.open('https://cyborgdream.github.io/', '_blank');
                   onClose();
@@ -161,7 +161,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="📝"
                 text="Medium"
-                tooltip="Longer-form essays on tech, science, and open source."
+                tooltip="Essays on my open source work on the Jupyter ecossystem"
                 onClick={() => {
                   window.open('https://medium.com/@mari-meir', '_blank');
                   onClose();
@@ -171,7 +171,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="📡"
                 text="Wireless Hippie"
-                tooltip="Small experiments and notes from the indie web."
+                tooltip="My life as a digital nomad"
                 onClick={() => {
                   window.open('https://wireless-hippie.neocities.org/', '_blank');
                   onClose();
@@ -181,7 +181,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               <MenuItem
                 icon="✍️"
                 text="Letters for the Evanescents"
-                tooltip="Short texts and poems for the fleeting."
+                tooltip="Short texts and poems for the tender-hearted"
                 onClick={() => {
                   window.open('https://lettersfortheevanescents.mataroa.blog/', '_blank');
                   onClose();
