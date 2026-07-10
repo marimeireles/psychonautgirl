@@ -58,7 +58,7 @@ export const focusAreas: FocusArea[] = [
     icon: "🔒",
     color: "#2496ED",
     description:
-      "As AI agents pervasivaly move through our digital and analog lives, I worry about what happens to privacy, security, and the shared commons of the web. Therefore, I'm interested in building defenses for that future. Collaborating with Mozilla, I'm developing open, interoperable protocols for a web where AI agents can operate safely, and methods to mitigate prompt injection and data leakage in agentic browsers. This means pairing foundation models with non-ML symbolic components and native web standards, so an agent can be genuinely useful without users having to trust it with their secrets by default. I also help build open-source infrastructure for testing these systems rigorously before they reach real users.",
+      "As AI agents pervasively move through our digital and analog lives, I worry about what happens to privacy, security, and the shared commons of the web. Therefore, I'm interested in building defenses for that future. Collaborating with Mozilla, I'm developing open, interoperable protocols for a web where AI agents can operate safely, and methods to mitigate prompt injection and data leakage in agentic browsers. This means pairing foundation models with non-ML symbolic components and native web standards, so an agent can be genuinely useful without users having to trust it with their secrets by default. I also help build open-source infrastructure for testing these systems rigorously before they reach real users.",
   },
   {
     id: "democracy",
