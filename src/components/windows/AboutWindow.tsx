@@ -9,9 +9,6 @@ export const AboutWindow = () => {
           <Sparkles className="w-8 h-8 text-primary" />
           <div>
             <h1 className="text-3xl font-bold text-primary">Mariana Meireles</h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              I strive to live poetically, compassionately and fearlessly.
-            </p>
           </div>
         </div>
       </div>
@@ -22,7 +19,7 @@ export const AboutWindow = () => {
           <h2 className="text-xl font-bold text-primary mb-4">About</h2>
           <div className="win95-border bg-muted p-4 space-y-3 text-sm">
             <p>
-              In my career, the ideal expression of this is to broadly improve the lives of all beings.
+              I strive to live poetically, compassionately and fearlessly. In my career, the ideal expression of this is to broadly improve the lives of all beings.
             </p>
             <p>
               Previously, I worked with software in the open-source and open-science ecosystems, contributing to projects like Firefox, Jupyter Notebooks, and Conda.
