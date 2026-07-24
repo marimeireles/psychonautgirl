@@ -7,11 +7,11 @@ export interface Project {
 
 const dataString =
 `Name|Description|Status|Tags
-From paint to life|What if I train a classifier that says like "things that look like an apple in a very low dimension" e.g. a red circle with a little stem coming out of it as apple and then I search for the texture of an apple somewhere in a trustworthy database and add into the drawing?
+From paint to life|What if I train a classifier that translates low->high dimensions. E.g.: things that look like an apple in a very low dimension (like a red circle with a little stem coming out of it) are actually "apple". I can then search for the texture of an apple somewhere in a trustworthy database and add into the drawing?
 The cool thing about it would be the method it uses to learn how to identify the low level > high level.
-Some interesting algorithm I come up with that learns how to read emergence in an "optimized way" rather than a neural network? Would be more fun.
-But maybe some intermediate step of a diffusion model?|to-do|AI;web
-Browser addon for social media usage control|Logs you out from a list of websites every time you re-open the tab you must login again|to-do|web
+Some interesting algorithm I come up with that learns how to read emergence in an "optimized way" (rather than a boring neural network) would be more fun.
+But maybe some intermediate step of a diffusion model could also yield interesting results.|to-do|AI;web
+Browser addon for social media usage control|Logs you out from a list of websites every time you re-open the tab you must login again. (This might be a good starting point though needs heavy refactoring, etc. https://github.com/v-adhithyan/AutoLogout)|to-do|web
 Bird tracker|Current apps for bird tracking don't recognize birds and don't offer a cute interface with good bird pictures.
 Claude SOTA is really good at identifying them. I'd like to host a simpler model as a classifier (maybe even a local model?)
 and pull pictures from wikipedia in order to track a bird.|to-do|AI;web;IOS;birds
