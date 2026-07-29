@@ -7,6 +7,7 @@ export interface Project {
 
 const dataString =
 `Name|Description|Status|Tags
+Constellation of my read books|What if every category of my "read" books were a constellation in the sky. The clusters (by genre) are different constellations that get more and more stars the more books about that genre I read. It's an interconnected graph and the user can navigate the screen. I got inspired from https://noracore.neocities.org/reading-atlas|to-do|web;astronomy
 From paint to life|What if I train a classifier that translates low->high dimensions. E.g.: things that look like an apple in a very low dimension (like a red circle with a little stem coming out of it) are actually "apple". I can then search for the texture of an apple somewhere in a trustworthy database and add into the drawing?
 The cool thing about it would be the method it uses to learn how to identify the low level > high level.
 Some interesting algorithm I come up with that learns how to read emergence in an "optimized way" (rather than a boring neural network) would be more fun.

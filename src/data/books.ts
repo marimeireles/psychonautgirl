@@ -8,6 +8,11 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+Envisioning Information,Read,art; computer-science,Edward R. Tufte
+Eros the Bittersweet,Read,philosophy; poetry,Anne Carson
+Parable of the Sower,Read,sci-fi,Octavia E. Butler
+Give and Take: A Revolutionary Approach to Success,Read,psychology,Adam M. Grant
+Metaphors We Live By,Read,philosophy; language,George Lakoff
 Sources of the Self: The Making of the Modern Identity,Want to read,philosophy,Charles Taylor
 Intelligence as Adaptive Behaviour,Want to read,computer-science; neuroscience,Randall D. Beer
 Understanding Computers and Cognition: A New Foundation for Design,Want to read,computer-science; philosophy,Terry Winograd
