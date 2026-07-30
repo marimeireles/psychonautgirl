@@ -9,7 +9,7 @@ interface GuestbookEntry {
   created_at: string;
 }
 
-const ENTRIES_PER_SIDE = 2;
+const ENTRIES_PER_SIDE = 3;
 const FLIP_MS = 750;
 
 const PARCHMENT = "#e9d3a2";
