@@ -8,6 +8,7 @@ export interface NewsItem {
 const dataString =
 `Title|Date|Summary|Link
 Collective Intelligence Fellow|2026-07-10|Improving democracy at scale by giving disagreement the proper credit|https://www.cip.org/
+Science of Consciousness Conference 2026|2026-10-11 (upcoming)|The Sophistication of Minds: How Synergy Drives Emergence in the Brain
 Future of Life Institute Grantee|2026-07-20||https://futureoflife.org/about-us/our-people/ai-existential-safety-community/|
 Foresight Institute Secure & Sovereign AI Workshop|2026-07-12|Speaking about the future of the Web|https://drive.google.com/file/d/1KoMeTwp9B0hjTZeAiB0a2G7MdUX-bbJ7/view?usp=sharing|
 ICML 2026 Supercooperation: The Future of AI for Democracy |2026-07-07|My perspectives on how the structure of disagreement is being dealt with in LLMs|
