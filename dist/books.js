@@ -1,5 +1,6 @@
 const dataString =
 `Name,Status,Type,Author,Notes
+The Awakening Body: Somatic Meditation for Discovering Our Deepest Life,Want to read,buddhism; psychology,Reginald A. Ray
 Having Thought: Essays in the Metaphysics of Mind,Want to read,philosophy; consciousness,John Haugeland
 Dream of the Red Chamber,Want to read,fiction,Cao Xueqin
 Identity Economics,Want to read,economics; psychology,George Akerlof and Rachel Kranton

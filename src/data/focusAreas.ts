@@ -66,7 +66,7 @@ export const focusAreas: FocusArea[] = [
     icon: "🗳️",
     color: "#14B8A6",
     description:
-      "AI could help us build a freer, more just world, mirroring ancient anarchist traditions, but now scaled across the whole of it. Or it could become the most complete instrument of subjugation ever made. I want my work to serve the former.This work is inspired by sheaves and probabilistic dependency graphs to distinguish shallow consensus from genuine convergence, making the landscape of disagreement legible while leaving the synthesis itself in human hands. Scaling democracy should not mean scaling the production of consensus, but scaling the legibility of disagreement.",
+      "AI could help us build a freer, more just world, one that mirrors ancient anarchist traditions but now scaled to the whole of humanity. Or it could become the most complete instrument of subjugation ever made. I want my work to serve the fairer future. This work is inspired by sheaves and probabilistic dependency graphs to distinguish shallow consensus from genuine convergence, making the landscape of disagreement legible while leaving the synthesis itself in human hands. Scaling democracy should not mean scaling the production of consensus, but scaling the legibility of disagreement.",
   },
 ];
 
