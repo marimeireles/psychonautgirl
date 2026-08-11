@@ -8,6 +8,11 @@ export interface Book {
 
 const dataString =
 `Name,Status,Type,Author,Notes
+The Closing of the Western Mind,Want to read,history; philosophy,Charles Freeman
+The Scientist in the Crib: Minds Brains and How Children Learn,Want to read,psychology; neuroscience,Alison Gopnik and Andrew N. Meltzoff and Patricia K. Kuhl
+In Search of Lost Time: Swann's Way,Want to read,fiction,Marcel Proust
+Beyond the Limits of Thought,Want to read,philosophy; math,Graham Priest
+An Introduction to Non-Classical Logic,Want to read,philosophy; math,Graham Priest
 The Awakening Body: Somatic Meditation for Discovering Our Deepest Life,Want to read,buddhism; psychology,Reginald A. Ray
 Having Thought: Essays in the Metaphysics of Mind,Want to read,philosophy; consciousness,John Haugeland
 Dream of the Red Chamber,Want to read,fiction,Cao Xueqin
@@ -579,7 +584,7 @@ The Paradox of Choice,Want to read,psychology,,
 Stumbling on Happiness,Want to read,psychology,,
 Predictably Irrational: The Hidden Forces That Shape Our Decisions,Want to read,psychology; economics,,
 The Shape of Thought: How Mental Adaptations Evolve,Want to read,psychology; evolution,H. Clark Barrett,
-Children of Time,Want to read,sci-fi,,
+Children of Time,Read,sci-fi,Adrian Tchaikovsky,
 Enders Game,Want to read,sci-fi,,
 Stories of Your Life and Others,Read,sci-fi,Ted Chiang,
 Hyperion,Read,sci-fi,Dan Simmons,
