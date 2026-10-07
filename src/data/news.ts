@@ -7,8 +7,11 @@ export interface NewsItem {
 
 const dataString =
 `Title|Date|Summary|Link
+Master's student at the University of Sussex|2026-09-28|Starting a master's in Artificial Life and Consciousness, where I'll be working on complexification: the evolution of learning, intelligence and sensemaking|https://www.sussex.ac.uk/
+Science of Consciousness Conference 2026|2026-10-11 (upcoming)|Poster accepted: The Sophistication of Minds: How Synergy Drives Emergence in the Brain|https://consciousness.arizona.edu/
+BlueDot Rapid Grantee|2026-10-01|A Spy in the Swarm: Testing Double Agents for Human Oversight|https://www.overleaf.com/project/6aadbfb4b37acd9be4f128a8/share#83aced967ad1aca9ac98cf19a2e04b821544d819c1ebb9f0
+FAST @ NeurIPS 2026|2026-09-30|Paper accepted: Toward collective intelligence: evolutionary pressures for cooperative language models|https://openreview.net/forum?id=q9FzHzVCrn
 Collective Intelligence Fellow|2026-07-10|Improving democracy at scale by giving disagreement the proper credit|https://www.cip.org/
-Science of Consciousness Conference 2026|2026-10-11 (upcoming)|The Sophistication of Minds: How Synergy Drives Emergence in the Brain
 Future of Life Institute Grantee|2026-07-20||https://futureoflife.org/about-us/our-people/ai-existential-safety-community/|
 Foresight Institute Secure & Sovereign AI Workshop|2026-07-12|Speaking about the future of the Web|https://drive.google.com/file/d/1KoMeTwp9B0hjTZeAiB0a2G7MdUX-bbJ7/view?usp=sharing|
 ICML 2026 Supercooperation: The Future of AI for Democracy |2026-07-07|My perspectives on how the structure of disagreement is being dealt with in LLMs|
