@@ -184,11 +184,6 @@ const Index = () => {
             onClick={() => openBlogWindow("Software")}
           />
           <DesktopIcon
-            icon="🔬"
-            label="Research"
-            onClick={() => openBlogWindow("Research")}
-          />
-          <DesktopIcon
             icon="🎓"
             label="Academic Work"
             onClick={() => openWindow("academicWork")}

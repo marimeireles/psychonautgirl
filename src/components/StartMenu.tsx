@@ -33,7 +33,6 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
 
   const interests = [
     { name: "Software", icon: "💻" },
-    { name: "Research", icon: "🔬" },
     { name: "Academic work", icon: "🎓" },
     { name: "Community", icon: "🦄" },
     { name: "Activism", icon: "🌈" },

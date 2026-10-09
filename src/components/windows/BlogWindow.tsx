@@ -21,32 +21,26 @@ export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) =>
       emoji: "🔬",
       content: (
         <div className="space-y-3 text-sm">
-          <p>As a researcher I'm interested in understanding what are the underlying characteristics that are important for fostering cooperation among different intelligences and creating a bright future for human and AIs alike.</p>
-          <div className="win95-border bg-muted p-2">
+          <p>My main research explores complexification in artificial and biological systems. Alongside that, I care about developing resilient institutions that will secure a beautiful future for humans and AIs alike.</p>
+          <div
+            className="win95-border bg-muted p-2 cursor-pointer hover:bg-muted-foreground/10"
+            onClick={() => onOpenAcademicWork?.()}
+            title="Open Academic Work"
+          >
             <h4 className="font-bold mb-1">Focus Areas</h4>
             <ul className="space-y-1 text-xs">
-              <li>• Cooperation & Theoretical evolutionary biology</li>
-              <li>• Theoretical neuroscience</li>
-              <li>• Complex systems</li>
-              <li>• Cybersecurity</li>
-              <li>• Ethics & Phenomenology</li>
-              <li>• Democracy</li>
+              {[
+                "Cooperation & Theoretical evolutionary biology",
+                "Theoretical neuroscience",
+                "Complex systems",
+                "Cybersecurity",
+                "Ethics & Phenomenology",
+                "Democracy",
+              ].map((area) => (
+                <li key={area} className="hover:underline">• {area}</li>
+              ))}
             </ul>
           </div>
-          <p className="text-xs">
-            <b>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onOpenAcademicWork?.();
-                }}
-                className="text-primary hover:underline cursor-pointer"
-              >
-                Academic work →
-              </a>
-            </b>
-          </p>
         </div>
       ),
     },
