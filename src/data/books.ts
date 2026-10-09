@@ -1102,5 +1102,6 @@ export function parseBooks(): Book[] {
             Author: Author || '',
             Notes: Notes || ''
         };
-    }).filter(book => book.Name.trim() !== ''); // Filter out empty lines
+    }).filter(book => book.Name.trim() !== '') // Filter out empty lines
+    .reverse(); // Newest additions (appended last) first
 }
