@@ -533,6 +533,21 @@
     (function scribbles() {
         const svg = document.getElementById('scribbles');
         const wrap = document.getElementById('paper-wrap');
+
+        // Each page of the list keeps its own scribbles. Only the current page's layer is shown.
+        const pageLayers = new Map();
+        let currentLayer = null;
+        window.setScribblePage = (n) => {
+            if (!pageLayers.has(n)) {
+                const g = document.createElementNS(svg.namespaceURI, 'g');
+                svg.appendChild(g);
+                pageLayers.set(n, g);
+            }
+            pageLayers.forEach((g, key) => { g.style.display = key === n ? '' : 'none'; });
+            currentLayer = pageLayers.get(n);
+        };
+        window.setScribblePage(0);
+        const layer = () => currentLayer || svg;
         const rand = (a, b) => a + Math.random() * (b - a);
         const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -661,7 +676,7 @@
             const k = size / 100;
             const g = document.createElementNS(svg.namespaceURI, 'g');
             g.setAttribute('transform', `translate(${x + size / 2},${y + size / 2}) rotate(${tilt}) scale(${scale}) translate(${-size / 2},${-size / 2})`);
-            svg.appendChild(g);
+            layer().appendChild(g);
             const paths = strokes.map(st => {
                 const pts = tremor(st.map(p => ({ x: p.x * k, y: p.y * k })), rand(0.8, 2.2) * Math.max(0.6, k));
                 const path = document.createElementNS(svg.namespaceURI, 'path');
@@ -723,7 +738,7 @@
             main.setAttribute('stroke-width', width); main.setAttribute('stroke-linecap', 'round'); main.setAttribute('stroke-linejoin', 'round');
             main.setAttribute('opacity', op);
             g.appendChild(main);
-            svg.appendChild(g);
+            layer().appendChild(g);
 
             const len = main.getTotalLength();
             main.style.strokeDasharray = len; main.style.strokeDashoffset = len;

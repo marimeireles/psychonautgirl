@@ -62,7 +62,7 @@ export const NewsWindow = () => {
             letterSpacing: "0.35em",
           }}
         >
-          ✦ Berlin ✦ Est. MMXXV ✦
+          ✦ Berlin ✦ Est. MMXVII ✦
         </div>
         <h1
           style={{
