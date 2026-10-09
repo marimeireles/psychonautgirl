@@ -140,7 +140,7 @@ export const ChatWindow = () => {
   const sendNudge = () => {
     const now = Date.now();
     if (now < nudgeReadyAt) {
-      toast(`Craving is the root of suffering. Next nudge in ${Math.ceil((nudgeReadyAt - now) / 1000)}s.`);
+      toast(`Craving is the root of all suffering. Next nudge in ${Math.ceil((nudgeReadyAt - now) / 1000)}s.`);
       return;
     }
     setNudgeReadyAt(now + NUDGE_COOLDOWN_MS);

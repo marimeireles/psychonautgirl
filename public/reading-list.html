@@ -82,6 +82,28 @@
         .sheet.s2 { background: #eeece5; clip-path: polygon(20px 4px, calc(100% - 2px) 14px, calc(100% - 20px) calc(100% - 2px), 6px calc(100% - 20px)); }
         .sheet.s3 { background: #e6e4dc; clip-path: polygon(0px 18px, calc(100% - 12px) 0px, 100% calc(100% - 16px), 26px 100%); }
         .sheet.s4 { background: #efede6; clip-path: polygon(14px 0px, calc(100% - 30px) 8px, calc(100% - 4px) 100%, 0px calc(100% - 4px)); }
+        /* Pager at the foot of the page */
+        #pager {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 26px;
+            font-family: 'Patrick Hand', 'Indie Flower', cursive;
+            font-size: 1.2em;
+            color: #1f3f9e;
+        }
+        .pager-btn {
+            font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            font-size: 1em;
+            padding: 4px 14px;
+            cursor: pointer;
+        }
+        .pager-btn:nth-child(1) { transform: rotate(-1.5deg); }
+        .pager-btn:nth-child(3) { transform: rotate(1.2deg); }
+        .pager-btn:hover:not(:disabled) { background: #fff6b0; }
+        .pager-btn:disabled { opacity: 0.35; cursor: default; }
+
         /* Scribble layer: sits on the paper only, never blocks clicks, scribbles accumulate */
         #scribbles {
             position: absolute;
@@ -467,6 +489,11 @@
                 <!-- Dynamic rows here -->
             </tbody>
         </table>
+        <div id="pager">
+            <button id="pager-prev" class="scrap pager-btn" onclick="goPage(-1)">← prev</button>
+            <span id="pager-label"></span>
+            <button id="pager-next" class="scrap pager-btn" onclick="goPage(1)">next →</button>
+        </div>
     </div>
     <svg id="scribbles" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
@@ -774,24 +801,6 @@
 
     animate();
 
-    function filterData() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById('data-table');
-        const trs = table.getElementsByTagName('tr');
-
-        for (let i = 1; i < trs.length; i++) { // Skip the header row
-            const tds = trs[i].getElementsByTagName('td');
-            let match = false;
-            for (let j = 0; j < tds.length; j++) {
-                if (tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
-                    match = true;
-                    break;
-                }
-            }
-            trs[i].style.display = match ? '' : 'none';
-        }
-    }
 </script>
 </body>
 </html>

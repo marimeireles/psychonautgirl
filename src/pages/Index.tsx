@@ -264,6 +264,7 @@ const Index = () => {
           title="Looking for Opportunities!"
           onClose={() => closeWindow("jobPopup")}
           defaultPosition={{ x: 350, y: 80 }}
+          defaultSize={{ width: 380, height: 366 }}
           width="w-[400px]"
           icon="✨"
           zIndex={windowZIndex["jobPopup"] || 20}
@@ -384,6 +385,12 @@ const Index = () => {
         };
 
         const position = blogPositions[blog.name] || { x: 300 + index * 150, y: 80 + index * 100 };
+        // Research has little content now, so give it a shorter window
+        const blogSizes: Record<string, { width: number; height: number }> = {
+          "Research": { width: 450, height: 450 },
+          "Software": { width: 656, height: 489 },
+        };
+        const size = blogSizes[blog.name];
 
         return (
           <Window
@@ -391,6 +398,7 @@ const Index = () => {
             title={blog.name}
             onClose={() => closeBlogWindow(blog.id)}
             defaultPosition={position}
+            defaultSize={size}
             width="w-[450px]"
             icon={blogIcons[blog.name] || "📝"}
             zIndex={windowZIndex[blog.id] || 10}
