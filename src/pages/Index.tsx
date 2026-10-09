@@ -33,6 +33,7 @@ const Index = () => {
     { id: "research-1", name: "Research" }
   ]);
   const [openFocusAreas, setOpenFocusAreas] = useState<FocusArea[]>([]);
+  const [guestbookOnCover, setGuestbookOnCover] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [windowZIndex, setWindowZIndex] = useState<Record<string, number>>({ about: 13, "software-1": 11, "research-1": 12, jobPopup: 20 });
   const [topZIndex, setTopZIndex] = useState(20);
@@ -292,21 +293,70 @@ const Index = () => {
         </Window>
       )}
 
-      {openWindows.has("guestbook") && (
-        <Window
-          title="Guestbook"
-          onClose={() => closeWindow("guestbook")}
-          defaultPosition={{ x: 40, y: 60 }}
-          defaultSize={{ width: 700, height: 450 }}
-          width="w-[700px]"
-          icon="📖"
-          zIndex={windowZIndex["guestbook"] || 10}
-          onFocus={() => bringWindowToFront("guestbook")}
-          isMinimized={minimizedWindows["guestbook"]}
-          onMinimize={(minimized) => handleMinimize("guestbook", minimized)}
+      {/* Guestbook: a tome laid open in the middle of the screen, closed by its ribbon */}
+      {openWindows.has("guestbook") && !minimizedWindows["guestbook"] && (
+        <div
+          className="fixed inset-0 bottom-10 flex items-center justify-center p-4"
+          style={{ zIndex: windowZIndex["guestbook"] || 10, background: "rgba(10, 6, 4, 0.45)" }}
+          onMouseDown={(e) => {
+            bringWindowToFront("guestbook");
+            if (e.target === e.currentTarget) closeWindow("guestbook");
+          }}
         >
-          <GuestbookWindow />
-        </Window>
+          <div
+            className="animate-fade-in tome-shadow"
+            style={{ transform: "rotate(-0.4deg)" }}
+          >
+          <div
+            className={`relative tome ${guestbookOnCover ? "on-cover" : ""}`}
+            style={{
+              width: "min(860px, 94vw)",
+              height: "min(560px, 80vh)",
+            }}
+          >
+            <span className="tome-spine" />
+            {/* gold tooling, following the fold at the spine */}
+            <svg className="tome-tooling" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                {/* the tooling catches light on the boards and falls into shadow as it drops into the fold */}
+                <linearGradient id="toolingInk" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="rgba(214, 176, 92, 0.75)" />
+                  <stop offset="0.36" stopColor="rgba(201, 160, 74, 0.6)" />
+                  <stop offset="0.46" stopColor="rgba(120, 90, 35, 0.45)" />
+                  <stop offset="0.5" stopColor="rgba(60, 40, 12, 0.35)" />
+                  <stop offset="0.54" stopColor="rgba(120, 90, 35, 0.45)" />
+                  <stop offset="0.64" stopColor="rgba(201, 160, 74, 0.6)" />
+                  <stop offset="1" stopColor="rgba(214, 176, 92, 0.75)" />
+                </linearGradient>
+              </defs>
+              {/* outer line, right on the cover's edge */}
+              <path
+                d="M 12 0 H 410 L 450 5 L 480 12 L 500 16 L 520 12 L 550 5 L 590 0 H 988 Q 1000 0 1000 18 V 982 Q 1000 1000 988 1000 H 590 L 550 995 L 520 988 L 500 984 L 480 988 L 450 995 L 410 1000 H 12 Q 0 1000 0 982 V 18 Q 0 0 12 0 Z"
+                fill="none"
+                stroke="url(#toolingInk)"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* inner line, a little way in */}
+              <path
+                d="M 14 9 H 410 L 450 14 L 480 21 L 500 25 L 520 21 L 550 14 L 590 9 H 986 Q 994 9 994 22 V 978 Q 994 991 986 991 H 590 L 550 986 L 520 979 L 500 975 L 480 979 L 450 986 L 410 991 H 14 Q 6 991 6 978 V 22 Q 6 9 14 9 Z"
+                fill="none"
+                stroke="url(#toolingInk)"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            <span className="tome-stack" />
+            <div className="tome-pages h-full">
+              <GuestbookWindow onClose={() => closeWindow("guestbook")} onCoverChange={setGuestbookOnCover} />
+            </div>
+            <span className="tome-corner tl" />
+            <span className="tome-corner tr" />
+            <span className="tome-corner bl" />
+            <span className="tome-corner br" />
+          </div>
+          </div>
+        </div>
       )}
 
       {openWindows.has("academicWork") && (
@@ -345,34 +395,49 @@ const Index = () => {
         </Window>
       )}
 
-      {openWindows.has("news") && (() => {
-        const vw = typeof window !== "undefined" ? window.innerWidth : 1280;
-        const vh = typeof window !== "undefined" ? window.innerHeight - 40 : 760;
-        const newsSize = {
-          width: Math.min(720, Math.max(500, Math.round(vw * 0.45))),
-          height: Math.min(780, Math.max(500, Math.round(vh * 0.75))),
-        };
-        const newsPos = {
-          x: Math.max(20, Math.round((vw - newsSize.width) / 2)),
-          y: Math.max(20, Math.round((vh - newsSize.height) / 2)),
-        };
-        return (
-        <Window
-          title="News"
-          onClose={() => closeWindow("news")}
-          defaultPosition={newsPos}
-          defaultSize={newsSize}
-          width="w-[600px]"
-          icon="📰"
-          zIndex={windowZIndex["news"] || 10}
-          onFocus={() => bringWindowToFront("news")}
-          isMinimized={minimizedWindows["news"]}
-          onMinimize={(minimized) => handleMinimize("news", minimized)}
+      {/* News: a newspaper laid flat in the middle of the screen, closed by its dog-ear */}
+      {openWindows.has("news") && !minimizedWindows["news"] && (
+        <div
+          className="fixed inset-0 bottom-10 flex items-center justify-center p-4"
+          style={{ zIndex: windowZIndex["news"] || 10, background: "rgba(20, 20, 30, 0.25)" }}
+          onMouseDown={(e) => {
+            bringWindowToFront("news");
+            if (e.target === e.currentTarget) closeWindow("news");
+          }}
         >
-          <NewsWindow />
-        </Window>
-        );
-      })()}
+          <div
+            className="relative animate-fade-in"
+            style={{
+              width: "min(640px, 90vw)",
+              height: "min(78vh, 760px)",
+              transform: "rotate(-0.6deg)",
+              filter: "drop-shadow(0 24px 34px rgba(0,0,0,0.42)) drop-shadow(0 6px 8px rgba(0,0,0,0.28)) drop-shadow(0 1px 1px rgba(0,0,0,0.3))",
+            }}
+          >
+            {/* the rest of the paper, peeking out behind the front page */}
+            <div className="news-sheet" style={{ transform: "rotate(-1.4deg) translate(-7px, 5px)" }} />
+            <div className="news-sheet" style={{ transform: "rotate(1.1deg) translate(8px, 7px)", filter: "brightness(0.94)" }} />
+            <div className="news-sheet" style={{ transform: "rotate(2.2deg) translate(-3px, 11px)", filter: "brightness(0.88)" }} />
+            <div className="news-sheet" style={{ transform: "rotate(-0.6deg) translate(12px, 3px)", filter: "brightness(0.97)" }} />
+            {/* the front page, with its top-right corner cut away where the fold lifts */}
+            <div
+              className="h-full relative"
+              style={{ clipPath: "polygon(0 0, calc(100% - 58px) 0, 100% 58px, 100% 100%, 0 100%)" }}
+            >
+              <NewsWindow />
+              <div className="newsprint-relief" />
+            </div>
+            {/* dog-ear: the folded corner, click to close */}
+            <button
+              type="button"
+              aria-label="Close the newspaper"
+              title="Close"
+              onClick={() => closeWindow("news")}
+              className="dog-ear"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Blog Windows */}
       {blogWindows.map((blog, index) => {

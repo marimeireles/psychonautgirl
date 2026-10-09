@@ -331,3 +331,440 @@ All colors MUST be HSL.
 .window-nudge {
   animation: nudge 0.7s ease-in-out;
 }
+
+/* Folded newspaper corner that closes the paper. It sits exactly on the cut, never moves on its own. */
+.dog-ear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  /* underside of the flap: lighter near the fold, darker toward the loose tip */
+  background: linear-gradient(225deg, transparent 50%, #d6d6d4 50%, #bdbdbb 72%, #a9a9a7 100%);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  transition: background 0.2s ease;
+}
+/* crease shadow cast onto the page along the fold */
+.dog-ear::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, transparent 50%, rgba(0, 0, 0, 0.22) 50%, transparent 60%);
+}
+.dog-ear:hover {
+  background: linear-gradient(225deg, transparent 50%, #e2e2e0 50%, #c8c8c6 72%, #b2b2b0 100%);
+}
+
+/* Pages behind the newspaper's front page */
+.news-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  background-color: #b9b9b7;
+  background-image: var(--np-grain), var(--np-mottle), var(--np-fibre), var(--np-paper);
+  background-size: 200px 200px, 600px 600px, 400px 120px, auto;
+  background-blend-mode: multiply, multiply, multiply, normal;
+}
+
+/* Wear: a centre fold, mottling, a coffee ring and darkened edges */
+.newsprint-wear {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image:
+    /* centre fold crease */
+    linear-gradient(90deg, transparent 49.2%, rgba(0, 0, 0, 0.12) 49.9%, rgba(255, 255, 255, 0.35) 50.2%, rgba(0, 0, 0, 0.05) 50.6%, transparent 51.4%),
+    /* coffee ring: an SVG stain with roughened edges and a heavier rim on one side */
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='r' x='-20%25' y='-20%25' width='140%25' height='140%25'><feTurbulence type='fractalNoise' baseFrequency='0.045' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='7'/><feGaussianBlur stdDeviation='0.7'/></filter><g filter='url(%23r)' fill='none' stroke='%235a4a3a' stroke-linecap='round'><ellipse cx='80' cy='78' rx='52' ry='46' stroke-width='6' opacity='0.16'/><path d='M34 92 C30 60 52 34 84 32 C110 31 128 46 132 66' stroke-width='3.2' opacity='0.30'/><path d='M126 96 C118 116 96 126 74 122' stroke-width='2' opacity='0.22'/><ellipse cx='80' cy='78' rx='44' ry='38' fill='%235a4a3a' stroke='none' opacity='0.045'/></g><g fill='%235a4a3a' filter='url(%23r)'><circle cx='140' cy='112' r='4.5' opacity='0.16'/><circle cx='146' cy='122' r='2' opacity='0.14'/><circle cx='22' cy='118' r='2.6' opacity='0.12'/></g></svg>"),
+    /* grey mottling where the paper has been handled */
+    radial-gradient(ellipse at 12% 18%, rgba(60, 60, 60, 0.12) 0, transparent 60px),
+    radial-gradient(ellipse at 88% 10%, rgba(60, 60, 60, 0.09) 0, transparent 90px),
+    radial-gradient(ellipse at 30% 92%, rgba(60, 60, 60, 0.11) 0, transparent 70px),
+    radial-gradient(ellipse at 60% 40%, rgba(60, 60, 60, 0.06) 0, transparent 120px),
+    radial-gradient(circle at 92% 55%, rgba(50, 50, 50, 0.09) 0, transparent 26px),
+    /* darkened, handled edges */
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(40, 40, 40, 0.26) 100%);
+  background-repeat: no-repeat;
+  background-size: auto, 230px 230px, auto, auto, auto, auto, auto, auto;
+  background-position: 0 0, 76% 66%, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Newsprint textures, shared by the front page and the pages behind it */
+:root {
+  /* fine grain */
+  --np-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch' seed='2'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.3  0 0 0 0 0.3  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  /* coarse mottle: patches of slightly different tone */
+  --np-mottle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' stitchTiles='stitch' seed='9'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.25  0 0 0 0 0.25  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  /* fibres: noise stretched horizontally */
+  --np-fibre: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='120'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.015 0.9' numOctaves='2' stitchTiles='stitch' seed='5'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.35  0 0 0 0 0.35  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+  /* crumple: noise lit from the top-left so it reads as creases and bumps */
+  --np-crumple: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='c' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.028' numOctaves='5' stitchTiles='stitch' seed='11' result='t'/><feDiffuseLighting in='t' lighting-color='white' surfaceScale='4' diffuseConstant='1.1'><feDistantLight azimuth='40' elevation='55'/></feDiffuseLighting><feColorMatrix type='matrix' values='0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23c)'/></svg>");
+  --np-paper: linear-gradient(180deg, #dcdcdb 0%, #c2c2c1 55%, #9e9e9d 110%);
+}
+
+.newsprint-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: var(--np-grain), var(--np-mottle), var(--np-fibre);
+  background-size: 200px 200px, 600px 600px, 400px 120px;
+  opacity: 0.55;
+}
+
+/* Crumple: lit creases and bumps, plus a few long fold lines */
+.newsprint-crumple {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(118deg, transparent 31%, rgba(255, 255, 255, 0.45) 32.4%, rgba(0, 0, 0, 0.35) 33%, transparent 34.5%),
+    linear-gradient(64deg, transparent 58%, rgba(0, 0, 0, 0.3) 59.2%, rgba(255, 255, 255, 0.4) 59.8%, transparent 61.5%),
+    linear-gradient(152deg, transparent 72%, rgba(255, 255, 255, 0.35) 73.2%, rgba(0, 0, 0, 0.28) 73.8%, transparent 75%),
+    var(--np-crumple);
+  background-size: auto, auto, auto, 500px 500px;
+}
+
+/* Relief on the front page: lit top-left edge, shaded bottom-right, and a bow across the fold */
+.newsprint-relief {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.55),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.18),
+    inset 0 0 40px rgba(0, 0, 0, 0.10);
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0, transparent 10%, transparent 46%, rgba(0, 0, 0, 0.07) 50%, transparent 54%, transparent 90%, rgba(0, 0, 0, 0.14) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Newspaper scrollbar: a narrow gutter in the paper's own greys */
+.newsprint-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #5a5a58 #c2c2c1;
+}
+.newsprint-scroll::-webkit-scrollbar {
+  width: 9px;
+}
+.newsprint-scroll::-webkit-scrollbar-track {
+  background: #c2c2c1;
+  border-left: 1px solid rgba(0, 0, 0, 0.18);
+}
+.newsprint-scroll::-webkit-scrollbar-thumb {
+  background: #5a5a58;
+  border: 2px solid #c2c2c1;
+  border-radius: 0;
+}
+.newsprint-scroll::-webkit-scrollbar-thumb:hover {
+  background: #2b2b2a;
+}
+
+/* ---------- Guestbook: Daggerfall-style tome ---------- */
+
+/* Parchment textures */
+:root {
+  --pt-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch' seed='4'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.25  0 0 0 0 0.12  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  --pt-mottle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.016' numOctaves='3' stitchTiles='stitch' seed='12'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.28  0 0 0 0 0.10  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  --pt-fibre: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='140'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.02 0.7' numOctaves='2' stitchTiles='stitch' seed='8'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.15  0 0 0 0.2 0'/></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+  --lt-scuff: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.009' numOctaves='3' stitchTiles='stitch' seed='31'/><feColorMatrix values='0 0 0 0 0.75  0 0 0 0 0.6  0 0 0 0 0.4  0 0 0 0.28 0'/></filter><rect width='100%25' height='100%25' filter='url(%23s)'/></svg>");
+  --lt-rub: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.0045' numOctaves='2' stitchTiles='stitch' seed='52'/><feColorMatrix type='matrix' values='0 0 0 0 0.72  0 0 0 0 0.52  0 0 0 0 0.33  0.33 0.33 0.33 0 -0.1'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 0.04 0.12 0.18'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23r)'/></svg>");
+  --lt-stain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='760' height='760'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='3' stitchTiles='stitch' seed='63'/><feColorMatrix type='matrix' values='0 0 0 0 0.02  0 0 0 0 0.01  0 0 0 0 0  0.33 0.33 0.33 0 -0.08'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 0.08 0.3 0.45'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23s)'/></svg>");
+  --lt-mottle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='3' stitchTiles='stitch' seed='19'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.02  0 0 0 0 0.01  0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  --lt-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='l'><feTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' seed='17'/><feColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.08  0 0 0 0 0.02  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23l)'/></svg>");
+}
+
+/* Grain, mottling, foxing and scorched edges on each page face */
+.parchment-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  background-image:
+    radial-gradient(ellipse at 18% 22%, rgba(120, 70, 20, 0.16) 0, transparent 70px),
+    radial-gradient(ellipse at 82% 12%, rgba(120, 70, 20, 0.12) 0, transparent 90px),
+    radial-gradient(ellipse at 70% 80%, rgba(120, 70, 20, 0.14) 0, transparent 80px),
+    radial-gradient(circle at 28% 88%, rgba(90, 50, 10, 0.12) 0, transparent 30px),
+    radial-gradient(circle at 62% 30%, rgba(90, 50, 10, 0.09) 0, transparent 22px),
+    radial-gradient(circle at 40% 60%, rgba(90, 50, 10, 0.08) 0, transparent 16px),
+    radial-gradient(ellipse at 50% 50%, transparent 48%, rgba(70, 35, 5, 0.34) 90%, rgba(40, 18, 2, 0.6) 100%),
+    var(--pt-grain), var(--pt-mottle), var(--pt-fibre);
+  background-size: auto, auto, auto, auto, auto, auto, auto, 220px 220px, 520px 520px, 360px 140px;
+  opacity: 0.9;
+}
+
+/* The covers: two leather boards meeting at a spine, just a little larger than the pages */
+.tome {
+  padding: 16px 18px 18px;
+  background-color: #1b0b05;
+  background-image:
+    var(--lt-rub), var(--lt-stain),
+    var(--lt-mottle), var(--lt-scuff), var(--lt-grain),
+    linear-gradient(90deg, #2a140a 0%, #1a0b05 48%, #110603 50%, #1a0b05 52%, #2a140a 100%);
+  background-size: 900px 900px, 760px 760px, 700px 700px, 420px 420px, 180px 180px, auto;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.6);
+  /* the boards hinge at the spine, so the top and bottom edges dip there */
+  clip-path: polygon(
+    0 0, 41% 0, 45% 3px, 48% 7px, 50% 9px, 52% 7px, 55% 3px, 59% 0, 100% 0,
+    100% 100%, 59% 100%, 55% calc(100% - 3px), 52% calc(100% - 7px), 50% calc(100% - 9px), 48% calc(100% - 7px), 45% calc(100% - 3px), 41% 100%, 0 100%
+  );
+}
+/* the board's thickness and its shadow on the desk live outside the clip */
+.tome-shadow {
+  filter:
+    drop-shadow(3px 4px 0 #180904)
+    drop-shadow(2px 3px 0 #0e0502)
+    drop-shadow(8px 26px 20px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 6px 6px rgba(0, 0, 0, 0.45));
+}
+/* light across the covers, shade into the spine, and years of handling: rubbed edges,
+   worn corners, scuff patches and scratches */
+.tome::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  background:
+    /* rubbed, lighter leather along the edges and at the corners */
+    radial-gradient(ellipse at 0% 0%, rgba(200, 150, 100, 0.35) 0, transparent 16%),
+    radial-gradient(ellipse at 100% 0%, rgba(200, 150, 100, 0.28) 0, transparent 14%),
+    radial-gradient(ellipse at 0% 100%, rgba(200, 150, 100, 0.30) 0, transparent 15%),
+    radial-gradient(ellipse at 100% 100%, rgba(200, 150, 100, 0.38) 0, transparent 18%),
+    linear-gradient(90deg, rgba(200, 150, 100, 0.22) 0, transparent 2.5%, transparent 97.5%, rgba(200, 150, 100, 0.22) 100%),
+    linear-gradient(180deg, rgba(200, 150, 100, 0.22) 0, transparent 4%, transparent 96%, rgba(200, 150, 100, 0.22) 100%),
+    /* scuff patches */
+    var(--lt-scuff),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 38%, rgba(255, 220, 160, 0.10) 43%, rgba(0, 0, 0, 0.45) 47%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.45) 53%, rgba(255, 220, 160, 0.10) 57%, rgba(0, 0, 0, 0.18) 62%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(160deg, rgba(255, 220, 160, 0.10) 0%, transparent 35%, transparent 70%, rgba(0, 0, 0, 0.35) 100%);
+  background-size: auto, auto, auto, auto, auto, auto, 420px 420px, auto, auto;
+}
+/* gold tooling: a thin line running inside the cover's edge, dipping with the fold */
+.tome-tooling {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+/* spine ridge: shows above and below the pages where the cover is bare */
+.tome-spine {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 50%;
+  width: 64px;
+  transform: translateX(-50%);
+  background:
+    /* cracked leather along the ridge */
+    repeating-linear-gradient(180deg, transparent 0 9px, rgba(200, 150, 100, 0.14) 9px 10px, transparent 10px 23px),
+    /* grooves where the boards hinge, a rounded hump between them, light catching its crown */
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.45) 14%,
+      rgba(0, 0, 0, 0.1) 22%,
+      rgba(255, 220, 160, 0.14) 40%,
+      rgba(255, 220, 160, 0.22) 50%,
+      rgba(255, 220, 160, 0.14) 60%,
+      rgba(0, 0, 0, 0.1) 78%,
+      rgba(0, 0, 0, 0.45) 86%,
+      transparent 100%);
+  pointer-events: none;
+}
+/* where the page block rises out of the binding, it casts shadow onto the cover above and below */
+.tome-spine::before,
+.tome-spine::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 180px;
+  height: 22px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.55) 0, rgba(0, 0, 0, 0.25) 40%, transparent 70%);
+  pointer-events: none;
+}
+.tome-spine::before { top: 0; }
+.tome-spine::after { bottom: 0; transform: translateX(-50%) scaleY(-1); }
+/* the block of pages sits on the cover as one object: the edge stack wraps it on three sides */
+.tome-stack {
+  position: absolute;
+  top: 18px;          /* flush with the top of the pages */
+  left: 11px;
+  right: 11px;
+  bottom: 10px;
+  z-index: 1;
+  border-radius: 5px;
+  pointer-events: none;
+  background-color: #d8bf87;
+  background-image:
+    /* edges sink into the spine in the middle */
+    linear-gradient(90deg, transparent 0 42%, rgba(60, 30, 5, 0.35) 49%, rgba(40, 18, 2, 0.6) 50%, rgba(60, 30, 5, 0.35) 51%, transparent 58%),
+    /* in the bottom corners the leaves bend round, joining the side run to the bottom run */
+    repeating-radial-gradient(circle at 100% 0, #ecd9ab 0 1px, #c9ac72 1px 2px, #dcc38c 2px 3px),
+    repeating-radial-gradient(circle at 0 0, #ecd9ab 0 1px, #c9ac72 1px 2px, #dcc38c 2px 3px),
+    /* the leaves, seen edge-on: vertical along the sides, horizontal along the bottom */
+    repeating-linear-gradient(90deg, #ecd9ab 0 1px, #c9ac72 1px 2px, #dcc38c 2px 3px),
+    repeating-linear-gradient(90deg, #ecd9ab 0 1px, #c9ac72 1px 2px, #dcc38c 2px 3px),
+    repeating-linear-gradient(180deg, #ecd9ab 0 1px, #c9ac72 1px 2px, #dcc38c 2px 3px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 9px 9px, 9px 9px, 9px calc(100% - 9px), 9px calc(100% - 9px), calc(100% - 18px) 9px;
+  background-position: 0 0, left bottom, right bottom, left top, right top, center bottom;
+  box-shadow:
+    0 10px 16px rgba(0, 0, 0, 0.55),
+    0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.tome-pages {
+  position: relative;
+  z-index: 2;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(80, 50, 20, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.35);
+  /* the pages dip into the gutter at the spine, like the cover does */
+  clip-path: polygon(
+    0 0, 41% 0, 45% 2px, 48% 4.5px, 50% 6px, 52% 4.5px, 55% 2px, 59% 0, 100% 0,
+    100% 100%, 0 100%
+  );
+}
+/* on the inside of the back cover the leaves are gone */
+.tome.on-cover .tome-stack { clip-path: inset(0 50% 0 0); }
+
+/* bare leather where the pages used to be */
+.leather-face {
+  position: absolute;
+  inset: 0;
+  background-color: #1b0b05;
+  background-image:
+    /* a little light along the left edge, where the board bends up out of the spine */
+    linear-gradient(90deg, rgba(255, 220, 170, 0.14) 0, rgba(255, 220, 170, 0.06) 5%, rgba(0, 0, 0, 0.18) 9%, transparent 16%),
+    /* random wear: rubbed-lighter blotches, darker stains, uneven dye, scuffs, grain */
+    var(--lt-rub),
+    var(--lt-stain),
+    var(--lt-mottle),
+    var(--lt-scuff),
+    var(--lt-grain),
+    linear-gradient(90deg, #2a140a 0%, #1a0b05 48%, #110603 50%, #1a0b05 52%, #2a140a 100%);
+  background-size: auto, 900px 900px, 760px 760px, 700px 700px, 420px 420px, 180px 180px, auto;
+  box-shadow: inset 0 0 0 1px rgba(201, 160, 74, 0.15);
+}
+
+/* burned in, not cut: a soft scorched halo around each line, the dark mark, and a faintly
+   lighter core where the burn is shallowest. No highlight anywhere. */
+.engraving { position: relative; z-index: 2; }
+.engraving .halo { stroke: rgba(12, 5, 1, 0.6); fill: rgba(12, 5, 1, 0.6); filter: url(#scorch); }
+.engraving .cut  { stroke: #0a0301; fill: #0a0301; }
+.engraving .core { stroke: rgba(110, 62, 30, 0.45); fill: none; }
+.engraving path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.engraving .halo path { stroke-width: 8; }
+.engraving .cut path  { stroke-width: 2.8; }
+.engraving .core path { stroke-width: 0.9; }
+.engraving .core text { fill: none; stroke: rgba(110, 62, 30, 0.45); stroke-width: 0.5; }
+.engraving .halo text { stroke: rgba(12, 5, 1, 0.6); stroke-width: 5; }
+.engraving text { font-family: 'Reenie Beanie', 'Nothing You Could Do', cursive; font-size: 46px; letter-spacing: 1px; }
+
+
+/* brass corner protectors */
+.tome-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(60, 70, 40, 0.45) 0, transparent 40%),
+    radial-gradient(circle at 75% 25%, rgba(60, 50, 30, 0.35) 0, transparent 35%),
+    linear-gradient(135deg, #d8c27e 0%, #a9863c 45%, #5e4616 100%);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
+}
+.tome-corner.tl { top: -2px; left: -2px; border-top-left-radius: 11px; clip-path: polygon(0 0, 100% 0, 100% 30%, 30% 30%, 30% 100%, 0 100%); }
+.tome-corner.tr { top: -2px; right: -2px; border-top-right-radius: 11px; clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 100%, 70% 30%, 0 30%); }
+.tome-corner.bl { bottom: -2px; left: -2px; border-bottom-left-radius: 11px; clip-path: polygon(0 0, 30% 0, 30% 70%, 100% 70%, 100% 100%, 0 100%); }
+.tome-corner.br { bottom: -2px; right: -2px; border-bottom-right-radius: 11px; clip-path: polygon(70% 0, 100% 0, 100% 100%, 0 100%, 0 70%, 70% 70%); }
+
+/* Ribbon bookmark: tucked into the binding at the head of the page, lying over the right page.
+   The shape lives on ::before so the button's drop shadow isn't cut off by the clip. */
+.df-ribbon {
+  position: absolute;
+  top: -6px;
+  right: calc(9% - 20px);
+  width: 48px;
+  height: 160px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 30;
+  filter: drop-shadow(3px 4px 4px rgba(0, 0, 0, 0.4));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.df-ribbon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* satin: softly darker edges, a highlight down the middle */
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0, rgba(255, 255, 255, 0.10) 38%, rgba(255, 255, 255, 0.16) 50%, rgba(255, 255, 255, 0.08) 62%, rgba(0, 0, 0, 0.18) 100%),
+    /* a little sun-fading, and a grubbier tail */
+    linear-gradient(180deg, transparent 28%, rgba(230, 200, 170, 0.14) 46%, transparent 60%, rgba(60, 20, 20, 0.18) 100%),
+    /* faint weave */
+    var(--pt-grain),
+    linear-gradient(180deg, #7e1a19 0, #a0271f 45%, #86201d 100%);
+  background-size: auto, auto, 120px 120px, auto;
+  /* a little uneven: the edges wander by a pixel and the fork isn't quite centred */
+  clip-path: polygon(
+    0 0, 1% 20%, 0 42%, 1.5% 64%, 0 84%,
+    1% 100%, 48% 87%, 99% 100%,
+    100% 80%, 98.5% 58%, 100% 36%, 99% 16%, 100% 0
+  );
+}
+.df-ribbon::after {
+  /* gold stitching along both edges */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 18px;
+  left: 8px;
+  right: 8px;
+  border-left: 1px dashed rgba(240, 210, 120, 0.6);
+  border-right: 1px dashed rgba(240, 210, 120, 0.6);
+  pointer-events: none;
+}
+.df-ribbon:hover {
+  transform: translateY(3px);
+  filter: drop-shadow(4px 6px 5px rgba(0, 0, 0, 0.45)) brightness(1.08);
+}
+
+/* scrolls, but never shows a bar */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Dog-ear on a page corner, drawn as an SVG so the corner and the tip can be properly round */
+.page-ear {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 6;
+  transition: filter 0.2s ease;
+}
+.page-ear svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.page-ear:hover { filter: brightness(1.06); }
+.page-ear.right { right: 0; }
+.page-ear.left  { left: 0; transform: scaleX(-1); }

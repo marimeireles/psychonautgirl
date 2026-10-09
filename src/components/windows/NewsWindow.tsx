@@ -3,14 +3,14 @@ import { parseNews } from "@/data/news";
 
 const PAGE_SIZE = 12;
 
-const NEWSPRINT_LIGHT = "#f7f7f5";
-const NEWSPRINT = "#d9d9d5";
-const NEWSPRINT_DARK = "#b0b0ac";
+const NEWSPRINT_LIGHT = "#dcdcdb";
+const NEWSPRINT = "#c2c2c1";
+const NEWSPRINT_DARK = "#9e9e9d";
 const INK = "#151515";
 
 const paperBg = `
-  radial-gradient(ellipse at 10% 5%, rgba(20,20,20,0.04) 0%, transparent 45%),
-  radial-gradient(ellipse at 92% 96%, rgba(20,20,20,0.10) 0%, transparent 45%),
+  radial-gradient(ellipse at 10% 5%, rgba(20,20,20,0.05) 0%, transparent 45%),
+  radial-gradient(ellipse at 92% 96%, rgba(20,20,20,0.12) 0%, transparent 45%),
   linear-gradient(180deg, ${NEWSPRINT_LIGHT} 0%, ${NEWSPRINT} 55%, ${NEWSPRINT_DARK} 110%)
 `;
 
@@ -44,14 +44,10 @@ export const NewsWindow = () => {
   return (
     <div
       ref={scrollRef}
-      className="h-full overflow-y-auto"
-      style={{
-        background: paperBg,
-        color: INK,
-        fontFamily: bodySerif,
-        border: `1px solid ${INK}`,
-      }}
+      className="h-full overflow-y-auto newsprint-scroll"
+      style={{ background: NEWSPRINT, color: INK, fontFamily: bodySerif }}
     >
+    <div className="relative min-h-full" style={{ background: paperBg }}>
       {/* Masthead */}
       <div className="text-center pt-5 pb-2 px-4" style={{ borderBottom: `4px double ${INK}` }}>
         <div
@@ -304,6 +300,11 @@ export const NewsWindow = () => {
           </div>
         )}
       </div>
+      {/* wear and grain live inside the sheet, so they scroll with the print */}
+      <div className="newsprint-crumple" />
+      <div className="newsprint-wear" />
+      <div className="newsprint-grain" />
+    </div>
     </div>
   );
 };
