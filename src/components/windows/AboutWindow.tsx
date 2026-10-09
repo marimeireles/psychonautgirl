@@ -25,7 +25,7 @@ export const AboutWindow = () => {
               Previously, I worked with software in the open-source and open-science ecosystems, contributing to projects like Firefox, Jupyter Notebooks, and Conda.
             </p>
             <p>
-              I'm currently a researcher at CHAI (UC Berkeley), a student in Artificial Life and Consciousness at the University of Sussex, and a fellow at the Collective Intelligence Project. Previously, I've worked at Jinesis (University of Toronto), the Max Planck Institute, and the Barfuss Lab (University of Bonn); my work has been supported by grants from Impact Academy, the Foresight Institute and BlueDot.
+              I'm currently a researcher at CHAI (UC Berkeley), a student in Artificial Life and Consciousness at the University of Sussex, and a fellow at the Collective Intelligence Project. Previously, I've worked at Jinesis (University of Toronto), the Max Planck Institute, and the Barfuss Lab (University of Bonn); my work has been supported by grants from Impact Academy, the Foresight Institute, the Future of Life Institute and BlueDot.
             </p>
           </div>
         </section>
