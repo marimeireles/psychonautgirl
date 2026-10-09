@@ -1093,7 +1093,8 @@ const data = dataString.split('\n').slice(1).map(line => {
         Author: Author || '',
         Notes: Notes || ''
     };
-}).filter(book => book.Name.trim() !== ''); // Filter out empty lines
+}).filter(book => book.Name.trim() !== '') // Filter out empty lines
+  .reverse(); // Newest additions (appended last) first
 
 // Generate random pastel color
 function getRandomColor() {
