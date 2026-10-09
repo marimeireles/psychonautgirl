@@ -1194,19 +1194,66 @@ function populateTable(dataArray) {
     });
 }
 
+// ---- View: search + sort + pagination all work on the data, not the DOM
+const PAGE_SIZE = 200;
+let view = data.slice();
+let page = 0;
+let currentSort = null; // { column, order }
+let query = '';
+
+function applyView() {
+    const q = query.toLowerCase();
+    view = q
+        ? data.filter(b => Object.values(b).some(v => String(v).toLowerCase().includes(q)))
+        : data.slice();
+    if (currentSort) {
+        const { column, order } = currentSort;
+        view.sort((a, b) => {
+            const x = String(a[column]).toLowerCase(), y = String(b[column]).toLowerCase();
+            if (x === y) return 0;
+            return (x > y ? 1 : -1) * (order === 'asc' ? 1 : -1);
+        });
+    }
+    const pages = Math.max(1, Math.ceil(view.length / PAGE_SIZE));
+    page = Math.min(page, pages - 1);
+    render();
+}
+
+function render() {
+    const pages = Math.max(1, Math.ceil(view.length / PAGE_SIZE));
+    populateTable(view.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE));
+    const pager = document.getElementById('pager');
+    if (!pager) return;
+    pager.style.display = pages > 1 ? '' : 'none';
+    document.getElementById('pager-label').innerHTML = weather(`page ${page + 1} of ${pages}`);
+    document.getElementById('pager-prev').disabled = page === 0;
+    document.getElementById('pager-next').disabled = page >= pages - 1;
+}
+
+function goPage(delta) {
+    const pages = Math.max(1, Math.ceil(view.length / PAGE_SIZE));
+    const next = Math.max(0, Math.min(pages - 1, page + delta));
+    if (next === page) return;
+    page = next;
+    render();
+    document.getElementById('paper-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // Function to sort data
 function sortData(column, order) {
-    const sortedData = [...data].sort((a, b) => {
-        if (order === 'asc') {
-            return a[column] > b[column] ? 1 : -1;
-        } else {
-            return a[column] < b[column] ? 1 : -1;
-        }
-    });
-    populateTable(sortedData);
+    currentSort = { column, order };
+    page = 0;
+    applyView();
+}
+
+// Called from the search box
+function filterData() {
+    query = document.getElementById('searchInput').value;
+    page = 0;
+    applyView();
 }
 
 // Initialize table on page load
 document.addEventListener('DOMContentLoaded', () => {
-    populateTable(data);
+    applyView();
 });

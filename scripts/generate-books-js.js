@@ -164,6 +164,7 @@ function applyView() {
 function render() {
     const pages = Math.max(1, Math.ceil(view.length / PAGE_SIZE));
     populateTable(view.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE));
+    if (window.setScribblePage) window.setScribblePage(page);
     const pager = document.getElementById('pager');
     if (!pager) return;
     pager.style.display = pages > 1 ? '' : 'none';
