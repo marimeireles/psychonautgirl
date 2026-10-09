@@ -543,7 +543,17 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
             transform: "rotate(-1.5deg)",
           }}
         >
-          {sideTitle(side, opts.isRight)}
+          <span className="relative inline-block">
+            {sideTitle(side, opts.isRight)}
+            <svg
+              viewBox="0 0 120 12"
+              preserveAspectRatio="none"
+              className="absolute left-0 right-0"
+              style={{ bottom: -4, height: 10, width: "100%", opacity: 0.8 }}
+            >
+              <path d={FLOURISHES[0]} fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+          </span>
         </h2>
       )}
       {renderSideBody(side)}
@@ -746,7 +756,17 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
                   transform: "rotate(-1.5deg)",
                 }}
               >
-                Sign the Book
+                <span className="relative inline-block">
+                  Sign the Book
+                  <svg
+                    viewBox="0 0 120 12"
+                    preserveAspectRatio="none"
+                    className="absolute left-0 right-0"
+                    style={{ bottom: -4, height: 10, width: "100%", opacity: 0.8 }}
+                  >
+                    <path d={FLOURISHES[0]} fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  </svg>
+                </span>
               </h2>
               {renderForm()}
             </div>
