@@ -1,7 +1,7 @@
 const dataString =
 `Name,Status,Type,Author,Notes
 The Closing of the Western Mind,Want to read,history; philosophy,Charles Freeman
-The Scientist in the Crib: Minds Brains and How Children Learn,Want to read,psychology; neuroscience,Alison Gopnik and Andrew N. Meltzoff and Patricia K. Kuhl
+The Scientist in the Crib: Minds Brains and How Children Learn,Read,psychology; neuroscience,Alison Gopnik and Andrew N. Meltzoff and Patricia K. Kuhl
 In Search of Lost Time: Swann's Way,Want to read,fiction,Marcel Proust
 Beyond the Limits of Thought,Want to read,philosophy; math,Graham Priest
 An Introduction to Non-Classical Logic,Want to read,philosophy; math,Graham Priest
@@ -186,7 +186,7 @@ Cutting Through Spiritual Materialism,Want to read,buddhism,Chogyam Trungpa
 On Having No Head,Read,buddhism,Douglas Edison Harding
 Cooperative Game Theory and Applications,Want to read,game-theory;coordination,Imma Curiel
 Micromotives and Macrobehavior,Want to read,agent-based-modelling,Schelling
-Difficult Conversations,Want to read,psychology,Douglas Stone et al.
+Difficult Conversations,Read,psychology,Douglas Stone et al.
 The Book of Joy,Read,buddhism,Dalai Lama and Desmond Tutu
 A Guide to the Good Life,Read,philosophy; psychology,William Irvine
 Consciousness Explained,Read,consciousness,Daniel C. Dennet
@@ -828,7 +828,7 @@ The Ring of the Nibelung,Read,fiction,,
 Beowulf,Read,fiction,,
 Hamlet,Read,fiction,Shakespeare,
 The Three Musketeers,Read,fiction,,
-Wuthering Heights,Read,fiction,,
+Wuthering Heights,Read,fiction,Emily Brontë,
 O Cortiço,Read,fiction,,
 O Homem de Cabeça de Papelão,Read,fiction,,
 The Archer's Tale,Read,fiction,Bernard Cornwell,
@@ -1068,7 +1068,20 @@ Essays in Idleness and Hojoki,Want to read,philosophy,Yoshida Kenko
 The C.S. Lewis Essential Audio Library,Want to read,christianity,C.S. Lewis
 Ethical Know-How: Action Wisdom and Cognition,Want to read,philosophy; buddhism,Francisco J. Varela
 Why I Am Not a Buddhist,Want to read,philosophy; buddhism,Evan Thompson
-O Grande Mentecapto,Read,fiction,Fernando Sabino`
+O Grande Mentecapto,Read,fiction,Fernando Sabino
+The Tombs of Atuan,Read,fiction,Ursula K. Le Guin
+What Is Intelligence?: Lessons from AI About Evolution Computing and Minds,Read,computer-science; evolution; consciousness,Blaise Agüera y Arcas
+Dzogchen: Sex,Read,buddhism; sex,Keith Dowman
+Dzogchen: Khorde Rushen,Read,buddhism,Keith Dowman
+Job: A New Translation,Read,judaism; poetry,Edward L. Greenstein
+Near to the Wild Heart,Reading,fiction,Clarice Lispector
+The Hidden Girl and Other Stories,Reading,sci-fi,Ken Liu
+Sadly Porn,Reading,psychology,Edward Teach
+On the Suffering of the World,Reading,philosophy,Arthur Schopenhauer
+The Origins and History of Consciousness,Reading,psychology; consciousness,Erich Neumann
+The Problem of Pain,Reading,christianity; philosophy,C.S. Lewis
+Answer to Job,Reading,psychology; christianity,Jung
+We Are Legion (We Are Bob),Reading,sci-fi,Dennis E. Taylor`
 
 // Parse the data into an array of objects
 const data = dataString.split('\n').slice(1).map(line => {
