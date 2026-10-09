@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
@@ -10,6 +10,7 @@ interface GuestbookEntry {
 }
 
 const ENTRIES_PER_SIDE = 5;
+const MAX_WORD = 14; // longer runs with no spaces are allowed to break mid-word
 const FLIP_MS = 750;
 
 const PARCHMENT = "#e9d3a2";
@@ -39,7 +40,7 @@ const HANDS: { font: string; size: number; lift: number }[] = [
 const PEN_INK = "#241206"; // every entry in the same dark ink
 const hash = (n: number, salt: number) => {
   let h = (n * 2654435761 + salt * 40503) >>> 0;
-  h ^= h >>> 15; h = Math.imul(h, 2246822519) >>> 0; h ^= h >>> 13;
+  h ^= h >>> 15; h = Math.imul(h, 2246822519) >>> 0; h ^= h >>> 13; h >>>= 0;
   return (h % 1000) / 1000;
 };
 const handFor = (id: number) => {
@@ -56,11 +57,19 @@ const handFor = (id: number) => {
 
 // Weathering, as on the reading list: each glyph a touch bigger or smaller, leaned, lifted,
 // and now and then a thin band missing where the nib skipped. Deterministic per entry.
+const graphemes = (word: string): string[] => {
+  const Seg = (Intl as unknown as { Segmenter?: new (l?: string, o?: { granularity: string }) => { segment: (s: string) => Iterable<{ segment: string }> } }).Segmenter;
+  if (Seg) return Array.from(new Seg(undefined, { granularity: "grapheme" }).segment(word), (g) => g.segment);
+  return Array.from(word);
+};
+
 const weather = (text: string, seed: number) => {
   let k = 0;
-  return text.split(" ").map((word, wi) => {
+  return text.split(/\s+/).map((word, wi) => {
     if (!word) return null;
-    const glyphs = Array.from(word).map((ch, ci) => {
+    const chars = graphemes(word);
+    const breakable = chars.length > MAX_WORD;
+    const glyphs = chars.map((ch, ci) => {
       k += 1;
       const r = (salt: number) => hash(seed * 131 + k, salt);
       const size = (0.93 + r(1) * 0.14).toFixed(2);
@@ -83,7 +92,7 @@ const weather = (text: string, seed: number) => {
       return <span key={ci} style={style}>{ch}</span>;
     });
     return (
-      <span key={wi} style={{ whiteSpace: "nowrap" }}>
+      <span key={wi} style={{ whiteSpace: breakable ? "normal" : "nowrap" }}>
         {glyphs}{" "}
       </span>
     );
@@ -222,10 +231,55 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
     }
   };
 
-  const entryPages =
-    entries.length <= ENTRIES_PER_SIDE
-      ? 1
-      : 1 + Math.ceil((entries.length - ENTRIES_PER_SIDE) / (2 * ENTRIES_PER_SIDE));
+  // ---- Packing entries onto sides by their real height ----
+  // Every entry is rendered once, hidden, at page width; the measured heights decide what fits.
+  const measureRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const [sides, setSides] = useState<GuestbookEntry[][]>([]);
+
+  const packEntries = () => {
+    const measure = measureRef.current;
+    const body = bodyRef.current;
+    const available = body?.clientHeight ?? 0;
+    if (!measure || available < 40 || entries.length === 0) {
+      // fall back to a fixed count
+      const packed: GuestbookEntry[][] = [];
+      for (let i = 0; i < entries.length; i += ENTRIES_PER_SIDE) packed.push(entries.slice(i, i + ENTRIES_PER_SIDE));
+      setSides(packed);
+      return;
+    }
+    const blocks = Array.from(measure.children) as HTMLElement[];
+    const packed: GuestbookEntry[][] = [];
+    let current: GuestbookEntry[] = [];
+    let used = 0;
+    entries.forEach((entry, i) => {
+      const el = blocks[i];
+      const h = el ? el.offsetHeight + parseFloat(getComputedStyle(el).marginBottom || "0") : 0;
+      if (current.length > 0 && (used + h > available || current.length >= ENTRIES_PER_SIDE)) {
+        packed.push(current);
+        current = [];
+        used = 0;
+      }
+      current.push(entry);
+      used += h;
+    });
+    if (current.length) packed.push(current);
+    setSides(packed);
+  };
+
+  useLayoutEffect(() => {
+    packEntries();
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(() => packEntries());
+    }
+    const ro = new ResizeObserver(() => packEntries());
+    if (bodyRef.current) ro.observe(bodyRef.current);
+    return () => ro.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries, loading]);
+
+  // sides: [form][s0] on the first spread, then [s1][s2], [s3][s4], ...
+  const entryPages = Math.max(1, 1 + Math.ceil(Math.max(0, sides.length - 1) / 2));
   // one more spread past the entries: the inside of the back cover
   const totalPages = entryPages + 1;
   const onCover = page === totalPages - 1;
@@ -241,19 +295,13 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
     if (p === 0) {
       return {
         left: { type: "form" },
-        right: { type: "entries", entries: entries.slice(0, ENTRIES_PER_SIDE) },
+        right: { type: "entries", entries: sides[0] ?? [] },
       };
     }
-    const leftStart = ENTRIES_PER_SIDE + (p - 1) * ENTRIES_PER_SIDE * 2;
+    const leftIndex = 1 + (p - 1) * 2;
     return {
-      left: {
-        type: "entries",
-        entries: entries.slice(leftStart, leftStart + ENTRIES_PER_SIDE),
-      },
-      right: {
-        type: "entries",
-        entries: entries.slice(leftStart + ENTRIES_PER_SIDE, leftStart + ENTRIES_PER_SIDE * 2),
-      },
+      left: { type: "entries", entries: sides[leftIndex] ?? [] },
+      right: { type: "entries", entries: sides[leftIndex + 1] ?? [] },
     };
   };
 
@@ -347,7 +395,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
           className="block mb-1"
           style={{ color: INK, fontFamily: scriptDisplay, fontSize: "1.05em" }}
         >
-          ❧ Thy Name
+          Thy Name
         </label>
         <input
           type="text"
@@ -367,7 +415,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
           className="block mb-1"
           style={{ color: INK, fontFamily: scriptDisplay, fontSize: "1.05em" }}
         >
-          ❧ Thy Message
+          Thy Message
         </label>
         <textarea
           value={message}
@@ -412,7 +460,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
             strokeLinecap="round"
           />
         </svg>
-        <span className="relative">✒ Sign the Book</span>
+        <span className="relative">Sign the Book</span>
       </button>
     </form>
   );
@@ -515,7 +563,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
   const renderSideBody = (side: SideContent) => {
     if (side.type === "form") return renderForm();
     if (side.type === "cover" || side.type === "blank") return <div className="flex-1" />;
-    return <div className="flex-1 min-h-0 overflow-hidden">{renderEntries(side.entries)}</div>;
+    return <div ref={bodyRef} className="flex-1 min-h-0 overflow-hidden">{renderEntries(side.entries)}</div>;
   };
 
   const sideTitle = (side: SideContent, isRight: boolean) => {
@@ -534,8 +582,9 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
     <div className="relative flex flex-col flex-1 min-h-0" style={{ zIndex: 2, backfaceVisibility: "hidden" }}>
       {sideTitle(side, opts.isRight) && (
         <h2
-          className="mb-4 text-center"
+          className="text-center"
           style={{
+            marginBottom: 31,
             color: INK,
             fontSize: "1.9em",
             fontFamily: scriptDisplay,
@@ -585,6 +634,16 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
 
   return (
     <div className="h-full w-full" style={{ perspective: "1800px" }}>
+      {/* hidden copy of every entry at page width, used only to measure heights */}
+      <div
+        ref={measureRef}
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ visibility: "hidden", top: 0, left: 0, width: "50%", padding: "0 1.25rem", fontFamily: scriptBody, fontSize: "1.05rem", overflowWrap: "anywhere" }}
+      >
+        {entries.map((e) => renderedEntries[e.id])}
+      </div>
+
       {ribbonVisible && onClose && (
         <button
           type="button"
@@ -747,8 +806,9 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
               {cornerFlourish("tl")}
               {cornerFlourish("tr")}
               <h2
-                className="mb-4 text-center"
+                className="text-center"
                 style={{
+                  marginBottom: 31,
                   color: INK,
                   fontSize: "1.8em",
                   fontFamily: scriptDisplay,
@@ -781,7 +841,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
             {cornerFlourish("bl")}
             {cornerFlourish("br")}
             {page === 0
-              ? renderEntries(entries.slice(0, ENTRIES_PER_SIDE))
+              ? renderEntries(sides[0] ?? [])
               : (() => {
                   const content = getPageContent(page);
                   const combined = [

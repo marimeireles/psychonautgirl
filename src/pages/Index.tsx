@@ -27,7 +27,15 @@ interface BlogWindow {
 }
 
 const Index = () => {
-  const [openWindows, setOpenWindows] = useState<Set<WindowType>>(new Set(["about", "jobPopup"]));
+  const [openWindows, setOpenWindows] = useState<Set<WindowType>>(() => {
+    const initial = new Set<WindowType>(["about", "jobPopup"]);
+    // dev convenience: ?open=guestbook opens a window on load
+    if (import.meta.env.DEV && typeof window !== "undefined") {
+      const want = new URLSearchParams(window.location.search).get("open") as WindowType | null;
+      if (want) initial.add(want);
+    }
+    return initial;
+  });
   const [blogWindows, setBlogWindows] = useState<BlogWindow[]>([
     { id: "software-1", name: "Software" },
     { id: "research-1", name: "Research" }
@@ -315,7 +323,6 @@ const Index = () => {
         >
           <div
             className="animate-fade-in tome-shadow"
-            style={{ transform: "rotate(-0.4deg)" }}
           >
           <div
             className={`relative tome ${guestbookOnCover ? "on-cover" : ""}`}
@@ -420,7 +427,6 @@ const Index = () => {
             style={{
               width: "min(640px, 90vw)",
               height: "min(78vh, 760px)",
-              transform: "rotate(-0.6deg)",
               filter: "drop-shadow(0 24px 34px rgba(0,0,0,0.42)) drop-shadow(0 6px 8px rgba(0,0,0,0.28)) drop-shadow(0 1px 1px rgba(0,0,0,0.3))",
             }}
           >
