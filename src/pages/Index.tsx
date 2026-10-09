@@ -9,7 +9,6 @@ import { AboutWindow } from "@/components/windows/AboutWindow";
 import { GalleryWindow } from "@/components/windows/GalleryWindow";
 import { GuestbookWindow } from "@/components/windows/GuestbookWindow";
 import { BlogWindow } from "@/components/windows/BlogWindow";
-import { ReadingListWindow } from "@/components/windows/ReadingListWindow";
 import { JobPopupWindow } from "@/components/windows/JobPopupWindow";
 import { AcademicWorkWindow } from "@/components/windows/AcademicWorkWindow";
 import { FocusAreaWindow } from "@/components/windows/FocusAreaWindow";
@@ -20,7 +19,7 @@ import { BubbleBackground } from "@/components/BubbleBackground";
 import { SparkleTrail } from "@/components/SparkleTrail";
 import desktopBg from "@/assets/desktop-bg.jpg";
 
-type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "readingList" | "jobPopup" | "academicWork" | "projects" | "news";
+type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "jobPopup" | "academicWork" | "projects" | "news";
 
 interface BlogWindow {
   id: string;
@@ -111,7 +110,6 @@ const Index = () => {
     about: { title: "About Mariana Meireles", icon: "🌸" },
     gallery: { title: "My Art Gallery", icon: "🖼️" },
     guestbook: { title: "Guestbook", icon: "📖" },
-    readingList: { title: "Reading List", icon: "📚" },
     jobPopup: { title: "Looking for Opportunities!", icon: "✨" },
     academicWork: { title: "Academic Work", icon: "🎓" },
     projects: { title: "Project ideas", icon: "🔨" },
@@ -198,7 +196,7 @@ const Index = () => {
           <DesktopIcon
             icon="📚"
             label="Reading List"
-            onClick={() => openWindow("readingList")}
+            onClick={() => window.open("/reading-list.html", "_blank")}
           />
         </div>
         {/* Column 2 */}
@@ -312,23 +310,6 @@ const Index = () => {
           onMinimize={(minimized) => handleMinimize("guestbook", minimized)}
         >
           <GuestbookWindow />
-        </Window>
-      )}
-
-      {openWindows.has("readingList") && (
-        <Window
-          title="Reading List"
-          onClose={() => closeWindow("readingList")}
-          defaultPosition={{ x: 50, y: 100 }}
-          defaultSize={{ width: 600, height: 600 }}
-          width="w-[800px]"
-          icon="📚"
-          zIndex={windowZIndex["readingList"] || 10}
-          onFocus={() => bringWindowToFront("readingList")}
-          isMinimized={minimizedWindows["readingList"]}
-          onMinimize={(minimized) => handleMinimize("readingList", minimized)}
-        >
-          <ReadingListWindow />
         </Window>
       )}
 

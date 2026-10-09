@@ -569,6 +569,108 @@
             },
         };
 
+        // ---------- Doodles ----------
+        // Little drawings made of pen strokes, in a 0-100 box. Strokes draw one after another.
+        const circle = (cx, cy, r, n = 20) => Array.from({ length: n + 1 }, (_, i) => {
+            const a = -Math.PI / 2 + (i / n) * Math.PI * 2; return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
+        });
+        const ellipse = (cx, cy, rx, ry, n = 20) => Array.from({ length: n + 1 }, (_, i) => {
+            const a = (i / n) * Math.PI * 2; return { x: cx + Math.cos(a) * rx, y: cy + Math.sin(a) * ry };
+        });
+        const P = (...xy) => { const pts = []; for (let i = 0; i < xy.length; i += 2) pts.push({ x: xy[i], y: xy[i + 1] }); return pts; };
+
+        const doodles = {
+            demon: () => [
+                circle(50, 58, 30, 26),                        // head
+                P(30, 34, 22, 8, 42, 30),                      // horns
+                P(70, 34, 78, 8, 58, 30),
+                P(32, 48, 45, 55),                             // angry brows
+                P(68, 48, 55, 55),
+                circle(40, 61, 3.5, 10),                       // eyes
+                circle(60, 61, 3.5, 10),
+                P(32, 70, 40, 77, 50, 80, 60, 77, 68, 70),     // grin
+                P(42, 72, 44, 78),                             // fangs
+                P(58, 72, 56, 78),
+                P(46, 88, 50, 96, 54, 88),                     // goatee
+            ],
+            coffee: () => [
+                P(22, 45, 26, 85, 62, 85, 66, 45),             // cup
+                ellipse(44, 45, 22, 5, 18),                    // rim
+                P(66, 52, 80, 50, 84, 62, 76, 74, 66, 74),     // handle
+                P(10, 88, 44, 97, 78, 88),                     // saucer
+                P(32, 38, 28, 30, 34, 22, 30, 14),             // steam
+                P(44, 36, 40, 28, 46, 20, 42, 12),
+                P(56, 38, 52, 30, 58, 22, 54, 14),
+            ],
+            snail: () => [
+                Array.from({ length: 40 }, (_, i) => {         // shell spiral
+                    const t = i / 39; const a = t * 2.6 * Math.PI * 2; const r = 4 + t * 24;
+                    return { x: 60 + Math.cos(a) * r, y: 56 + Math.sin(a) * r };
+                }),
+                P(86, 86, 60, 88, 30, 88, 16, 82, 12, 70, 18, 60, 30, 58),   // body
+                P(18, 60, 10, 42),                             // antennae
+                P(26, 58, 24, 40),
+                circle(10, 41, 1.8, 8),
+                circle(24, 39, 1.8, 8),
+            ],
+            ghost: () => [
+                P(26, 86, 22, 60, 26, 36, 38, 20, 50, 16, 62, 20, 74, 36, 78, 60, 74, 86,
+                  66, 78, 58, 88, 50, 78, 42, 88, 34, 78, 26, 86),            // body with wavy hem
+                circle(42, 46, 3, 10),                         // eyes
+                circle(58, 46, 3, 10),
+                circle(50, 60, 4, 12),                         // oo mouth
+                P(22, 60, 8, 54),                              // arms
+                P(78, 60, 92, 54),
+            ],
+            star: () => [
+                Array.from({ length: 6 }, (_, i) => {          // one-stroke pentagram
+                    const a = -Math.PI / 2 + i * (Math.PI * 2 * 2 / 5); return { x: 50 + Math.cos(a) * 38, y: 52 + Math.sin(a) * 38 };
+                }),
+            ],
+        };
+
+        function draw(strokes, x, y, size, opts) {
+            const { ink, width, op, tilt, scale, totalMs } = opts;
+            const k = size / 100;
+            const g = document.createElementNS(svg.namespaceURI, 'g');
+            g.setAttribute('transform', `translate(${x + size / 2},${y + size / 2}) rotate(${tilt}) scale(${scale}) translate(${-size / 2},${-size / 2})`);
+            svg.appendChild(g);
+            const paths = strokes.map(st => {
+                const pts = tremor(st.map(p => ({ x: p.x * k, y: p.y * k })), rand(0.8, 2.2) * Math.max(0.6, k));
+                const path = document.createElementNS(svg.namespaceURI, 'path');
+                path.setAttribute('d', smooth(pts, 0.06)); path.setAttribute('fill', 'none'); path.setAttribute('stroke', ink);
+                path.setAttribute('stroke-width', width); path.setAttribute('stroke-linecap', 'round'); path.setAttribute('stroke-linejoin', 'round');
+                path.setAttribute('opacity', op);
+                g.appendChild(path);
+                return path;
+            });
+            const lens = paths.map(p => p.getTotalLength());
+            const total = lens.reduce((a, b) => a + b, 0);
+            let t = 0;
+            paths.forEach((p, i) => {
+                const ms = totalMs * (lens[i] / total) + 120;   // tiny pause between strokes
+                p.style.strokeDasharray = lens[i]; p.style.strokeDashoffset = lens[i];
+                p.animate([{ strokeDashoffset: lens[i] }, { strokeDashoffset: 0 }], { duration: ms, delay: t, easing: 'linear', fill: 'forwards' });
+                t += ms;
+            });
+        }
+
+        function penOpts() {
+            const hue = 222 + rand(-12, 12), light = rand(30, 46);
+            return { ink: `hsl(${hue}, 68%, ${light}%)`, width: rand(1.4, 3.2), op: rand(0.55, 0.95) };
+        }
+
+        function doodle() {
+            const rect = wrap.getBoundingClientRect();
+            const visTop = Math.max(0, -rect.top), visBottom = Math.min(rect.height, window.innerHeight - rect.top);
+            if (visBottom - visTop < 120) return;
+            const size = rand(70, 130);
+            const x = rand(0, Math.max(0, rect.width - size));
+            const y = rand(visTop, Math.max(visTop, visBottom - size));
+            const strokes = doodles[pick(Object.keys(doodles))]();
+            draw(strokes, x, y, size, { ...penOpts(), tilt: rand(-12, 12), scale: rand(0.85, 1.15), totalMs: rand(1800, 3400) });
+        }
+
         function scribble() {
             // Place it somewhere on the part of the page currently on screen
             const rect = wrap.getBoundingClientRect();
@@ -601,10 +703,18 @@
             main.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: rand(1200, 2600), easing: 'linear', fill: 'forwards' });
         }
 
-        (function schedule() {
-            setTimeout(() => { scribble(); schedule(); }, rand(20000, 45000));
-        })();
-        setTimeout(scribble, 8000);
+        const either = () => (Math.random() < 0.45 ? doodle() : scribble());
+        if (new URLSearchParams(location.search).get('doodles')) {
+            // test mode: one of each, side by side on the top of the page
+            Object.keys(doodles).forEach((name, i) => {
+                draw(doodles[name](), 40 + i * 180, 80, 130, { ...penOpts(), tilt: rand(-8, 8), scale: 1, totalMs: 1500 });
+            });
+        } else {
+            (function schedule() {
+                setTimeout(() => { either(); schedule(); }, rand(20000, 45000));
+            })();
+            setTimeout(either, 8000);
+        }
     })();
 
     const canvas = document.getElementById('skyCanvas');
