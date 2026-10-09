@@ -145,7 +145,7 @@ export const Window = ({
   }
 
   const windowContent = (
-    <div className="win95-border bg-card flex flex-col shadow-lg h-full">
+    <div data-window className="win95-border bg-card flex flex-col shadow-lg h-full">
         {/* Title Bar */}
         <div className="window-title win95-title flex items-center justify-between px-1 py-1 cursor-move select-none">
           <div className="flex items-center gap-2 text-primary-foreground font-bold text-sm">

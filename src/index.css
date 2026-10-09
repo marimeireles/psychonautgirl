@@ -313,3 +313,21 @@ All colors MUST be HSL.
     font-weight: bold;
   }
 }
+
+/* MSN-style nudge: the whole window rattles */
+@keyframes nudge {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-8px, 6px) rotate(-0.6deg); }
+  20%  { transform: translate(9px, -5px) rotate(0.5deg); }
+  30%  { transform: translate(-7px, -7px) rotate(-0.4deg); }
+  40%  { transform: translate(8px, 6px) rotate(0.6deg); }
+  50%  { transform: translate(-6px, 4px) rotate(-0.3deg); }
+  60%  { transform: translate(6px, -6px) rotate(0.4deg); }
+  70%  { transform: translate(-4px, 5px); }
+  80%  { transform: translate(4px, -3px); }
+  90%  { transform: translate(-2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+.window-nudge {
+  animation: nudge 0.7s ease-in-out;
+}

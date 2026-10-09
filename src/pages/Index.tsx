@@ -236,7 +236,7 @@ const Index = () => {
           title="Chat Room"
           onClose={() => closeWindow("chat")}
           defaultPosition={{ x: 200, y: 50 }}
-          width="w-[500px]"
+          defaultSize={{ width: 410, height: 500 }}
           icon="💬"
           zIndex={windowZIndex["chat"] || 10}
           onFocus={() => bringWindowToFront("chat")}
