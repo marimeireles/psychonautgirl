@@ -5,49 +5,26 @@ import { parseBooks, type Book } from "@/data/books";
 type SortField = keyof Book;
 type SortOrder = "asc" | "desc";
 
-// Helper function to get color for book types
-const getTypeColor = (type: string): string => {
-  const typeColors: Record<string, string> = {
-    // Genre colors
-    fiction: "bg-pink-200 text-pink-800",
-    "sci-fi": "bg-purple-200 text-purple-800",
-    poetry: "bg-rose-200 text-rose-800",
-    comics: "bg-yellow-200 text-yellow-800",
-    biography: "bg-orange-200 text-orange-800",
-    autobiography: "bg-orange-100 text-orange-700",
+// Pastel colour per tag. Tags are sorted alphabetically and each one gets a
+// hue spaced by the golden angle from the previous, so every tag is distinct
+// and the mapping only changes when the set of tags does.
+const GOLDEN_ANGLE = 137.508;
 
-    // Academic subjects
-    philosophy: "bg-indigo-200 text-indigo-800",
-    math: "bg-blue-200 text-blue-800",
-    physics: "bg-cyan-200 text-cyan-800",
-    biology: "bg-green-200 text-green-800",
-    neuroscience: "bg-teal-200 text-teal-800",
-    psychology: "bg-violet-200 text-violet-800",
-    "computer-science": "bg-slate-200 text-slate-800",
-    history: "bg-amber-200 text-amber-800",
-    economics: "bg-emerald-200 text-emerald-800",
-    anthropology: "bg-lime-200 text-lime-800",
-
-    // Spiritual/Religious
-    buddhism: "bg-yellow-100 text-yellow-700",
-    christianity: "bg-blue-100 text-blue-700",
-    islam: "bg-green-100 text-green-700",
-    hinduism: "bg-orange-100 text-orange-700",
-    magic: "bg-purple-100 text-purple-700",
-
-    // Other categories
-    art: "bg-fuchsia-200 text-fuchsia-800",
-    games: "bg-red-200 text-red-800",
-    education: "bg-sky-200 text-sky-800",
-    governance: "bg-stone-200 text-stone-800",
-    anarchism: "bg-red-300 text-red-900",
-    climate: "bg-green-300 text-green-900",
-    drugs: "bg-purple-300 text-purple-900",
-  };
-
-  const normalizedType = type.toLowerCase().trim();
-  return typeColors[normalizedType] || "bg-gray-200 text-gray-800";
+const buildTagHues = (books: Book[]): Map<string, number> => {
+  const tags = new Set<string>();
+  books.forEach(b =>
+    b.Type.split(";").map(t => t.trim().toLowerCase()).filter(Boolean).forEach(t => tags.add(t))
+  );
+  const hues = new Map<string, number>();
+  [...tags].sort().forEach((tag, i) => hues.set(tag, (i * GOLDEN_ANGLE) % 360));
+  return hues;
 };
+
+const tagStyle = (hue: number): React.CSSProperties => ({
+  backgroundColor: `hsl(${hue}, 85%, 88%)`,
+  color: `hsl(${hue}, 45%, 32%)`,
+  border: `1px solid hsl(${hue}, 70%, 78%)`,
+});
 
 // Helper function to get color for status
 const getStatusColor = (status: string): string => {
@@ -72,6 +49,7 @@ export const ReadingListWindow = () => {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const books = useMemo(() => parseBooks(), []);
+  const tagHues = useMemo(() => buildTagHues(books), [books]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -241,7 +219,8 @@ export const ReadingListWindow = () => {
                     {book.Type.split(';').map((type, i) => (
                       <span
                         key={i}
-                        className={`inline-block px-2 py-0.5 rounded text-xs font-medium mr-1 mb-1 ${getTypeColor(type.trim())}`}
+                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium mr-1 mb-1"
+                        style={tagStyle(tagHues.get(type.trim().toLowerCase()) ?? 0)}
                       >
                         {type.trim()}
                       </span>

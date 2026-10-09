@@ -94,10 +94,10 @@ Narciss and Goldmund,Want to read,fiction,Hesse
 The Perennial Philosophy,Want to read,philosophy,Huxley
 What it is like to be a Bat,Want to read,philosophy,Thomas Nagel
 On Certainty,Want to read,philosophy,Wittgenstein
-The Embodied Mind: Cognitive Science and Human Experience,Read,philosophy;buddhism;,Francisco Varela
+The Embodied Mind: Cognitive Science and Human Experience,Read,philosophy;buddhism,Francisco Varela
 Reinventing the sacred: A new view of science reason and religion,Want to read,philosophy,Stuart Kauffman
 The tao is silent,Reading,buddhism;philosophy,Raymon Smullyan
-The Autobiography of a Super-Tramp,Read,autobiography,H. W. Davis
+The Autobiography of a Super-Tramp,Read,biography,H. W. Davis
 Jung's Map of the Soul,Read,psychology,
 Learn Physics with Functional Programming,Want to read,physics,Scott N. Walck
 An Introduction to Automata Theory Languages and Computation,Want to read,computer-science,Hopcroft
@@ -107,8 +107,8 @@ Surprised by Joy: The Shape of My Early Life,Want to read,biography;christianity
 Consider Phlebas,Stalled,sci-fi,Iain M. Banks
 Opression and liberty,Reading,philosophy;economics,Simone Weil
 How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen,Want to read,psychology,David Brooks
-Living With Complexity,Want to read,complexity,Donald A. Norman
-Modern Man in Search of a Soul,Read,psicology,Jung
+Living With Complexity,Want to read,complex-systems,Donald A. Norman
+Modern Man in Search of a Soul,Read,psychology,Jung
 The Heroic Heart,Read,buddhism,Jetsunma Tenzin Palmo
 River Out of Eden,Want to read,evolution;history,Richard Dawkins
 Karmamudra: The Yoga of Bliss,Reading,buddhism;sex,Nida Chenagtsang
@@ -489,7 +489,7 @@ The Strange Death of Europe: Immigration Identity Islam,Want to read,history,Dou
 How Europe Underdeveloped Africa,Want to read,history,Walter Rodney,
 Histories,Want to read,history,Herodotus,
 The Peloponnesian War,Want to read,history,Thucydides,
-The Power of Geography,Want to read,history;,,
+The Power of Geography,Want to read,history,,
 Common Sense,Want to read,history; philosophy,Thomas Paine,
 The Federalist Papers,Want to read,history; philosophy,,
 The Wretched of the Earth,Want to read,history; philosophy,Frantz Fanon,
@@ -512,7 +512,7 @@ The Road to Reality,Want to read,math; philosophy; physics,,
 The Theoretical Minimum: What You Need to Know to Start Doing Physics,Want to read,math; physics,Leonard Susskind,
 Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems,Want to read,neuroscience,Peter Dayan and Abbott,
 Cognition in Practice: Mind Mathematics and Culture in Everyday Life,Want to read,neuroscience,,
-Metamagical Themas: Questing for the Essence of Mind and Pattern,Want to read,neuroscience; coordination; computer-science; game-theory,David Hofstadter,
+Metamagical Themas: Questing for the Essence of Mind and Pattern,Want to read,neuroscience; coordination; computer-science; game-theory,Douglas R. Hofstadter,
 How We Learn: Why Brains Learn Better Than Any Machine . . . for Now,Want to read,neuroscience; psychology,,
 Models of the Mind: How Physics Engineering and Mathematics Have Shaped Our Understanding of the Brain,Want to read,neuroscience; psychology,Grace Lindsay,
 Why Zebras Don't Get Ulcers,Want to read,neuroscience; psychology,Sapolsky,
@@ -595,7 +595,7 @@ The (Mis)Behavior of Markets,Want to read,systems-theory; math; economics,Mandel
 A First Course in Chaotic Dynamical Systems: Theory and Experiment ,Want to read,systems-theory; physics,,
 Does God Play Dice?: The New Mathematics of Chaos ,Want to read,systems-theory; physics; math,,
 Dream States,Want to read,urbanism,,
-Gödel Escher Bach: An Eternal Golden Braid,Stalled,computer-science;math;physics;Hofstadter,,
+Gödel Escher Bach: An Eternal Golden Braid,Stalled,computer-science;math;physics,Douglas R. Hofstadter,
 Crime and Punishment,Stalled,fiction,,
 The Ministry for the Future,Stalled,sci-fi,Kim Stanley,
 The Omnivore’s Dilemma ,Stalled,agroecology; anthropology,,
@@ -679,7 +679,7 @@ Introduction to Graph Theory,Reference,systems-theory,Richard Trudeau,
 Frankenstein,Read,fiction,Mary Shelley,
 How to Be Compassionate,Read,buddhism,Dalai Lama,
 The Topmost Yoga System,Read,anthropology; questionable-research,,
-Essential Yoga,Read,sport; buddhism,,
+Essential Yoga,Read,sports; buddhism,,
 Multiagent Systems: A Modern Approach to Distributed Artificial Intelligence,Read,agent-based-modelling,,
 Modeling Social Behavior Mathematical and Agent-Based,Read,agent-based-modelling,Smaldino,
 The One-Straw Revolution,Read,agroecology,,
@@ -946,7 +946,7 @@ Casa-Grande Senzala,Read,history,Gilberto Freyre,
 Between the World and Me,Read,history,,
 The Road to Serfdom,Read,history,von Hayek,
 On Tyranny,Read,history,Timothy Snyder,
-The Origins of Totalitarianism,Read,history;,Hannah Arendt,
+The Origins of Totalitarianism,Read,history,Hannah Arendt,
 The Secret,Read,magic,,
 The Prophet,Read,magic,Khalil,
 The Book of Five Rings,Read,magic; philosophy,,
@@ -1065,7 +1065,6 @@ Long Walk to Freedom,Read,biography; history,Nelson Mandela
 The Tale of Genji,Read,fiction,Murasaki Shikibu
 Hagakure: The Book of the Samurai,Read,philosophy,Yamamoto Tsunetomo
 Essays in Idleness and Hojoki,Want to read,philosophy,Yoshida Kenko
-The C.S. Lewis Essential Audio Library,Want to read,christianity,C.S. Lewis
 Ethical Know-How: Action Wisdom and Cognition,Want to read,philosophy; buddhism,Francisco J. Varela
 Why I Am Not a Buddhist,Want to read,philosophy; buddhism,Evan Thompson
 O Grande Mentecapto,Read,fiction,Fernando Sabino
@@ -1096,21 +1095,27 @@ const data = dataString.split('\n').slice(1).map(line => {
 }).filter(book => book.Name.trim() !== '') // Filter out empty lines
   .reverse(); // Newest additions (appended last) first
 
-// Generate random pastel color
-function getRandomColor() {
-    const hue = Math.floor(Math.random() * 360);
-    const saturation = 60 + Math.floor(Math.random() * 20); // 60-80%
-    const lightness = 55 + Math.floor(Math.random() * 15); // 55-70%
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+// Pastel colour per tag: tags sorted alphabetically, hues spaced by the
+// golden angle so every tag is distinct.
+const tagHues = (() => {
+    const tags = new Set();
+    data.forEach(b => b.Type.split(';').map(t => t.trim().toLowerCase()).filter(Boolean).forEach(t => tags.add(t)));
+    const hues = {};
+    [...tags].sort().forEach((tag, i) => { hues[tag] = (i * 137.508) % 360; });
+    return hues;
+})();
+
+function getTagStyle(tag) {
+    const hue = tagHues[tag.toLowerCase()] || 0;
+    return `background-color: hsl(${hue}, 85%, 88%); color: hsl(${hue}, 45%, 32%); border: 1px solid hsl(${hue}, 70%, 78%);`;
 }
 
 // Function to format types with colored tags
 function formatTypes(typeString) {
     if (!typeString || typeString.trim() === '') return '';
-    const types = typeString.split(';');
+    const types = typeString.split(';').map(t => t.trim()).filter(Boolean);
     return types.map(type => {
-        const color = getRandomColor();
-        return `<span class="tag" style="background-color: ${color};">${type.trim()}</span>`;
+        return `<span class="tag" style="${getTagStyle(type)}">${type}</span>`;
     }).join(' ');
 }
 

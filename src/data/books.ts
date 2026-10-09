@@ -88,7 +88,7 @@ Gorgias,Want to read,philosophy,Plato
 Science and the Modern World,Reading,philosophy;physics,Whitehead
 Terra Ignota,Want to read,sci-fi,Palmer
 Always Coming Home,Want to read,sci-fi,Le Guin
-God is a verb,Reading,judaism;magic,David A. Cooper
+God is a verb,Abandoned,judaism;magic,David A. Cooper
 An Enquiry Concerning Human Understanding,Reading,philosophy,Hume
 The Couple's Guide to Thriving with ADHD,Read,psychology,Melissa Orlov and Nancie Kohlenberger
 The Unbearable Lightness of Being,Read,fiction;philosophy,Milan Kundera

@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Kalam:wght@400;700&family=Patrick+Hand&family=Indie+Flower&family=Reenie+Beanie&family=Nanum+Pen+Script&family=Shadows+Into+Light&family=Gloria+Hallelujah&family=Zeyada&family=Homemade+Apple&family=Covered+By+Your+Grace&family=Just+Another+Hand&family=Architects+Daughter&family=La+Belle+Aurore&family=Waiting+for+the+Sunrise&family=Rock+Salt&display=swap" rel="stylesheet">
     <title>♡ ｂｏｏｋ　ｌｉｓｔ ♡</title>
     <style>
+        :root { --ink: #1f3f9e; }
         @font-face {
             font-family: 'Cookiemonster-gv11';
             src: url('fonts/Cookiemonster-gv11.ttf') format('truetype');
         }
 
-        h1 {
+        /* Paper scrap: white, soft offset shadow, slight tilt */
+        .scrap {
+            background: #ffffff;
+            color: #1f3f9e;
+            border: none;
+            border-radius: 2px;
+            box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.12), 0 6px 10px rgba(0, 0, 0, 0.12);
+        }
+        #title-wrap {
+            position: relative;
+            z-index: 2;
             text-align: center;
-            font-size: 8em;
-            z-index: 999;
+            padding: 28px 0 6px;
+        }
+        #title-wrap h1 {
+            display: inline-block;
+            margin: 0;
+            padding: 6px 42px 10px;
+            font-size: 5.2em;
+            line-height: 1;
             font-family: 'Cookiemonster-gv11', Arial, sans-serif;
-            color: rgba(0, 0, 0, 0.6);
+            color: #1f3f9e;
+            transform: rotate(-1.5deg);
+            background-image: repeating-linear-gradient(180deg, transparent 0 26px, rgba(120, 160, 210, 0.45) 26px 27px);
         }
         body {
             margin: 0;
@@ -42,45 +61,77 @@
             min-height: 100vh;
             padding-top: 0px;
         }
-        #table-container {
+        #paper-wrap {
             width: 80%;
-            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-            border: 3px solid rgba(0, 0, 0, 0.6);
-            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Space at the bottom for scrolling */
+            position: relative;
+            z-index: 1000;
+            margin-top: 22px;
+            margin-bottom: 24px; /* Space at the bottom for scrolling */
+            filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.18)) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.12));
         }
-        #searchInput {
-            border: 2px solid rgba(0, 0, 0, 0.6);
-            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            padding: 10px 10px; /* Padding for better appearance */
-            outline: none; /* Remove default outline */
-            width: 20%;
-            font-size: 1.05em; /* Increase font size */
-            font-family: 'Indie Flower', 'Patrick Hand', cursive;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-            z-index: 999;
+        /* Loose sheets behind the top one. Each runs the full length of the page; the
+           corners are nudged by a few px so the edges sit at slightly different angles. */
+        .sheet {
+            position: absolute;
+            inset: -14px;
+            background: #f6f4ee;
+            z-index: -1;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
-        #searchInput:focus {
-            background-color: #ffffff; /* Change background color on focus */
-        }
-        #bookName {
-            border: 2px solid rgba(0, 0, 0, 0.6);
-            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            padding: 10px 10px; /* Padding for better appearance */
-            outline: none; /* Remove default outline */
-/*            width: 30%;*/
-            height: 40%;
-            font-size: 0.7em; /* Increase font size */
-            font-family: 'Indie Flower', 'Patrick Hand', cursive;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+        .sheet.s1 { clip-path: polygon(4px 10px, calc(100% - 22px) 2px, calc(100% - 8px) calc(100% - 6px), 18px calc(100% - 14px)); }
+        .sheet.s2 { background: #eeece5; clip-path: polygon(20px 4px, calc(100% - 2px) 14px, calc(100% - 20px) calc(100% - 2px), 6px calc(100% - 20px)); }
+        .sheet.s3 { background: #e6e4dc; clip-path: polygon(0px 18px, calc(100% - 12px) 0px, 100% calc(100% - 16px), 26px 100%); }
+        .sheet.s4 { background: #efede6; clip-path: polygon(14px 0px, calc(100% - 30px) 8px, calc(100% - 4px) 100%, 0px calc(100% - 4px)); }
+        /* Scribble layer: sits on the paper only, never blocks clicks, scribbles accumulate */
+        #scribbles {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: visible;
         }
 
-        #bookName:focus {
-            background-color: #ffffff; /* Change background color on focus */
+        #table-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            box-sizing: border-box;
+            /* Notebook page: white paper, red margin line on the left, torn edge */
+            background-color: #ffffff;
+            background-image:
+                linear-gradient(90deg, transparent 44px, rgba(222, 110, 120, 0.55) 44px, rgba(222, 110, 120, 0.55) 46px, transparent 46px);
+            padding: 18px 22px 24px 58px;
+            color: #1f3f9e; /* ballpoint blue */
+        }
+        th {
+            color: #1f3f9e;
+        }
+        /* per-character weathering: each glyph may be a touch bigger or smaller, leaned, lifted, or lighter */
+        .word { white-space: nowrap; }
+        .ch { display: inline-block; }
+        #table-container table {
+            width: 100%;
+        }
+        #searchInput {
+            padding: 8px 14px;
+            outline: none;
+            width: 22%;
+            font-size: 1.2em;
+            font-family: 'Patrick Hand', 'Indie Flower', cursive;
+            transform: rotate(1deg);
+            z-index: 999;
+        }
+        #searchInput:focus, #bookName:focus {
+            background-color: #fffdf0;
+        }
+        #bookName {
+            padding: 8px 14px;
+            outline: none;
+            font-size: 0.75em;
+            font-family: 'Patrick Hand', 'Indie Flower', cursive;
+            transform: rotate(-0.8deg);
         }
         #search-container {
             width: 80%;
@@ -93,9 +144,21 @@
             display: flex;
             justify-content: flex-start;
             margin-bottom: -48px;
+            align-items: center;
+            gap: 10px;
             font-size: 1.5em; /* Increase font size */
             font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            color: #1f3f9e;
             z-index: 999;
+        }
+        #book-container form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #book-container label {
+            padding: 2px 12px;
+            transform: rotate(-2deg);
         }
         #bookInput {
             border-radius: 25px; /* Rounded corners */
@@ -118,12 +181,25 @@
         }
 
         tr {
-            border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(120, 160, 210, 0.55); /* ruled line */
+        }
+        tbody tr td {
+            padding: 7px 6px;
+            vertical-align: middle;
+        }
+        tbody tr td:first-child {
+            font-size: 1.15em;
+        }
+        tbody tr:hover {
+            background: rgba(255, 240, 150, 0.35); /* highlighter */
         }
 
 
         th, td {
             text-align: left;
+        }
+        thead tr {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.5);
         }
         th {
             font-family: 'Cookiemonster-gv11', Arial, sans-serif;
@@ -142,22 +218,30 @@
         td:nth-child(2) {
             padding-right: 20px; /* Ensure this applies to all rows */
         }
+        /* Type tags as little post-its */
         .tag {
             display: inline-block;
-            padding: 5px 10px;
-            margin: 2px;
-            border-radius: 5px;
-            color: white;
-            font-size: 0.9em;
+            padding: 7px 9px 6px;
+            margin: 3px 4px 3px 0;
+            border-radius: 1px;
+            font-size: 0.8em;
+            line-height: 1.1;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.18);
+            /* a slightly darker strip along the top, where the glue is */
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.07) 0 24%, transparent 24%);
         }
-       .send-button {
-        font-family: 'Cookiemonster-gv11', Arial, sans-serif;
-          background-color: rgba(255, 255, 255, 0);
-          color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-          border: none;
-          border-radius: 25px;
-          cursor: pointer;
-          font-size: 0.9em;
+        .send-button {
+            font-family: 'Cookiemonster-gv11', Arial, sans-serif;
+            font-size: 1em;
+            padding: 2px 12px;
+            cursor: pointer;
+            transform: rotate(2deg);
+        }
+        #searchInput::placeholder, #bookName::placeholder {
+            color: rgba(31, 63, 158, 0.5);
+        }
+        .send-button:hover {
+            background: #fff6b0;
         }
 
         @media (max-width: 1280px) and (min-width: 1025px) {
@@ -220,8 +304,11 @@
         padding: 10px 15px;
     }
 
-    #table-container {
+    #paper-wrap {
         width: 85%;
+    }
+
+    #table-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -284,8 +371,11 @@
         padding: 8px 20px;
     }
 
-    #table-container {
+    #paper-wrap {
         width: 95%;
+    }
+
+    #table-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -342,23 +432,25 @@
 </head>
 
 <body>
-<h1>Reading List</h1>
+<div id="title-wrap"><h1 class="scrap">Reading List</h1></div>
 <canvas id="skyCanvas"></canvas>
 <div id="main-content">
     <div id="book-container">
       <form
         action="https://formspree.io/f/xjvndedd"
         method="POST">
-            <label for="bookName">Recommend a book:</label>
-            <input type="text" id="bookName" name="bookName" placeholder="t y p e . . ."  style="width:500px">
-            <button type="submit" class="send-button"> <b>(send)</b>
+            <label for="bookName" class="scrap">Recommend a book:</label>
+            <input type="text" id="bookName" name="bookName" class="scrap" placeholder="t y p e . . ."  style="width:420px">
+            <button type="submit" class="send-button scrap"> send
             </button>
         </form>
     </div>
 
     <div id="search-container">
-        <input type="text" id="searchInput" placeholder="s e a r c h . . ." onkeyup="filterData()">
+        <input type="text" id="searchInput" class="scrap" placeholder="s e a r c h . . ." onkeyup="filterData()">
     </div>
+    <div id="paper-wrap">
+    <div class="sheet s1"></div><div class="sheet s2"></div><div class="sheet s3"></div><div class="sheet s4"></div>
     <div id="table-container">
         <table id="data-table">
             <thead>
@@ -376,10 +468,145 @@
             </tbody>
         </table>
     </div>
+    <svg id="scribbles" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
 </div>
 <script src="books.js"></script>
 
 <script>
+    // Torn paper edge: a polygon with small nicks (a few px) along every side.
+    // Depths are in px so they stay small however tall the page gets.
+    (function tornEdge() {
+        const pts = [];
+        const step = 1.2;   // % between points along each side
+        const depth = 5;    // max nick depth in px
+        const d = () => ((Math.random() - 0.5) * 2 * depth).toFixed(1);
+        for (let x = 0; x <= 100; x += step) pts.push(`${x}% ${Math.abs(d())}px`);
+        for (let y = 0; y <= 100; y += step) pts.push(`calc(100% - ${Math.abs(d())}px) ${y}%`);
+        for (let x = 100; x >= 0; x -= step) pts.push(`${x}% calc(100% - ${Math.abs(d())}px)`);
+        for (let y = 100; y >= 0; y -= step) pts.push(`${Math.abs(d())}px ${y}%`);
+        document.getElementById('table-container').style.clipPath = `polygon(${pts.join(',')})`;
+    })();
+
+    // Weather the column headers too (the title stays clean)
+    (function weatherHeadings() {
+        document.querySelectorAll('#data-table th').forEach(th => {
+            [...th.childNodes].forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    const span = document.createElement('span');
+                    span.innerHTML = weather(node.textContent.trim()) + ' ';
+                    th.replaceChild(span, node);
+                }
+            });
+        });
+    })();
+
+    // ---------- Scribbles ----------
+    // Every so often a pen scribble draws itself onto the visible part of the page and stays.
+    (function scribbles() {
+        const svg = document.getElementById('scribbles');
+        const wrap = document.getElementById('paper-wrap');
+        const rand = (a, b) => a + Math.random() * (b - a);
+        const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+        // Hand tremor: nudge every point, and now and then add a jerk
+        function tremor(pts, amt) {
+            return pts.map(p => {
+                const jerk = Math.random() < 0.08 ? rand(2, 5) : 1;
+                return { x: p.x + rand(-amt, amt) * jerk, y: p.y + rand(-amt, amt) * jerk };
+            });
+        }
+
+        // Smooth path with varying tension; some segments come out sharp instead of curved
+        function smooth(pts, sharpness) {
+            let d = `M${pts[0].x},${pts[0].y}`;
+            for (let i = 0; i < pts.length - 1; i++) {
+                const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+                if (Math.random() < sharpness) { d += ` L${p2.x},${p2.y}`; continue; }
+                const t = rand(0.08, 0.4);
+                d += ` C${p1.x + (p2.x - p0.x) * t},${p1.y + (p2.y - p0.y) * t} ${p2.x - (p3.x - p1.x) * t},${p2.y - (p3.y - p1.y) * t} ${p2.x},${p2.y}`;
+            }
+            return d;
+        }
+
+        const styles = {
+            loops(W, H) {
+                const pts = []; const n = 70; const turns = 5 + Math.floor(rand(0, 4));
+                let drift = 0;
+                for (let i = 0; i < n; i++) {
+                    const t = i / (n - 1); const a = t * turns * Math.PI * 2 + rand(-0.3, 0.3);
+                    const r = H * rand(0.2, 0.48); drift += rand(-3, 3);
+                    pts.push({ x: t * W * rand(0.75, 0.95) + Math.cos(a) * r * rand(0.6, 1), y: H / 2 + Math.sin(a) * r + drift });
+                }
+                return pts;
+            },
+            doodle(W, H) {
+                const pts = []; const n = 60; const cx = W * 0.4, cy = H / 2;
+                for (let i = 0; i < n; i++) {
+                    const a = rand(0, Math.PI * 2); const r = rand(0.2, 1) * Math.min(W * 0.35, H * 0.55);
+                    pts.push({ x: cx + Math.cos(a) * r * 1.3, y: cy + Math.sin(a) * r });
+                }
+                pts.push({ x: W, y: cy + rand(-H * 0.3, H * 0.3) });
+                return pts;
+            },
+            zigzag(W, H) {
+                const pts = []; const n = 12 + Math.floor(rand(0, 6));
+                for (let i = 0; i < n; i++) pts.push({ x: (i / (n - 1)) * W + rand(-14, 14), y: (i % 2 ? H * rand(0.6, 1) : H * rand(0, 0.4)) });
+                return pts;
+            },
+            tornado(W, H) {
+                const pts = []; const turns = 3.5; const n = 40;
+                for (let i = 0; i < n; i++) {
+                    const t = i / (n - 1); const a = t * turns * Math.PI * 2; const r = (1 - t * 0.8) * Math.min(W, H) * 0.45;
+                    pts.push({ x: W * 0.4 + Math.cos(a) * r + t * W * 0.5, y: H / 2 + Math.sin(a) * r * 0.7 });
+                }
+                return pts;
+            },
+            scratch(W, H) {
+                const pts = []; const n = 26;
+                for (let i = 0; i < n; i++) pts.push({ x: (i / (n - 1)) * W + rand(-W * 0.05, W * 0.05), y: (i % 2 ? H * 0.8 : H * 0.2) + rand(-H * 0.2, H * 0.2) });
+                return pts;
+            },
+        };
+
+        function scribble() {
+            // Place it somewhere on the part of the page currently on screen
+            const rect = wrap.getBoundingClientRect();
+            const visTop = Math.max(0, -rect.top), visBottom = Math.min(rect.height, window.innerHeight - rect.top);
+            if (visBottom - visTop < 80) return;
+
+            const W = rand(180, 420), H = rand(70, 180);
+            const x = rand(0, Math.max(0, rect.width - W));
+            const y = rand(visTop, Math.max(visTop, visBottom - H));
+            const pts = tremor(styles[pick(Object.keys(styles))](W, H), rand(1, 4));
+            const d = smooth(pts, rand(0, 0.35));
+
+            // Weathering: pen pressure, ink shade, tilt and scale all vary a little
+            const hue = 222 + rand(-12, 12), light = rand(30, 46);
+            const ink = `hsl(${hue}, 68%, ${light}%)`;
+            const width = rand(1.4, 3.2), op = rand(0.55, 0.95);
+            const tilt = rand(-14, 14), scale = rand(0.8, 1.25);
+
+            const g = document.createElementNS(svg.namespaceURI, 'g');
+            g.setAttribute('transform', `translate(${x + W / 2},${y + H / 2}) rotate(${tilt}) scale(${scale}) translate(${-W / 2},${-H / 2})`);
+            const main = document.createElementNS(svg.namespaceURI, 'path');
+            main.setAttribute('d', d); main.setAttribute('fill', 'none'); main.setAttribute('stroke', ink);
+            main.setAttribute('stroke-width', width); main.setAttribute('stroke-linecap', 'round'); main.setAttribute('stroke-linejoin', 'round');
+            main.setAttribute('opacity', op);
+            g.appendChild(main);
+            svg.appendChild(g);
+
+            const len = main.getTotalLength();
+            main.style.strokeDasharray = len; main.style.strokeDashoffset = len;
+            main.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: rand(1200, 2600), easing: 'linear', fill: 'forwards' });
+        }
+
+        (function schedule() {
+            setTimeout(() => { scribble(); schedule(); }, rand(20000, 45000));
+        })();
+        setTimeout(scribble, 8000);
+    })();
+
     const canvas = document.getElementById('skyCanvas');
     const ctx = canvas.getContext('2d');
 
