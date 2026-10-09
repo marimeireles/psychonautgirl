@@ -97,7 +97,6 @@ const FLOURISHES = [
   "M2 5 C 25 9, 45 1, 70 6 S 105 3, 118 8",
 ];
 const scriptDisplay = "'Homemade Apple', 'Nothing You Could Do', cursive";
-const blackletter = "'UnifrakturMaguntia', 'MedievalSharp', serif";
 
 type SideContent =
   | { type: "form" }
@@ -537,12 +536,11 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
         <h2
           className="mb-4 text-center"
           style={{
-            color: LEATHER,
-            fontSize: "2.4em",
-            fontFamily: blackletter,
-            lineHeight: 1.05,
-            letterSpacing: "1px",
-            textShadow: "1px 1px 0 rgba(255,220,150,0.5), 0 1px 0 rgba(0,0,0,0.15)",
+            color: INK,
+            fontSize: "1.9em",
+            fontFamily: scriptDisplay,
+            lineHeight: 1.2,
+            transform: "rotate(-1.5deg)",
           }}
         >
           {sideTitle(side, opts.isRight)}
@@ -741,11 +739,11 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
               <h2
                 className="mb-4 text-center"
                 style={{
-                  color: LEATHER,
-                  fontSize: "2.2em",
-                  fontFamily: blackletter,
-                  lineHeight: 1.05,
-                  letterSpacing: "1px",
+                  color: INK,
+                  fontSize: "1.8em",
+                  fontFamily: scriptDisplay,
+                  lineHeight: 1.2,
+                  transform: "rotate(-1.5deg)",
                 }}
               >
                 Sign the Book

@@ -646,7 +646,7 @@ All colors MUST be HSL.
 .leather-face {
   position: absolute;
   inset: 0;
-  background-color: #1b0b05;
+  background-color: #2c150b;
   background-image:
     /* a little light along the left edge, where the board bends up out of the spine */
     linear-gradient(90deg, rgba(255, 220, 170, 0.14) 0, rgba(255, 220, 170, 0.06) 5%, rgba(0, 0, 0, 0.18) 9%, transparent 16%),
@@ -656,7 +656,7 @@ All colors MUST be HSL.
     var(--lt-mottle),
     var(--lt-scuff),
     var(--lt-grain),
-    linear-gradient(90deg, #2a140a 0%, #1a0b05 48%, #110603 50%, #1a0b05 52%, #2a140a 100%);
+    linear-gradient(90deg, #3c1e0e 0%, #2c150b 48%, #22100a 50%, #2c150b 52%, #3c1e0e 100%);
   background-size: auto, 900px 900px, 760px 760px, 700px 700px, 420px 420px, 180px 180px, auto;
   box-shadow: inset 0 0 0 1px rgba(201, 160, 74, 0.15);
 }
@@ -664,15 +664,15 @@ All colors MUST be HSL.
 /* burned in, not cut: a soft scorched halo around each line, the dark mark, and a faintly
    lighter core where the burn is shallowest. No highlight anywhere. */
 .engraving { position: relative; z-index: 2; }
-.engraving .halo { stroke: rgba(12, 5, 1, 0.6); fill: rgba(12, 5, 1, 0.6); filter: url(#scorch); }
-.engraving .cut  { stroke: #0a0301; fill: #0a0301; }
-.engraving .core { stroke: rgba(110, 62, 30, 0.45); fill: none; }
+.engraving .halo { stroke: rgba(40, 18, 6, 0.45); fill: rgba(40, 18, 6, 0.45); filter: url(#scorch); }
+.engraving .cut  { stroke: #2a1207; fill: #2a1207; }
+.engraving .core { stroke: rgba(150, 100, 60, 0.5); fill: none; }
 .engraving path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .engraving .halo path { stroke-width: 8; }
 .engraving .cut path  { stroke-width: 2.8; }
 .engraving .core path { stroke-width: 0.9; }
-.engraving .core text { fill: none; stroke: rgba(110, 62, 30, 0.45); stroke-width: 0.5; }
-.engraving .halo text { stroke: rgba(12, 5, 1, 0.6); stroke-width: 5; }
+.engraving .core text { fill: none; stroke: rgba(150, 100, 60, 0.5); stroke-width: 0.5; }
+.engraving .halo text { stroke: rgba(40, 18, 6, 0.45); stroke-width: 5; }
 .engraving text { font-family: 'Reenie Beanie', 'Nothing You Could Do', cursive; font-size: 46px; letter-spacing: 1px; }
 
 

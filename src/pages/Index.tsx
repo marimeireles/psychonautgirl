@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Window } from "@/components/Window";
 import { DesktopIcon } from "@/components/DesktopIcon";
 import { Taskbar } from "@/components/Taskbar";
@@ -39,7 +39,17 @@ const Index = () => {
   const [topZIndex, setTopZIndex] = useState(20);
   const [minimizedWindows, setMinimizedWindows] = useState<Record<string, boolean>>({});
 
+  // When something was opened: a double-click's second click lands on the backdrop of the thing
+  // the first click just opened, so clicks outside only close it after a short grace period.
+  const openedAtRef = useRef<Partial<Record<WindowType, number>>>({});
+  const CLOSE_GRACE_MS = 1000;
+  const closeIfSettled = (window: WindowType) => {
+    const openedAt = openedAtRef.current[window] ?? 0;
+    if (Date.now() - openedAt > CLOSE_GRACE_MS) closeWindow(window);
+  };
+
   const openWindow = (window: WindowType) => {
+    openedAtRef.current[window] = Date.now();
     setOpenWindows(new Set(openWindows).add(window));
     if (minimizedWindows[window]) {
       setMinimizedWindows({ ...minimizedWindows, [window]: false });
@@ -300,7 +310,7 @@ const Index = () => {
           style={{ zIndex: windowZIndex["guestbook"] || 10, background: "rgba(10, 6, 4, 0.45)" }}
           onMouseDown={(e) => {
             bringWindowToFront("guestbook");
-            if (e.target === e.currentTarget) closeWindow("guestbook");
+            if (e.target === e.currentTarget) closeIfSettled("guestbook");
           }}
         >
           <div
@@ -402,7 +412,7 @@ const Index = () => {
           style={{ zIndex: windowZIndex["news"] || 10, background: "rgba(20, 20, 30, 0.25)" }}
           onMouseDown={(e) => {
             bringWindowToFront("news");
-            if (e.target === e.currentTarget) closeWindow("news");
+            if (e.target === e.currentTarget) closeIfSettled("news");
           }}
         >
           <div
