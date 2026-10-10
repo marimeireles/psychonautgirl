@@ -346,6 +346,11 @@
 }
 
 @media (max-width: 768px) {
+    /* on a phone only the name, status and type columns fit */
+    #data-table th:nth-child(4), #data-table td:nth-child(4),
+    #data-table th:nth-child(5), #data-table td:nth-child(5) {
+        display: none;
+    }
     h1 {
         font-size: 3em;
         margin: 20px 0;
