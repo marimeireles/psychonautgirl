@@ -48,6 +48,21 @@ export const facts = [
 
 export const modules: Module[] = [
   {
+    id: "m-io",
+    theme: "Input and output",
+    why: "Kattis gives you raw stdin and judges stdout byte for byte. Make a template once and reuse it for every problem.",
+    tasks: [
+      { id: "d0-io-what", important: true, kind: "read", title: "What 'I/O reflexes' means: six things to be able to do without thinking", detail: "1) read one line and split it into ints; 2) read N then N lines; 3) read until end of input (for line in sys.stdin); 4) read all tokens at once with sys.stdin.buffer.read().split() and walk an index; 5) print many lines with one write of '\\n'.join(...); 6) format floats with f'{x:.6f}' and never print extra text. Multiple test cases per file are the norm, not the exception." },
+      { id: "d0-io-usaco", important: true, kind: "read", title: "USACO Guide: Input & Output (Python section)", url: "https://usaco.guide/general/io?lang=py" },
+      { id: "d0-io-fast", kind: "read", title: "USACO Guide: Fast I/O (why input() is slow and what to use instead)", url: "https://usaco.guide/general/fast-io?lang=py" },
+      { id: "d0-template", important: true, kind: "do", title: "Write your Python template (Cheat Sheet tab has one) and use it for everything from now on", detail: "PyPy on Kattis is Python 3.9: no match statement. Recursion is slow and limited in PyPy, so write BFS/DFS iteratively. Save the template as a file you copy for every problem." },
+      { id: "d0-io1", kind: "solve", title: "R2 (one line of input)", kattis: "r2" },
+      { id: "d0-io2", kind: "solve", title: "Carrots (ignore part of the input)", kattis: "carrots" },
+      { id: "d0-io4", kind: "solve", title: "Oddities (N then N lines)", kattis: "oddities" },
+      { id: "d0-io6", kind: "solve", title: "A Different Problem (read until EOF, big integers)", kattis: "different" },
+    ],
+  },
+  {
     id: "m-basics",
     theme: "Complexity, sorting and the standard library",
     why: "Knowing what n allows is the first decision on every problem. n ≤ 10^5 means O(n log n), n ≤ 2000 means O(n²), n ≤ 20 means try every subset. Read the constraints before the story.",
