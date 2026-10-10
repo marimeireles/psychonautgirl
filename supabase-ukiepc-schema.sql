@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS ukiepc_users (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- One row per (user, checklist item). Per-day notes use key "note:<dayId>".
+-- One row per (user, checklist item). Topic notes use key "note:<moduleId>".
+-- For task rows: done=true means done; done=false with notes='tried' means tried but failed.
 CREATE TABLE IF NOT EXISTS ukiepc_progress (
   username TEXT NOT NULL REFERENCES ukiepc_users(username) ON DELETE CASCADE,
   key TEXT NOT NULL,

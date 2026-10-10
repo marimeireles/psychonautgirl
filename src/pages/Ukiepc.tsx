@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ExternalLink, Trash2, Printer, Check } from "lucide-react";
+import { ExternalLink, Trash2, Printer, Check, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { modules, snippets, topics, kattisUrl, taskHref, type Task, type Module } from "@/data/ukiepc";
 import { resourceNotes, resourceGroups } from "@/data/ukiepcResources";
@@ -77,6 +77,11 @@ const normalizeUsername = (s: string) => s.trim().toLowerCase().replace(/\s+/g, 
 const isMissingTable = (error: { code?: string; message?: string } | null) =>
   !!error && (error.code === "42P01" || error.code === "PGRST205" || /relation .* does not exist|Could not find the table/i.test(error.message ?? ""));
 
+// Task state lives in the existing columns: done=true is "done"; done=false with notes="tried" is "tried"; otherwise empty.
+type TaskState = "empty" | "done" | "tried";
+const stateOf = (row: ProgressRow | undefined): TaskState => (row?.done ? "done" : row?.notes === "tried" ? "tried" : "empty");
+const nextState: Record<TaskState, TaskState> = { empty: "done", done: "tried", tried: "empty" };
+
 const pct = (a: number, b: number) => (b === 0 ? 0 : Math.round((100 * a) / b));
 
 const PageStyle = () => (
@@ -108,6 +113,7 @@ const PageStyle = () => (
     }
     .ukiepc .check:hover { transform: scale(1.1); }
     .ukiepc .check.on { background: linear-gradient(135deg, #ff8fc4, #b58cff); border-color: #ff8fc4; }
+    .ukiepc .check.tried { background: #ffe3c2; border-color: #f2b56b; color: #b56a00; }
     .ukiepc input, .ukiepc select, .ukiepc textarea {
       border-radius: 16px; border: 2px solid #f3cde3; background: #fffafc; padding: 8px 14px; outline: none;
     }
@@ -262,24 +268,31 @@ const Ukiepc = () => {
   };
 
   // ---------- progress ----------
-  const toggleTask = async (task: Task) => {
+  const setTaskState = async (task: Task, state: TaskState) => {
     if (!user) return;
-    const next = !progress[task.id]?.done;
-    const optimistic: ProgressRow = {
+    const before = progress[task.id];
+    const row: ProgressRow = {
       username: user.username,
       key: task.id,
-      done: next,
-      notes: progress[task.id]?.notes ?? "",
+      done: state === "done",
+      notes: state === "tried" ? "tried" : "",
       updated_at: new Date().toISOString(),
     };
-    setProgress((prev) => ({ ...prev, [task.id]: optimistic }));
-    const { error } = await supabase.from("ukiepc_progress").upsert(optimistic);
+    setProgress((prev) => ({ ...prev, [task.id]: row }));
+    const { error } = await supabase.from("ukiepc_progress").upsert(row);
     if (error) {
       console.error(error);
       toast.error("Could not save");
-      setProgress((prev) => ({ ...prev, [task.id]: { ...optimistic, done: !next } }));
+      setProgress((prev) => {
+        const copy = { ...prev };
+        if (before) copy[task.id] = before;
+        else delete copy[task.id];
+        return copy;
+      });
     }
   };
+
+  const cycleTask = (task: Task) => setTaskState(task, nextState[stateOf(progress[task.id])]);
 
   const saveDayNote = async (day: Module) => {
     if (!user) return;
@@ -322,9 +335,11 @@ const Ukiepc = () => {
     setMinutes("");
     setSolveNotes("");
     toast.success(result === "AC" ? "Accepted, logged" : "Logged");
-    if (result === "AC") {
-      const task = modules.flatMap((d) => d.tasks).find((t) => t.kattis === cleanSlug);
-      if (task && !progress[task.id]?.done) toggleTask(task);
+    const task = modules.flatMap((d) => d.tasks).find((t) => t.kattis === cleanSlug);
+    if (task) {
+      const st = stateOf(progress[task.id]);
+      if (result === "AC" && st !== "done") setTaskState(task, "done");
+      else if (result !== "AC" && st === "empty") setTaskState(task, "tried");
     }
   };
 
@@ -466,6 +481,7 @@ const Ukiepc = () => {
                 <Stat label="checklist" value={`${doneCount} / ${allTasks.length}`} pct={pct(doneCount, allTasks.length)} />
                 <Stat label="problems solved" value={`${solvedCount} / ${solveTasks.length}`} pct={pct(solvedCount, solveTasks.length)} />
               </div>
+              <p className="text-xs text-[#a67a9c] mt-3">Click a circle once for done, twice for tried but failed, three times to clear it.</p>
             </div>
 
             {modules.map((day, di) => {
@@ -514,18 +530,25 @@ const Ukiepc = () => {
                             </div>
                             <ul className="space-y-2">
                               {list.map((task) => {
-                                const checked = !!progress[task.id]?.done;
+                                const state = stateOf(progress[task.id]);
+                                const checked = state === "done";
                                 const href = taskHref(task);
                                 const linkText = task.kattis ?? task.leetcode ?? task.hackerrank ?? "link";
                                 return (
                                   <li key={task.id} className="flex items-start gap-3 text-sm">
-                                    <button onClick={() => toggleTask(task)} aria-label={checked ? "Mark not done" : "Mark done"} className={`check mt-0.5 ${checked ? "on" : ""}`}>
-                                      {checked && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                                    <button
+                                      onClick={() => cycleTask(task)}
+                                      title={state === "empty" ? "click: done" : state === "done" ? "click: tried but failed" : "click: clear"}
+                                      aria-label={`state: ${state}`}
+                                      className={`check mt-0.5 ${state === "done" ? "on" : state === "tried" ? "tried" : ""}`}
+                                    >
+                                      {state === "done" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                                      {state === "tried" && <X className="w-3.5 h-3.5" strokeWidth={3} />}
                                     </button>
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center gap-2 flex-wrap">
                                         <span className={`tag ${kindColor[task.kind]}`}>{kindLabel[task.kind]}</span>
-                                        <span className={checked ? "line-through text-[#a67a9c]" : task.important ? "font-bold" : ""}>{task.important ? "⭐ " : ""}{task.title}</span>
+                                        <span className={checked ? "line-through text-[#a67a9c]" : state === "tried" ? "text-[#b56a00]" : task.important ? "font-bold" : ""}>{task.important ? "⭐ " : ""}{task.title}</span>
                                         {href && (
                                           <a href={href} target="_blank" rel="noreferrer" className="text-[#c2407f] font-bold inline-flex items-center gap-1 hover:underline">
                                             {linkText}
@@ -584,7 +607,7 @@ const Ukiepc = () => {
                 </button>
                 <input value={solveNotes} onChange={(e) => setSolveNotes(e.target.value)} placeholder="notes: the trick, the bug, what to remember" className="sm:col-span-6" />
               </div>
-              <p className="text-xs text-[#a67a9c] mt-2">An accepted log entry for a problem in the plan ticks it off automatically.</p>
+              <p className="text-xs text-[#a67a9c] mt-2">An accepted log entry for a problem in the plan marks it done; any other result marks it tried.</p>
             </div>
 
             {topicStats.length > 0 && (
