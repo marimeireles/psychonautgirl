@@ -15,6 +15,7 @@ VITE_SUPABASE_ANON_KEY=your_key_here
 ```
 
 2. Run `supabase-schema.sql` in your Supabase SQL Editor.
+3. For the UKIEPC training tracker (`/ukiepc`), also run `supabase-ukiepc-schema.sql`.
 
 ---
 

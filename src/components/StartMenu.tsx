@@ -120,6 +120,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   onClose();
                 }}
               />
+              <MenuItem
+                icon="🏆"
+                text="UKIEPC Training"
+                onClick={() => {
+                  navigate('/ukiepc');
+                  onClose();
+                }}
+              />
             </div>
           </div>
         </div>
