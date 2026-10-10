@@ -47,7 +47,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "USACO Guide: Input and Output",
-    "url": "https://usaco.guide/general/io",
+    "url": "https://usaco.guide/general/io?lang=py",
     "topic": "io",
     "keyIdeas": [
       "input() reads one line as a string; convert with int(), split(), or map().",
@@ -67,7 +67,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "USACO Guide: Fast Input and Output",
-    "url": "https://usaco.guide/general/fast-io",
+    "url": "https://usaco.guide/general/fast-io?lang=py",
     "topic": "io",
     "keyIdeas": [
       "Benchmark with N up to 10^6 lines: input()+print() took 18.9 s, sys.stdin.readline cut it to 2.9 s.",
@@ -122,7 +122,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "USACO Guide: Time Complexity",
-    "url": "https://usaco.guide/bronze/time-comp",
+    "url": "https://usaco.guide/bronze/time-comp?lang=py",
     "topic": "complexity",
     "keyIdeas": [
       "Big O counts worst-case operations as n grows, dropping constants and lower terms: 5n+17 is O(n).",
@@ -142,7 +142,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "USACO Guide: Introduction to Data Structures",
-    "url": "https://usaco.guide/bronze/intro-ds",
+    "url": "https://usaco.guide/bronze/intro-ds?lang=py",
     "topic": "data structures",
     "keyIdeas": [
       "Python lists are dynamic arrays: append and pop() at the end are O(1); pop(i), insert(i, x) and remove are O(n).",
@@ -183,7 +183,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "USACO Guide: Custom Sorting",
-    "url": "https://usaco.guide/silver/sorting-custom",
+    "url": "https://usaco.guide/silver/sorting-custom?lang=py",
     "topic": "sorting",
     "keyIdeas": [
       "Use key= with a lambda returning a comparable value: edges.sort(key=lambda e: e.width).",
@@ -204,7 +204,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Binary Search (USACO Guide Silver)",
-    "url": "https://usaco.guide/silver/binary-search",
+    "url": "https://usaco.guide/silver/binary-search?lang=py",
     "topic": "binary search",
     "keyIdeas": [
       "Binary search on the answer needs a monotonic predicate f(x): once true it stays true in one direction.",
@@ -245,7 +245,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Prefix Sums (USACO Guide Silver)",
-    "url": "https://usaco.guide/silver/prefix-sums",
+    "url": "https://usaco.guide/silver/prefix-sums?lang=py",
     "topic": "prefix sums",
     "keyIdeas": [
       "Build p[0]=0, p[k]=p[k-1]+a[k] in O(N); then any range sum is O(1).",
@@ -265,7 +265,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Two Pointers (USACO Guide Silver)",
-    "url": "https://usaco.guide/silver/two-pointers",
+    "url": "https://usaco.guide/silver/two-pointers?lang=py",
     "topic": "two pointers",
     "keyIdeas": [
       "Opposite ends: on a sorted array set l=0, r=n-1; sum too small -> l+=1, too big -> r-=1.",
@@ -285,7 +285,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Greedy with Sorting (USACO Guide Silver)",
-    "url": "https://usaco.guide/silver/greedy-sorting",
+    "url": "https://usaco.guide/silver/greedy-sorting?lang=py",
     "topic": "greedy",
     "keyIdeas": [
       "Greedy takes the locally best choice at each step and never revisits it; a value function defines 'best'.",
@@ -305,7 +305,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Graph Traversal (DFS/BFS)",
-    "url": "https://usaco.guide/silver/graph-traversal",
+    "url": "https://usaco.guide/silver/graph-traversal?lang=py",
     "topic": "graph traversal",
     "keyIdeas": [
       "DFS and BFS both visit every reachable node once in O(N+M); use a visited list so no node is processed twice.",
@@ -325,7 +325,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Flood Fill",
-    "url": "https://usaco.guide/silver/flood-fill",
+    "url": "https://usaco.guide/silver/flood-fill?lang=py",
     "topic": "flood fill",
     "keyIdeas": [
       "A grid is an implicit graph: each cell's neighbours are the 4 cardinal cells (8 if diagonals allowed).",
@@ -365,7 +365,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Disjoint Set Union",
-    "url": "https://usaco.guide/gold/dsu",
+    "url": "https://usaco.guide/gold/dsu?lang=py",
     "topic": "dsu",
     "keyIdeas": [
       "DSU maintains components under edge additions: find(x) gives the representative, union(a,b) merges, connected(a,b) compares roots.",
@@ -384,7 +384,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Shortest Paths (Non-Negative Weights)",
-    "url": "https://usaco.guide/gold/shortest-paths",
+    "url": "https://usaco.guide/gold/shortest-paths?lang=py",
     "topic": "shortest paths",
     "keyIdeas": [
       "Dijkstra: single-source, non-negative weights only; heap version O((N+M) log N), array version O(N^2) for dense graphs.",
@@ -424,7 +424,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Topological Sort",
-    "url": "https://usaco.guide/gold/toposort",
+    "url": "https://usaco.guide/gold/toposort?lang=py",
     "topic": "toposort",
     "keyIdeas": [
       "A topological order of a DAG lists vertices so every edge u->v has u before v; only DAGs have one.",
@@ -443,7 +443,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Minimum Spanning Trees",
-    "url": "https://usaco.guide/gold/mst",
+    "url": "https://usaco.guide/gold/mst?lang=py",
     "topic": "mst",
     "keyIdeas": [
       "A spanning tree uses N-1 edges touching every vertex; an MST minimises the total weight.",
@@ -463,7 +463,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Introduction to DP",
-    "url": "https://usaco.guide/gold/intro-dp",
+    "url": "https://usaco.guide/gold/intro-dp?lang=py",
     "topic": "dp",
     "keyIdeas": [
       "DP = brute-force recursion plus caching: define a state, compute each state once, reuse it.",
@@ -483,7 +483,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Knapsack DP",
-    "url": "https://usaco.guide/gold/knapsack",
+    "url": "https://usaco.guide/gold/knapsack?lang=py",
     "topic": "knapsack",
     "keyIdeas": [
       "State is the capacity/sum used so far; transition tries adding one item.",
@@ -524,7 +524,7 @@ export const resourceNotes: ResourceNote[] = [
   },
   {
     "title": "Modular Arithmetic",
-    "url": "https://usaco.guide/gold/modular",
+    "url": "https://usaco.guide/gold/modular?lang=py",
     "topic": "modular arithmetic",
     "keyIdeas": [
       "Reduce after every + - *: (a*b) % M == ((a%M)*(b%M)) % M; Python ints never overflow but stay small for speed.",
