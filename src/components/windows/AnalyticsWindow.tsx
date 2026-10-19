@@ -104,7 +104,7 @@ export const AnalyticsWindow = () => {
       <div className="flex gap-3 px-2 py-0.5 text-xs border-b border-border bg-card select-none">
         {[
           { label: "Options", tip: "There are no options" },
-          { label: "View", tip: "Yes, Vue" },
+          { label: "View", tip: "Yes, .js" },
           { label: "Help", tip: "Aaaaarrrrrhhh!!!" },
         ].map((m) => (
           <span key={m.label} className="relative group/menu hover:bg-primary/20 px-1 cursor-default">
