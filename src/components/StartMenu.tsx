@@ -45,6 +45,11 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/30 to-accent/40 px-3 py-6 flex items-center gap-3 border-b-2 border-border">
+        <img
+          src="/favicon.png"
+          alt="Mari"
+          className="w-12 h-12 rounded-full border-2 border-primary/60 bg-white/80 object-cover shadow-md shrink-0"
+        />
         <div className="text-sm font-bold">
           <div className="text-primary">Mari's website</div>
           <div className="text-xs text-muted-foreground">v1.0</div>
