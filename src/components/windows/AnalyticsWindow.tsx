@@ -103,7 +103,7 @@ export const AnalyticsWindow = () => {
       {/* menu bar, decorative like a proper 90s utility */}
       <div className="flex gap-3 px-2 py-0.5 text-xs border-b border-border bg-card select-none">
         {[
-          { label: "Options", tip: "there are no options" },
+          { label: "Options", tip: "There are no options" },
           { label: "View", tip: "Yes, Vue" },
           { label: "Help", tip: "Aaaaarrrrrhhh!!!" },
         ].map((m) => (
@@ -210,7 +210,7 @@ export const AnalyticsWindow = () => {
         ))}
       </div>
       <div className="px-2 pb-2 text-[10px] text-muted-foreground">
-        visit logging is anonymous and we only log your country/city of access
+        Visit logging is anonymous: we only log the country and city you visit from.
       </div>
     </div>
   );
