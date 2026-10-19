@@ -183,49 +183,43 @@ const Index = () => {
       </div>
       <SparkleTrail />
 
-      {/* Desktop Icons */}
-      <div className="hidden md:flex absolute top-4 left-4 gap-4 z-10">
-        {/* Column 1 */}
-        <div className="flex flex-col gap-4">
-          <DesktopIcon
-            icon="💬"
-            label="Chat"
-            onClick={() => openWindow("chat")}
-          />
-          <DesktopIcon
-            icon="📖"
-            label="Guestbook"
-            onClick={() => openWindow("guestbook")}
-          />
-          <DesktopIcon
-            icon="💻"
-            label="Software"
-            onClick={() => openBlogWindow("Software")}
-          />
-          <DesktopIcon
-            icon="🎓"
-            label="Academic Work"
-            onClick={() => openWindow("academicWork")}
-          />
-          <DesktopIcon
-            icon="📚"
-            label="Reading List"
-            onClick={() => window.open("/reading-list.html", "_blank")}
-          />
-        </div>
-        {/* Column 2 */}
-        <div className="flex flex-col gap-4 justify-end">
-          <DesktopIcon
-            icon="📰"
-            label="News"
-            onClick={() => openWindow("news")}
-          />
-          <DesktopIcon
-            icon="🌸"
-            label="About"
-            onClick={() => openWindow("about")}
-          />
-        </div>
+      {/* Desktop Icons — column-major grid, every cell top-aligned */}
+      <div className="hidden md:grid absolute top-4 left-4 z-10 grid-rows-5 grid-flow-col gap-4 items-start justify-items-center">
+        <DesktopIcon
+          icon="💬"
+          label="Chat"
+          onClick={() => openWindow("chat")}
+        />
+        <DesktopIcon
+          icon="📖"
+          label="Guestbook"
+          onClick={() => openWindow("guestbook")}
+        />
+        <DesktopIcon
+          icon="💻"
+          label="Software"
+          onClick={() => openBlogWindow("Software")}
+        />
+        <DesktopIcon
+          icon="🎓"
+          label="Academic Work"
+          onClick={() => openWindow("academicWork")}
+        />
+        <DesktopIcon
+          icon="📚"
+          label="Reading List"
+          onClick={() => window.open("/reading-list.html", "_blank")}
+        />
+        <DesktopIcon
+          icon="📰"
+          label="News"
+          onClick={() => openWindow("news")}
+        />
+        <DesktopIcon
+          icon="🌸"
+          label="About"
+          onClick={() => openWindow("about")}
+        />
       </div>
 
       {/* Windows */}
