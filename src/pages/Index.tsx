@@ -528,7 +528,7 @@ const Index = () => {
       {/* Taskbar */}
       {openWindows.has("analytics") && (
         <Window
-          title="Visitor Analytics"
+          title="Visitors Task Manager"
           onClose={() => closeWindow("analytics")}
           defaultPosition={{ x: Math.max(16, window.innerWidth - 420), y: Math.max(16, window.innerHeight - 600) }}
           defaultSize={{ width: 380, height: 520 }}
