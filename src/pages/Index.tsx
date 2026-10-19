@@ -134,6 +134,7 @@ const Index = () => {
     academicWork: { title: "Academic Work", icon: "🎓" },
     projects: { title: "Project ideas", icon: "🔨" },
     news: { title: "News", icon: "📰" },
+    analytics: { title: "Visitors Task Manager", icon: "📊" },
   };
 
   // Build taskbar windows list

@@ -46,8 +46,8 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/30 to-accent/40 px-3 py-6 flex items-center justify-between gap-3 border-b-2 border-border">
         <div className="text-sm font-bold">
-          <div className="text-primary">Mari's website</div>
-          <div className="text-xs text-muted-foreground">Mari-DOS</div>
+          <div className="text-primary">Mari's Disk Operating System</div>
+          <div className="text-xs text-muted-foreground">MS-DOS</div>
         </div>
         <img
           src="/favicon.png"
