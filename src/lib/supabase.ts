@@ -7,7 +7,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// The site only uses anonymous table access (no Supabase auth sessions), so
+// skip session persistence — it also acquires a Navigator LockManager lock
+// that fails noisily when hot-reload or multiple tabs duplicate the client.
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
 
 // Database types
 export interface GuestbookEntry {

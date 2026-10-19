@@ -82,11 +82,14 @@ export const Window = ({
   useEffect(() => {
     const handleResize = () => {
       if (!rndRef.current || isMaximized) return;
-      const pos = rndRef.current.getDraggablePosition();
       const el = rndRef.current.getSelfElement() as HTMLElement | null;
-      const currentSize = el
-        ? { width: el.offsetWidth, height: el.offsetHeight }
-        : { width: initialBounds.width, height: initialBounds.height };
+      if (!el) return;
+      // The window's transform state equals its on-screen rect (its static
+      // offset is 0,0), so clamp the rect itself. getDraggablePosition()
+      // reports a different coordinate space and doubled offsets per resize.
+      const rect = el.getBoundingClientRect();
+      const pos = { x: rect.x, y: rect.y };
+      const currentSize = { width: el.offsetWidth, height: el.offsetHeight };
       const clamped = clampToViewport(pos, currentSize);
       if (clamped.x !== pos.x || clamped.y !== pos.y) {
         rndRef.current.updatePosition({ x: clamped.x, y: clamped.y });
@@ -96,7 +99,18 @@ export const Window = ({
       }
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // react-rnd re-applies the default position asynchronously after mount,
+    // which can double the offset and strand bottom/right-placed windows
+    // off-screen. Watch the first ~0.5s of frames and clamp back into view.
+    let frames = 0;
+    let raf = requestAnimationFrame(function tick() {
+      handleResize();
+      if (++frames < 30) raf = requestAnimationFrame(tick);
+    });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(raf);
+    };
   }, [isMaximized, initialBounds.width, initialBounds.height]);
 
   const handleMinimize = () => {
@@ -201,12 +215,7 @@ export const Window = ({
   return (
     <Rnd
       ref={rndRef}
-      default={{
-        x: defaultPosition.x,
-        y: defaultPosition.y,
-        width: defaultSize?.width || 384,
-        height: defaultSize?.height || 500,
-      }}
+      default={initialBounds}
       minWidth={300}
       minHeight={200}
       bounds="window"
