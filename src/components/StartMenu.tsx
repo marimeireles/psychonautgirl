@@ -120,14 +120,36 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   onClose();
                 }}
               />
-              <MenuItem
-                icon="🏆"
-                text="UKIEPC Training"
-                onClick={() => {
-                  navigate('/ukiepc');
-                  onClose();
-                }}
-              />
+              {/* Interviews folder (third-level flyout) */}
+              <div className="relative group/interviews">
+                <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
+                  <span className="text-base">📁</span>
+                  <span className="flex-1">Interviews</span>
+                  <ChevronRight className="w-3 h-3 text-muted-foreground" />
+                </button>
+                <div className="hidden group-hover/interviews:block absolute left-full top-0 ml-1 w-52 win95-border bg-card shadow-2xl z-50">
+                  <div className="p-1">
+                    <MenuItem
+                      icon="🏆"
+                      text="UKIEPC Training"
+                      asLink={true}
+                      onClick={() => {
+                        navigate('/ukiepc');
+                        onClose();
+                      }}
+                    />
+                    <MenuItem
+                      icon="🧪"
+                      text="Interview Gym"
+                      asLink={true}
+                      onClick={() => {
+                        navigate('/interview');
+                        onClose();
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -271,10 +293,12 @@ interface MenuItemProps {
   text: string;
   onClick?: () => void;
   showArrow?: boolean;
+  /** style as an in-site link: underlined + primary color, no external-link icon */
+  asLink?: boolean;
   tooltip?: string;
 }
 
-const MenuItem = ({ icon, text, onClick, showArrow = false, tooltip }: MenuItemProps) => {
+const MenuItem = ({ icon, text, onClick, showArrow = false, asLink = false, tooltip }: MenuItemProps) => {
   return (
     <div className="relative group/item">
       <button
@@ -282,7 +306,7 @@ const MenuItem = ({ icon, text, onClick, showArrow = false, tooltip }: MenuItemP
         className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm"
       >
         <span className="text-base">{icon}</span>
-        <span className={`flex-1 ${showArrow ? 'underline' : ''}`}>{text}</span>
+        <span className={`flex-1 ${showArrow || asLink ? 'underline' : ''} ${asLink ? 'text-primary' : ''}`}>{text}</span>
         {showArrow && <ExternalLink className="w-3 h-3 text-muted-foreground" />}
       </button>
       {tooltip && (

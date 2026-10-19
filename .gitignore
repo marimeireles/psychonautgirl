@@ -52,3 +52,7 @@ Thumbs.db
 
 # Vite
 vite.config.ts.timestamp-*.deploy-tmp/
+
+# TRD intermediate build artifact (pandoc output; the PDF lives in public/)
+trd/trd.html
+scripts/.venv-interview/
