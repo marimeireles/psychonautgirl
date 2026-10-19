@@ -14,12 +14,13 @@ import { AcademicWorkWindow } from "@/components/windows/AcademicWorkWindow";
 import { FocusAreaWindow } from "@/components/windows/FocusAreaWindow";
 import { ProjectsWindow } from "@/components/windows/ProjectsWindow";
 import { NewsWindow } from "@/components/windows/NewsWindow";
+import { AnalyticsWindow } from "@/components/windows/AnalyticsWindow";
 import { focusAreas, type FocusArea } from "@/data/focusAreas";
 import { BubbleBackground } from "@/components/BubbleBackground";
 import { SparkleTrail } from "@/components/SparkleTrail";
 import desktopBg from "@/assets/desktop-bg.jpg";
 
-type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "jobPopup" | "academicWork" | "projects" | "news";
+type WindowType = "paint" | "chat" | "about" | "gallery" | "guestbook" | "jobPopup" | "academicWork" | "projects" | "news" | "analytics";
 
 interface BlogWindow {
   id: string;
@@ -525,10 +526,28 @@ const Index = () => {
       />
 
       {/* Taskbar */}
+      {openWindows.has("analytics") && (
+        <Window
+          title="Visitor Analytics"
+          onClose={() => closeWindow("analytics")}
+          defaultPosition={{ x: Math.max(16, window.innerWidth - 420), y: Math.max(16, window.innerHeight - 600) }}
+          defaultSize={{ width: 380, height: 520 }}
+          width="w-[380px]"
+          icon="📊"
+          zIndex={windowZIndex["analytics"] || 10}
+          onFocus={() => bringWindowToFront("analytics")}
+          isMinimized={minimizedWindows["analytics"]}
+          onMinimize={(minimized) => handleMinimize("analytics", minimized)}
+        >
+          <AnalyticsWindow />
+        </Window>
+      )}
+
       <Taskbar
         onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
         windows={taskbarWindows}
         onWindowClick={handleWindowClick}
+        onAnalyticsClick={() => openWindow("analytics")}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles, Volume2 } from "lucide-react";
+import { Activity, Sparkles, Volume2 } from "lucide-react";
 
 interface WindowInfo {
   id: string;
@@ -11,9 +11,10 @@ interface TaskbarProps {
   onStartClick: () => void;
   windows?: WindowInfo[];
   onWindowClick?: (id: string) => void;
+  onAnalyticsClick?: () => void;
 }
 
-export const Taskbar = ({ onStartClick, windows = [], onWindowClick }: TaskbarProps) => {
+export const Taskbar = ({ onStartClick, windows = [], onWindowClick, onAnalyticsClick }: TaskbarProps) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -46,6 +47,15 @@ export const Taskbar = ({ onStartClick, windows = [], onWindowClick }: TaskbarPr
       </div>
 
       <div className="flex items-center gap-2">
+        {onAnalyticsClick && (
+          <button
+            onClick={onAnalyticsClick}
+            className="win95-border bg-card hover:bg-muted p-1 active:win95-border-inset"
+            title="Visitor analytics"
+          >
+            <Activity className="w-4 h-4 text-primary" />
+          </button>
+        )}
         <a
           href="https://open.spotify.com/user/12162592549?si=1248bae490c74683"
           target="_blank"
