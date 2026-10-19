@@ -252,6 +252,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               onClose();
             }}
             showArrow={true}
+            underline={false}
           />
         </div>
 
@@ -295,10 +296,13 @@ interface MenuItemProps {
   showArrow?: boolean;
   /** style as an in-site link: underlined + primary color, no external-link icon */
   asLink?: boolean;
+  /** override the underline (defaults to underlining showArrow/asLink items) */
+  underline?: boolean;
   tooltip?: string;
 }
 
-const MenuItem = ({ icon, text, onClick, showArrow = false, asLink = false, tooltip }: MenuItemProps) => {
+const MenuItem = ({ icon, text, onClick, showArrow = false, asLink = false, underline, tooltip }: MenuItemProps) => {
+  const underlined = underline ?? (showArrow || asLink);
   return (
     <div className="relative group/item">
       <button
@@ -306,7 +310,7 @@ const MenuItem = ({ icon, text, onClick, showArrow = false, asLink = false, tool
         className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm"
       >
         <span className="text-base">{icon}</span>
-        <span className={`flex-1 ${showArrow || asLink ? 'underline' : ''} ${asLink ? 'text-primary' : ''}`}>{text}</span>
+        <span className={`flex-1 ${underlined ? 'underline' : ''} ${asLink ? 'text-primary' : ''}`}>{text}</span>
         {showArrow && <ExternalLink className="w-3 h-3 text-muted-foreground" />}
       </button>
       {tooltip && (

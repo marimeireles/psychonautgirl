@@ -52,7 +52,7 @@ export const AnalyticsWindow = () => {
         .from("site_visits")
         .select("id, country, country_code, region, city, created_at")
         .order("created_at", { ascending: false })
-        .limit(2000);
+        .limit(10000);
       if (!alive) return;
       if (error) {
         setError(isMissingTable(error) ? "table missing — run supabase-analytics-schema.sql in the Supabase SQL editor ✨" : error.message);
@@ -102,10 +102,17 @@ export const AnalyticsWindow = () => {
     <div className="flex flex-col text-sm h-full" style={{ minHeight: 0 }}>
       {/* menu bar, decorative like a proper 90s utility */}
       <div className="flex gap-3 px-2 py-0.5 text-xs border-b border-border bg-card select-none">
-        {["File", "Options", "View", "Help"].map((m) => (
-          <span key={m} className="hover:bg-primary/20 px-1 cursor-default">
-            <span className="underline">{m[0]}</span>
-            {m.slice(1)}
+        {[
+          { label: "Options", tip: "there are no options" },
+          { label: "View", tip: "Yes, Vue" },
+          { label: "Help", tip: "Aaaaarrrrrhhh!!!" },
+        ].map((m) => (
+          <span key={m.label} className="relative group/menu hover:bg-primary/20 px-1 cursor-default">
+            <span className="underline">{m.label[0]}</span>
+            {m.label.slice(1)}
+            <span className="hidden group-hover/menu:block absolute left-0 top-full mt-1 w-max max-w-[180px] win95-border bg-card px-2 py-1 text-xs shadow-2xl z-[60] pointer-events-none">
+              {m.tip}
+            </span>
           </span>
         ))}
       </div>
@@ -127,7 +134,7 @@ export const AnalyticsWindow = () => {
 
         {!error && visits !== null && tab === "performance" && (
           <div className="flex flex-col gap-2">
-            <div className="text-xs font-bold text-muted-foreground">Visit History ({DAYS} days)</div>
+            <div className="text-xs font-bold text-muted-foreground">Visit History</div>
             <div className="win95-border-inset p-1">
               <PerformanceGraph series={series} peak={peak} />
             </div>
@@ -147,11 +154,6 @@ export const AnalyticsWindow = () => {
                 </fieldset>
               ))}
             </div>
-            {total === 0 && (
-              <div className="text-[11px] text-muted-foreground">
-                no visits yet — one anonymous location is logged per visitor session (country/city only, never the IP).
-              </div>
-            )}
           </div>
         )}
 
@@ -178,13 +180,6 @@ export const AnalyticsWindow = () => {
                     <td className="px-2 py-0.5 border-b border-border/50 text-right w-14">{total ? Math.round((100 * c.n) / total) : 0}%</td>
                   </tr>
                 ))}
-                {byCountry.length === 0 && (
-                  <tr>
-                    <td colSpan={3} className="px-2 py-2 text-muted-foreground">
-                      nobody yet… tell your friends 🌷
-                    </td>
-                  </tr>
-                )}
               </tbody>
             </table>
 
@@ -207,12 +202,15 @@ export const AnalyticsWindow = () => {
       </div>
 
       {/* status bar */}
-      <div className="flex gap-1 px-2 pb-2 text-[11px]">
-        {[`Visitors: ${total}`, `Countries: ${byCountry.length}`, `Today: ${today}`, "Privacy: no IPs 🌸"].map((s) => (
+      <div className="flex gap-1 px-2 pb-1 text-[11px]">
+        {[`Visitors: ${total}`, `Countries: ${byCountry.length}`, `Today: ${today}`].map((s) => (
           <div key={s} className="win95-border-inset bg-muted/60 px-2 py-0.5 flex-1 truncate">
             {s}
           </div>
         ))}
+      </div>
+      <div className="px-2 pb-2 text-[10px] text-muted-foreground">
+        visit logging is anonymous and we only log your country/city of access
       </div>
     </div>
   );
