@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Window } from "@/components/Window";
 import { DesktopIcon } from "@/components/DesktopIcon";
 import { Taskbar } from "@/components/Taskbar";
@@ -116,6 +116,19 @@ const Index = () => {
     delete newZIndex[windowId];
     setWindowZIndex(newZIndex);
   };
+
+  // Esc closes the newspaper or the guestbook (the one on top, if both are open)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const open = (["news", "guestbook"] as WindowType[])
+        .filter((w) => openWindows.has(w) && !minimizedWindows[w])
+        .sort((a, b) => (windowZIndex[b] || 0) - (windowZIndex[a] || 0));
+      if (open.length > 0) closeWindow(open[0]);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   const bringWindowToFront = (id: string) => {
     const newZIndex = topZIndex + 1;
