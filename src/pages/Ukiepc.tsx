@@ -739,11 +739,18 @@ const Ukiepc = () => {
             <div className="bubble p-4 sm:p-6 no-print flex items-start justify-between gap-3 flex-wrap">
               <div className="text-sm">
                 <h2 className="font-bold text-base mb-1">team reference document</h2>
-                <p className="text-[#7a5a74]">Printed material is allowed in the contest (up to 25 A4 pages). Print this tab, add your day notes, and bring it. Everything below is Python 3.9 / PyPy-safe.</p>
+                <p className="text-[#7a5a74]">
+                  The real contest TRD is a proper A4 PDF (16 sections, Python 3.9 / PyPy-safe, within the 25-page limit) — print that one and bring it. The cards below are the quick on-screen version.
+                </p>
               </div>
-              <button onClick={() => window.print()} className="pill px-3 py-1.5 text-sm font-bold flex items-center gap-2">
-                <Printer className="w-4 h-4" /> print
-              </button>
+              <div className="flex gap-2">
+                <a href="/ukiepc-trd.pdf" target="_blank" rel="noreferrer" className="pill on px-3 py-1.5 text-sm font-bold flex items-center gap-2 text-[#8a2f5e]">
+                  <ExternalLink className="w-4 h-4" /> open the PDF
+                </a>
+                <button onClick={() => window.print()} className="pill px-3 py-1.5 text-sm font-bold flex items-center gap-2">
+                  <Printer className="w-4 h-4" /> print this tab
+                </button>
+              </div>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               {snippets.map((s) => (

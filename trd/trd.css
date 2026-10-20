@@ -1,0 +1,105 @@
+@page {
+  size: A4;
+  margin: 7mm 6mm;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 9pt;
+  line-height: 1.28;
+  column-count: 2;
+  column-gap: 4mm;
+  column-fill: auto;
+}
+
+h1 {
+  font-size: 13pt;
+  column-span: all;
+  margin: 0 0 2pt;
+  padding-bottom: 1pt;
+  border-bottom: 1pt solid #000;
+}
+
+h2 {
+  font-size: 10pt;
+  background: #000;
+  color: #fff;
+  padding: 1pt 3pt;
+  margin: 4pt 0 2pt;
+  break-after: avoid;
+}
+
+h3 {
+  font-size: 9.2pt;
+  margin: 3pt 0 1pt;
+  border-bottom: 0.5pt solid #888;
+  break-after: avoid;
+}
+
+p {
+  margin: 1pt 0;
+}
+
+ul, ol {
+  margin: 1pt 0;
+  padding-left: 10pt;
+}
+
+li {
+  margin: 0;
+}
+
+pre {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 7.4pt;
+  line-height: 1.15;
+  background: #f3f3f3;
+  border: 0.5pt solid #bbb;
+  padding: 2pt 3pt;
+  margin: 1.5pt 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+code {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 7.4pt;
+  background: #f3f3f3;
+}
+
+pre code {
+  background: none;
+  font-size: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 8.2pt;
+  margin: 1.5pt 0;
+}
+
+th, td {
+  border: 0.5pt solid #999;
+  padding: 0.5pt 2.5pt;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #e8e8e8;
+}
+
+strong {
+  font-weight: 700;
+}
+
+hr {
+  border: none;
+  border-top: 0.5pt solid #999;
+  margin: 2pt 0;
+}
