@@ -169,7 +169,7 @@ Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
 The Science of Enlightenment: How Meditation Works,Read,buddhism,Shinzen Young
-Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Want to read,buddhism; biography,Hakuin
+Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Reading,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
 Diversity and Complexity,Stalled,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
@@ -1082,13 +1082,15 @@ Dzogchen: Sex,Read,buddhism; sex,Keith Dowman
 Dzogchen: Khorde Rushen,Read,buddhism,Keith Dowman
 Job: A New Translation,Read,judaism; poetry,Edward L. Greenstein
 Near to the Wild Heart,Reading,fiction,Clarice Lispector
-The Hidden Girl and Other Stories,Reading,sci-fi,Ken Liu
+The Hidden Girl and Other Stories,Read,sci-fi,Ken Liu
 Sadly Porn,Reading,psychology,Edward Teach
 On the Suffering of the World,Reading,philosophy,Arthur Schopenhauer
 The Origins and History of Consciousness,Reading,psychology; consciousness,Erich Neumann
 The Problem of Pain,Reading,christianity; philosophy,C.S. Lewis
 Answer to Job,Reading,psychology; christianity,Jung
-We Are Legion (We Are Bob),Reading,sci-fi,Dennis E. Taylor`
+We Are Legion (We Are Bob),Reading,sci-fi,Dennis E. Taylor
+Creative Evolution,Reading,philosophy; evolution,Henri Bergson
+The Six Yogas of Naropa,Reading,buddhism,Tsongkhapa`
 
 // Parse the data into an array of Book objects
 export function parseBooks(): Book[] {
