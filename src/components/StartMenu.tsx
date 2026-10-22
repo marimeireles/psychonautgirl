@@ -131,7 +131,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   <div className="p-1">
                     <MenuItem
                       icon="🏆"
-                      text="UKIEPC Training"
+                      text="Interview Dashboard"
                       asLink={true}
                       onClick={() => {
                         navigate('/ukiepc');

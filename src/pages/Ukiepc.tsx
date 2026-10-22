@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ExternalLink, Trash2, Printer, Check, X } from "lucide-react";
+import { ExternalLink, Trash2, Check, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { modules, snippets, topics, kattisUrl, taskHref, type Task, type Module } from "@/data/ukiepc";
-import { resourceNotes, resourceGroups } from "@/data/ukiepcResources";
+import { topics, kattisUrl, leetcodeUrl, type Task } from "@/data/ukiepc";
+import { blind75, blind75Count, b75Key, type B75Problem } from "@/data/blind75";
+import { mlSections, mlTopicCount, type MlTopic } from "@/data/mlResearcher";
+import { tensorPuzzles, tensorPuzzleRules, tensorPuzzlesRepoUrl, tensorPuzzlesColabUrl, type TensorPuzzle } from "@/data/tensorPuzzles";
 
-type View = "plan" | "log" | "resources" | "cheatsheet";
+type View = "blind75" | "ml" | "tensors" | "log";
 
 interface User {
   username: string;
@@ -34,21 +36,7 @@ interface SolveRow {
 
 const USER_STORAGE_KEY = "ukiepc_user";
 
-const kindLabel: Record<Task["kind"], string> = { read: "read", warmup: "warm up", solve: "contest-style", do: "do" };
-const kindColor: Record<Task["kind"], string> = {
-  read: "bg-[#dbeeff] text-[#2b5c8a]",
-  warmup: "bg-[#d9f7e8] text-[#1f6b48]",
-  solve: "bg-[#ffd9ea] text-[#a0306b]",
-  do: "bg-[#fff1c2] text-[#8a6500]",
-};
-const sections: { kind: Task["kind"]; heading: string; blurb: string }[] = [
-  { kind: "read", heading: "Learn", blurb: "Read these first. Skim, do not study: you will come back when a problem needs it." },
-  { kind: "warmup", heading: "Warm up", blurb: "Short, no input parsing, instant feedback. Stop once the idea feels obvious." },
-  { kind: "solve", heading: "Contest-style", blurb: "Kattis problems with real I/O and time limits, the shape of what you will see on Saturday. Easy to harder." },
-  { kind: "do", heading: "Do", blurb: "" },
-];
-
-// one pastel per day
+// one pastel per section
 const dayPastels = [
   { bg: "#ffe4f1", border: "#f7b6d6" },
   { bg: "#ffeedd", border: "#f9c9a3" },
@@ -82,6 +70,12 @@ type TaskState = "empty" | "done" | "tried";
 const stateOf = (row: ProgressRow | undefined): TaskState => (row?.done ? "done" : row?.notes === "tried" ? "tried" : "empty");
 const nextState: Record<TaskState, TaskState> = { empty: "done", done: "tried", tried: "empty" };
 
+// ML topics cycle differently: "know" is the normal marker, "refresh" the grey one
+// (learned a while ago, needs a refresher). Stored as done=true with notes="refresh".
+type MlState = "empty" | "know" | "refresh";
+const mlStateOf = (row: ProgressRow | undefined): MlState => (row?.done ? (row.notes === "refresh" ? "refresh" : "know") : "empty");
+const nextMlState: Record<MlState, MlState> = { empty: "know", know: "refresh", refresh: "empty" };
+
 const pct = (a: number, b: number) => (b === 0 ? 0 : Math.round((100 * a) / b));
 
 const PageStyle = () => (
@@ -114,6 +108,7 @@ const PageStyle = () => (
     .ukiepc .check:hover { transform: scale(1.1); }
     .ukiepc .check.on { background: linear-gradient(135deg, #ff8fc4, #b58cff); border-color: #ff8fc4; }
     .ukiepc .check.tried { background: #ffe3c2; border-color: #f2b56b; color: #b56a00; }
+    .ukiepc .check.refresh { background: #e4e1ea; border-color: #b4adc2; color: #8a8499; }
     .ukiepc input, .ukiepc select, .ukiepc textarea {
       border-radius: 16px; border: 2px solid #f3cde3; background: #fffafc; padding: 8px 14px; outline: none;
     }
@@ -134,13 +129,12 @@ const PageStyle = () => (
 const Ukiepc = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(() => loadStoredUser());
-  const [view, setView] = useState<View>("plan");
+  const [view, setView] = useState<View>("blind75");
   const [loading, setLoading] = useState(false);
   const [dbMissing, setDbMissing] = useState(false);
   const [progress, setProgress] = useState<Record<string, ProgressRow>>({});
   const [solves, setSolves] = useState<SolveRow[]>([]);
-  const [openDays, setOpenDays] = useState<Record<string, boolean>>({});
-  const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
+  const [openMl, setOpenMl] = useState<Record<string, boolean>>({ implement: true });
 
   // auth form
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
@@ -153,14 +147,6 @@ const Ukiepc = () => {
   const [result, setResult] = useState("AC");
   const [minutes, setMinutes] = useState("");
   const [solveNotes, setSolveNotes] = useState("");
-
-  // open the first module that still has unfinished tasks once progress is known
-  useEffect(() => {
-    if (loading) return;
-    const t = modules.find((m) => m.tasks.some((task) => !progress[task.id]?.done)) ?? modules[0];
-    setOpenDays({ [t.id]: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, user?.username]);
 
   useEffect(() => {
     if (user) load(user);
@@ -183,9 +169,6 @@ const Ukiepc = () => {
       const map: Record<string, ProgressRow> = {};
       (p ?? []).forEach((row: ProgressRow) => (map[row.key] = row));
       setProgress(map);
-      const drafts: Record<string, string> = {};
-      modules.forEach((d) => (drafts[d.id] = map[`note:${d.id}`]?.notes ?? ""));
-      setNoteDrafts(drafts);
       setSolves((s ?? []) as SolveRow[]);
     } catch (e) {
       console.error(e);
@@ -264,49 +247,39 @@ const Ukiepc = () => {
     setUser(null);
     setProgress({});
     setSolves([]);
-    setView("plan");
+    setView("blind75");
   };
 
   // ---------- progress ----------
-  const setTaskState = async (task: Task, state: TaskState) => {
+  const saveProgress = async (key: string, done: boolean, notes: string) => {
     if (!user) return;
-    const before = progress[task.id];
-    const row: ProgressRow = {
-      username: user.username,
-      key: task.id,
-      done: state === "done",
-      notes: state === "tried" ? "tried" : "",
-      updated_at: new Date().toISOString(),
-    };
-    setProgress((prev) => ({ ...prev, [task.id]: row }));
+    const before = progress[key];
+    const row: ProgressRow = { username: user.username, key, done, notes, updated_at: new Date().toISOString() };
+    setProgress((prev) => ({ ...prev, [key]: row }));
     const { error } = await supabase.from("ukiepc_progress").upsert(row);
     if (error) {
       console.error(error);
       toast.error("Could not save");
       setProgress((prev) => {
         const copy = { ...prev };
-        if (before) copy[task.id] = before;
-        else delete copy[task.id];
+        if (before) copy[key] = before;
+        else delete copy[key];
         return copy;
       });
     }
   };
 
+  const setTaskState = (task: Task, state: TaskState) => saveProgress(task.id, state === "done", state === "tried" ? "tried" : "");
+
   const cycleTask = (task: Task) => setTaskState(task, nextState[stateOf(progress[task.id])]);
 
-  const saveDayNote = async (day: Module) => {
-    if (!user) return;
-    const key = `note:${day.id}`;
-    const notes = noteDrafts[day.id] ?? "";
-    const row: ProgressRow = { username: user.username, key, done: false, notes, updated_at: new Date().toISOString() };
-    const { error } = await supabase.from("ukiepc_progress").upsert(row);
-    if (error) {
-      console.error(error);
-      toast.error("Could not save note");
-      return;
-    }
-    setProgress((prev) => ({ ...prev, [key]: row }));
-    toast.success("Note saved");
+  // Blind 75 and tensor puzzle rows share the progress table; only the id matters to setTaskState.
+  const cycleB75 = (p: B75Problem) => cycleTask({ id: b75Key(p), kind: "solve", title: p.title });
+  const cycleTp = (p: TensorPuzzle) => cycleTask({ id: p.id, kind: "solve", title: p.name });
+
+  const cycleMl = (t: MlTopic) => {
+    const state = nextMlState[mlStateOf(progress[t.id])];
+    saveProgress(t.id, state !== "empty", state === "refresh" ? "refresh" : "");
   };
 
   const addSolve = async () => {
@@ -335,12 +308,6 @@ const Ukiepc = () => {
     setMinutes("");
     setSolveNotes("");
     toast.success(result === "AC" ? "Accepted, logged" : "Logged");
-    const task = modules.flatMap((d) => d.tasks).find((t) => t.kattis === cleanSlug);
-    if (task) {
-      const st = stateOf(progress[task.id]);
-      if (result === "AC" && st !== "done") setTaskState(task, "done");
-      else if (result !== "AC" && st === "empty") setTaskState(task, "tried");
-    }
   };
 
   const deleteSolve = async (id: number) => {
@@ -352,10 +319,10 @@ const Ukiepc = () => {
     setSolves((prev) => prev.filter((s) => s.id !== id));
   };
 
-  const allTasks = useMemo(() => modules.flatMap((d) => d.tasks), []);
-  const doneCount = allTasks.filter((t) => progress[t.id]?.done).length;
-  const solveTasks = allTasks.filter((t) => t.kind === "solve" || t.kind === "warmup");
-  const solvedCount = solveTasks.filter((t) => progress[t.id]?.done).length;
+  const b75Done = blind75.reduce((n, c) => n + c.problems.filter((p) => progress[b75Key(p)]?.done).length, 0);
+  const mlKnown = mlSections.reduce((n, s) => n + s.topics.filter((t) => mlStateOf(progress[t.id]) === "know").length, 0);
+  const mlRefresh = mlSections.reduce((n, s) => n + s.topics.filter((t) => mlStateOf(progress[t.id]) === "refresh").length, 0);
+  const tpDone = tensorPuzzles.filter((p) => progress[p.id]?.done).length;
 
   const topicStats = useMemo(() => {
     const m: Record<string, { ac: number; tries: number }> = {};
@@ -374,7 +341,7 @@ const Ukiepc = () => {
       <div className="min-h-screen sky ukiepc flex items-center justify-center p-4">
         <PageStyle />
         <div className="bubble w-full max-w-md p-6 sm:p-8 text-center">
-          <h1 className="text-2xl font-bold text-[#c2407f]">UKIEPC 2026 training</h1>
+          <h1 className="text-2xl font-bold text-[#c2407f]">interview dashboard</h1>
 
           <div className="flex justify-center gap-2 mt-5">
             <button onClick={() => setAuthMode("login")} className={`pill px-4 py-1.5 text-sm font-bold ${authMode === "login" ? "on" : ""}`}>
@@ -436,7 +403,7 @@ const Ukiepc = () => {
               <button onClick={() => navigate("/")} className="pill px-3 py-1.5 text-sm font-bold" title="Back to the desktop">
                 home
               </button>
-              <h1 className="text-lg sm:text-xl font-bold text-[#c2407f]">UKIEPC 2026 training</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-[#c2407f]">interview dashboard</h1>
             </div>
             <div className="flex items-center gap-3 text-xs sm:text-sm">
               <span className="font-bold">{user.display_name}</span>
@@ -448,10 +415,10 @@ const Ukiepc = () => {
           <div className="flex gap-2 mt-3 flex-wrap">
             {(
               [
-                ["plan", "plan"],
+                ["blind75", "blind 75"],
+                ["ml", "ml researcher"],
+                ["tensors", "tensor puzzles"],
                 ["log", "solve log"],
-                ["resources", "resources"],
-                ["cheatsheet", "cheat sheet"],
               ] as [View, string][]
             ).map(([v, label]) => (
               <button key={v} onClick={() => setView(v)} className={`pill px-3.5 py-1.5 text-sm font-bold ${view === v ? "on" : ""}`}>
@@ -473,114 +440,208 @@ const Ukiepc = () => {
         )}
         {loading && <p className="text-sm text-center text-[#a67a9c]">loading your progress…</p>}
 
-        {/* PLAN */}
-        {view === "plan" && (
+        {/* BLIND 75 */}
+        {view === "blind75" && (
           <>
             <div className="bubble p-4 sm:p-6">
-              <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                <Stat label="checklist" value={`${doneCount} / ${allTasks.length}`} pct={pct(doneCount, allTasks.length)} />
-                <Stat label="problems solved" value={`${solvedCount} / ${solveTasks.length}`} pct={pct(solvedCount, solveTasks.length)} />
-              </div>
-              <p className="text-xs text-[#a67a9c] mt-3">Click a circle once for done, twice for tried but failed, three times to clear it.</p>
+              <Stat label="blind 75" value={`${b75Done} / ${blind75Count}`} pct={pct(b75Done, blind75Count)} />
             </div>
 
-            {modules.map((day, di) => {
-              const pastel = dayPastels[di % dayPastels.length];
-              const done = day.tasks.filter((t) => progress[t.id]?.done).length;
-              const open = !!openDays[day.id];
-              return (
-                <div key={day.id} className="bubble" style={{ background: pastel.bg, borderColor: pastel.border, boxShadow: `0 6px 0 ${pastel.border}` }}>
-                  <button onClick={() => setOpenDays((p) => ({ ...p, [day.id]: !open }))} className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3">
-                      <div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-bold text-sm text-[#a67a9c]">{di + 1} of {modules.length}</span>
-                          {done === day.tasks.length && <span className="tag bg-[#bff0d6] text-[#1f6b48]">done</span>}
+            {(() => {
+              let offset = 0;
+              return blind75.map((cat, ci) => {
+                const start = offset;
+                offset += cat.problems.length;
+                const pastel = dayPastels[ci % dayPastels.length];
+                const done = cat.problems.filter((p) => progress[b75Key(p)]?.done).length;
+                return (
+                  <div key={cat.name} className="bubble p-4 sm:p-5" style={{ background: pastel.bg, borderColor: pastel.border, boxShadow: `0 6px 0 ${pastel.border}` }}>
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
+                      <h2 className="text-base font-bold">{cat.name}</h2>
+                      <div className="text-right shrink-0">
+                        <div className="text-sm font-bold">
+                          {done}/{cat.problems.length}
                         </div>
-                        <div className="text-base font-bold mt-0.5">{day.theme}</div>
+                        <div className="bar w-24 mt-1" style={{ background: "#ffffffaa" }}>
+                          <div style={{ width: `${pct(done, cat.problems.length)}%` }} />
+                        </div>
                       </div>
+                    </div>
+                    <ul className="space-y-2 mt-3 rounded-3xl bg-white/70 p-3 sm:p-4">
+                      {cat.problems.map((p, pi) => {
+                        const state = stateOf(progress[b75Key(p)]);
+                        return (
+                          <li key={p.slug} className="flex items-start gap-3 text-sm">
+                            <button
+                              onClick={() => cycleB75(p)}
+                              title={state === "empty" ? "click: done" : state === "done" ? "click: tried but failed" : "click: clear"}
+                              aria-label={`state: ${state}`}
+                              className={`check mt-0.5 ${state === "done" ? "on" : state === "tried" ? "tried" : ""}`}
+                            >
+                              {state === "done" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                              {state === "tried" && <X className="w-3.5 h-3.5" strokeWidth={3} />}
+                            </button>
+                            <div className="flex items-center gap-2 flex-wrap min-w-0">
+                              <span className="text-[11px] font-bold text-[#a67a9c] w-7 shrink-0">{start + pi + 1}.</span>
+                              <span className={state === "done" ? "line-through text-[#a67a9c]" : state === "tried" ? "text-[#b56a00]" : ""}>
+                                {p.title} <span className="text-[11px] text-[#a67a9c]">LC {p.num}</span>
+                              </span>
+                              {p.premium && <span className="tag bg-[#fff1c2] text-[#8a6500]">premium</span>}
+                              <a href={leetcodeUrl(p.slug)} target="_blank" rel="noreferrer" className="text-[#c2407f] font-bold inline-flex items-center gap-1 hover:underline">
+                                open
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              });
+            })()}
+          </>
+        )}
+
+        {/* ML RESEARCHER */}
+        {view === "ml" && (
+          <>
+            <div className="bubble p-4 sm:p-6">
+              <Stat
+                label="topics you know cold"
+                value={`${mlKnown} / ${mlTopicCount}`}
+                pct={pct(mlKnown, mlTopicCount)}
+                hint={mlRefresh > 0 ? `plus ${mlRefresh} marked for a refresher` : undefined}
+              />
+            </div>
+
+            {mlSections.map((sec, si) => {
+              const pastel = dayPastels[si % dayPastels.length];
+              const know = sec.topics.filter((t) => mlStateOf(progress[t.id]) === "know").length;
+              const refresh = sec.topics.filter((t) => mlStateOf(progress[t.id]) === "refresh").length;
+              const open = !!openMl[sec.id];
+              return (
+                <div key={sec.id} className="bubble" style={{ background: pastel.bg, borderColor: pastel.border, boxShadow: `0 6px 0 ${pastel.border}` }}>
+                  <button onClick={() => setOpenMl((p) => ({ ...p, [sec.id]: !open }))} className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-base font-bold">{sec.name}</span>
+                        {know === sec.topics.length && <span className="tag bg-[#bff0d6] text-[#1f6b48]">done</span>}
+                      </div>
+                      {refresh > 0 && <div className="text-[11px] text-[#8a8499] font-bold mt-0.5">{refresh} to refresh</div>}
                     </div>
                     <div className="text-right shrink-0">
                       <div className="text-sm font-bold">
-                        {done}/{day.tasks.length}
+                        {know}/{sec.topics.length}
                       </div>
                       <div className="bar w-24 mt-1" style={{ background: "#ffffffaa" }}>
-                        <div style={{ width: `${pct(done, day.tasks.length)}%` }} />
+                        <div style={{ width: `${pct(know, sec.topics.length)}%` }} />
                       </div>
                     </div>
                   </button>
 
                   {open && (
-                    <div className="px-4 sm:px-5 pb-5 space-y-4">
-                      <p className="text-sm text-[#7a5a74] italic">{day.why}</p>
-                      {sections.map((sec) => {
-                        const list = day.tasks.filter((t) => t.kind === sec.kind);
-                        if (list.length === 0) return null;
-                        const secDone = list.filter((t) => progress[t.id]?.done).length;
-                        return (
-                          <div key={sec.kind} className="rounded-3xl bg-white/70 p-3 sm:p-4">
-                            <div className="flex items-baseline gap-2 mb-2 flex-wrap">
-                              <h3 className="text-sm font-bold">
-                                {sec.heading}
-                              </h3>
-                              <span className="text-[11px] text-[#a67a9c] font-bold">
-                                {secDone}/{list.length}
-                              </span>
-                              {sec.blurb && <span className="text-[11px] text-[#a67a9c]">· {sec.blurb}</span>}
-                            </div>
-                            <ul className="space-y-2">
-                              {list.map((task) => {
-                                const state = stateOf(progress[task.id]);
-                                const checked = state === "done";
-                                const href = taskHref(task);
-                                const linkText = task.kattis ?? task.leetcode ?? task.hackerrank ?? "link";
-                                return (
-                                  <li key={task.id} className="flex items-start gap-3 text-sm">
-                                    <button
-                                      onClick={() => cycleTask(task)}
-                                      title={state === "empty" ? "click: done" : state === "done" ? "click: tried but failed" : "click: clear"}
-                                      aria-label={`state: ${state}`}
-                                      className={`check mt-0.5 ${state === "done" ? "on" : state === "tried" ? "tried" : ""}`}
-                                    >
-                                      {state === "done" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
-                                      {state === "tried" && <X className="w-3.5 h-3.5" strokeWidth={3} />}
-                                    </button>
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex items-center gap-2 flex-wrap">
-                                        <span className={`tag ${kindColor[task.kind]}`}>{kindLabel[task.kind]}</span>
-                                        <span className={checked ? "line-through text-[#a67a9c]" : state === "tried" ? "text-[#b56a00]" : task.important ? "font-bold" : ""}>{task.important ? "⭐ " : ""}{task.title}</span>
-                                        {href && (
-                                          <a href={href} target="_blank" rel="noreferrer" className="text-[#c2407f] font-bold inline-flex items-center gap-1 hover:underline">
-                                            {linkText}
-                                            <ExternalLink className="w-3 h-3" />
-                                          </a>
-                                        )}
-                                      </div>
-                                      {task.detail && <p className="text-xs text-[#7a5a74] mt-1">{task.detail}</p>}
-                                    </div>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </div>
-                        );
-                      })}
-                      <div>
-                        <label className="text-xs font-bold block mb-1 ml-2">notes for this topic (what tripped you up, what to put in the reference doc)</label>
-                        <textarea value={noteDrafts[day.id] ?? ""} onChange={(e) => setNoteDrafts((p) => ({ ...p, [day.id]: e.target.value }))} rows={3} className="w-full text-sm font-mono" />
-                        <button
-                          onClick={() => saveDayNote(day)}
-                          disabled={(noteDrafts[day.id] ?? "") === (progress[`note:${day.id}`]?.notes ?? "")}
-                          className="pill px-3 py-1 text-xs font-bold mt-1 disabled:opacity-50"
-                        >
-                          save note
-                        </button>
-                      </div>
+                    <div className="px-4 sm:px-5 pb-5 space-y-3">
+                      {sec.blurb && <p className="text-sm text-[#7a5a74] italic">{sec.blurb}</p>}
+                      <ul className="space-y-2 rounded-3xl bg-white/70 p-3 sm:p-4">
+                        {sec.topics.map((t) => {
+                          const state = mlStateOf(progress[t.id]);
+                          return (
+                            <li key={t.id} className="flex items-start gap-3 text-sm">
+                              <button
+                                onClick={() => cycleMl(t)}
+                                title={state === "empty" ? "click: know it" : state === "know" ? "click: needs a refresher" : "click: clear"}
+                                aria-label={`state: ${state}`}
+                                className={`check mt-0.5 ${state === "know" ? "on" : state === "refresh" ? "refresh" : ""}`}
+                              >
+                                {state !== "empty" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                              </button>
+                              <div className="flex items-center gap-2 flex-wrap min-w-0">
+                                <span className={state === "know" ? "line-through text-[#a67a9c]" : state === "refresh" ? "text-[#8a8499]" : t.important ? "font-bold" : ""}>
+                                  {t.important ? "⭐ " : ""}
+                                  {t.title}
+                                </span>
+                                {t.links?.map((l) => (
+                                  <a
+                                    key={l.url}
+                                    href={l.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    title={l.tip}
+                                    className="text-[#c2407f] text-xs font-bold inline-flex items-center gap-1 hover:underline"
+                                  >
+                                    {l.label}
+                                    <ExternalLink className="w-3 h-3" />
+                                  </a>
+                                ))}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </div>
                   )}
                 </div>
               );
             })}
+          </>
+        )}
+
+        {/* TENSOR PUZZLES */}
+        {view === "tensors" && (
+          <>
+            <div className="bubble p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div className="flex-1 min-w-[220px]">
+                  <Stat label="tensor puzzles" value={`${tpDone} / ${tensorPuzzles.length}`} pct={pct(tpDone, tensorPuzzles.length)} />
+                  <p className="text-xs text-[#a67a9c] mt-3">
+                    Sasha Rush's 21 one-liners: reimplement each function with nothing but broadcasting. The Colab button opens the notebook ready to run in the browser, no setup.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 shrink-0">
+                  <a href={tensorPuzzlesColabUrl} target="_blank" rel="noreferrer" className="pill on px-3 py-1.5 text-sm font-bold flex items-center gap-2 text-[#8a2f5e]">
+                    <ExternalLink className="w-4 h-4" /> open in Colab
+                  </a>
+                  <a href={tensorPuzzlesRepoUrl} target="_blank" rel="noreferrer" className="pill px-3 py-1.5 text-sm font-bold flex items-center gap-2">
+                    <ExternalLink className="w-4 h-4" /> the repo
+                  </a>
+                </div>
+              </div>
+              <div className="mt-4 rounded-2xl bg-[#fff6fb] border-2 border-[#fbe3ef] p-3">
+                <div className="text-xs font-bold mb-1">the rules</div>
+                <ul className="text-xs space-y-1">
+                  {tensorPuzzleRules.map((r) => (
+                    <li key={r}>· {r}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="bubble p-4 sm:p-5" style={{ background: "#ece2ff", borderColor: "#c9b4f5", boxShadow: "0 6px 0 #c9b4f5" }}>
+              <ul className="space-y-2 rounded-3xl bg-white/70 p-3 sm:p-4">
+                {tensorPuzzles.map((p, pi) => {
+                  const state = stateOf(progress[p.id]);
+                  return (
+                    <li key={p.id} className="flex items-start gap-3 text-sm">
+                      <button
+                        onClick={() => cycleTp(p)}
+                        title={state === "empty" ? "click: done" : state === "done" ? "click: tried but failed" : "click: clear"}
+                        aria-label={`state: ${state}`}
+                        className={`check mt-0.5 ${state === "done" ? "on" : state === "tried" ? "tried" : ""}`}
+                      >
+                        {state === "done" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                        {state === "tried" && <X className="w-3.5 h-3.5" strokeWidth={3} />}
+                      </button>
+                      <div className="flex items-baseline gap-2 flex-wrap min-w-0">
+                        <span className="text-[11px] font-bold text-[#a67a9c] w-6 shrink-0">{pi + 1}.</span>
+                        <code className={`font-bold ${state === "done" ? "line-through text-[#a67a9c]" : state === "tried" ? "text-[#b56a00]" : ""}`}>{p.name}</code>
+                        <span className="text-xs text-[#7a5a74]">{p.what}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </>
         )}
 
@@ -607,7 +668,6 @@ const Ukiepc = () => {
                 </button>
                 <input value={solveNotes} onChange={(e) => setSolveNotes(e.target.value)} placeholder="notes: the trick, the bug, what to remember" className="sm:col-span-6" />
               </div>
-              <p className="text-xs text-[#a67a9c] mt-2">An accepted log entry for a problem in the plan marks it done; any other result marks it tried.</p>
             </div>
 
             {topicStats.length > 0 && (
@@ -679,106 +739,6 @@ const Ukiepc = () => {
           </>
         )}
 
-        {/* RESOURCES */}
-        {view === "resources" && (
-          <>
-            <div className="bubble p-4 sm:p-6 no-print">
-              <h2 className="font-bold text-base mb-1">the important bits from every page in the plan</h2>
-              <p className="text-sm text-[#7a5a74]">
-                Each card summarises one tutorial linked from the plan: what it says, what to remember, where people go wrong. Read the card, then open the page only if you want the proofs.
-              </p>
-            </div>
-            {resourceNotes.length === 0 && <p className="text-sm text-center text-[#a67a9c]">summaries coming soon </p>}
-            {resourceGroups.map((g) => {
-              const notes = resourceNotes.filter((n) => g.topics.includes(n.topic));
-              if (notes.length === 0) return null;
-              return (
-                <div key={g.label} className="space-y-3">
-                  <h2 className="font-bold text-base ml-2 mt-2">
-                    {g.label}
-                  </h2>
-                  {notes.map((n) => (
-                    <div key={n.url} className="bubble p-4 sm:p-5 print-block">
-                      <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                        <h3 className="font-bold text-sm">{n.title}</h3>
-                        <a href={n.url} target="_blank" rel="noreferrer" className="text-xs text-[#c2407f] font-bold inline-flex items-center gap-1 hover:underline">
-                          open page <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </div>
-                      <ul className="text-sm mt-2 space-y-1 list-disc pl-5">
-                        {n.keyIdeas.map((k) => (
-                          <li key={k}>{k}</li>
-                        ))}
-                      </ul>
-                      {n.pitfalls.length > 0 && (
-                        <div className="mt-3 rounded-2xl bg-[#fff6fb] border-2 border-[#fbe3ef] p-3">
-                          <div className="text-xs font-bold mb-1">watch out</div>
-                          <ul className="text-xs space-y-1">
-                            {n.pitfalls.map((p) => (
-                              <li key={p}>· {p}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      {n.snippet && (
-                        <pre className="p-3 text-xs overflow-x-auto leading-snug mt-3">
-                          <code>{n.snippet}</code>
-                        </pre>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
-          </>
-        )}
-
-        {/* CHEAT SHEET */}
-        {view === "cheatsheet" && (
-          <>
-            <div className="bubble p-4 sm:p-6 no-print flex items-start justify-between gap-3 flex-wrap">
-              <div className="text-sm">
-                <h2 className="font-bold text-base mb-1">team reference document</h2>
-                <p className="text-[#7a5a74]">
-                  The real contest TRD is a proper A4 PDF (16 sections, Python 3.9 / PyPy-safe, within the 25-page limit) — print that one and bring it. The cards below are the quick on-screen version.
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <a href="/ukiepc-trd.pdf" target="_blank" rel="noreferrer" className="pill on px-3 py-1.5 text-sm font-bold flex items-center gap-2 text-[#8a2f5e]">
-                  <ExternalLink className="w-4 h-4" /> open the PDF
-                </a>
-                <button onClick={() => window.print()} className="pill px-3 py-1.5 text-sm font-bold flex items-center gap-2">
-                  <Printer className="w-4 h-4" /> print this tab
-                </button>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {snippets.map((s) => (
-                <div key={s.title} className="bubble p-4 print-block">
-                  <h3 className="font-bold text-sm mb-2">{s.title}</h3>
-                  <pre className="p-3 text-xs overflow-x-auto leading-snug">
-                    <code>{s.code}</code>
-                  </pre>
-                </div>
-              ))}
-              {modules.some((d) => (progress[`note:${d.id}`]?.notes ?? "").trim()) && (
-                <div className="bubble p-4 print-block md:col-span-2">
-                  <h3 className="font-bold text-sm mb-2">your notes</h3>
-                  {modules.map((d) => {
-                    const n = (progress[`note:${d.id}`]?.notes ?? "").trim();
-                    if (!n) return null;
-                    return (
-                      <div key={d.id} className="mb-2">
-                        <div className="text-xs font-bold">{d.theme}</div>
-                        <pre className="text-xs whitespace-pre-wrap p-2">{n}</pre>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </>
-        )}
       </div>
     </div>
   );

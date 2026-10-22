@@ -1,5 +1,6 @@
-// Training plan for UKIEPC 2026, grouped by topic in the recommended order (UK & Ireland Programming Contest)
-// Contest: Saturday 17 October 2026, 11:00–16:00 BST. https://ukiepc.info/2026/
+// Training plan for code competitions (ICPC-style contests), grouped by topic in the recommended order.
+// Originally built for UKIEPC 2026 (Saturday 17 October 2026, 11:00–16:00 BST, https://ukiepc.info/2026/),
+// which is why the file and the Supabase tables keep the ukiepc name.
 // Progress keys are task ids, so reordering or regrouping tasks never loses progress.
 // Progress is stored in Supabase (tables ukiepc_progress / ukiepc_solves).
 
@@ -107,7 +108,7 @@ export const modules: Module[] = [
   {
     id: "m-greedy",
     theme: "Greedy, prefix sums and two pointers",
-    why: "These solve most of the easy half of a UKIEPC set. Before coding a greedy, say the exchange argument in one sentence. If you cannot, it is probably DP.",
+    why: "These solve most of the easy half of a contest set. Before coding a greedy, say the exchange argument in one sentence. If you cannot, it is probably DP.",
     tasks: [
       { id: "d2-prefix", kind: "read", title: "USACO Guide: Prefix sums", url: "https://usaco.guide/silver/prefix-sums?lang=py" },
       { id: "d2-tp", kind: "read", title: "USACO Guide: Two pointers / sliding window", url: "https://usaco.guide/silver/two-pointers?lang=py" },
@@ -124,7 +125,7 @@ export const modules: Module[] = [
   {
     id: "m-graphs",
     theme: "Graphs: BFS, DFS, components, grids, union-find",
-    why: "Almost every UKIEPC set has a grid or graph problem in its easy-medium band. BFS on a grid with a direction array should be something you can type without thinking.",
+    why: "Almost every contest set has a grid or graph problem in its easy-medium band. BFS on a grid with a direction array should be something you can type without thinking.",
     tasks: [
       { id: "d3-read", important: true, kind: "read", title: "USACO Guide: Graph traversal (adjacency lists, BFS, DFS, components)", url: "https://usaco.guide/silver/graph-traversal?lang=py" },
       { id: "d3-ff", kind: "read", title: "USACO Guide: Flood fill (BFS/DFS on a grid)", url: "https://usaco.guide/silver/flood-fill?lang=py" },
@@ -236,7 +237,7 @@ export const modules: Module[] = [
     theme: "Mock contest and reference document",
     why: "Run one past set under contest conditions to practise the thing you cannot learn from problems: deciding what to work on next. Then print the reference document.",
     tasks: [
-      { id: "d6-mock", important: true, kind: "do", title: "Mock contest: UKIEPC 2024 problem set, 3 hours, timer on, printed notes only, no internet except the judge", detail: "Problem sets and solutions for every past year are linked from the Past Contests section. The 2024 set is mirrored in the Codeforces Gym and the problems are on Kattis under the source 'UK and Ireland Programming Contest (UKIEPC) 2024'. Read all problems in the first 15 minutes, rank them, start with the easiest. Afterwards read the solution slides for everything you did not solve.", url: "https://ukiepc.info/2024/" },
+      { id: "d6-mock", important: true, kind: "do", title: "Mock contest: a full past set (UKIEPC 2024 works well), 3 hours, timer on, printed notes only, no internet except the judge", detail: "Problem sets and solutions for every past UKIEPC year are linked from the Past Contests section. The 2024 set is mirrored in the Codeforces Gym and the problems are on Kattis under the source 'UK and Ireland Programming Contest (UKIEPC) 2024'. Read all problems in the first 15 minutes, rank them, start with the easiest. Afterwards read the solution slides for everything you did not solve.", url: "https://ukiepc.info/2024/" },
       { id: "d6-trd", important: true, kind: "do", title: "Finalise and print the Team Reference Document (≤25 A4 pages): template, BFS/Dijkstra/DSU/sieve/DP snippets, Python gotchas", detail: "The Cheat Sheet tab has a print button. Add anything you looked up more than once this week." },
       { id: "d6-rest", kind: "do", title: "The night before: stop by 20:00. Sleep matters more than one more problem" },
     ],
