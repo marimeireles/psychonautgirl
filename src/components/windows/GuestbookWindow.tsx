@@ -284,6 +284,9 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
   const entryPages = Math.max(1, 1 + Math.ceil(Math.max(0, sides.length - 1) / 2));
   // one more spread past the entries: the inside of the back cover
   const totalPages = entryPages + 1;
+  // Only written sides count as pages (the form plus every packed side); the empty
+  // right side of a half-filled last spread and the back cover carry no number.
+  const numberedPages = Math.max(2, 1 + sides.length);
   const onCover = page === totalPages - 1;
 
   useEffect(() => {
@@ -501,14 +504,18 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
     );
   };
 
-  const renderPageNav = (isRight: boolean) => (
-    <div
-      className="text-center mt-auto pt-2 flex-shrink-0"
-      style={{ color: INK_FADED, fontFamily: scriptDisplay, fontSize: "0.75em", position: "relative", zIndex: 5 }}
-    >
-      {page * 2 + (isRight ? 2 : 1)} of {totalPages * 2}
-    </div>
-  );
+  const renderPageNav = (isRight: boolean) => {
+    const n = page * 2 + (isRight ? 2 : 1);
+    if (n > numberedPages) return null;
+    return (
+      <div
+        className="text-center mt-auto pt-2 flex-shrink-0"
+        style={{ color: INK_FADED, fontFamily: scriptDisplay, fontSize: "0.75em", position: "relative", zIndex: 5 }}
+      >
+        {n} of {numberedPages}
+      </div>
+    );
+  };
 
   // A dog-ear on the page's outer bottom corner. Click it to turn the page, like the newspaper's corner.
   const renderEar = (dir: "next" | "prev") => {
@@ -859,7 +866,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
                   ];
                   return renderEntries(combined);
                 })()}
-            {totalPages > 1 && renderPageNav(true)}
+            {totalPages > 1 && renderPageNav(page * 2 + 2 <= numberedPages)}
             {renderEar("prev")}
             {renderEar("next")}
           </div>
