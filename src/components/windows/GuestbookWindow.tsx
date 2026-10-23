@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
+import { Fragment, useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
@@ -91,10 +91,12 @@ const weather = (text: string, seed: number) => {
       }
       return <span key={ci} style={style}>{ch}</span>;
     });
+    // The space must sit OUTSIDE the nowrap span: inside it, the line has no legal
+    // break point at all and the whole message renders as one clipped line.
     return (
-      <span key={wi} style={{ whiteSpace: breakable ? "normal" : "nowrap" }}>
-        {glyphs}{" "}
-      </span>
+      <Fragment key={wi}>
+        <span style={{ whiteSpace: breakable ? "normal" : "nowrap" }}>{glyphs}</span>{" "}
+      </Fragment>
     );
   });
 };
@@ -407,6 +409,7 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
             fontFamily: "'Nothing You Could Do', cursive",
             fontSize: "1.15em",
           }}
+          maxLength={40}
           required
         />
       </div>
@@ -429,8 +432,14 @@ export const GuestbookWindow = ({ onClose, onCoverChange }: GuestbookWindowProps
             backgroundImage: `repeating-linear-gradient(180deg, transparent 0 calc(1.6em - 1px), ${INK_FADED}55 calc(1.6em - 1px) 1.6em)`,
           }}
           rows={3}
+          maxLength={300}
           required
         />
+        {message.length >= 240 && (
+          <div className="text-right" style={{ color: INK_FADED, fontFamily: scriptDisplay, fontSize: "0.75em" }}>
+            {message.length} of 300
+          </div>
+        )}
       </div>
       {/* an ink-drawn oval, as if someone circled the words by hand */}
       <button
