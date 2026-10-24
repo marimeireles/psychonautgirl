@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ExternalLink, Trash2, Check, X } from "lucide-react";
+import { ExternalLink, Check, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { topics, kattisUrl, leetcodeUrl, type Task } from "@/data/ukiepc";
+import { leetcodeUrl, type Task } from "@/data/ukiepc";
 import { blind75, blind75Count, b75Key, type B75Problem } from "@/data/blind75";
 import { mlSections, mlTopicCount, type MlTopic } from "@/data/mlResearcher";
 import { tensorPuzzles, tensorPuzzleRules, tensorPuzzlesRepoUrl, tensorPuzzlesColabUrl, type TensorPuzzle } from "@/data/tensorPuzzles";
+import { roadmapNodes, roadmapEdges, roadmapY, ROADMAP_W, ROADMAP_H, type RoadmapNode } from "@/data/neetcode";
 
-type View = "blind75" | "ml" | "tensors" | "log";
+type View = "blind75" | "ml" | "tensors" | "roadmap";
 
 interface User {
   username: string;
@@ -21,17 +22,6 @@ interface ProgressRow {
   done: boolean;
   notes: string;
   updated_at: string;
-}
-
-interface SolveRow {
-  id: number;
-  username: string;
-  slug: string;
-  topic: string | null;
-  result: string;
-  minutes: number | null;
-  notes: string;
-  solved_at: string;
 }
 
 const USER_STORAGE_KEY = "ukiepc_user";
@@ -133,20 +123,13 @@ const Ukiepc = () => {
   const [loading, setLoading] = useState(false);
   const [dbMissing, setDbMissing] = useState(false);
   const [progress, setProgress] = useState<Record<string, ProgressRow>>({});
-  const [solves, setSolves] = useState<SolveRow[]>([]);
   const [openMl, setOpenMl] = useState<Record<string, boolean>>({ implement: true });
+  const [openNode, setOpenNode] = useState<RoadmapNode | null>(null);
 
   // auth form
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [nameInput, setNameInput] = useState("");
   const [authBusy, setAuthBusy] = useState(false);
-
-  // solve-log form
-  const [slug, setSlug] = useState("");
-  const [topic, setTopic] = useState(topics[0]);
-  const [result, setResult] = useState("AC");
-  const [minutes, setMinutes] = useState("");
-  const [solveNotes, setSolveNotes] = useState("");
 
   useEffect(() => {
     if (user) load(user);
@@ -156,20 +139,15 @@ const Ukiepc = () => {
   const load = async (u: User) => {
     setLoading(true);
     try {
-      const [{ data: p, error: pe }, { data: s, error: se }] = await Promise.all([
-        supabase.from("ukiepc_progress").select("*").eq("username", u.username),
-        supabase.from("ukiepc_solves").select("*").eq("username", u.username).order("solved_at", { ascending: false }),
-      ]);
-      if (isMissingTable(pe) || isMissingTable(se)) {
+      const { data: p, error: pe } = await supabase.from("ukiepc_progress").select("*").eq("username", u.username);
+      if (isMissingTable(pe)) {
         setDbMissing(true);
         return;
       }
       if (pe) throw pe;
-      if (se) throw se;
       const map: Record<string, ProgressRow> = {};
       (p ?? []).forEach((row: ProgressRow) => (map[row.key] = row));
       setProgress(map);
-      setSolves((s ?? []) as SolveRow[]);
     } catch (e) {
       console.error(e);
       toast.error("Could not load your progress");
@@ -246,7 +224,6 @@ const Ukiepc = () => {
     }
     setUser(null);
     setProgress({});
-    setSolves([]);
     setView("blind75");
   };
 
@@ -282,58 +259,32 @@ const Ukiepc = () => {
     saveProgress(t.id, state !== "empty", state === "refresh" ? "refresh" : "");
   };
 
-  const addSolve = async () => {
-    if (!user) return;
-    const cleanSlug = slug.trim().replace(/^https?:\/\/open\.kattis\.com\/problems\//, "").replace(/\/.*$/, "");
-    if (!cleanSlug) {
-      toast.error("Enter a Kattis problem slug or URL");
-      return;
-    }
-    const row = {
-      username: user.username,
-      slug: cleanSlug,
-      topic,
-      result,
-      minutes: minutes ? parseInt(minutes, 10) : null,
-      notes: solveNotes,
-    };
-    const { data, error } = await supabase.from("ukiepc_solves").insert([row]).select().single();
-    if (error) {
-      console.error(error);
-      toast.error("Could not log the problem");
-      return;
-    }
-    setSolves((prev) => [data as SolveRow, ...prev]);
-    setSlug("");
-    setMinutes("");
-    setSolveNotes("");
-    toast.success(result === "AC" ? "Accepted, logged" : "Logged");
-  };
-
-  const deleteSolve = async (id: number) => {
-    const { error } = await supabase.from("ukiepc_solves").delete().eq("id", id);
-    if (error) {
-      toast.error("Could not delete");
-      return;
-    }
-    setSolves((prev) => prev.filter((s) => s.id !== id));
-  };
-
   const b75Done = blind75.reduce((n, c) => n + c.problems.filter((p) => progress[b75Key(p)]?.done).length, 0);
   const mlKnown = mlSections.reduce((n, s) => n + s.topics.filter((t) => mlStateOf(progress[t.id]) === "know").length, 0);
   const mlRefresh = mlSections.reduce((n, s) => n + s.topics.filter((t) => mlStateOf(progress[t.id]) === "refresh").length, 0);
   const tpDone = tensorPuzzles.filter((p) => progress[p.id]?.done).length;
 
-  const topicStats = useMemo(() => {
-    const m: Record<string, { ac: number; tries: number }> = {};
-    solves.forEach((s) => {
-      const k = s.topic ?? "other";
-      m[k] = m[k] ?? { ac: 0, tries: 0 };
-      m[k].tries += 1;
-      if (s.result === "AC") m[k].ac += 1;
-    });
-    return Object.entries(m).sort((a, b) => b[1].tries - a[1].tries);
-  }, [solves]);
+  // ---------- neetcode roadmap ----------
+  const b75BySlug = useMemo(() => {
+    const m: Record<string, B75Problem> = {};
+    blind75.forEach((c) => c.problems.forEach((p) => (m[p.slug] = p)));
+    return m;
+  }, []);
+
+  const nodeById = useMemo(() => Object.fromEntries(roadmapNodes.map((n) => [n.id, n])), []);
+
+  const nodeProblems = (n: RoadmapNode) => n.slugs.map((s) => b75BySlug[s]).filter(Boolean);
+  const nodeStats = (n: RoadmapNode) => {
+    const probs = nodeProblems(n);
+    return { done: probs.filter((p) => progress[b75Key(p)]?.done).length, total: probs.length };
+  };
+  // Esc tucks the topic popup away
+  useEffect(() => {
+    if (!openNode) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenNode(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openNode]);
 
   // ---------- auth screen ----------
   if (!user) {
@@ -418,7 +369,7 @@ const Ukiepc = () => {
                 ["blind75", "blind 75"],
                 ["ml", "ml researcher"],
                 ["tensors", "tensor puzzles"],
-                ["log", "solve log"],
+                ["roadmap", "neetcode"],
               ] as [View, string][]
             ).map(([v, label]) => (
               <button key={v} onClick={() => setView(v)} className={`pill px-3.5 py-1.5 text-sm font-bold ${view === v ? "on" : ""}`}>
@@ -645,101 +596,144 @@ const Ukiepc = () => {
           </>
         )}
 
-        {/* SOLVE LOG */}
-        {view === "log" && (
+        {/* NEETCODE ROADMAP */}
+        {view === "roadmap" && (
           <>
-            <div className="bubble p-4 sm:p-6">
-              <h2 className="font-bold mb-3 text-base">log a problem</h2>
-              <div className="grid sm:grid-cols-6 gap-2 text-sm">
-                <input value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="Kattis slug or URL" className="sm:col-span-2" />
-                <select value={topic} onChange={(e) => setTopic(e.target.value)}>
-                  {topics.map((t) => (
-                    <option key={t}>{t}</option>
-                  ))}
-                </select>
-                <select value={result} onChange={(e) => setResult(e.target.value)}>
-                  {["AC", "WA", "TLE", "RTE", "gave up"].map((r) => (
-                    <option key={r}>{r}</option>
-                  ))}
-                </select>
-                <input value={minutes} onChange={(e) => setMinutes(e.target.value.replace(/\D/g, ""))} placeholder="minutes" inputMode="numeric" />
-                <button onClick={addSolve} className="pill on px-3 py-1.5 font-bold text-[#8a2f5e]">
-                  log it
-                </button>
-                <input value={solveNotes} onChange={(e) => setSolveNotes(e.target.value)} placeholder="notes: the trick, the bug, what to remember" className="sm:col-span-6" />
-              </div>
-            </div>
-
-            {topicStats.length > 0 && (
-              <div className="bubble p-4 sm:p-6">
-                <h2 className="font-bold mb-3 text-base">by topic</h2>
-                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                  {topicStats.map(([t, s]) => (
-                    <div key={t} className="flex items-center gap-2">
-                      <span className="w-32 shrink-0">{t}</span>
-                      <div className="bar flex-1">
-                        <div style={{ width: `${pct(s.ac, s.tries)}%` }} />
-                      </div>
-                      <span className="w-16 text-right text-xs text-[#a67a9c]">
-                        {s.ac}/{s.tries} AC
+            <div className="bubble p-2 sm:p-4 overflow-x-auto">
+              <div className="relative mx-auto" style={{ width: ROADMAP_W, height: ROADMAP_H }}>
+                <svg className="absolute inset-0 pointer-events-none" width={ROADMAP_W} height={ROADMAP_H}>
+                  <defs>
+                    <marker id="rm-arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#d8b6e8" />
+                    </marker>
+                  </defs>
+                  {roadmapEdges.map(([a, b]) => {
+                    const na = nodeById[a];
+                    const nb = nodeById[b];
+                    const y1 = roadmapY(na.row) + 25;
+                    const y2 = roadmapY(nb.row) - 29;
+                    return (
+                      <path
+                        key={`${a}-${b}`}
+                        d={`M ${na.x} ${y1} C ${na.x} ${y1 + 38}, ${nb.x} ${y2 - 38}, ${nb.x} ${y2}`}
+                        fill="none"
+                        stroke="#d8b6e8"
+                        strokeWidth={2.5}
+                        markerEnd="url(#rm-arrow)"
+                      />
+                    );
+                  })}
+                </svg>
+                {roadmapNodes.map((n) => {
+                  const { done, total } = nodeStats(n);
+                  const complete = total > 0 && done === total;
+                  return (
+                    <button
+                      key={n.id}
+                      onClick={() => setOpenNode(n)}
+                      className={`pill absolute px-3.5 py-1.5 text-center ${complete ? "on" : ""}`}
+                      style={{ left: n.x, top: roadmapY(n.row), transform: "translate(-50%, -50%)" }}
+                      title={`${n.name}: ${done}/${total} done`}
+                    >
+                      <span className="block text-[12.5px] font-bold leading-tight whitespace-nowrap">
+                        {complete ? "✓ " : ""}
+                        {n.name}
                       </span>
-                    </div>
-                  ))}
-                </div>
+                      <span className="flex items-center gap-1.5 mt-1">
+                        <span className="bar flex-1 block" style={{ height: 6 }}>
+                          <span
+                            className="block h-full rounded-full"
+                            style={{ width: `${pct(done, total)}%`, background: "linear-gradient(90deg, #ff9ecb, #c7a6ff, #9ee7ff)" }}
+                          />
+                        </span>
+                        <span className="text-[10px] font-bold text-[#a67a9c]">
+                          {done}/{total}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-            )}
-
-            <div className="bubble p-4 sm:p-6">
-              <h2 className="font-bold mb-3 text-base">
-                 history <span className="text-[#a67a9c] font-normal text-sm">({solves.length})</span>
-              </h2>
-              {solves.length === 0 ? (
-                <p className="text-sm text-[#a67a9c] italic">Nothing logged yet. Solve Hello World and come back </p>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-xs text-[#a67a9c]">
-                        <th className="py-1 pr-2">when</th>
-                        <th className="py-1 pr-2">problem</th>
-                        <th className="py-1 pr-2">topic</th>
-                        <th className="py-1 pr-2">result</th>
-                        <th className="py-1 pr-2">min</th>
-                        <th className="py-1 pr-2">notes</th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {solves.map((s) => (
-                        <tr key={s.id} className="border-t border-[#fbe3ef] align-top">
-                          <td className="py-1.5 pr-2 whitespace-nowrap text-xs text-[#a67a9c]">
-                            {new Date(s.solved_at).toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
-                          </td>
-                          <td className="py-1.5 pr-2">
-                            <a href={kattisUrl(s.slug)} target="_blank" rel="noreferrer" className="text-[#c2407f] font-bold hover:underline">
-                              {s.slug}
-                            </a>
-                          </td>
-                          <td className="py-1.5 pr-2">{s.topic}</td>
-                          <td className={`py-1.5 pr-2 font-bold ${s.result === "AC" ? "text-[#1f6b48]" : "text-[#c2407f]"}`}>{s.result}</td>
-                          <td className="py-1.5 pr-2">{s.minutes ?? ""}</td>
-                          <td className="py-1.5 pr-2 text-xs">{s.notes}</td>
-                          <td className="py-1.5">
-                            <button onClick={() => deleteSolve(s.id)} className="text-[#a67a9c] hover:text-[#c2407f]" title="Delete">
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
             </div>
           </>
         )}
 
       </div>
+
+      {/* roadmap topic popup */}
+      {openNode && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(43, 24, 52, 0.35)" }}
+          onMouseDown={(e) => e.target === e.currentTarget && setOpenNode(null)}
+        >
+          <div className="bubble w-full max-w-lg max-h-[82vh] overflow-y-auto p-5 sm:p-6">
+            {(() => {
+              const probs = nodeProblems(openNode);
+              const { done, total } = nodeStats(openNode);
+              return (
+                <>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h2 className="text-lg font-bold text-[#c2407f]">{openNode.name}</h2>
+                      <div className="text-xs font-bold text-[#a67a9c] mt-0.5">
+                        {done}/{total} done
+                      </div>
+                    </div>
+                    <button onClick={() => setOpenNode(null)} className="pill px-2.5 py-1 text-xs font-bold shrink-0" title="close (esc)">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="text-xs font-bold text-[#7a5a74] mb-1.5">learn</div>
+                    <div className="flex gap-2 flex-wrap">
+                      {openNode.resources.map((r) => (
+                        <a key={r.url} href={r.url} target="_blank" rel="noreferrer" className="pill px-3 py-1 text-xs font-bold inline-flex items-center gap-1.5 text-[#c2407f]">
+                          {r.label}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="text-xs font-bold text-[#7a5a74] mb-1.5">practice</div>
+                    <ul className="space-y-2 rounded-3xl bg-[#fff6fb] border-2 border-[#fbe3ef] p-3 sm:p-4">
+                      {probs.map((p) => {
+                        const state = stateOf(progress[b75Key(p)]);
+                        return (
+                          <li key={p.slug} className="flex items-start gap-3 text-sm">
+                            <button
+                              onClick={() => cycleB75(p)}
+                              title={state === "empty" ? "click: done" : state === "done" ? "click: tried but failed" : "click: clear"}
+                              aria-label={`state: ${state}`}
+                              className={`check mt-0.5 ${state === "done" ? "on" : state === "tried" ? "tried" : ""}`}
+                            >
+                              {state === "done" && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+                              {state === "tried" && <X className="w-3.5 h-3.5" strokeWidth={3} />}
+                            </button>
+                            <div className="flex items-center gap-2 flex-wrap min-w-0">
+                              <span className={state === "done" ? "line-through text-[#a67a9c]" : state === "tried" ? "text-[#b56a00]" : ""}>
+                                {p.title} <span className="text-[11px] text-[#a67a9c]">LC {p.num}</span>
+                              </span>
+                              {p.premium && <span className="tag bg-[#fff1c2] text-[#8a6500]">premium</span>}
+                              <a href={leetcodeUrl(p.slug)} target="_blank" rel="noreferrer" className="text-[#c2407f] font-bold inline-flex items-center gap-1 hover:underline">
+                                open
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
