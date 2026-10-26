@@ -7,9 +7,10 @@ import { leetcodeUrl, type Task } from "@/data/ukiepc";
 import { blind75, blind75Count, b75Key, type B75Problem } from "@/data/blind75";
 import { mlSections, mlTopicCount, type MlTopic } from "@/data/mlResearcher";
 import { tensorPuzzles, tensorPuzzleRules, tensorPuzzlesRepoUrl, tensorPuzzlesColabUrl, type TensorPuzzle } from "@/data/tensorPuzzles";
+import OopQuest from "@/components/OopQuest";
 import { roadmapNodes, roadmapEdges, roadmapY, ROADMAP_W, ROADMAP_H, type RoadmapNode } from "@/data/neetcode";
 
-type View = "blind75" | "ml" | "tensors" | "roadmap";
+type View = "blind75" | "ml" | "tensors" | "roadmap" | "oop";
 
 interface User {
   username: string;
@@ -370,6 +371,7 @@ const Ukiepc = () => {
                 ["ml", "ml researcher"],
                 ["tensors", "tensor puzzles"],
                 ["roadmap", "neetcode"],
+                ["oop", "POO"],
               ] as [View, string][]
             ).map(([v, label]) => (
               <button key={v} onClick={() => setView(v)} className={`pill px-3.5 py-1.5 text-sm font-bold ${view === v ? "on" : ""}`}>
@@ -658,6 +660,8 @@ const Ukiepc = () => {
           </>
         )}
 
+        {/* POO (OOP quest, in Portuguese) */}
+        {view === "oop" && <OopQuest progress={progress} saveProgress={saveProgress} />}
       </div>
 
       {/* roadmap topic popup */}
