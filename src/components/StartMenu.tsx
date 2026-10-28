@@ -12,6 +12,28 @@ interface StartMenuProps {
 export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  // Tap-to-open state for the folder submenus; hover still opens them on devices with a mouse.
+  const [openFolders, setOpenFolders] = useState<Set<string>>(new Set());
+  const toggleFolder = (name: string) =>
+    setOpenFolders((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+  // On phones the flyouts would run off-screen, so they expand inline under their folder instead.
+  // Hover classes are spelled out in full so Tailwind can find them.
+  const hoverOpen: Record<string, string> = {
+    programs: "[@media(hover:hover)]:group-hover/programs:block",
+    blogs: "[@media(hover:hover)]:group-hover/blogs:block",
+    interviews: "[@media(hover:hover)]:group-hover/interviews:block",
+  };
+  const submenuClass = (name: string, width: string) =>
+    `${openFolders.has(name) ? "block" : "hidden"} ${hoverOpen[name]} absolute left-full top-0 ml-1 ${width} win95-border bg-card shadow-2xl z-50 max-sm:static max-sm:ml-4 max-sm:w-auto max-sm:shadow-none`;
+
+  useEffect(() => {
+    if (!isOpen) setOpenFolders(new Set());
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,7 +63,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
   return (
     <div
       ref={menuRef}
-      className="fixed bottom-10 left-0 w-64 win95-border bg-card shadow-2xl z-50 animate-fade-in"
+      className="fixed bottom-10 left-0 w-64 win95-border bg-card shadow-2xl z-50 animate-fade-in max-sm:max-h-[calc(100dvh-3rem)] max-sm:overflow-y-auto"
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/30 to-accent/40 px-3 py-6 flex items-center gap-3 border-b-2 border-border">
@@ -55,14 +77,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
       <div className="p-1">
         {/* Programs Section with Submenu */}
         <div className="mb-1 relative group/programs">
-          <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
+          <button onClick={() => toggleFolder("programs")} className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
             <Folder className="w-4 h-4" />
             <span className="flex-1">Programs</span>
             <ChevronRight className="w-3 h-3 text-muted-foreground" />
           </button>
 
           {/* Submenu */}
-          <div className="hidden group-hover/programs:block absolute left-full top-0 ml-1 w-48 win95-border bg-card shadow-2xl z-50">
+          <div className={submenuClass("programs", "w-48")}>
             <div className="p-1">
               <MenuItem
                 icon="🎨"
@@ -122,12 +144,12 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
               />
               {/* Interviews folder (third-level flyout) */}
               <div className="relative group/interviews">
-                <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
+                <button onClick={() => toggleFolder("interviews")} className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
                   <span className="text-base">📁</span>
                   <span className="flex-1">Interviews</span>
                   <ChevronRight className="w-3 h-3 text-muted-foreground" />
                 </button>
-                <div className="hidden group-hover/interviews:block absolute left-full top-0 ml-1 w-52 win95-border bg-card shadow-2xl z-50">
+                <div className={submenuClass("interviews", "w-52")}>
                   <div className="p-1">
                     <MenuItem
                       icon="🏆"
@@ -158,14 +180,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
 
         {/* Blogs Section with Submenu */}
         <div className="mb-1 relative group/blogs">
-          <button className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
+          <button onClick={() => toggleFolder("blogs")} className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
             <Folder className="w-4 h-4" />
             <span className="flex-1">Blogs</span>
             <ChevronRight className="w-3 h-3 text-muted-foreground" />
           </button>
 
           {/* Submenu */}
-          <div className="hidden group-hover/blogs:block absolute left-full top-0 ml-1 w-56 win95-border bg-card shadow-2xl z-50">
+          <div className={submenuClass("blogs", "w-56")}>
             <div className="p-1">
               <MenuItem
                 icon="🏛️"
@@ -213,6 +235,16 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                 tooltip="Short texts and poems for the tender-hearted"
                 onClick={() => {
                   window.open('https://lettersfortheevanescents.mataroa.blog/', '_blank');
+                  onClose();
+                }}
+                showArrow={true}
+              />
+              <MenuItem
+                icon="🌀"
+                text="3l3ktr4's Cove"
+                tooltip="Schizo thoughts"
+                onClick={() => {
+                  window.open('https://3l3ktr4.mmm.page/', '_blank');
                   onClose();
                 }}
                 showArrow={true}
@@ -315,7 +347,7 @@ const MenuItem = ({ icon, text, onClick, showArrow = false, asLink = false, unde
       </button>
       {tooltip && (
         <div
-          className="hidden group-hover/item:block absolute left-full top-1/2 -translate-y-1/2 ml-2 w-48 win95-border bg-card px-2 py-1.5 text-xs shadow-2xl z-[60] pointer-events-none"
+          className="hidden [@media(hover:hover)]:group-hover/item:block absolute left-full top-1/2 -translate-y-1/2 ml-2 w-48 win95-border bg-card px-2 py-1.5 text-xs shadow-2xl z-[60] pointer-events-none"
         >
           {tooltip}
         </div>
