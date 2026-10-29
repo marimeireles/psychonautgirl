@@ -8,8 +8,10 @@ export interface NewsItem {
 const dataString =
 `Title|Date|Summary|Link
 Master's student at the University of Sussex|2026-09-28|Starting a master's in Artificial Life and Consciousness, where I'll be working on complexification: the evolution of learning, intelligence and sensemaking|https://www.sussex.ac.uk/research/centres/sussex-neuroscience/research/consciousness
+Joined Anil Seth's lab at the Sussex Centre for Consciousness Science|2026-10|Researching theoretical neuroscience|https://www.sussex.ac.uk/research/centres/sussex-centre-for-consciousness-science/
+Maths for AI Safety Workshop|2026-10-30|A weekend in Bonn using maths to explore problems in AI safety|https://safeaigermany.org/programmes/maths-workshop/
 2027 GoEMMI Winter School|2027 (upcoming)|I'll be there|
-Science of Consciousness Conference 2026|2026-10-11 (upcoming)|Poster accepted: The Sophistication of Minds: How Synergy Drives Emergence in the Brain|https://consciousness.arizona.edu/
+Science of Consciousness Conference 2026|2026-10-11|Poster accepted: The Sophistication of Minds: How Synergy Drives Emergence in the Brain|https://consciousness.arizona.edu/
 BlueDot Rapid Grantee|2026-10-01|A Spy in the Swarm: Testing Double Agents for Human Oversight|https://www.overleaf.com/project/6aadbfb4b37acd9be4f128a8/share#83aced967ad1aca9ac98cf19a2e04b821544d819c1ebb9f0
 FAST @ NeurIPS 2026|2026-09-30|Paper accepted: Toward collective intelligence: evolutionary pressures for cooperative language models|https://openreview.net/forum?id=q9FzHzVCrn
 Collective Intelligence Fellow|2026-07-10|Improving democracy at scale by giving disagreement the proper credit|https://www.cip.org/
