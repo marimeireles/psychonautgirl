@@ -8,6 +8,7 @@ export interface NewsItem {
 const dataString =
 `Title|Date|Summary|Link
 Master's student at the University of Sussex|2026-09-28|Starting a master's in Artificial Life and Consciousness, where I'll be working on complexification: the evolution of learning, intelligence and sensemaking|https://www.sussex.ac.uk/research/centres/sussex-neuroscience/research/consciousness
+Lightcone Commons Grantee|2026-11|Awarded a grant from Lightcone Commons to advance my Scaling Democracy project, which explores how democratic deliberation can work at scale|
 Joined Anil Seth's lab at the Sussex Centre for Consciousness Science|2026-10|Researching theoretical neuroscience|https://www.sussex.ac.uk/research/centres/sussex-centre-for-consciousness-science/
 Maths for AI Safety Workshop|2026-10-30|A weekend in Bonn using maths to explore problems in AI safety|https://safeaigermany.org/programmes/maths-workshop/
 2027 GoEMMI Winter School|2027 (upcoming)|I'll be there|
