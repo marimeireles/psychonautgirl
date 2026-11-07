@@ -26,7 +26,7 @@ Foundation's Edge,Want to read,sci-fi,Isaac Asimov
 Second Foundation,Want to read,sci-fi,Isaac Asimov
 Foundation and Empire,Want to read,sci-fi,Isaac Asimov
 Leviathan Wakes,Want to read,sci-fi,James S.A. Corey
-Solaris,Want to read,sci-fi,Stanisław Lem
+Solaris,Read,sci-fi,Stanisław Lem
 Phenomenology of Spirit,Reading,philosophy,Hegel
 The Gay Science,Reading,philosophy,Nietzsche
 The Emperor's New Mind,Reading,consciousness; physics,Roger Penrose
@@ -161,7 +161,7 @@ Good Sex: Getting Off Without Checking Out,Read,buddhism;sex,Jessica Graham
 Orthodox Chinese Buddhism,Read,buddhism,Sheng-yen
 Union of Mahamudra and Dzogchen,Want to read,buddhism,Chökyi Nyima Rinpoche
 The Science of Enlightenment: How Meditation Works,Read,buddhism,Shinzen Young
-Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Reading,buddhism; biography,Hakuin
+Wild Ivy: The Spiritual Autobiography of Zen Master Hakuin,Read,buddhism; biography,Hakuin
 Zen Mind Beginner's Mind,Read,buddhism,Shunryū Suzuki
 Diversity and Complexity,Stalled,complex-systems,Scott E. Page
 Handbook of Computational Economics,Want to read,agent-based-modelling;economics,Leigh Tesfatsion
@@ -551,7 +551,7 @@ The Gold Cell,Want to read,poetry,Sharon Olds,
 Pale Fire,Want to read,poetry,Nabokov,
 The Iliad,Want to read,poetry,Homer,
 The Odyssey,Reading,fiction,Homer,
-Sappho,Want to read,poetry,Sappho,
+If Not Winter: Fragments of Sappho,Reading,poetry,Sappho,
 The Aeneid,Want to read,poetry,Virgil,
 Canterbury Tales,Want to read,poetry,Geoffrey Chaucer,
 Sonnets,Want to read,poetry,William Shakespeare,
@@ -1073,7 +1073,7 @@ What Is Intelligence?: Lessons from AI About Evolution Computing and Minds,Read,
 Dzogchen: Sex,Read,buddhism; sex,Keith Dowman
 Dzogchen: Khorde Rushen,Read,buddhism,Keith Dowman
 Job: A New Translation,Read,judaism; poetry,Edward L. Greenstein
-Near to the Wild Heart,Reading,fiction,Clarice Lispector
+Near to the Wild Heart,Read,fiction,Clarice Lispector
 The Hidden Girl and Other Stories,Read,sci-fi,Ken Liu
 Sadly Porn,Reading,psychology,Edward Teach
 On the Suffering of the World,Reading,philosophy,Arthur Schopenhauer
@@ -1082,7 +1082,22 @@ The Problem of Pain,Reading,christianity; philosophy,C.S. Lewis
 Answer to Job,Reading,psychology; christianity,Jung
 We Are Legion (We Are Bob),Reading,sci-fi,Dennis E. Taylor
 Creative Evolution,Reading,philosophy; evolution,Henri Bergson
-The Six Yogas of Naropa,Reading,buddhism,Tsongkhapa`
+The Six Yogas of Naropa,Reading,buddhism,Tsongkhapa
+The Phantom of the Opera,Read,fiction,Gaston Leroux
+Ecclesiastes: A New Translation with Introduction and Commentary,Reading,judaism; philosophy,Choon-Leong Seow
+Laws Language and Life: Howard Pattee's Classic Papers on the Physics of Symbols,Want to read,complex-systems; biology; philosophy,Howard Pattee and Joanna Rączaszek-Leonardi
+Robustness and Evolvability in Living Systems,Want to read,biology; evolution; complex-systems,Andreas Wagner
+Design for a Brain: The Origin of Adaptive Behavior,Want to read,complex-systems; neuroscience,W. Ross Ashby
+On Development: The Biology of Form,Want to read,biology; evolution,John Tyler Bonner
+Behavior and Evolution,Want to read,psychology; evolution,Jean Piaget
+From Being to Becoming: Time and Complexity in the Physical Sciences,Want to read,physics; complex-systems,Ilya Prigogine
+The Ontogeny of Information: Developmental Systems and Evolution,Want to read,biology; evolution; philosophy,Susan Oyama
+The Origins of Order: Self-Organization and Selection in Evolution,Want to read,complex-systems; evolution,Stuart Kauffman
+Life Itself: A Comprehensive Inquiry Into the Nature Origin and Fabrication of Life,Want to read,biology; philosophy; complex-systems,Robert Rosen
+Evolution in Four Dimensions: Genetic Epigenetic Behavioral and Symbolic Variation in the History of Life,Want to read,evolution; biology,Eva Jablonka and Marion J. Lamb
+How Life Works: A User's Guide to the New Biology,Want to read,biology,Philip Ball
+The Edge of Sentience: Risk and Precaution in Humans Other Animals and AI,Want to read,philosophy; consciousness; ai,Jonathan Birch
+Principles of Neural Design,Reading,neuroscience,Peter Sterling and Simon Laughlin`
 
 // Parse the data into an array of objects
 const data = dataString.split('\n').slice(1).map(line => {
