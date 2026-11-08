@@ -32,10 +32,10 @@ export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) =>
               {[
                 "Cooperation & Theoretical evolutionary biology",
                 "Theoretical neuroscience",
-                "Complex systems",
                 "Cybersecurity",
                 "Ethics & Phenomenology",
                 "Institutions",
+                "Principles of intelligence",
               ].map((area) => (
                 <li key={area} className="hover:underline">• {area}</li>
               ))}

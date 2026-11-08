@@ -37,14 +37,6 @@ export const focusAreas: FocusArea[] = [
       "I'm interested in applying neuroscience methods to study and understand artificial neural networks, as I believe they're an extremely useful model to understand the development of higher-order intelligence and behavior. Using information-theoretic measures of synergy and tools from causal emergence, I intend to characterize how these systems grow in complexity. My conjecture (largely borrowed from the Biological Arrow of Time) is that these Turing-jumps are what allow a system to overcome otherwise insurmountable barriers of knowledge and break through the intrinsic limits that Gödelian undecidability exposes.",
   },
   {
-    id: "complex-systems",
-    name: "Complex Systems",
-    icon: "🕸️",
-    color: "#F59E0B",
-    description:
-      "I'm interested in complex systems insofar as they describe the underlying mathematics of life. I'm drawn in particular to edge-of-chaos behavior in learning, and especially in cooperation: when does learning actually happen, and can these transition functions be understood as Turing-jumps? In the past I've analyzed the dynamics of cooperation among heterogeneous RL agents in simple general-sum games. My main interest now lies in the realm of synchrony. I've recently used the HKB (Haken–Kelso–Bunz) equations and CFE (Collective Forecasting Error) to model phase-coupling between LLM agents in social dilemmas, shaping a coordination dynamics in a RLVR environment that helps them cooperate more robustly with one another in general settings.",
-  },
-  {
     id: "ethics",
     name: "Ethics and Phenomenology",
     icon: "⚖️",
@@ -66,7 +58,15 @@ export const focusAreas: FocusArea[] = [
     icon: "🏛️",
     color: "#14B8A6",
     description:
-      "AI could help us build a freer, more just world, one that mirrors ancient anarchist traditions but now scaled to the whole of humanity. Or it could become the most complete instrument of subjugation ever made. I want my work to serve the fairer future. This work is inspired by sheaves and probabilistic dependency graphs to distinguish shallow consensus from genuine convergence, making the landscape of disagreement legible while leaving the synthesis itself in human hands. Scaling democracy should not mean scaling the production of consensus, but scaling the legibility of disagreement.",
+      "AI could help us build a freer, more just world, one that mirrors ancient anarchist traditions but now scaled to the whole of humanity. Or it could become the most complete instrument of subjugation ever made. I want my work to serve the fairer future.",
+  },
+  {
+    id: "principles-of-intelligence",
+    name: "Principles of Intelligence",
+    icon: "🌌",
+    color: "#6366F1",
+    description:
+      "Intelligence is not defined by its substrate. It lives in patterns and is intrinsic to algorithms; it runs through agents, through their environments, and through platonic realms. That makes it seem more fundamental than the laws of biology, chemistry, or even physics. However, I believe its principles can be derived, and that we can use them to build AI systems that help humanity flourish.",
   },
 ];
 
@@ -113,6 +113,20 @@ export const researchCards: ResearchCard[] = [
     tags: ["institutions"],
   },
   {
+    caption: "The Future of the Web",
+    links: [
+      {
+        label: "Presentation",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/future-internet.pdf",
+      },
+      {
+        label: "Short presentation",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/web-commons.pdf",
+      },
+    ],
+    tags: ["institutions"],
+  },
+  {
     caption: "Toward collective intelligence: evolutionary pressures for cooperation among language models",
     // image: "",
     // summary: "Short blurb — venue, focus, etc.",
@@ -123,7 +137,7 @@ export const researchCards: ResearchCard[] = [
         url: "https://docs.google.com/presentation/d/1zWLlQwXBzwCVEY8UFYCmLxaLEG9RzTfwsD_UsSqzpsc/edit?slide=id.g3a3e10a3c29_0_168#slide=id.g3a3e10a3c29_0_168",
       },
     ],
-    tags: ["complex-systems", "cooperation"],
+    tags: ["cooperation"],
   },
   {
     caption: "The Edge of Cooperation",
@@ -134,7 +148,7 @@ export const researchCards: ResearchCard[] = [
         url: "https://docs.google.com/presentation/d/116e8PSrHBYI6iv6EWcn3nhtltfuvmSeg9uRgLRzCU-k/edit?slide=id.p#slide=id.pa",
       },
     ],
-    tags: ["complex-systems", "cooperation"],
+    tags: ["cooperation"],
   },
   {
     caption: "From the Wild Web to the Zoo: Benchmarking Web Agents with a Realistic Simulator",
@@ -205,7 +219,17 @@ export const researchCards: ResearchCard[] = [
         url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/marl-cooperation.pdf",
       },
     ],
-    tags: ["complex-systems", "cooperation"],
+    tags: ["cooperation"],
+  },
+  {
+    caption: "Unraveling the Manifold of Intelligences",
+    links: [
+      {
+        label: "Research agenda",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/agenda-manifold-int.pdf",
+      },
+    ],
+    tags: ["principles-of-intelligence"],
   },
 ];
 
