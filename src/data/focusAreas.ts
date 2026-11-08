@@ -107,7 +107,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Research agenda",
-        url: "https://docs.google.com/document/d/1Ax2jLREn0p7dRd-rjSA43ieDvubL0kMDpmnm3H4sqZ8/edit?tab=t.0",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/deliberation-agenda.pdf",
       },
     ],
     tags: ["democracy"],
@@ -117,7 +117,7 @@ export const researchCards: ResearchCard[] = [
     // image: "",
     // summary: "Short blurb — venue, focus, etc.",
     links: [
-      { label: "Paper (WIP)", url: "https://..." },
+      { label: "Paper (WIP)", url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/collective-intelligence.pdf" },
       {
         label: "Poster",
         url: "https://docs.google.com/presentation/d/1zWLlQwXBzwCVEY8UFYCmLxaLEG9RzTfwsD_UsSqzpsc/edit?slide=id.g3a3e10a3c29_0_168#slide=id.g3a3e10a3c29_0_168",
@@ -180,7 +180,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Paper (WIP)",
-        url: "",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/symbolic-ai.pdf",
       },
     ],
     tags: ["cybersecurity"],
@@ -202,7 +202,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Paper",
-        url: "https://drive.google.com/file/d/1NlT456TDFa_XjDUQdAL652CUonrThKgx/view?usp=sharing",
+        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/marl-cooperation.pdf",
       },
     ],
     tags: ["complex-systems", "cooperation"],
