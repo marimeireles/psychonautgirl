@@ -220,16 +220,6 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                 showArrow={true}
               />
               <MenuItem
-                icon="📡"
-                text="Wireless Hippie"
-                tooltip="My life as a digital nomad"
-                onClick={() => {
-                  window.open('https://wireless-hippie.neocities.org/', '_blank');
-                  onClose();
-                }}
-                showArrow={true}
-              />
-              <MenuItem
                 icon="✍️"
                 text="Letters for the Evanescents"
                 tooltip="Short texts and poems for the tender-hearted"
