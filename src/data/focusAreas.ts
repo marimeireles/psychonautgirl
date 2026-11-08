@@ -61,9 +61,9 @@ export const focusAreas: FocusArea[] = [
       "As AI agents pervasively move through our digital and analog lives, I worry about what happens to privacy, security, and the shared commons of the web. Therefore, I'm interested in building defenses for that future. Collaborating with Mozilla, I'm developing open, interoperable protocols for a web where AI agents can operate safely, and methods to mitigate prompt injection and data leakage in agentic browsers. This means pairing foundation models with non-ML symbolic components and native web standards, so an agent can be genuinely useful without users having to trust it with their secrets by default. I also help build open-source infrastructure for testing these systems rigorously before they reach real users.",
   },
   {
-    id: "democracy",
-    name: "Democracy",
-    icon: "🗳️",
+    id: "institutions",
+    name: "Institutions",
+    icon: "🏛️",
     color: "#14B8A6",
     description:
       "AI could help us build a freer, more just world, one that mirrors ancient anarchist traditions but now scaled to the whole of humanity. Or it could become the most complete instrument of subjugation ever made. I want my work to serve the fairer future. This work is inspired by sheaves and probabilistic dependency graphs to distinguish shallow consensus from genuine convergence, making the landscape of disagreement legible while leaving the synthesis itself in human hands. Scaling democracy should not mean scaling the production of consensus, but scaling the legibility of disagreement.",
@@ -110,7 +110,7 @@ export const researchCards: ResearchCard[] = [
         url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/deliberation-agenda.pdf",
       },
     ],
-    tags: ["democracy"],
+    tags: ["institutions"],
   },
   {
     caption: "Toward collective intelligence: evolutionary pressures for cooperation among language models",

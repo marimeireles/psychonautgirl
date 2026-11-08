@@ -35,7 +35,7 @@ export const BlogWindow = ({ blogName, onOpenAcademicWork }: BlogWindowProps) =>
                 "Complex systems",
                 "Cybersecurity",
                 "Ethics & Phenomenology",
-                "Democracy",
+                "Institutions",
               ].map((area) => (
                 <li key={area} className="hover:underline">• {area}</li>
               ))}
