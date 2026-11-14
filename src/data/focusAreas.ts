@@ -107,7 +107,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Research agenda",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/deliberation-agenda.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/deliberation-agenda.pdf",
       },
     ],
     tags: ["institutions"],
@@ -117,11 +117,11 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Presentation",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/future-internet.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/future-internet.pdf",
       },
       {
         label: "Short presentation",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/web-commons.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/web-commons.pdf",
       },
     ],
     tags: ["institutions"],
@@ -131,7 +131,7 @@ export const researchCards: ResearchCard[] = [
     // image: "",
     // summary: "Short blurb — venue, focus, etc.",
     links: [
-      { label: "Paper (WIP)", url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/collective-intelligence.pdf" },
+      { label: "Paper (WIP)", url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/collective-intelligence.pdf" },
       {
         label: "Poster",
         url: "https://docs.google.com/presentation/d/1zWLlQwXBzwCVEY8UFYCmLxaLEG9RzTfwsD_UsSqzpsc/edit?slide=id.g3a3e10a3c29_0_168#slide=id.g3a3e10a3c29_0_168",
@@ -194,7 +194,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Paper (WIP)",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/symbolic-ai.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/symbolic-ai.pdf",
       },
     ],
     tags: ["cybersecurity"],
@@ -216,7 +216,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Paper",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/marl-cooperation.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/marl-cooperation.pdf",
       },
     ],
     tags: ["cooperation"],
@@ -226,7 +226,7 @@ export const researchCards: ResearchCard[] = [
     links: [
       {
         label: "Research agenda",
-        url: "https://github.com/marimeireles/psychonautgirl/blob/master/trusty_links/agenda-manifold-int.pdf",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/agenda-manifold-int.pdf",
       },
     ],
     tags: ["principles-of-intelligence"],
