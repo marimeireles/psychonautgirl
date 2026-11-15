@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Check, ChevronLeft, ChevronRight, Search, Settings, X } from "lucide-react";
 import { nutrients, nutrientGroups, fmtAmount, hasAminos, type NutrientGroup, type Per100 } from "@/data/nutrients";
-import { parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
-import { ACTIVITIES, EXERCISE, MAX_PACE_KG, computeEnergy, type ExerciseLevel, type Profile } from "@/data/energy";
+import { estimateAminos, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
+import { ACTIVITIES, EXERCISE, MAX_PACE_KG, MIND_KCAL, computeEnergy, type ExerciseLevel, type Profile } from "@/data/energy";
 import { openStore, sha256Hex, type FoodRow, type FoodStore, type RowKind } from "@/lib/foodStore";
 
 // ---------- row payloads ----------
@@ -13,11 +13,19 @@ interface EntryData {
   grams: number;
   per100: Per100;
   fdcId?: number;
+  // amino acids were worked out from the dish's ingredients rather than measured
+  aminoEst?: boolean;
   // typed in by hand as a whole portion: grams are meaningless, kcal is per100.kcal
   manual?: boolean;
 }
 // placeholder used only for the maths while the "about you" form is still unanswered; never shown
 const BLANK_PROFILE: Profile = { sex: "female", age: 30, heightCm: 165, startKg: 60, goalKg: 60, activity: "light", paceKg: 0.3 };
+
+// the day's modifiers, kept in one "exercise" row per day
+interface DayMods {
+  level?: ExerciseLevel;
+  mind?: boolean; // a day of intense intellectual work
+}
 
 type Totals = Record<string, number>;
 
@@ -283,11 +291,13 @@ const Food = () => {
   const [draft, setDraft] = useState({ sex: "", age: "", heightCm: "", startKg: "", goalKg: "", activity: "light", paceKg: "0.3", kcalOverride: "" });
 
   const entries = useMemo(() => rows.filter((r) => r.kind === "entry") as FoodRow<EntryData>[], [rows]);
+  const entriesRef = useRef(entries);
+  entriesRef.current = entries;
   const items = useMemo(() => rows.filter((r) => r.kind === "item") as FoodRow<{ name: string }>[], [rows]);
   const checks = useMemo(() => rows.filter((r) => r.kind === "check") as FoodRow<{ item: string }>[], [rows]);
   const exerciseByDay = useMemo(() => {
-    const m: Record<string, FoodRow<{ level: ExerciseLevel }>> = {};
-    for (const r of rows) if (r.kind === "exercise" && r.day) m[r.day] = r as FoodRow<{ level: ExerciseLevel }>;
+    const m: Record<string, FoodRow<DayMods>> = {};
+    for (const r of rows) if (r.kind === "exercise" && r.day) m[r.day] = r as FoodRow<DayMods>;
     return m;
   }, [rows]);
   const weights = useMemo(
@@ -313,8 +323,9 @@ const Food = () => {
     const x = exerciseOf(d);
     return x ? energy.exercise[x.level] : 0;
   };
-  // the goal for a given day: the base goal plus that day's exercise
-  const goalOf = (d: string) => energy.goal + exerciseKcalOf(d);
+  const mindOf = (d: string) => !!exerciseByDay[d]?.data.mind;
+  // the goal for a given day: the base goal plus that day's modifiers
+  const goalOf = (d: string) => energy.goal + exerciseKcalOf(d) + (mindOf(d) ? MIND_KCAL : 0);
   const kcalOf = (d: string) => totalsByDay[d]?.kcal ?? 0;
   const ratioOf = (d: string) => kcalOf(d) / goalOf(d);
 
@@ -337,6 +348,34 @@ const Food = () => {
   }, [entries]);
   const parsed = parseQuery(query);
   const suggestions = (parsed.text.length >= 2 ? pastFoods.filter((f) => f.name.includes(parsed.text.toLowerCase())) : pastFoods).slice(0, 6);
+
+  // Dishes come from the food database without amino acids; fill them in from the
+  // ingredients, for new entries and for ones logged before this existed.
+  const aminoTried = useRef(new Set<number>());
+  useEffect(() => {
+    const todo = new Map<number, number>();
+    for (const e of entries) {
+      const { fdcId, per100, manual } = e.data;
+      if (!fdcId || manual || hasAminos(per100) || !(per100.protein > 0) || aminoTried.current.has(fdcId)) continue;
+      todo.set(fdcId, per100.protein);
+    }
+    if (todo.size === 0) return;
+    for (const id of todo.keys()) aminoTried.current.add(id);
+    (async () => {
+      for (const [fdcId, protein] of todo) {
+        try {
+          const aminos = await estimateAminos(fdcId, protein);
+          if (!aminos || !hasAminos(aminos)) continue;
+          for (const e of entriesRef.current) {
+            if (e.data.fdcId === fdcId && !hasAminos(e.data.per100)) updateRow(e.id, { ...e.data, per100: { ...e.data.per100, ...aminos }, aminoEst: true });
+          }
+        } catch {
+          break; // offline or rate limited: the rest get another go next visit
+        }
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries]);
 
   // ---------- actions ----------
   const addEntry = (data: EntryData, toDay = day) => {
@@ -520,13 +559,18 @@ const Food = () => {
   // exercise is burnt on top of maintenance, so the pin moves with it
   const dayMaintenance = energy.maintenance + exerciseKcalOf(day);
   const atMaintenance = kcal >= dayMaintenance;
-  const setExercise = (level: ExerciseLevel) => {
+  const setMods = (next: DayMods) => {
     const existing = exerciseByDay[day];
-    if (!existing) insertRow("exercise", day, { level });
-    else if (existing.data.level === level) removeRow(existing.id);
-    else updateRow(existing.id, { level });
+    const data: DayMods = { ...(next.level ? { level: next.level } : {}), ...(next.mind ? { mind: true } : {}) };
+    if (!existing) insertRow("exercise", day, data);
+    else if (!data.level && !data.mind) removeRow(existing.id);
+    else updateRow(existing.id, data);
   };
+  const dayMind = mindOf(day);
+  const setExercise = (level: ExerciseLevel) => setMods({ level: dayExercise?.level === level ? undefined : level, mind: dayMind });
+  const toggleMind = () => setMods({ level: dayExercise?.level, mind: !dayMind });
   const aminoCount = dayEntries.filter((e) => hasAminos(e.data.per100)).length;
+  const aminoEstCount = dayEntries.filter((e) => e.data.aminoEst).length;
   const weightSpan = settings.goalKg - settings.startKg;
   const weightRatio = weightSpan !== 0 ? Math.min(1, Math.max(0, (currentKg - settings.startKg) / weightSpan)) : 0;
   const dayWeight = weights.find((w) => w.day === day);
@@ -746,7 +790,7 @@ const Food = () => {
       </div>
       <div className="text-xs soft mt-4">
         {group === "aminos"
-          ? `Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods logged this day (mixed dishes usually lack it), so these bars can read low. Targets are WHO adult needs for ${fmtAmount(currentKg, "kg")} kg.`
+          ? `${aminoCount < dayEntries.length ? `Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods logged this day, so these bars can read low. ` : ""}${aminoEstCount > 0 ? `For ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish" : "dishes"} the amounts are estimated from the ingredients. ` : ""}Targets are WHO adult needs for ${fmtAmount(currentKg, "kg")} kg.`
           : group === "macros"
             ? `Protein target is 1.6 g per kg of body weight; fat is 30% of calories; carbs are the rest.`
             : `Targets are daily reference intakes for ${settings.sex === "male" ? "a man" : "a woman"} aged ${settings.age}. Supplements you tick off are not counted here.`}
@@ -796,25 +840,27 @@ const Food = () => {
 
   const exerciseBox = (
     <div className="bubble bark p-5">
-      <h2 className="text-base font-bold barkc mb-1">movement 🥾</h2>
-      <div className="text-xs soft mb-3">
-        {dayExercise ? `goal raised to ${dayGoal} kcal ${prettyDay(day, today)}` : `did you exercise ${prettyDay(day, today)}? it raises the goal`}
-      </div>
-      <ul className="space-y-2" role="radiogroup" aria-label="exercise level">
+      <h2 className="text-base font-bold barkc mb-3">modifiers ✨</h2>
+      <ul className="space-y-2">
         {EXERCISE.map((x) => {
           const on = dayExercise?.level === x.level;
           return (
             <li key={x.level} className="flex items-center gap-2">
-              <button onClick={() => setExercise(x.level)} className={`check ${on ? "on" : ""}`} role="radio" aria-checked={on} aria-label={`${x.label} exercise`}>
+              <button onClick={() => setExercise(x.level)} className={`check ${on ? "on" : ""}`} role="checkbox" aria-checked={on} aria-label={`${x.label} exercise`}>
                 {on && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
               </button>
-              <span className="flex-1 min-w-0">
-                <span className="text-sm font-bold">{x.label}</span> <span className="text-xs soft">{x.hint}</span>
-              </span>
+              <span className="flex-1 min-w-0 text-sm font-bold">{x.label} exercise</span>
               <span className="text-xs font-bold leaf whitespace-nowrap">+{energy.exercise[x.level]} kcal</span>
             </li>
           );
         })}
+        <li className="flex items-center gap-2">
+          <button onClick={toggleMind} className={`check ${dayMind ? "on" : ""}`} role="checkbox" aria-checked={dayMind} aria-label="intense intellectual day">
+            {dayMind && <Check className="w-3.5 h-3.5" strokeWidth={3} />}
+          </button>
+          <span className="flex-1 min-w-0 text-sm font-bold">intense intellectual day</span>
+          <span className="text-xs font-bold leaf whitespace-nowrap">+{MIND_KCAL} kcal</span>
+        </li>
       </ul>
     </div>
   );
@@ -990,6 +1036,7 @@ const Food = () => {
             <span className="soft"> · {Math.round(totalsByDay[sel]?.protein ?? 0)} g protein</span>
             {selWeight && <span className="soft"> · {selWeight.data.kg} kg</span>}
             {exerciseOf(sel) && <span className="soft"> · 🥾 {exerciseOf(sel)!.label} exercise</span>}
+            {mindOf(sel) && <span className="soft"> · 🧠 intense intellectual day</span>}
           </div>
           <div className={`mt-2 ${ratioOf(sel) >= 1 ? "bar full" : "bar"}`}>
             <div style={{ width: `${Math.min(100, ratioOf(sel) * 100)}%` }} />

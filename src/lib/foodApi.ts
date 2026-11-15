@@ -1,7 +1,7 @@
 // Food lookup against USDA FoodData Central (free, CORS-enabled).
 // A personal key (https://api.data.gov/signup/) goes in .env as VITE_FDC_API_KEY;
 // without one the shared DEMO_KEY is used, which only allows ~10 requests an hour.
-import { toPer100, type Per100 } from "@/data/nutrients";
+import { hasAminos, nutrients, toPer100, type Per100 } from "@/data/nutrients";
 
 const API_KEY: string = import.meta.env.VITE_FDC_API_KEY || "DEMO_KEY";
 export const usingDemoKey = API_KEY === "DEMO_KEY";
@@ -119,4 +119,117 @@ export const searchFoods = async (text: string): Promise<FoodHit[]> => {
 
   writeCache(q, hits);
   return hits;
+};
+
+// ---------- amino acids for dishes ----------
+// USDA's survey foods ("dishes") carry no amino acid values at all, only the plain
+// ingredient foods do. A dish does list its ingredients with weights though, so we
+// look those up, work out the amino acids per gram of protein of the mix, and scale
+// that to the dish's own protein figure. It is an estimate, but a close one.
+const AMINO_KEYS = nutrients.filter((n) => n.group === "aminos").map((n) => n.key);
+const AMINO_CACHE_KEY = "food_amino_cache";
+
+interface Ingredient {
+  code: number;
+  grams: number;
+}
+interface SearchFood extends ApiFood {
+  ndbNumber?: number | string;
+  foodCode?: number | string;
+  finalFoodInputFoods?: { srCode?: number; gramWeight?: number }[];
+}
+// grams of protein that had amino data, and the grams of each amino acid that came with it
+interface Mix {
+  protein: number;
+  aminos: Per100;
+}
+
+const post = async (body: unknown): Promise<SearchFood[]> => {
+  const res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${encodeURIComponent(API_KEY)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`food database error (${res.status})`);
+  return ((await res.json()) as { foods?: SearchFood[] }).foods ?? [];
+};
+
+// survey food codes have 8 digits; anything shorter is a plain ingredient number
+const isDishCode = (code: number) => code >= 10_000_000;
+
+const mixOf = async (ingredients: Ingredient[], depth: number): Promise<Mix> => {
+  const mix: Mix = { protein: 0, aminos: {} };
+  const add = (protein: number, perProtein: Per100) => {
+    mix.protein += protein;
+    for (const k of AMINO_KEYS) if (perProtein[k] !== undefined) mix.aminos[k] = (mix.aminos[k] ?? 0) + perProtein[k] * protein;
+  };
+  const list = ingredients.filter((i) => i.grams > 0).slice(0, 40);
+  const plain = list.filter((i) => !isDishCode(i.code));
+  const dishes = depth < 3 ? list.filter((i) => isDishCode(i.code)) : [];
+
+  if (plain.length > 0) {
+    const foods = await post({ query: plain.map((i) => `ndbNumber:${i.code}`).join(" "), pageSize: plain.length + 5, dataType: ["SR Legacy"] });
+    for (const i of plain) {
+      const f = foods.find((x) => Number(x.ndbNumber) === i.code);
+      if (!f) continue;
+      const p = toPer100(f.foodNutrients ?? []);
+      if (!hasAminos(p) || !(p.protein > 0)) continue;
+      const perProtein: Per100 = {};
+      for (const k of AMINO_KEYS) if (p[k] !== undefined) perProtein[k] = p[k] / p.protein;
+      add((p.protein * i.grams) / 100, perProtein);
+    }
+  }
+  if (dishes.length > 0) {
+    const foods = await post({ query: dishes.map((i) => `foodCode:${i.code}`).join(" "), pageSize: dishes.length + 5, dataType: ["Survey (FNDDS)"] });
+    for (const i of dishes) {
+      const f = foods.find((x) => Number(x.foodCode) === i.code);
+      const protein = f ? toPer100(f.foodNutrients ?? []).protein : undefined;
+      if (!f || !(protein! > 0)) continue;
+      const sub = await mixOf(
+        (f.finalFoodInputFoods ?? []).map((x) => ({ code: Number(x.srCode), grams: x.gramWeight ?? 0 })).filter((x) => x.code > 0 && x.code !== i.code),
+        depth + 1,
+      );
+      if (!(sub.protein > 0)) continue;
+      const perProtein: Per100 = {};
+      for (const k of AMINO_KEYS) if (sub.aminos[k] !== undefined) perProtein[k] = sub.aminos[k] / sub.protein;
+      add((protein! * i.grams) / 100, perProtein);
+    }
+  }
+  return mix;
+};
+
+const readAminoCache = (): Record<string, Per100 | null> => {
+  try {
+    return JSON.parse(localStorage.getItem(AMINO_CACHE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+};
+
+// Amino acids per 100 g for a food that came without them, or null when they cannot be worked out.
+// Throws on network / rate-limit trouble so the caller can try again another time.
+export const estimateAminos = async (fdcId: number, proteinPer100: number): Promise<Per100 | null> => {
+  const cache = readAminoCache();
+  if (fdcId in cache) return cache[fdcId];
+
+  const res = await fetch(`https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=${encodeURIComponent(API_KEY)}`);
+  if (!res.ok && res.status !== 404) throw new Error(`food database error (${res.status})`);
+  let out: Per100 | null = null;
+  if (res.ok) {
+    const food = (await res.json()) as { inputFoods?: { ingredientCode?: number; ingredientWeight?: number }[] };
+    const mix = await mixOf(
+      (food.inputFoods ?? []).map((x) => ({ code: Number(x.ingredientCode), grams: x.ingredientWeight ?? 0 })).filter((x) => x.code > 0),
+      0,
+    );
+    if (mix.protein > 0) {
+      out = {};
+      for (const k of AMINO_KEYS) if (mix.aminos[k] !== undefined) out[k] = Math.round((mix.aminos[k] / mix.protein) * proteinPer100 * 1000) / 1000;
+    }
+  }
+  try {
+    localStorage.setItem(AMINO_CACHE_KEY, JSON.stringify({ ...readAminoCache(), [fdcId]: out }));
+  } catch {
+    /* storage full: skip caching */
+  }
+  return out;
 };

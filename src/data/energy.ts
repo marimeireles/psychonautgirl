@@ -36,6 +36,9 @@ export const EXERCISE: { level: ExerciseLevel; label: string; hint: string; kcal
   { level: "high", label: "high", hint: "a hard run, a long hike", kcalPerKg: 10.5 },
 ];
 
+// added to the day's goal when a day of intense intellectual work is ticked
+export const MIND_KCAL = 200;
+
 export const MAX_PACE_KG = 0.5; // per week; faster than this is not a sensible target
 const KCAL_PER_KG = 7700; // energy in a kilogram of body weight
 const round10 = (n: number) => Math.round(n / 10) * 10;
