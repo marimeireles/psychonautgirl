@@ -174,6 +174,7 @@ const Food = () => {
 
   const [ownerKey, setOwnerKey] = useState<string | null>(() => localStorage.getItem(KEY_STORAGE));
   const [secret, setSecret] = useState("");
+  const [unlocking, setUnlocking] = useState(false);
   const [store, setStore] = useState<FoodStore | null>(null);
   const [rows, setRows] = useState<FoodRow[]>([]);
   const [loading, setLoading] = useState(false);
@@ -201,6 +202,10 @@ const Food = () => {
       const s = await openStore(key);
       setStore(s);
       setRows(s.rows);
+      if (s.localReason === "offline") toast.error("couldn't reach the cloud, so this is saved in this browser for now");
+    } catch (e) {
+      console.error(e);
+      toast.error(`couldn't open the diary: ${e instanceof Error ? e.message : "unknown error"}`);
     } finally {
       setLoading(false);
     }
@@ -215,10 +220,22 @@ const Food = () => {
       toast.error("use at least 6 characters");
       return;
     }
-    const key = await sha256Hex(`food:${secret.trim()}`);
-    localStorage.setItem(KEY_STORAGE, key);
-    setSecret("");
-    setOwnerKey(key);
+    if (!window.isSecureContext || !crypto?.subtle) {
+      toast.error("the diary only opens over https; check the address starts with https://");
+      return;
+    }
+    setUnlocking(true);
+    try {
+      const key = await sha256Hex(`food:${secret.trim()}`);
+      localStorage.setItem(KEY_STORAGE, key);
+      setSecret("");
+      setOwnerKey(key);
+    } catch (e) {
+      console.error(e);
+      toast.error(`couldn't open the diary: ${e instanceof Error ? e.message : "unknown error"}`);
+    } finally {
+      setUnlocking(false);
+    }
   };
 
   const lock = () => {
@@ -463,8 +480,7 @@ const Food = () => {
           <div className="text-5xl">🌱</div>
           <h1 className="text-2xl font-bold leaf">food diary</h1>
           <p className="text-sm soft">
-            Pick a secret word the first time. The same word opens the same diary on any device, and anyone who knows it can read it, so make it
-            hard to guess.
+            Pick a secret word the first time. The same word opens the same diary on any device, and anyone who knows it can read it.
           </p>
           <input
             type="password"
@@ -476,8 +492,8 @@ const Food = () => {
             className="w-full text-center"
             autoFocus
           />
-          <button onClick={unlock} className="pill go px-6 py-2 font-bold w-full">
-            open my diary
+          <button onClick={unlock} disabled={unlocking} className="pill go px-6 py-2 font-bold w-full">
+            {unlocking ? "opening…" : "open my diary"}
           </button>
           <button onClick={() => navigate("/")} className="text-xs soft underline">
             back to the desktop
