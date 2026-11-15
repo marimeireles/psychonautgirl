@@ -921,10 +921,20 @@ const renderInline = (src: string, onCite?: (key: string) => void, keyPrefix = "
 const FONT_HREF =
   "https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400..800&family=Syncopate:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&display=swap";
 
+const PHONE = "(max-width: 760px)";
+
 const Principles = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLElement>(null);
+  // phones get the text only: no constellations, no planet scene, and a note saying so
+  const [isPhone, setIsPhone] = useState(() => window.matchMedia(PHONE).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE);
+    const onChange = () => setIsPhone(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
   const [refsOpen, setRefsOpen] = useState(false);
   const [inspoOpen, setInspoOpen] = useState(false);
   const inspoRef = useRef<HTMLSpanElement>(null);
@@ -1088,7 +1098,25 @@ const Principles = () => {
         ← desktop
       </Link>
 
+      <span className="poi-menu poi-inspo" ref={inspoRef}>
+        <button
+          type="button"
+          className="poi-chip poi-metal"
+          aria-expanded={inspoOpen}
+          aria-controls="poi-inspo"
+          onClick={() => setInspoOpen((o) => !o)}
+        >
+          Inspiration
+        </button>
+        <ul id="poi-inspo" className={`poi-menu-list poi-metal${inspoOpen ? " is-open" : ""}`}>
+          {manifoldInspiration.map((name) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
+      </span>
+
       <header className="poi-hero">
+        {isPhone && <p className="poi-phone-note">This page is better viewed on a desktop.</p>}
         <p className="poi-kicker">Principles of Intelligence · research agenda</p>
         <h1>{manifoldTitle}</h1>
         <p className="poi-author">
@@ -1096,31 +1124,17 @@ const Principles = () => {
           <a className="poi-chip poi-metal" href={manifoldPdf} target="_blank" rel="noopener noreferrer">
             PDF version
           </a>
-          <span className="poi-menu" ref={inspoRef}>
-            <button
-              type="button"
-              className="poi-chip poi-metal"
-              aria-expanded={inspoOpen}
-              aria-controls="poi-inspo"
-              onClick={() => setInspoOpen((o) => !o)}
-            >
-              Inspiration
-            </button>
-            <ul id="poi-inspo" className={`poi-menu-list${inspoOpen ? " is-open" : ""}`}>
-              {manifoldInspiration.map((name) => (
-                <li key={name}>{name}</li>
-              ))}
-            </ul>
-          </span>
         </p>
       </header>
 
-      {/* narrow screens: constellations sit in the flow */}
-      <div className="poi-sky">
-        {CONSTELLATIONS.slice(0, 4).map((c) => (
-          <ConstellationLink key={c.id} c={c} />
-        ))}
-      </div>
+      {/* narrow screens (but not phones): constellations sit in the flow */}
+      {!isPhone && (
+        <div className="poi-sky">
+          {CONSTELLATIONS.slice(0, 4).map((c) => (
+            <ConstellationLink key={c.id} c={c} />
+          ))}
+        </div>
+      )}
 
       <main className="poi-text" ref={textRef}>
         <section id="summary" className="poi-summary">
@@ -1148,11 +1162,13 @@ const Principles = () => {
         })}
       </main>
 
-      <div className="poi-sky">
-        {CONSTELLATIONS.slice(4).map((c) => (
-          <ConstellationLink key={c.id} c={c} />
-        ))}
-      </div>
+      {!isPhone && (
+        <div className="poi-sky">
+          {CONSTELLATIONS.slice(4).map((c) => (
+            <ConstellationLink key={c.id} c={c} />
+          ))}
+        </div>
+      )}
 
       <footer className="poi-foot">
         <button type="button" className="poi-chip poi-metal" onClick={() => setRefsOpen(true)}>
@@ -1163,7 +1179,7 @@ const Principles = () => {
         </Link>
       </footer>
 
-      <HorizonScene />
+      {!isPhone && <HorizonScene />}
 
       {/* references: a steel drawer that slides in from the right */}
       <div className={`poi-scrim${refsOpen ? " is-open" : ""}`} onClick={() => setRefsOpen(false)} aria-hidden="true" />
@@ -1271,6 +1287,11 @@ const CSS = `
   min-height: 94vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 110px 20px 40px; max-width: 980px; margin: 0 auto;
 }
+.poi-phone-note {
+  margin: 0 0 30px; padding: 9px 14px; border: 1px solid rgba(90,99,109,.5); border-radius: 7px;
+  font: 400 9px/1.6 'Syncopate', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--ink);
+  background: rgba(20,24,29,.7);
+}
 .poi-kicker {
   font: 400 10px/1.6 'Syncopate', sans-serif; letter-spacing: .42em; text-transform: uppercase;
   color: var(--ink-dim); margin: 0 0 30px;
@@ -1290,23 +1311,25 @@ const CSS = `
 }
 .poi-author { margin: 30px 0 0; font-size: 19px; font-style: italic; color: var(--ink); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px 22px; }
 .poi-author .poi-chip { font-style: normal; }
-.poi-menu { position: relative; display: inline-flex; font-style: normal; }
+.poi-menu { position: relative; display: inline-flex; }
+.poi-inspo { position: absolute; top: 26px; right: 20px; z-index: 5; }
+/* the dropdown is one chrome plate, the names engraved on it */
 .poi-menu-list {
-  position: absolute; top: calc(100% + 10px); left: 50%; z-index: 5; min-width: 250px;
-  list-style: none; margin: 0; padding: 8px 0; text-align: left;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, #1b2026, #0c0f12);
-  border: 1px solid var(--edge); border-radius: 7px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 14px 34px rgba(0,0,0,.8);
-  opacity: 0; visibility: hidden; transform: translate(-50%, -6px);
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 5; min-width: 250px;
+  list-style: none; margin: 0; padding: 6px 0; text-align: left;
+  background: #aab4bf; border-radius: 7px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 14px 34px rgba(0,0,0,.8);
+  --metal: silver; --convexity: 3;
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
   transition: opacity .25s ease, transform .25s ease, visibility 0s .25s;
 }
-.poi-menu-list.is-open { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .25s ease, transform .25s ease; }
+.poi-menu-list.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s ease, transform .25s ease; }
 .poi-menu-list li {
-  padding: 9px 18px; font: 400 16.5px/1.3 'Newsreader', Georgia, serif; color: var(--ink); white-space: nowrap;
+  padding: 10px 18px 9px; white-space: nowrap;
+  font: 700 9.5px/1.3 'Syncopate', sans-serif; letter-spacing: .2em; text-transform: uppercase;
+  color: #0a0d11; text-shadow: 0 1px 0 rgba(255,255,255,.55);
 }
-.poi-menu-list li + li { border-top: 1px solid rgba(90,99,109,.28); }
+.poi-menu-list li + li { border-top: 1px solid rgba(0,0,0,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
 .poi-author span { color: var(--ink-dim); }
 
 /* ---------- text ---------- */
@@ -1479,6 +1502,7 @@ const CSS = `
 @media (max-width: 560px) {
   .poi-text p { font-size: 18px; line-height: 1.66; hyphens: manual; }
   .poi-hero { min-height: 80vh; }
+  .poi-foot { padding-bottom: 90px; }
   .poi-sky { gap: 70px 24px; }
   .poi-chip { letter-spacing: .18em; padding: 11px 12px 10px; }
 }
