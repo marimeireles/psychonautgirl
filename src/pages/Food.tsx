@@ -938,7 +938,7 @@ const Food = () => {
         {group === "aminos"
           ? `${aminoCount < dayEntries.length ? `Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods logged this day, so these bars can read low. ` : ""}${aminoEstCount > 0 ? `For ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish" : "dishes"} the amounts are estimated from the ingredients. ` : ""}Targets are WHO adult needs for ${fmtAmount(currentKg, "kg")} kg.`
           : group === "macros"
-            ? `Protein target is 1.6 g per kg of body weight; fat is 30% of calories; carbs are the rest. Omega-3 DHA + EPA is the kind in oily fish and algae (250 mg a day); ALA is the plant kind.`
+            ? `Omega-3 DHA + EPA is the kind in oily fish and algae (250 mg a day); ALA is the plant kind.`
             : `Targets are daily reference intakes for ${settings.sex === "male" ? "a man" : "a woman"} aged ${settings.age}. Supplements you tick off are not counted here.${group === "minerals" ? " The food database has iodine for only a few foods, so that bar reads low." : ""}`}
       </div>
     </div>
