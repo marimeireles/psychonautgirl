@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   SHOW_DRAFT_NOTES,
   manifoldAuthor,
+  manifoldInspiration,
   manifoldPdf,
   manifoldSummary,
   manifoldRefs,
@@ -925,6 +926,8 @@ const Principles = () => {
   const barRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLElement>(null);
   const [refsOpen, setRefsOpen] = useState(false);
+  const [inspoOpen, setInspoOpen] = useState(false);
+  const inspoRef = useRef<HTMLSpanElement>(null);
   const [activeRef, setActiveRef] = useState<string | null>(null);
   const drawerRef = useRef<HTMLElement>(null);
 
@@ -993,6 +996,23 @@ const Principles = () => {
       ro?.disconnect();
     };
   }, []);
+
+  // the inspiration menu closes on Escape or a click anywhere else
+  useEffect(() => {
+    if (!inspoOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setInspoOpen(false);
+    };
+    const onDown = (e: PointerEvent) => {
+      if (!inspoRef.current?.contains(e.target as Node)) setInspoOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onDown);
+    };
+  }, [inspoOpen]);
 
   useEffect(() => {
     if (!refsOpen) return;
@@ -1076,6 +1096,22 @@ const Principles = () => {
           <a className="poi-chip poi-metal" href={manifoldPdf} target="_blank" rel="noopener noreferrer">
             PDF version
           </a>
+          <span className="poi-menu" ref={inspoRef}>
+            <button
+              type="button"
+              className="poi-chip poi-metal"
+              aria-expanded={inspoOpen}
+              aria-controls="poi-inspo"
+              onClick={() => setInspoOpen((o) => !o)}
+            >
+              Inspiration
+            </button>
+            <ul id="poi-inspo" className={`poi-menu-list${inspoOpen ? " is-open" : ""}`}>
+              {manifoldInspiration.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+          </span>
         </p>
       </header>
 
@@ -1254,6 +1290,23 @@ const CSS = `
 }
 .poi-author { margin: 30px 0 0; font-size: 19px; font-style: italic; color: var(--ink); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px 22px; }
 .poi-author .poi-chip { font-style: normal; }
+.poi-menu { position: relative; display: inline-flex; font-style: normal; }
+.poi-menu-list {
+  position: absolute; top: calc(100% + 10px); left: 50%; z-index: 5; min-width: 250px;
+  list-style: none; margin: 0; padding: 8px 0; text-align: left;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #1b2026, #0c0f12);
+  border: 1px solid var(--edge); border-radius: 7px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 14px 34px rgba(0,0,0,.8);
+  opacity: 0; visibility: hidden; transform: translate(-50%, -6px);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s .25s;
+}
+.poi-menu-list.is-open { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .25s ease, transform .25s ease; }
+.poi-menu-list li {
+  padding: 9px 18px; font: 400 16.5px/1.3 'Newsreader', Georgia, serif; color: var(--ink); white-space: nowrap;
+}
+.poi-menu-list li + li { border-top: 1px solid rgba(90,99,109,.28); }
 .poi-author span { color: var(--ink-dim); }
 
 /* ---------- text ---------- */

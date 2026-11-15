@@ -24,9 +24,19 @@ export const manifoldAuthor = "Mariana Meireles";
 export const manifoldPdf =
   "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/agenda-manifold-int.pdf";
 
+// listed under the "Inspiration" button at the top of the page
+export const manifoldInspiration = [
+  "Michael Levin",
+  "The information theory community",
+  "Prokopenko",
+  "Heidegger",
+  "Bergson",
+  "Prigogine",
+];
+
 // shown before the first section; same markup as the paragraphs
 export const manifoldSummary =
-  "This agenda charts the space of possible intelligent systems, its aim is to comprise all forms of intelligence: from gene regulatory networks and regenerating flatworms to sorting algorithms and large language models. Intelligence here is defined as *the competency to navigate a problem space, reaching the same goal by different means*. We start from information theory and causal inference as formalizing tools, while recognizing that these methods are insufficient on their own. Complexity and integration do not add up to intelligence, and a fixed causal structure cannot describe a system that reaches one goal by many paths. We propose formalizing measures of agency, how much control a system has over its world, and understanding, how much of the structure of its world a system has been able to capture, within the rich framework of causality and complexity. To understand the method of \"becoming of intelligence\" we draw heavily on nonlinear dynamics and philosophy. From this perspective, the current scientific debate is focused on the wrong principles to describe intelligence, particularly those based on optimization. We aim to develop a theory in which intelligence is rooted in the coupling between a system and its environment, and with it a theory of AI safety that shapes and grows the behavior of systems rather than enforcing it.";
+  "This agenda charts the space of possible intelligent systems, its aim is to comprise all forms of intelligence: from gene regulatory networks and regenerating flatworms to sorting algorithms and large language models. Intelligence here is defined as *the competency to navigate a problem space, reaching the same goal by different means*. We start from information theory and causal inference as formalizing tools, while recognizing that these methods are insufficient on their own, i.e. complexity and integration do not add up to intelligence, and a fixed causal structure cannot describe a system that reaches one goal by many paths. Therefore, we propose formalizing measures of agency, how much control a system has over its world, and understanding, how much of the structure of its world a system has been able to capture, within the rich framework of causality and complexity. To understand the method of \"becoming of intelligence\" we draw heavily on nonlinear dynamics and philosophy. From this perspective, the current scientific debate is focused on the wrong principles to describe intelligence, particularly those based on optimization. We aim to develop a theory in which intelligence is rooted in the coupling between a system and its environment, and with it a theory of AI safety that shapes and grows the behavior of systems rather than enforces it.";
 
 export const manifoldSections: ManifoldSection[] = [
   {
