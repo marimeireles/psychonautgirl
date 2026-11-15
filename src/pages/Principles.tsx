@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { ManifoldPeerReview } from "@/components/ManifoldPeerReview";
 import {
   SHOW_DRAFT_NOTES,
   manifoldAuthor,
@@ -935,6 +936,7 @@ const Principles = () => {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+  const [reviewOn, setReviewOn] = useState(false);
   const [refsOpen, setRefsOpen] = useState(false);
   const [inspoOpen, setInspoOpen] = useState(false);
   const inspoRef = useRef<HTMLSpanElement>(null);
@@ -1124,6 +1126,9 @@ const Principles = () => {
           <a className="poi-chip poi-metal" href={manifoldPdf} target="_blank" rel="noopener noreferrer">
             PDF version
           </a>
+          <button type="button" className="poi-chip poi-metal" aria-pressed={reviewOn} onClick={() => setReviewOn((o) => !o)}>
+            Public peer review
+          </button>
         </p>
       </header>
 
@@ -1139,7 +1144,7 @@ const Principles = () => {
       <main className="poi-text" ref={textRef}>
         <section id="summary" className="poi-summary">
           <h3>Summary</h3>
-          <p>{renderInline(manifoldSummary, openRef)}</p>
+          <p data-para="summary:0">{renderInline(manifoldSummary, openRef)}</p>
         </section>
         {manifoldSections.map((s) => {
           if (!s.sub) sectionNo++;
@@ -1155,7 +1160,11 @@ const Principles = () => {
               )}
               {s.paragraphs.map((p, i) => {
                 const nodes = renderInline(p, openRef);
-                return nodes.length ? <p key={i}>{nodes}</p> : null;
+                return nodes.length ? (
+                  <p key={i} data-para={`${s.id}:${i}`}>
+                    {nodes}
+                  </p>
+                ) : null;
               })}
             </section>
           );
@@ -1180,6 +1189,8 @@ const Principles = () => {
       </footer>
 
       {!isPhone && <HorizonScene />}
+
+      <ManifoldPeerReview on={reviewOn} onExit={() => setReviewOn(false)} textRef={textRef} />
 
       {/* references: a steel drawer that slides in from the right */}
       <div className={`poi-scrim${refsOpen ? " is-open" : ""}`} onClick={() => setRefsOpen(false)} aria-hidden="true" />
