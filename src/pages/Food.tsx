@@ -28,7 +28,10 @@ const BLANK_PROFILE: Profile = { sex: "female", age: 30, heightCm: 165, startKg:
 interface DayMods {
   level?: ExerciseLevel;
   mind?: boolean; // a day of intense intellectual work
+  supp?: string[]; // nutrient keys covered by a supplement that day (the bar was clicked)
 }
+// bars a supplement cannot stand in for
+const FOOD_ONLY = new Set(["kcal", "protein", "fat", "carbs", "fiber"]);
 
 type Totals = Record<string, number>;
 
@@ -93,6 +96,10 @@ const PageStyle = () => (
     .food .bar.full > div { background: linear-gradient(90deg, #6a994e, #386641); }
     .food .bar.limit > div { background: linear-gradient(90deg, #d9b98f, #a9795a); }
     .food .bar.over > div { background: linear-gradient(90deg, #d9a05b, #bc6c25); }
+    .food .bar.supp > div { background: repeating-linear-gradient(135deg, #6a994e 0 8px, #8fb35a 8px 16px); }
+    .food .barbtn { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; border-radius: 10px; }
+    .food .barbtn:hover .bar { box-shadow: 0 0 0 2px #dfe3c3; }
+    .food .barbtn:focus-visible { outline: 2px solid #6a994e; outline-offset: 4px; }
     .food .check {
       width: 24px; height: 24px; border-radius: 999px; border: 2px solid #a3b973; background: #fffdf5; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center; color: #fff;
@@ -194,14 +201,31 @@ const Ring = ({ ratio, pin, children }: { ratio: number; pin?: number; children:
   );
 };
 
-const NutrientBar = ({ label, amount, target, unit, limit }: { label: string; amount: number; target: number; unit: string; limit?: boolean }) => {
-  const ratio = target > 0 ? amount / target : 0;
-  const cls = limit ? (ratio > 1 ? "bar over" : "bar limit") : ratio >= 1 ? "bar full" : "bar";
-  return (
-    <div>
+const NutrientBar = ({
+  label,
+  amount,
+  target,
+  unit,
+  limit,
+  supp,
+  onToggle,
+}: {
+  label: string;
+  amount: number;
+  target: number;
+  unit: string;
+  limit?: boolean;
+  supp?: boolean; // covered by a supplement today
+  onToggle?: () => void; // present when the bar can be clicked to say so
+}) => {
+  const ratio = supp ? 1 : target > 0 ? amount / target : 0;
+  const cls = limit ? (ratio > 1 ? "bar over" : "bar limit") : supp ? "bar supp" : ratio >= 1 ? "bar full" : "bar";
+  const body = (
+    <>
       <div className="flex items-baseline justify-between gap-2 text-xs font-bold">
         <span>{label}</span>
         <span className="soft font-semibold whitespace-nowrap">
+          {supp && "💊 supplement · "}
           {fmtAmount(amount, unit)} / {limit ? "max " : ""}
           {fmtAmount(target, unit)} {unit}
         </span>
@@ -209,6 +233,24 @@ const NutrientBar = ({ label, amount, target, unit, limit }: { label: string; am
       <div className={`${cls} mt-1`}>
         <div style={{ width: `${Math.min(100, ratio * 100)}%` }} />
       </div>
+    </>
+  );
+  if (onToggle) {
+    return (
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={!!supp}
+        title={supp ? "covered by a supplement today (click to undo)" : "click if a supplement covered this today"}
+        className="barbtn block w-full text-left"
+      >
+        {body}
+      </button>
+    );
+  }
+  return (
+    <div>
+      {body}
     </div>
   );
 };
@@ -472,6 +514,18 @@ const Food = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entries]);
 
+  // Hand-kept foods already in the diary follow the list: when an entry in src/data/myFoods.ts is corrected, so are they.
+  useEffect(() => {
+    for (const e of entries) {
+      if (e.data.fdcId || e.data.manual) continue;
+      const mine = myFoods.find((f) => f.name === e.data.name);
+      if (!mine) continue;
+      const keys = new Set([...Object.keys(mine.per100), ...Object.keys(e.data.per100)]);
+      if ([...keys].some((k) => mine.per100[k] !== e.data.per100[k])) updateRow(e.id, { ...e.data, per100: mine.per100 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries]);
+
   // ---------- actions ----------
   const addEntry = (data: EntryData, toDay = day) => {
     const before = kcalOf(toDay);
@@ -654,6 +708,17 @@ const Food = () => {
   const dayGoal = goalOf(day);
   const dayExercise = exerciseOf(day);
   const ctx = { kg: currentKg, kcalGoal: dayGoal, sex: settings.sex, age: settings.age };
+  // weekly nutrients add up the seven days ending on the day shown, against seven daily targets
+  // (a past day whose bar was clicked as covered by a supplement adds one day's worth)
+  const suppOn = (d: string, key: string) => !!exerciseByDay[d]?.data.supp?.includes(key);
+  const amountOf = (n: (typeof nutrients)[number]) =>
+    n.weekly
+      ? [0, 1, 2, 3, 4, 5, 6].reduce((s, i) => {
+          const d = addDays(day, -i);
+          return s + (totalsByDay[d]?.[n.key] ?? 0) + (suppOn(d, n.key) ? n.target(ctx) : 0);
+        }, 0)
+      : (totals[n.key] ?? 0);
+  const targetOf = (n: (typeof nutrients)[number]) => n.target(ctx) * (n.weekly ? 7 : 1);
   const ratio = kcal / dayGoal;
   const left = Math.max(0, Math.round(dayGoal - kcal));
   // exercise is burnt on top of maintenance, so the pin moves with it
@@ -661,14 +726,18 @@ const Food = () => {
   const atMaintenance = kcal >= dayMaintenance;
   const setMods = (next: DayMods) => {
     const existing = exerciseByDay[day];
-    const data: DayMods = { ...(next.level ? { level: next.level } : {}), ...(next.mind ? { mind: true } : {}) };
-    if (!existing) insertRow("exercise", day, data);
-    else if (!data.level && !data.mind) removeRow(existing.id);
+    const data: DayMods = { ...(next.level ? { level: next.level } : {}), ...(next.mind ? { mind: true } : {}), ...(next.supp?.length ? { supp: next.supp } : {}) };
+    if (!existing) {
+      if (data.level || data.mind || data.supp) insertRow("exercise", day, data);
+    } else if (!data.level && !data.mind && !data.supp) removeRow(existing.id);
     else updateRow(existing.id, data);
   };
   const dayMind = mindOf(day);
-  const setExercise = (level: ExerciseLevel) => setMods({ level: dayExercise?.level === level ? undefined : level, mind: dayMind });
-  const toggleMind = () => setMods({ level: dayExercise?.level, mind: !dayMind });
+  const daySupp = exerciseByDay[day]?.data.supp ?? [];
+  const setExercise = (level: ExerciseLevel) => setMods({ level: dayExercise?.level === level ? undefined : level, mind: dayMind, supp: daySupp });
+  const toggleMind = () => setMods({ level: dayExercise?.level, mind: !dayMind, supp: daySupp });
+  const toggleSupp = (key: string) =>
+    setMods({ level: dayExercise?.level, mind: dayMind, supp: daySupp.includes(key) ? daySupp.filter((k) => k !== key) : [...daySupp, key] });
   const aminoCount = dayEntries.filter((e) => hasAminos(e.data.per100)).length;
   const aminoEstCount = dayEntries.filter((e) => e.data.aminoEst).length;
   const weightSpan = settings.goalKg - settings.startKg;
@@ -931,15 +1000,17 @@ const Food = () => {
         {nutrients
           .filter((n) => n.group === group)
           .map((n) => (
-            <NutrientBar key={n.key} label={n.label} amount={totals[n.key] ?? 0} target={n.target(ctx)} unit={n.unit} limit={n.limit} />
+            <NutrientBar
+              key={n.key}
+              label={n.weekly ? `${n.label}, past 7 days` : n.label}
+              amount={amountOf(n)}
+              target={targetOf(n)}
+              unit={n.unit}
+              limit={n.limit}
+              supp={daySupp.includes(n.key)}
+              onToggle={n.limit || FOOD_ONLY.has(n.key) ? undefined : () => toggleSupp(n.key)}
+            />
           ))}
-      </div>
-      <div className="text-xs soft mt-4">
-        {group === "aminos"
-          ? `${aminoCount < dayEntries.length ? `Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods logged this day, so these bars can read low. ` : ""}${aminoEstCount > 0 ? `For ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish" : "dishes"} the amounts are estimated from the ingredients. ` : ""}Targets are WHO adult needs for ${fmtAmount(currentKg, "kg")} kg.`
-          : group === "macros"
-            ? `Omega-3 DHA + EPA is the kind in oily fish and algae (250 mg a day); ALA is the plant kind.`
-            : `Targets are daily reference intakes for ${settings.sex === "male" ? "a man" : "a woman"} aged ${settings.age}. Supplements you tick off are not counted here.${group === "minerals" ? " The food database has iodine for only a few foods, so that bar reads low." : ""}`}
       </div>
     </div>
   );
@@ -1065,9 +1136,11 @@ const Food = () => {
       L.push("");
       L.push(`${g.title[0].toUpperCase()}${g.title.slice(1)} (amount / daily target)`);
       for (const n of nutrients.filter((x) => x.group === g.id)) {
-        const v = totals[n.key] ?? 0;
-        const t = n.target(ctx);
-        L.push(`- ${n.label}: ${fmtAmount(v, n.unit)} / ${amt(t, n.unit)} (${t > 0 ? Math.round((v / t) * 100) : 0}%${n.limit ? ", upper limit" : ""})`);
+        const v = amountOf(n);
+        const t = targetOf(n);
+        L.push(
+          `- ${n.label}${n.weekly ? " (past 7 days / weekly target)" : ""}: ${fmtAmount(v, n.unit)} / ${amt(t, n.unit)} (${t > 0 ? Math.round((v / t) * 100) : 0}%${n.limit ? ", upper limit" : ""})${daySupp.includes(n.key) ? ", covered by a supplement today" : ""}`,
+        );
       }
     }
     L.push("");
@@ -1076,7 +1149,7 @@ const Food = () => {
     for (const it of items) L.push(`- ${it.data.name}: ${checkedToday.has(it.data.name) ? "taken" : "not taken"}`);
     L.push("");
     L.push("Notes");
-    L.push("- Nutrient amounts come from food only; supplements are not counted in them.");
+    L.push("- Nutrient amounts come from food only; where a supplement covered one, the line says so.");
     const byHand = dayEntries.filter((e) => e.data.manual).length;
     if (byHand > 0) L.push(`- ${byHand} of the foods ${byHand === 1 ? "was" : "were"} typed in by hand and may be missing vitamins, minerals and amino acids, so those totals can read low.`);
     if (aminoCount < dayEntries.length) L.push(`- Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods.`);

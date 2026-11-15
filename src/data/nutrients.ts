@@ -24,6 +24,8 @@ export interface NutrientDef {
   target: (ctx: TargetCtx) => number;
   // true = the target is an upper limit, not something to reach
   limit?: boolean;
+  // true = the body stores it, so it is judged over the past seven days (seven daily targets) rather than day by day
+  weekly?: boolean;
 }
 
 const fixed = (n: number) => () => n;
@@ -47,8 +49,9 @@ export const nutrients: NutrientDef[] = [
     target: (c) => Math.max(0, c.kcalGoal - 0.3 * c.kcalGoal - 4 * PROTEIN_G_PER_KG * c.kg) / 4,
   },
   { key: "fiber", label: "fibre", unit: "g", group: "macros", ids: [1079], target: (c) => (14 * c.kcalGoal) / 1000 },
-  // omega-3 fats: the long-chain ones from fish and algae (250 mg a day, EFSA), and plant ALA (US adequate intake)
-  { key: "omega3", label: "omega-3 DHA + EPA", unit: "g", group: "macros", ids: [1272, 1278], combine: "sum", target: fixed(0.25) },
+  // omega-3 fats: the long-chain ones from fish and algae (250 mg a day, EFSA), and plant ALA (US adequate intake).
+  // DHA + EPA is counted by the week: a portion or two of oily fish covers it.
+  { key: "omega3", label: "omega-3 DHA + EPA", unit: "g", group: "macros", ids: [1272, 1278], combine: "sum", target: fixed(0.25), weekly: true },
   { key: "ala", label: "omega-3 ALA", unit: "g", group: "macros", ids: [1404, 1270], target: bySex(1.1, 1.6) },
 
   // vitamins

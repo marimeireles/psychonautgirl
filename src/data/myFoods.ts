@@ -27,13 +27,17 @@ export const myFoods: MyFood[] = [
     aliases: ["quorn", "mycoprotein", "myco protein", "fusarium"],
     note:
       "Plain mycoprotein per 100 g as eaten (wet weight): Finnigan et al. 2019 (Curr Dev Nutr, table 1) and Holt et al. 2023 (J Agric Food Chem, table 4). " +
-      "Amino acids are Holt's mg per g protein times 11 g protein. Quorn products (mince, pieces, fillets) are mostly mycoprotein but differ a little: check the pack.",
+      "Amino acids are Holt's mg per g protein times 11 g protein. Quorn products (mince, pieces, fillets) are mostly mycoprotein but differ a little: check the pack. " +
+      "Omega-3 and iodine are estimates: about 0.4 g ALA out of its 1.8 g polyunsaturated fat, no DHA or EPA (a fungus makes none), and no iodine figure is published so it counts as none.",
     per100: {
       kcal: 85,
       protein: 11,
       fat: 2.9,
       carbs: 3,
       fiber: 6,
+      omega3: 0,
+      ala: 0.4,
+      iodine: 0,
       b1: 0.1,
       b2: 0.3,
       folate: 114,
@@ -62,7 +66,8 @@ export const myFoods: MyFood[] = [
     aliases: ["cashew cluster", "nut clusters", "cashew almond pumpkin seed clusters"],
     note:
       "51% cashews, 15% almonds, cane sugar, pumpkin seeds. Energy, fat, carbs and protein are scaled up from a 30 g serving label (163 kcal, 10.7 g fat, 10.5 g carbs, 5.4 g protein). " +
-      "Fibre and sodium are rough, taken from other brands' labels (about 1.5 g and 90 mg per 30 g). No vitamins, other minerals or amino acids.",
+      "Fibre and sodium are rough, taken from other brands' labels (about 1.5 g and 90 mg per 30 g). No vitamins, other minerals or amino acids. " +
+      "Omega-3 and iodine are estimated from the ingredients (taking about 18% pumpkin seeds and 16% sugar): a little ALA from the cashews and seeds, no DHA or EPA, and a few µg of iodine from the cashews.",
     defaultGrams: 30,
     portions: [{ label: "serving (4–5 clusters)", grams: 30 }],
     per100: {
@@ -72,6 +77,9 @@ export const myFoods: MyFood[] = [
       carbs: 35,
       fiber: 5,
       sodium: 300,
+      omega3: 0,
+      ala: 0.05,
+      iodine: 6,
     },
   },
 ];
