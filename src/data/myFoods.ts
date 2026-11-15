@@ -57,6 +57,23 @@ export const myFoods: MyFood[] = [
       phetyr: 0.56,
     },
   },
+  {
+    name: "cashew clusters",
+    aliases: ["cashew cluster", "nut clusters", "cashew almond pumpkin seed clusters"],
+    note:
+      "51% cashews, 15% almonds, cane sugar, pumpkin seeds. Energy, fat, carbs and protein are scaled up from a 30 g serving label (163 kcal, 10.7 g fat, 10.5 g carbs, 5.4 g protein). " +
+      "Fibre and sodium are rough, taken from other brands' labels (about 1.5 g and 90 mg per 30 g). No vitamins, other minerals or amino acids.",
+    defaultGrams: 30,
+    portions: [{ label: "serving (4–5 clusters)", grams: 30 }],
+    per100: {
+      kcal: 543,
+      protein: 18,
+      fat: 35.7,
+      carbs: 35,
+      fiber: 5,
+      sodium: 300,
+    },
+  },
 ];
 
 // my foods whose name or aliases contain every word typed
