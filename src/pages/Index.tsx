@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { Window } from "@/components/Window";
 import { DesktopIcon } from "@/components/DesktopIcon";
 import { Taskbar } from "@/components/Taskbar";
@@ -47,6 +48,12 @@ const Index = () => {
   const [windowZIndex, setWindowZIndex] = useState<Record<string, number>>({ about: 13, "software-1": 11, "research-1": 12, jobPopup: 20 });
   const [topZIndex, setTopZIndex] = useState(20);
   const [minimizedWindows, setMinimizedWindows] = useState<Record<string, boolean>>({});
+  const [viewportHeight, setViewportHeight] = useState(() => window.innerHeight);
+  useEffect(() => {
+    const onResize = () => setViewportHeight(window.innerHeight);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   // When something was opened: a double-click's second click lands on the backdrop of the thing
   // the first click just opened, so clicks outside only close it after a short grace period.
@@ -188,6 +195,36 @@ const Index = () => {
     setMinimizedWindows({ ...minimizedWindows, [id]: minimized });
   };
 
+  // dev only: Ctrl+Shift+L (or Cmd+Shift+L) copies the viewport size and every open window's position to the
+  // clipboard, for tuning the default layout
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (!((e.ctrlKey || e.metaKey) && e.shiftKey && e.code === "KeyL")) return;
+      e.preventDefault();
+      const windows = [...document.querySelectorAll<HTMLElement>("[data-window]")].map((w) => {
+        const r = (w.parentElement ?? w).getBoundingClientRect();
+        return {
+          title: w.querySelector(".window-title span:last-child")?.textContent ?? "",
+          x: Math.round(r.x),
+          y: Math.round(r.y),
+          width: Math.round(r.width),
+          height: Math.round(r.height),
+        };
+      });
+      const layout = JSON.stringify({ viewport: { width: window.innerWidth, height: window.innerHeight }, windows }, null, 1);
+      navigator.clipboard.writeText(layout).then(
+        () => toast.success("layout copied to the clipboard"),
+        () => toast.error("could not copy the layout"),
+      );
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // five rows of desktop icons at full height, fewer when the window is short (each row is about 106px)
+  const iconRows = Math.max(2, Math.min(5, Math.floor((viewportHeight - 40 - 16) / 106)));
+
   return (
     <div
       className="min-h-screen w-full relative overflow-hidden"
@@ -198,8 +235,11 @@ const Index = () => {
       </div>
       <SparkleTrail />
 
-      {/* Desktop Icons — column-major grid, every cell top-aligned */}
-      <div className="hidden md:grid absolute top-4 left-4 z-10 grid-rows-5 grid-flow-col gap-4 items-start justify-items-center">
+      {/* Desktop Icons — column-major grid, every cell top-aligned; fewer rows on short screens */}
+      <div
+        className="hidden md:grid absolute top-4 left-4 z-10 grid-flow-col gap-4 items-start justify-items-center"
+        style={{ gridTemplateRows: `repeat(${iconRows}, minmax(0, auto))` }}
+      >
         <DesktopIcon
           icon="💬"
           label="Chat"
@@ -274,7 +314,7 @@ const Index = () => {
         <Window
           title="About me"
           onClose={() => closeWindow("about")}
-          defaultPosition={{ x: 150, y: 40 }}
+          defaultPosition={{ x: 174, y: 43 }}
           defaultSize={{ width: 600, height: 600 }}
           width="w-[600px]"
           icon="🌸"
@@ -291,7 +331,7 @@ const Index = () => {
         <Window
           title="Looking for Opportunities!"
           onClose={() => closeWindow("jobPopup")}
-          defaultPosition={{ x: 350, y: 80 }}
+          defaultPosition={{ x: 729, y: 429 }}
           defaultSize={{ width: 380, height: 366 }}
           width="w-[400px]"
           icon="✨"
@@ -390,7 +430,7 @@ const Index = () => {
           title="Academic Work"
           onClose={() => closeWindow("academicWork")}
           defaultPosition={{ x: 20, y: 20 }}
-          defaultSize={{ width: window.innerWidth - 40, height: window.innerHeight - 100 }}
+          placement="fill"
           width="w-[95vw]"
           icon="🎓"
           zIndex={windowZIndex["academicWork"] || 10}
@@ -468,8 +508,8 @@ const Index = () => {
       {blogWindows.map((blog, index) => {
         // Define specific positions for each blog type
         const blogPositions: Record<string, { x: number; y: number }> = {
-          "Software": { x: 300, y: 80 },
-          "Research": { x: 450, y: 40 },
+          "Software": { x: 598, y: 302 },
+          "Research": { x: 762, y: 16 },
           "Community": { x: 320, y: 120 },
           "Activism": { x: 380, y: 140 },
         };
@@ -509,9 +549,9 @@ const Index = () => {
         const windowId = `focus-${area.id}`;
         const baseX = 220 + (index % 4) * 40;
         const baseY = 80 + (index % 4) * 30;
-        // Roughly 1/3 of a typical macOS viewport
-        const fwidth = Math.min(560, typeof window !== "undefined" ? window.innerWidth - 40 : 560);
-        const fheight = Math.min(620, typeof window !== "undefined" ? window.innerHeight - 100 : 620);
+        // Roughly 1/3 of the reference viewport; Window fits it to the real one
+        const fwidth = 560;
+        const fheight = 620;
         return (
           <Window
             key={windowId}
@@ -544,7 +584,7 @@ const Index = () => {
         <Window
           title="Visitors Task Manager"
           onClose={() => closeWindow("analytics")}
-          defaultPosition={{ x: Math.max(16, window.innerWidth - 420), y: Math.max(16, window.innerHeight - 600) }}
+          placement="bottom-right"
           defaultSize={{ width: 380, height: 520 }}
           width="w-[380px]"
           icon="📊"

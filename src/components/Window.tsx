@@ -15,7 +15,16 @@ interface WindowProps {
   onFocus?: () => void;
   isMinimized?: boolean;
   onMinimize?: (minimized: boolean) => void;
+  /**
+   * How defaultPosition/defaultSize are read:
+   * - "scaled" (default): as a spot on the reference desktop, mapped onto this viewport
+   * - "fill": defaultPosition is the margin; the window fills the rest of the desktop
+   * - "bottom-right": parked in the bottom-right corner
+   */
+  placement?: Placement;
 }
+
+type Placement = 'scaled' | 'fill' | 'bottom-right';
 
 const TASKBAR_HEIGHT = 40;
 const MIN_WIDTH = 300;
@@ -37,6 +46,46 @@ const clampToViewport = (
   return { x, y, width, height };
 };
 
+// Window positions and sizes across the site are written for this viewport (the
+// site owner's MacBook Pro browser window), where the desktop looks the way it
+// is meant to. On any other viewport each window keeps the same relative spot and is
+// drawn larger or smaller as a whole (frame and content together, via CSS
+// zoom), within limits so the text stays readable.
+const REFERENCE = { width: 1470, height: 835 };
+const MIN_SCALE = 0.8;
+const MAX_SCALE = 1.4;
+const ICON_COLUMN_WIDTH = 104; // the first column of desktop icons, with its margin
+
+const fitToViewport = (
+  pos: { x: number; y: number },
+  size: { width: number; height: number },
+  placement: Placement
+) => {
+  if (typeof window === 'undefined') {
+    return { x: pos.x, y: pos.y, width: size.width, height: size.height, scale: 1 };
+  }
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  if (placement === 'fill') {
+    return { ...clampToViewport(pos, { width: vw - 2 * pos.x, height: vh - pos.y - 80 }), scale: 1 };
+  }
+  const usable = vh - TASKBAR_HEIGHT;
+  const refUsable = REFERENCE.height - TASKBAR_HEIGHT;
+  const scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, vw / REFERENCE.width, usable / refUsable));
+  const width = Math.round(size.width * scale);
+  const height = Math.round(size.height * scale);
+  if (placement === 'bottom-right') {
+    return { ...clampToViewport({ x: vw - width - 40, y: vh - height - 80 }, { width, height }), scale };
+  }
+  // keep the window's centre at the same fraction of the desktop
+  const cx = ((pos.x + size.width / 2) / REFERENCE.width) * vw;
+  const cy = ((pos.y + size.height / 2) / refUsable) * usable;
+  // on narrower screens, stay clear of the first column of desktop icons as long as the window still fits beside it
+  const minX = Math.max(0, Math.min(pos.x, ICON_COLUMN_WIDTH, vw - width));
+  const x = Math.max(minX, Math.round(cx - width / 2));
+  return { ...clampToViewport({ x, y: Math.round(cy - height / 2) }, { width, height }), scale };
+};
+
 export const Window = ({
   title,
   children,
@@ -50,6 +99,7 @@ export const Window = ({
   onFocus,
   isMinimized: externalIsMinimized,
   onMinimize,
+  placement = 'scaled',
 }: WindowProps) => {
   const [internalIsMinimized, setInternalIsMinimized] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -63,12 +113,18 @@ export const Window = ({
   const rndRef = useRef<Rnd>(null);
   const isMinimized = externalIsMinimized !== undefined ? externalIsMinimized : internalIsMinimized;
 
-  const [initialBounds] = useState(() =>
-    clampToViewport(defaultPosition, {
-      width: defaultSize?.width || 384,
-      height: defaultSize?.height || 500,
-    })
-  );
+  const fit = () =>
+    fitToViewport(
+      defaultPosition,
+      { width: defaultSize?.width || 384, height: defaultSize?.height || 500 },
+      placement
+    );
+  const fitRef = useRef(fit);
+  fitRef.current = fit;
+  const [initialBounds] = useState(fit);
+  const [scale, setScale] = useState(initialBounds.scale);
+  // once the visitor drags or resizes a window it stays where they put it
+  const userMoved = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -81,27 +137,34 @@ export const Window = ({
 
   useEffect(() => {
     const handleResize = () => {
-      if (!rndRef.current || isMaximized) return;
+      setScale(fitRef.current().scale);
+      if (!rndRef.current) return;
+      if (isMaximized) {
+        rndRef.current.updatePosition({ x: 0, y: 0 });
+        rndRef.current.updateSize({ width: window.innerWidth, height: window.innerHeight - TASKBAR_HEIGHT });
+        return;
+      }
       const el = rndRef.current.getSelfElement() as HTMLElement | null;
       if (!el) return;
       // The window's transform state equals its on-screen rect (its static
-      // offset is 0,0), so clamp the rect itself. getDraggablePosition()
+      // offset is 0,0), so work from the rect itself. getDraggablePosition()
       // reports a different coordinate space and doubled offsets per resize.
       const rect = el.getBoundingClientRect();
       const pos = { x: rect.x, y: rect.y };
       const currentSize = { width: el.offsetWidth, height: el.offsetHeight };
-      const clamped = clampToViewport(pos, currentSize);
-      if (clamped.x !== pos.x || clamped.y !== pos.y) {
-        rndRef.current.updatePosition({ x: clamped.x, y: clamped.y });
+      // untouched windows follow the viewport; moved ones are only kept on screen
+      const target = userMoved.current ? clampToViewport(pos, currentSize) : fitRef.current();
+      if (target.x !== pos.x || target.y !== pos.y) {
+        rndRef.current.updatePosition({ x: target.x, y: target.y });
       }
-      if (clamped.width !== currentSize.width || clamped.height !== currentSize.height) {
-        rndRef.current.updateSize({ width: clamped.width, height: clamped.height });
+      if (target.width !== currentSize.width || target.height !== currentSize.height) {
+        rndRef.current.updateSize({ width: target.width, height: target.height });
       }
     };
     window.addEventListener('resize', handleResize);
     // react-rnd re-applies the default position asynchronously after mount,
     // which can double the offset and strand bottom/right-placed windows
-    // off-screen. Watch the first ~0.5s of frames and clamp back into view.
+    // off-screen. Watch the first ~0.5s of frames and put it back in place.
     let frames = 0;
     let raf = requestAnimationFrame(function tick() {
       handleResize();
@@ -133,13 +196,12 @@ export const Window = ({
       }
       setIsMaximized(false);
     } else {
-      // Save current state
-      const currentState = {
-        x: rndRef.current.props.position?.x || defaultPosition.x,
-        y: rndRef.current.props.position?.y || defaultPosition.y,
-        width: rndRef.current.props.size?.width || 384,
-        height: rndRef.current.props.size?.height || 400,
-      };
+      // Save where the window is now, to come back to
+      const el = rndRef.current.getSelfElement() as HTMLElement | null;
+      const rect = el?.getBoundingClientRect();
+      const currentState = rect
+        ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height }
+        : fit();
       setPreviousState(currentState);
 
       // Maximize - account for taskbar at bottom
@@ -159,7 +221,11 @@ export const Window = ({
   }
 
   const windowContent = (
-    <div data-window className="win95-border bg-card flex flex-col shadow-lg h-full">
+    <div
+      data-window
+      className="win95-border bg-card flex flex-col shadow-lg h-full"
+      style={!isMobile && scale !== 1 ? { zoom: scale } : undefined}
+    >
         {/* Title Bar */}
         <div className="window-title win95-title flex items-center justify-between px-1 py-1 cursor-move select-none">
           <div className="flex items-center gap-2 text-primary-foreground font-bold text-sm">
@@ -215,10 +281,16 @@ export const Window = ({
   return (
     <Rnd
       ref={rndRef}
-      default={initialBounds}
+      default={{ x: initialBounds.x, y: initialBounds.y, width: initialBounds.width, height: initialBounds.height }}
       minWidth={300}
       minHeight={200}
       bounds="window"
+      onDragStop={() => {
+        userMoved.current = true;
+      }}
+      onResizeStop={() => {
+        userMoved.current = true;
+      }}
       dragHandleClassName="window-title"
       className="animate-fade-in"
       style={{ zIndex }}
