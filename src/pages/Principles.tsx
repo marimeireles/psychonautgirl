@@ -956,10 +956,10 @@ const HorizonScene = () => {
 
 const refByKey = new Map(manifoldRefs.map((r) => [r.key, r]));
 
-// [[key]] / [[key|text]] citations, *emphasis*, {{draft notes}}
+// [[key]] / [[key|text]] citations, **bold**, *emphasis*, {{draft notes}}
 const renderInline = (src: string, onCite?: (key: string) => void, keyPrefix = ""): ReactNode[] => {
   const out: ReactNode[] = [];
-  const re = /\{\{([\s\S]*?)\}\}|\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\*([^*]+)\*/g;
+  const re = /\{\{([\s\S]*?)\}\}|\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\*\*([^*]+)\*\*|\*([^*]+)\*/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let i = 0;
@@ -1001,8 +1001,10 @@ const renderInline = (src: string, onCite?: (key: string) => void, keyPrefix = "
           {m[3] ?? ref?.label ?? m[2]}
         </a>,
       );
+    } else if (m[4] !== undefined) {
+      out.push(<strong key={k}>{m[4]}</strong>);
     } else {
-      out.push(<em key={k}>{m[4]}</em>);
+      out.push(<em key={k}>{m[5]}</em>);
     }
     last = re.lastIndex;
   }
@@ -1015,7 +1017,7 @@ const renderInline = (src: string, onCite?: (key: string) => void, keyPrefix = "
 /* ------------------------------------------------------------------ */
 
 const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400..800&family=Syncopate:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400..800&family=Syncopate:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..500&display=swap";
 
 const PHONE = "(max-width: 760px)";
 
@@ -1458,6 +1460,7 @@ const CSS = `
 }
 .poi-text p { font-size: 19.5px; line-height: 1.72; margin: 0 0 1.25em; font-weight: 350; hyphens: auto; }
 .poi-text em { color: var(--steel-hi); }
+.poi-text strong { font-weight: 650; color: var(--steel-hi); }
 .poi-text .poi-summary { margin-top: 0; }
 .poi-text .poi-summary p { font-size: 21.5px; line-height: 1.62; color: #d5dbe2; hyphens: manual; }
 .poi-cite {
