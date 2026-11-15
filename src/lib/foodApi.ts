@@ -14,10 +14,11 @@ export interface Portion {
 export interface FoodHit {
   fdcId: number;
   name: string;
-  source: string; // "dish" (survey foods, incl. mixed dishes) or "ingredient"
+  source: string; // "dish" (survey foods, incl. mixed dishes), "ingredient", or "mine" (src/data/myFoods.ts)
   per100: Per100;
   portions: Portion[];
   defaultGrams: number;
+  note?: string;
 }
 
 export interface ParsedQuery {

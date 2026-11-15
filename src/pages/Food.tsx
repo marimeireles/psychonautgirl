@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Check, ChevronLeft, ChevronRight, Search, Settings, X } from "lucide-react";
 import { nutrients, nutrientGroups, fmtAmount, hasAminos, type NutrientGroup, type Per100 } from "@/data/nutrients";
 import { estimateAminos, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
+import { matchMyFoods, myFoods } from "@/data/myFoods";
 import { ACTIVITIES, EXERCISE, MAX_PACE_KG, MIND_KCAL, computeEnergy, type ExerciseLevel, type Profile } from "@/data/energy";
 import { openStore, sha256Hex, type FoodRow, type FoodStore, type RowKind } from "@/lib/foodStore";
 
@@ -388,6 +389,20 @@ const Food = () => {
   const parsed = parseQuery(query);
   const suggestions = (parsed.text.length >= 2 ? pastFoods.filter((f) => f.name.includes(parsed.text.toLowerCase())) : pastFoods).slice(0, 6);
 
+  // hand-kept foods (src/data/myFoods.ts) that match what is typed; they get negative ids so they never clash with USDA ones
+  const mine: FoodHit[] =
+    parsed.text.length >= 2
+      ? matchMyFoods(parsed.text).map((f) => ({
+          fdcId: -(myFoods.indexOf(f) + 1),
+          name: f.name,
+          source: "mine",
+          per100: f.per100,
+          portions: f.portions ?? [],
+          defaultGrams: f.defaultGrams ?? 100,
+          note: f.note,
+        }))
+      : [];
+
   // Dishes come from the food database without amino acids; fill them in from the
   // ingredients, for new entries and for ones logged before this existed.
   const aminoTried = useRef(new Set<number>());
@@ -432,9 +447,9 @@ const Food = () => {
     setPicked(null);
     setManual(null);
     try {
-      setHits(await searchFoods(parsed.text));
+      setHits([...mine, ...(await searchFoods(parsed.text))]);
     } catch (e) {
-      setHits(null);
+      setHits(mine.length > 0 ? mine : null);
       toast.error(e instanceof Error ? e.message : "search failed");
     } finally {
       setSearching(false);
@@ -453,7 +468,7 @@ const Food = () => {
       toast.error("how many grams?");
       return;
     }
-    addEntry({ name: picked.hit.name, grams, per100: picked.hit.per100, fdcId: picked.hit.fdcId });
+    addEntry({ name: picked.hit.name, grams, per100: picked.hit.per100, fdcId: picked.hit.fdcId > 0 ? picked.hit.fdcId : undefined });
     setPicked(null);
     setHits(null);
     setQuery("");
@@ -679,6 +694,25 @@ const Food = () => {
         </button>
       </div>
 
+      {mine.length > 0 && !hits && (
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-xs soft font-bold">my foods:</span>
+          {mine.map((h) => (
+            <button
+              key={h.fdcId}
+              onClick={() => {
+                setManual(null);
+                setHits([h]);
+                pick(h);
+              }}
+              className="pill on px-3 py-1 text-xs font-bold"
+            >
+              {h.name} <span className="soft">{Math.round(h.per100.kcal)} kcal/100g</span>
+            </button>
+          ))}
+        </div>
+      )}
+
       {suggestions.length > 0 && !hits && (
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-xs soft font-bold">eaten before:</span>
@@ -733,6 +767,7 @@ const Food = () => {
                     <button onClick={confirmPick} className="pill go px-4 py-1.5 text-sm font-bold">
                       add
                     </button>
+                    {h.note && <p className="w-full text-xs soft">{h.note}</p>}
                   </div>
                 )}
               </div>
