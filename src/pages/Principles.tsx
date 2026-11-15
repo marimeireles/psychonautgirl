@@ -689,10 +689,36 @@ const HorizonScene = () => {
       return { x, dy: C.y - Math.sqrt(R * R - mid * mid) - (C.y - R) };
     });
 
-    return { W, H, C, R, O, rays, rings, strips, STRIP, motes };
+    // meteors: each falls along a straight line from off the top of the sky to a point on the
+    // ground a little below the horizon, well clear of the figure
+    const meteors = [
+      { x: 430, below: 40, from: { x: 140, y: -60 }, dur: 14, delay: -2 },
+      { x: 1215, below: 65, from: { x: 1520, y: -60 }, dur: 17, delay: -9 },
+      { x: 1400, below: 35, from: { x: 1600, y: -60 }, dur: 19, delay: -15 },
+    ].map((m) => {
+      const limb = C.y - Math.sqrt(R * R - (m.x - C.x) ** 2);
+      const y = limb + m.below;
+      return {
+        x: m.x,
+        y,
+        // the way it is travelling, and the tilt of the ground where it lands
+        angle: (Math.atan2(y - m.from.y, m.x - m.from.x) * 180) / Math.PI,
+        tilt: (Math.asin((m.x - C.x) / R) * 180) / Math.PI,
+        // the nearer the horizon, the flatter the ripples look
+        flat: 0.16 + m.below / 520,
+        dur: m.dur,
+        delay: m.delay,
+        sparks: Array.from({ length: 6 }, () => {
+          const a = -Math.PI / 2 + (rnd() - 0.5) * 2.2, d = 16 + rnd() * 30;
+          return { ex: Math.cos(a) * d, ey: Math.sin(a) * d };
+        }),
+      };
+    });
+
+    return { W, H, C, R, O, rays, rings, strips, STRIP, motes, meteors };
   }, []);
 
-  const { W, H, C, R, O, rays, rings, strips, STRIP, motes } = scene;
+  const { W, H, C, R, O, rays, rings, strips, STRIP, motes, meteors } = scene;
 
   const [skin, setSkin] = useState<string | null>(null);
   useEffect(() => {
@@ -763,9 +789,21 @@ const HorizonScene = () => {
           <stop offset=".25" stopColor="#a9d4ff" stopOpacity=".6" />
           <stop offset="1" stopColor="#5fb2ff" stopOpacity="0" />
         </radialGradient>
+        {/* a meteor's tail: nothing at the far end, white hot at the head */}
+        <linearGradient id="poi-tail">
+          <stop offset="0" stopColor="#5fb2ff" stopOpacity="0" />
+          <stop offset=".7" stopColor="#a9d4ff" stopOpacity=".55" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="1" />
+        </linearGradient>
         <filter id="poi-blur" x="-10%" y="-10%" width="120%" height="120%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
+        {/* the planet's disc again, as seen from each meteor's landing point, to keep its ripples on the ground */}
+        {meteors.map((m, i) => (
+          <clipPath key={i} id={`poi-disc-at-${i}`}>
+            <circle cx={C.x - m.x} cy={C.y - m.y} r={R} />
+          </clipPath>
+        ))}
         <clipPath id="poi-disc">
           <circle cx={C.x} cy={C.y} r={R} />
         </clipPath>
@@ -858,6 +896,33 @@ const HorizonScene = () => {
       {/* a thick bright seam along the horizon under the figure, so its cut-off base is covered */}
       <ellipse cx={O.x} cy={O.y - 2} rx="250" ry="13" fill="url(#poi-source)" />
       <ellipse cx={O.x} cy={O.y - 2} rx="120" ry="7" fill="#ffffff" opacity=".85" filter="url(#poi-blur)" />
+      {/* meteors fall into the ground and each leaves a flash, a few sparks and ripples spreading over the metal */}
+      <g style={{ pointerEvents: "none" }}>
+        {meteors.map((m, i) => {
+          const time = { animationDuration: `${m.dur}s`, animationDelay: `${m.delay}s` } as React.CSSProperties;
+          return (
+            <g key={i} className="poi-meteor" transform={`translate(${m.x} ${m.y.toFixed(1)})`}>
+              <g clipPath={`url(#poi-disc-at-${i})`}>
+                <g transform={`rotate(${m.tilt.toFixed(1)}) scale(1 ${m.flat.toFixed(2)})`}>
+                  <circle className="poi-ripple" r="74" style={time} />
+                  <circle className="poi-ripple poi-ripple-2" r="118" style={time} />
+                </g>
+              </g>
+              <g transform={`rotate(${m.angle.toFixed(1)})`}>
+                <g className="poi-meteor-body" style={time}>
+                  <path d="M-170 0L0 -1.5L0 1.5Z" fill="url(#poi-tail)" />
+                  <circle r="5" fill="#bfe0ff" opacity=".55" />
+                  <circle r="2" fill="#fff" />
+                </g>
+              </g>
+              <circle className="poi-impact" r="26" fill="url(#poi-source)" style={time} />
+              {m.sparks.map((sp, k) => (
+                <circle key={k} className="poi-spark" r="1.1" style={{ ...time, "--ex": `${sp.ex.toFixed(1)}px`, "--ey": `${sp.ey.toFixed(1)}px` } as React.CSSProperties} />
+              ))}
+            </g>
+          );
+        })}
+      </g>
       {/* the black fragments drift in front of everything, the planet included */}
       <g style={{ pointerEvents: "none" }}>
       {motes.map((m, i) => (
@@ -1449,6 +1514,43 @@ const CSS = `
   100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
 }
 
+/* meteors: the fall takes the first 8% of each cycle, the disturbance it leaves the next quarter */
+.poi-meteor-body { opacity: 0; animation: poi-fall 14s linear infinite; }
+.poi-impact { opacity: 0; animation: poi-impact 14s linear infinite; }
+.poi-spark { fill: #eaf4ff; opacity: 0; animation: poi-spark 14s linear infinite; }
+.poi-ripple {
+  fill: none; stroke: #f4faff; stroke-width: 1.6; vector-effect: non-scaling-stroke; opacity: 0;
+  filter: drop-shadow(0 1.5px 0 rgba(10,13,17,.55));
+  animation: poi-ripple 14s linear infinite;
+}
+.poi-ripple-2 { stroke-width: 1; animation-name: poi-ripple-2; }
+@keyframes poi-fall {
+  0% { transform: translateX(-780px); opacity: 0; }
+  1% { opacity: 1; }
+  8% { transform: translateX(0); opacity: 1; }
+  8.5%, 100% { transform: translateX(0); opacity: 0; }
+}
+@keyframes poi-impact {
+  0%, 7.8% { transform: scale(.2); opacity: 0; }
+  8.3% { transform: scale(1); opacity: 1; animation-timing-function: ease-out; }
+  14%, 100% { transform: scale(2.1); opacity: 0; }
+}
+@keyframes poi-spark {
+  0%, 8% { transform: translate(0, 0); opacity: 0; }
+  8.3% { opacity: 1; animation-timing-function: cubic-bezier(.1, .7, .3, 1); }
+  15%, 100% { transform: translate(var(--ex), var(--ey)); opacity: 0; }
+}
+@keyframes poi-ripple {
+  0%, 8% { transform: scale(.04); opacity: 0; }
+  8.6% { opacity: .95; animation-timing-function: cubic-bezier(.15, .6, .3, 1); }
+  30%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes poi-ripple-2 {
+  0%, 10% { transform: scale(.04); opacity: 0; }
+  10.6% { opacity: .7; animation-timing-function: cubic-bezier(.15, .6, .3, 1); }
+  38%, 100% { transform: scale(1); opacity: 0; }
+}
+
 /* ---------- references drawer ---------- */
 .poi-scrim {
   position: fixed; inset: 0; z-index: 7; background: rgba(0,0,0,.5);
@@ -1559,6 +1661,7 @@ const CSS = `
   .poi-root *, .poi-drawer { transition-duration: .01ms !important; }
   .poi-star { animation: none; }
   .poi-float, .poi-breathe, .poi-drift, .poi-wing { animation: none; }
+  .poi-meteor { display: none; }
   .poi-mote { animation: none; opacity: .85; transform: translate(calc(var(--dx) * .5), calc(var(--dy) * .5)); }
 }
 `;
