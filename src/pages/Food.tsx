@@ -112,10 +112,45 @@ const PageStyle = () => (
     .food .cell:hover { transform: translateY(-1px); }
     .food .cell.sel { border-color: #7f5539; }
     .food button:focus-visible, .food input:focus-visible { outline: 2px solid #386641; outline-offset: 2px; }
+    .food .daemon { animation: daemon-bob 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+    .food .daemon .sprout { animation: daemon-sway 3.2s ease-in-out infinite; transform-origin: 32px 20px; }
+    .food .daemon .blink { animation: daemon-blink 4.5s infinite; transform-origin: 32px 40px; }
+    .food .daemon.hop { animation: daemon-hop .6s ease; }
+    .food .report { width: 100%; border-radius: 16px; border: 2px solid #e6e8cf; background: #f7f5e6; padding: 10px 12px; font: 11px/1.45 ui-monospace, Menlo, monospace; color: #4a3b2a; resize: vertical; outline: none; }
+    @keyframes daemon-bob { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-3px) scale(1.02, .98); } }
+    @keyframes daemon-sway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(7deg); } }
+    @keyframes daemon-blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+    @keyframes daemon-hop { 0% { transform: translateY(0) scale(1, 1); } 30% { transform: translateY(-14px) scale(.94, 1.08); } 60% { transform: translateY(0) scale(1.1, .9); } 100% { transform: translateY(0) scale(1, 1); } }
+    @media (prefers-reduced-motion: reduce) { .food .daemon, .food .daemon .sprout, .food .daemon .blink { animation: none; } }
   `}</style>
 );
 
 // ---------- small pieces ----------
+// the plant daemon that writes the day report: a little seed spirit with a sprout on its head
+const PlantDaemon = ({ hop }: { hop: boolean }) => (
+  <svg viewBox="0 0 64 72" width="64" height="72" className={`daemon ${hop ? "hop" : ""}`} aria-hidden="true">
+    <ellipse cx="32" cy="68" rx="15" ry="3" fill="#7f5539" opacity=".18" />
+    <g className="sprout">
+      <path d="M32 22 C32 16 32 13 33 9" stroke="#5d8a44" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <path d="M33 10 C25 9 20 4 21 0 C28 0 33 4 33 10 Z" fill="#8fb35a" stroke="#5d8a44" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M33 11 C40 11 45 7 45 3 C39 2 34 5 33 11 Z" fill="#b5cf7a" stroke="#5d8a44" strokeWidth="1.5" strokeLinejoin="round" />
+    </g>
+    <path d="M17 60 L15 65 M47 60 L49 65" stroke="#7f5539" strokeWidth="3" strokeLinecap="round" />
+    <path d="M32 20 C46 20 53 32 53 44 C53 57 44 64 32 64 C20 64 11 57 11 44 C11 32 18 20 32 20 Z" fill="#d9b98f" stroke="#7f5539" strokeWidth="2.5" />
+    <path d="M22 54 C26 59 38 59 42 54" stroke="#c4a078" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M11 44 L5 40 M53 44 L59 40" stroke="#7f5539" strokeWidth="3" strokeLinecap="round" />
+    <g className="blink">
+      <circle cx="25" cy="40" r="3" fill="#4a3b2a" />
+      <circle cx="39" cy="40" r="3" fill="#4a3b2a" />
+    </g>
+    <circle cx="26" cy="39" r="1" fill="#fffdf5" />
+    <circle cx="40" cy="39" r="1" fill="#fffdf5" />
+    <ellipse cx="20" cy="46" rx="3" ry="2" fill="#e9a98f" opacity=".7" />
+    <ellipse cx="44" cy="46" rx="3" ry="2" fill="#e9a98f" opacity=".7" />
+    <path d="M29 46 C30.5 48 33.5 48 35 46" stroke="#4a3b2a" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+  </svg>
+);
+
 // `pin` (0..1 of the way round) marks the maintenance point on the ring
 const Ring = ({ ratio, pin, children }: { ratio: number; pin?: number; children: React.ReactNode }) => {
   const r = 78;
@@ -199,6 +234,10 @@ const Food = () => {
   const [hits, setHits] = useState<FoodHit[] | null>(null);
   const [searching, setSearching] = useState(false);
   const [picked, setPicked] = useState<{ hit: FoodHit; grams: string } | null>(null);
+  const [report, setReport] = useState("");
+  const [hop, setHop] = useState(false);
+  // a report describes one day as it was when generated; drop it when either changes
+  useEffect(() => setReport(""), [day, rows]);
   const [manual, setManual] = useState<{ name: string; kcal: string; more: boolean; extra: Record<string, string> } | null>(null);
 
   const [newItem, setNewItem] = useState("");
@@ -928,6 +967,80 @@ const Food = () => {
     </div>
   );
 
+  // ---------- day report ----------
+  // plain text with everything logged for the day, made to be pasted into a chat with a language model
+  const buildReport = () => {
+    const L: string[] = [];
+    const amt = (v: number, unit: string) => `${fmtAmount(v, unit)} ${unit}`;
+    L.push(`Food diary report for ${parseDay(day).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}`);
+    L.push("");
+    L.push("About me");
+    L.push(`- ${settings.sex}, ${settings.age} years, ${settings.heightCm} cm, ${ACTIVITIES.find((a) => a.id === settings.activity)?.label ?? settings.activity} on an ordinary day`);
+    L.push(`- weight ${amt(currentKg, "kg")}${dayWeight ? " (weighed this day)" : " (latest weigh-in)"}, goal ${amt(settings.goalKg, "kg")}`);
+    L.push("");
+    L.push("Energy");
+    L.push(`- eaten ${Math.round(kcal)} kcal of a ${dayGoal} kcal goal (${Math.round(ratio * 100)}%)`);
+    L.push(`- maintenance ${dayMaintenance} kcal, resting ${energy.resting} kcal`);
+    const mods = [dayExercise && `${dayExercise.label} exercise (+${energy.exercise[dayExercise.level]} kcal)`, dayMind && `intense intellectual day (+${MIND_KCAL} kcal)`].filter(Boolean);
+    L.push(`- modifiers: ${mods.length > 0 ? mods.join(", ") : "none"}`);
+    L.push("");
+    L.push(`Foods (${dayEntries.length})`);
+    if (dayEntries.length === 0) L.push("- nothing logged");
+    for (const e of dayEntries) {
+      const k = Math.round(((e.data.per100.kcal ?? 0) * e.data.grams) / 100);
+      L.push(e.data.manual ? `- ${e.data.name}: ${k} kcal (typed in by hand)` : `- ${e.data.name}: ${Math.round(e.data.grams)} g, ${k} kcal`);
+    }
+    for (const g of nutrientGroups) {
+      L.push("");
+      L.push(`${g.title[0].toUpperCase()}${g.title.slice(1)} (amount / daily target)`);
+      for (const n of nutrients.filter((x) => x.group === g.id)) {
+        const v = totals[n.key] ?? 0;
+        const t = n.target(ctx);
+        L.push(`- ${n.label}: ${fmtAmount(v, n.unit)} / ${amt(t, n.unit)} (${t > 0 ? Math.round((v / t) * 100) : 0}%${n.limit ? ", upper limit" : ""})`);
+      }
+    }
+    L.push("");
+    L.push("Supplements and meds");
+    if (items.length === 0) L.push("- none on my list");
+    for (const it of items) L.push(`- ${it.data.name}: ${checkedToday.has(it.data.name) ? "taken" : "not taken"}`);
+    L.push("");
+    L.push("Notes");
+    L.push("- Nutrient amounts come from food only; supplements are not counted in them.");
+    const byHand = dayEntries.filter((e) => e.data.manual).length;
+    if (byHand > 0) L.push(`- ${byHand} of the foods ${byHand === 1 ? "was" : "were"} typed in by hand and may be missing vitamins, minerals and amino acids, so those totals can read low.`);
+    if (aminoCount < dayEntries.length) L.push(`- Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods.`);
+    if (aminoEstCount > 0) L.push(`- Amino acids for ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish are" : "dishes are"} estimated from ingredients.`);
+    L.push("- Food values are from USDA FoodData Central; vitamin and mineral targets are US reference intakes, amino acid targets are WHO adult needs per kg.");
+    return L.join("\n");
+  };
+  const makeReport = async () => {
+    const text = buildReport();
+    setReport(text);
+    setHop(true);
+    setTimeout(() => setHop(false), 650);
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("day report copied, paste it anywhere 🌱");
+    } catch {
+      toast("day report ready below, copy it from the box");
+    }
+  };
+  const reportBox = (
+    <div className="bubble bark p-5">
+      <div className="flex items-end gap-3">
+        <PlantDaemon hop={hop} />
+        <div className="flex-1 min-w-0">
+          <h2 className="text-base font-bold barkc">day report</h2>
+          <div className="text-xs soft mb-2">everything from {prettyDay(day, today)} as text, ready to paste</div>
+          <button onClick={makeReport} className="pill go px-4 py-1.5 text-sm font-bold">
+            {report ? "copy again" : "generate"}
+          </button>
+        </div>
+      </div>
+      {report && <textarea readOnly value={report} rows={8} aria-label="day report text" className="report mt-3" onFocus={(e) => e.currentTarget.select()} />}
+    </div>
+  );
+
   // ---------- diary ----------
   const diary = () => {
     // one real calendar month, Monday first; null = blank cell before the 1st
@@ -1248,6 +1361,7 @@ const Food = () => {
                 {medsBox}
                 {exerciseBox}
                 {weightBox}
+                {reportBox}
               </div>
             </div>
           </>
