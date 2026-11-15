@@ -47,7 +47,7 @@ export const parseQuery = (raw: string): ParsedQuery => {
   return { text: text.replace(/\s+/g, " "), grams, count };
 };
 
-const CACHE_KEY = "food_search_cache_v2"; // v2: omega-3 and iodine added
+const CACHE_KEY = "food_search_cache_v2"; // v2: omega-3 added
 const CACHE_MAX = 40;
 
 const readCache = (): Record<string, FoodHit[]> => {
@@ -242,7 +242,6 @@ export const estimateAminos = async (fdcId: number, proteinPer100: number): Prom
 const NUMBERS: Record<string, { numbers: string[]; sum?: boolean }> = {
   omega3: { numbers: ["621", "629"], sum: true }, // DHA + EPA
   ala: { numbers: ["851", "619"] }, // ALA, else all 18:3
-  iodine: { numbers: ["314"] },
 };
 
 export const fetchNutrients = async (fdcIds: number[], keys: string[]): Promise<Record<number, Per100>> => {

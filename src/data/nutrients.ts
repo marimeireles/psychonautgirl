@@ -79,7 +79,6 @@ export const nutrients: NutrientDef[] = [
   { key: "copper", label: "copper", unit: "mg", group: "minerals", ids: [1098], target: fixed(0.9) },
   { key: "manganese", label: "manganese", unit: "mg", group: "minerals", ids: [1101], target: bySex(1.8, 2.3) },
   { key: "selenium", label: "selenium", unit: "µg", group: "minerals", ids: [1103], target: fixed(55) },
-  { key: "iodine", label: "iodine", unit: "µg", group: "minerals", ids: [1100], target: fixed(150) },
   { key: "sodium", label: "sodium", unit: "mg", group: "minerals", ids: [1093], target: fixed(2300), limit: true },
 
   // essential amino acids (grams)

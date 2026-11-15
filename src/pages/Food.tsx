@@ -489,7 +489,7 @@ const Food = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entries]);
 
-  // Entries logged before omega-3 and iodine were tracked: fetch those for them once.
+  // Entries logged before omega-3 was tracked: fetch those for them once.
   const nutrientsTried = useRef(new Set<number>());
   useEffect(() => {
     const ids = new Set<number>();
@@ -501,7 +501,7 @@ const Food = () => {
     for (const id of ids) nutrientsTried.current.add(id);
     (async () => {
       try {
-        const found = await fetchNutrients([...ids], ["omega3", "ala", "iodine"]);
+        const found = await fetchNutrients([...ids], ["omega3", "ala"]);
         for (const e of entriesRef.current) {
           const { fdcId, nv } = e.data;
           if (!fdcId || !(fdcId in found) || (nv ?? 1) >= NUTRIENTS_VERSION) continue;
