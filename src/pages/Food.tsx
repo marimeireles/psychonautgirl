@@ -474,7 +474,7 @@ const Food = () => {
   // ---------- gate ----------
   if (!ownerKey) {
     return (
-      <div className="food meadow min-h-screen flex items-center justify-center p-4">
+      <div className="food meadow min-h-screen flex flex-col items-center justify-center gap-5 p-4">
         <PageStyle />
         <div className="bubble p-7 w-full max-w-sm text-center space-y-4">
           <div className="text-5xl">🌱</div>
@@ -498,6 +498,11 @@ const Food = () => {
           <button onClick={() => navigate("/")} className="text-xs soft underline">
             back to the desktop
           </button>
+        </div>
+        <div className="bubble bark p-5 w-full max-w-sm text-sm" role="note">
+          <span className="font-bold barkc">A heads-up 🍂 </span>
+          This data is unencrypted and saved on my Supabase account. Please don't share anything you wouldn't want a robot scraping the web to
+          find. On my end, rest assured I will never read this data.
         </div>
       </div>
     );

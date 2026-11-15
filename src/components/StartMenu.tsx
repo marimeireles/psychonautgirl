@@ -142,6 +142,14 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
                   onClose();
                 }}
               />
+              <MenuItem
+                icon="🌿"
+                text="Food Diary"
+                onClick={() => {
+                  navigate('/food');
+                  onClose();
+                }}
+              />
               {/* Interviews folder (third-level flyout) */}
               <div className="relative group/interviews">
                 <button onClick={() => toggleFolder("interviews")} className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-primary/20 active:bg-primary/30 text-left text-sm">
