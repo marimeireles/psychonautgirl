@@ -717,6 +717,12 @@ const HorizonScene = () => {
     };
   }, []);
 
+  // the lines along which each wing meets the body, top to bottom, in the picture's pixels
+  const WING_L_SEAM = "250,0 300,190 309,207 312,220 320,233 332,258 346,286 352,298 350,330 338,370 330,410 322,440 300,470 300,658";
+  // the mechanical arm lies across the right wing; it belongs to the body and stays still
+  const ARM_R =
+    "483,405 492,399 520,392 560,381 578,371 588,360 578,352 588,345 580,330 590,317 602,309 620,300 640,302 651,308 650,330 640,340 630,350 612,365 602,380 590,390 572,405 560,416 540,429 520,436 500,443 489,439 482,425";
+  const WING_R_SEAM = "560,0 534,140 533,215 520,270 495,295 478,305 470,330 472,400 485,445 520,470 520,658";
   // the figure: 848 x 658, cut off at the legs, so its base is sunk behind the horizon
   const FIG_W = 640, FIG_H = (FIG_W * 658) / 848;
   const figY = O.y + 40 - FIG_H;
@@ -768,6 +774,19 @@ const HorizonScene = () => {
             <rect x={st.x} y={-2000} width={STRIP + 0.6} height={6000} />
           </clipPath>
         ))}
+        {/* where the wings leave the body, in the figure's pixels (848 x 658) */}
+        <clipPath id="poi-cut-wing-l" clipPathUnits="userSpaceOnUse">
+          <polygon points={`0,0 ${WING_L_SEAM} 0,658`} />
+        </clipPath>
+        <clipPath id="poi-cut-wing-r" clipPathUnits="userSpaceOnUse">
+          <path clipRule="evenodd" d={`M${`848,0 ${WING_R_SEAM} 848,658`.replace(/ /g, "L")}Z M${ARM_R.replace(/ /g, "L")}Z`} />
+        </clipPath>
+        <clipPath id="poi-cut-arm-r" clipPathUnits="userSpaceOnUse">
+          <polygon points={ARM_R} />
+        </clipPath>
+        <clipPath id="poi-cut-body" clipPathUnits="userSpaceOnUse">
+          <polygon points={`${WING_L_SEAM} 0,658 848,658 ${WING_R_SEAM.split(" ").reverse().join(" ")}`} />
+        </clipPath>
       </defs>
 
       {/* the glow the beams come out of */}
@@ -796,7 +815,18 @@ const HorizonScene = () => {
           <circle cx={headX} cy={headY} r="92" fill="url(#poi-source)" opacity=".55" />
           <circle cx={headX} cy={headY} r="64" fill="none" stroke="#dcecff" strokeWidth="1.3" opacity=".9" />
           <circle cx={headX} cy={headY} r="73" fill="none" stroke="url(#poi-beam)" strokeWidth=".7" strokeDasharray="2 6" opacity=".8" />
-          <image className="poi-figure" href="/manifold-figure.png" x={O.x - FIG_W / 2} y={figY} width={FIG_W} height={FIG_H} />
+          {/* the picture is drawn in pieces, cut into the body, its arm and each wing, so the wings can
+              fold in and out from the shoulders; everything inside is in the picture's own pixels */}
+          <g className="poi-figure" transform={`translate(${O.x - FIG_W / 2} ${figY}) scale(${FIG_W / 848})`}>
+            <g className="poi-wing poi-wing-l">
+              <image href="/manifold-figure.png" width="848" height="658" clipPath="url(#poi-cut-wing-l)" />
+            </g>
+            <g className="poi-wing poi-wing-r">
+              <image href="/manifold-figure.png" width="848" height="658" clipPath="url(#poi-cut-wing-r)" />
+            </g>
+            <image href="/manifold-figure.png" width="848" height="658" clipPath="url(#poi-cut-body)" />
+            <image href="/manifold-figure.png" width="848" height="658" clipPath="url(#poi-cut-arm-r)" />
+          </g>
         </g>
         {/* what the pointer actually catches: the body and wings, not the picture's empty corners */}
         <ellipse cx={O.x} cy={O.y - 190} rx="250" ry="200" fill="transparent" />
@@ -1383,6 +1413,14 @@ const CSS = `
     drop-shadow(0 0 1.2px #000) drop-shadow(0 0 2.5px #000) drop-shadow(0 0 4px rgba(0,0,0,.85));
 }
 .poi-figure { pointer-events: none; transition: filter .5s ease; }
+/* the wings fold in towards the body and open out again, hinged where they meet it */
+.poi-wing { animation: poi-flap 4.6s cubic-bezier(.45, 0, .3, 1) infinite; will-change: transform; }
+.poi-wing-l { transform-origin: 352px 300px; --fold: -4deg; }
+.poi-wing-r { transform-origin: 470px 305px; --fold: 4deg; }
+@keyframes poi-flap {
+  0%, 100% { transform: scaleX(1) rotate(0deg); }
+  42% { transform: scaleX(.72) rotate(var(--fold)); }
+}
 .poi-angel { cursor: pointer; outline: none; }
 .poi-angel-tag { opacity: 0; transition: opacity .35s ease, transform .35s ease; transform: translateX(-5px); pointer-events: none; }
 .poi-angel:hover ~ .poi-angel-tag, .poi-angel:focus-visible ~ .poi-angel-tag { opacity: 1; transform: none; }
@@ -1520,7 +1558,7 @@ const CSS = `
 @media (prefers-reduced-motion: reduce) {
   .poi-root *, .poi-drawer { transition-duration: .01ms !important; }
   .poi-star { animation: none; }
-  .poi-float, .poi-breathe, .poi-drift { animation: none; }
+  .poi-float, .poi-breathe, .poi-drift, .poi-wing { animation: none; }
   .poi-mote { animation: none; opacity: .85; transform: translate(calc(var(--dx) * .5), calc(var(--dy) * .5)); }
 }
 `;
