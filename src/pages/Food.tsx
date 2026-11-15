@@ -199,7 +199,7 @@ const Food = () => {
   const [hits, setHits] = useState<FoodHit[] | null>(null);
   const [searching, setSearching] = useState(false);
   const [picked, setPicked] = useState<{ hit: FoodHit; grams: string } | null>(null);
-  const [manual, setManual] = useState<{ name: string; kcal: string } | null>(null);
+  const [manual, setManual] = useState<{ name: string; kcal: string; more: boolean; extra: Record<string, string> } | null>(null);
 
   const [newItem, setNewItem] = useState("");
   const [weightInput, setWeightInput] = useState("");
@@ -429,7 +429,12 @@ const Food = () => {
       return;
     }
     // stored as a 100 g portion so the maths stays the same
-    addEntry({ name, grams: 100, per100: { kcal }, manual: true });
+    const per100: Per100 = { kcal };
+    for (const [k, v] of Object.entries(manual.extra)) {
+      const n = parseFloat(v.replace(",", "."));
+      if (n >= 0) per100[k] = n;
+    }
+    addEntry({ name, grams: 100, per100, manual: true });
     setManual(null);
     setQuery("");
   };
@@ -719,10 +724,41 @@ const Food = () => {
           <button onClick={() => setManual(null)} className="text-xs soft underline">
             cancel
           </button>
+          <button onClick={() => setManual({ ...manual, more: !manual.more })} className="text-xs soft underline" aria-expanded={manual.more}>
+            {manual.more ? "fewer details" : "more details"}
+          </button>
+          {manual.more && (
+            <div className="w-full space-y-3 pt-1">
+              <div className="text-xs soft">Amounts for the whole portion you ate. Leave blank anything you don't know.</div>
+              {nutrientGroups.map((g) => (
+                <div key={g.id}>
+                  <div className="text-xs font-bold barkc mb-1.5">{g.title}</div>
+                  <div className="grid gap-x-4 gap-y-1.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    {nutrients
+                      .filter((n) => n.group === g.id && n.key !== "kcal")
+                      .map((n) => (
+                        <label key={n.key} className="flex items-center gap-2 text-xs font-bold">
+                          <span className="flex-1 min-w-0">{n.label}</span>
+                          <input
+                            type="number"
+                            inputMode="decimal"
+                            min="0"
+                            value={manual.extra[n.key] ?? ""}
+                            onChange={(e) => setManual({ ...manual, extra: { ...manual.extra, [n.key]: e.target.value } })}
+                            className="w-20 text-sm"
+                          />
+                          <span className="soft w-7">{n.unit}</span>
+                        </label>
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
-        <button onClick={() => setManual({ name: parsed.text, kcal: "" })} className="text-xs soft underline">
-          add by hand (name + calories)
+        <button onClick={() => setManual({ name: parsed.text, kcal: "", more: false, extra: {} })} className="text-xs soft underline">
+          add by hand
         </button>
       )}
 
