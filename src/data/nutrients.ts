@@ -47,6 +47,9 @@ export const nutrients: NutrientDef[] = [
     target: (c) => Math.max(0, c.kcalGoal - 0.3 * c.kcalGoal - 4 * PROTEIN_G_PER_KG * c.kg) / 4,
   },
   { key: "fiber", label: "fibre", unit: "g", group: "macros", ids: [1079], target: (c) => (14 * c.kcalGoal) / 1000 },
+  // omega-3 fats: the long-chain ones from fish and algae (250 mg a day, EFSA), and plant ALA (US adequate intake)
+  { key: "omega3", label: "omega-3 DHA + EPA", unit: "g", group: "macros", ids: [1272, 1278], combine: "sum", target: fixed(0.25) },
+  { key: "ala", label: "omega-3 ALA", unit: "g", group: "macros", ids: [1404, 1270], target: bySex(1.1, 1.6) },
 
   // vitamins
   { key: "vitA", label: "vitamin A", unit: "µg", group: "vitamins", ids: [1106], target: bySex(700, 900) },
@@ -73,6 +76,7 @@ export const nutrients: NutrientDef[] = [
   { key: "copper", label: "copper", unit: "mg", group: "minerals", ids: [1098], target: fixed(0.9) },
   { key: "manganese", label: "manganese", unit: "mg", group: "minerals", ids: [1101], target: bySex(1.8, 2.3) },
   { key: "selenium", label: "selenium", unit: "µg", group: "minerals", ids: [1103], target: fixed(55) },
+  { key: "iodine", label: "iodine", unit: "µg", group: "minerals", ids: [1100], target: fixed(150) },
   { key: "sodium", label: "sodium", unit: "mg", group: "minerals", ids: [1093], target: fixed(2300), limit: true },
 
   // essential amino acids (grams)
@@ -109,6 +113,10 @@ export const toPer100 = (list: { nutrientId: number; value?: number }[]): Per100
   }
   return out;
 };
+
+// Bumped when nutrients are added to the list above; diary entries logged under an
+// older version get the new ones filled in from the food database (see fetchNutrients).
+export const NUTRIENTS_VERSION = 2;
 
 export const hasAminos = (p: Per100) => p.lysine !== undefined || p.leucine !== undefined;
 

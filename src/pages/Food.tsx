@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Check, ChevronLeft, ChevronRight, Search, Settings, X } from "lucide-react";
-import { nutrients, nutrientGroups, fmtAmount, hasAminos, type NutrientGroup, type Per100 } from "@/data/nutrients";
-import { estimateAminos, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
+import { NUTRIENTS_VERSION, nutrients, nutrientGroups, fmtAmount, hasAminos, type NutrientGroup, type Per100 } from "@/data/nutrients";
+import { estimateAminos, fetchNutrients, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
 import { matchMyFoods, myFoods } from "@/data/myFoods";
 import { ACTIVITIES, EXERCISE, MAX_PACE_KG, MIND_KCAL, computeEnergy, type ExerciseLevel, type Profile } from "@/data/energy";
 import { openStore, sha256Hex, type FoodRow, type FoodStore, type RowKind } from "@/lib/foodStore";
@@ -18,6 +18,8 @@ interface EntryData {
   aminoEst?: boolean;
   // typed in by hand as a whole portion: grams are meaningless, kcal is per100.kcal
   manual?: boolean;
+  // NUTRIENTS_VERSION the per100 values were fetched under; older ones get the newer nutrients filled in
+  nv?: number;
 }
 // placeholder used only for the maths while the "about you" form is still unanswered; never shown
 const BLANK_PROFILE: Profile = { sex: "female", age: 30, heightCm: 165, startKg: 60, goalKg: 60, activity: "light", paceKg: 0.3 };
@@ -380,14 +382,28 @@ const Food = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalsByDay, exerciseByDay, energy.goal, currentKg, today]);
 
-  // foods eaten before, most recent first, one per name
+  // foods eaten before, most recent first, one per name, each with the amounts it was logged at (latest first)
   const pastFoods = useMemo(() => {
-    const seen = new Map<string, EntryData>();
-    for (let i = entries.length - 1; i >= 0; i--) if (!seen.has(entries[i].data.name)) seen.set(entries[i].data.name, entries[i].data);
+    const seen = new Map<string, { food: EntryData; amounts: number[] }>();
+    for (let i = entries.length - 1; i >= 0; i--) {
+      const d = entries[i].data;
+      const past = seen.get(d.name);
+      if (!past) seen.set(d.name, { food: d, amounts: [d.grams] });
+      else if (!d.manual && !past.amounts.includes(d.grams)) past.amounts.push(d.grams);
+    }
     return [...seen.values()];
   }, [entries]);
   const parsed = parseQuery(query);
-  const suggestions = (parsed.text.length >= 2 ? pastFoods.filter((f) => f.name.includes(parsed.text.toLowerCase())) : pastFoods).slice(0, 6);
+  const typed = parsed.text.length >= 2;
+  const typedWords = parsed.text.toLowerCase().split(" ").filter(Boolean);
+  // nothing typed: the latest few foods at their last amount; typing: the foods that match, at every amount used before
+  const suggestions = (typed ? pastFoods.filter((p) => typedWords.every((w) => p.food.name.includes(w))) : pastFoods)
+    .slice(0, 6)
+    .flatMap((p) =>
+      p.food.manual || parsed.grams !== undefined
+        ? [{ ...p.food, grams: p.food.manual ? p.food.grams : parsed.grams! }]
+        : p.amounts.slice(0, typed ? 4 : 1).map((grams) => ({ ...p.food, grams })),
+    );
 
   // hand-kept foods (src/data/myFoods.ts) that match what is typed; they get negative ids so they never clash with USDA ones
   const mine: FoodHit[] =
@@ -431,6 +447,31 @@ const Food = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entries]);
 
+  // Entries logged before omega-3 and iodine were tracked: fetch those for them once.
+  const nutrientsTried = useRef(new Set<number>());
+  useEffect(() => {
+    const ids = new Set<number>();
+    for (const e of entries) {
+      const { fdcId, manual, nv } = e.data;
+      if (fdcId && fdcId > 0 && !manual && (nv ?? 1) < NUTRIENTS_VERSION && !nutrientsTried.current.has(fdcId)) ids.add(fdcId);
+    }
+    if (ids.size === 0) return;
+    for (const id of ids) nutrientsTried.current.add(id);
+    (async () => {
+      try {
+        const found = await fetchNutrients([...ids], ["omega3", "ala", "iodine"]);
+        for (const e of entriesRef.current) {
+          const { fdcId, nv } = e.data;
+          if (!fdcId || !(fdcId in found) || (nv ?? 1) >= NUTRIENTS_VERSION) continue;
+          updateRow(e.id, { ...e.data, per100: { ...e.data.per100, ...found[fdcId] }, nv: NUTRIENTS_VERSION });
+        }
+      } catch {
+        /* offline or rate limited: they get another go next visit */
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries]);
+
   // ---------- actions ----------
   const addEntry = (data: EntryData, toDay = day) => {
     const before = kcalOf(toDay);
@@ -468,7 +509,7 @@ const Food = () => {
       toast.error("how many grams?");
       return;
     }
-    addEntry({ name: picked.hit.name, grams, per100: picked.hit.per100, fdcId: picked.hit.fdcId > 0 ? picked.hit.fdcId : undefined });
+    addEntry({ name: picked.hit.name, grams, per100: picked.hit.per100, fdcId: picked.hit.fdcId > 0 ? picked.hit.fdcId : undefined, nv: NUTRIENTS_VERSION });
     setPicked(null);
     setHits(null);
     setQuery("");
@@ -717,13 +758,8 @@ const Food = () => {
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-xs soft font-bold">eaten before:</span>
           {suggestions.map((f) => (
-            <button
-              key={f.name}
-              onClick={() => addEntry({ ...f, grams: f.manual ? f.grams : (parsed.grams ?? f.grams) })}
-              className="pill px-3 py-1 text-xs font-bold"
-            >
-              + {f.name}{" "}
-              <span className="soft">{f.manual ? `${Math.round(f.per100.kcal ?? 0)} kcal` : `${Math.round(parsed.grams ?? f.grams)} g`}</span>
+            <button key={`${f.name}|${f.grams}`} onClick={() => addEntry(f)} className="pill px-3 py-1 text-xs font-bold">
+              + {f.name} <span className="soft">{f.manual ? `${Math.round(f.per100.kcal ?? 0)} kcal` : `${fmtAmount(f.grams, "g")} g`}</span>
             </button>
           ))}
         </div>
@@ -902,8 +938,8 @@ const Food = () => {
         {group === "aminos"
           ? `${aminoCount < dayEntries.length ? `Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods logged this day, so these bars can read low. ` : ""}${aminoEstCount > 0 ? `For ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish" : "dishes"} the amounts are estimated from the ingredients. ` : ""}Targets are WHO adult needs for ${fmtAmount(currentKg, "kg")} kg.`
           : group === "macros"
-            ? `Protein target is 1.6 g per kg of body weight; fat is 30% of calories; carbs are the rest.`
-            : `Targets are daily reference intakes for ${settings.sex === "male" ? "a man" : "a woman"} aged ${settings.age}. Supplements you tick off are not counted here.`}
+            ? `Protein target is 1.6 g per kg of body weight; fat is 30% of calories; carbs are the rest. Omega-3 DHA + EPA is the kind in oily fish and algae (250 mg a day); ALA is the plant kind.`
+            : `Targets are daily reference intakes for ${settings.sex === "male" ? "a man" : "a woman"} aged ${settings.age}. Supplements you tick off are not counted here.${group === "minerals" ? " The food database has iodine for only a few foods, so that bar reads low." : ""}`}
       </div>
     </div>
   );

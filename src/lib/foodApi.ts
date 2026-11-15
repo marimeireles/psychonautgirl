@@ -47,7 +47,7 @@ export const parseQuery = (raw: string): ParsedQuery => {
   return { text: text.replace(/\s+/g, " "), grams, count };
 };
 
-const CACHE_KEY = "food_search_cache";
+const CACHE_KEY = "food_search_cache_v2"; // v2: omega-3 and iodine added
 const CACHE_MAX = 40;
 
 const readCache = (): Record<string, FoodHit[]> => {
@@ -231,6 +231,43 @@ export const estimateAminos = async (fdcId: number, proteinPer100: number): Prom
     localStorage.setItem(AMINO_CACHE_KEY, JSON.stringify({ ...readAminoCache(), [fdcId]: out }));
   } catch {
     /* storage full: skip caching */
+  }
+  return out;
+};
+
+// ---------- nutrients added after an entry was logged ----------
+// Per-100 g values of the given nutrient keys for foods already in the diary, by fdcId.
+// Foods the database has no value for come back with an empty map.
+// (This endpoint filters by the nutrient's old three-digit "number", not its id.)
+const NUMBERS: Record<string, { numbers: string[]; sum?: boolean }> = {
+  omega3: { numbers: ["621", "629"], sum: true }, // DHA + EPA
+  ala: { numbers: ["851", "619"] }, // ALA, else all 18:3
+  iodine: { numbers: ["314"] },
+};
+
+export const fetchNutrients = async (fdcIds: number[], keys: string[]): Promise<Record<number, Per100>> => {
+  const wanted = keys.filter((k) => NUMBERS[k]);
+  const numbers = wanted.flatMap((k) => NUMBERS[k].numbers);
+  const out: Record<number, Per100> = {};
+  for (let i = 0; i < fdcIds.length; i += 20) {
+    const ids = fdcIds.slice(i, i + 20);
+    const res = await fetch(
+      `https://api.nal.usda.gov/fdc/v1/foods?api_key=${encodeURIComponent(API_KEY)}&fdcIds=${ids.join(",")}&format=abridged&nutrients=${numbers.join(",")}`,
+    );
+    if (!res.ok) throw new Error(`food database error (${res.status})`);
+    const foods = (await res.json()) as { fdcId: number; foodNutrients?: { number?: string; amount?: number }[] }[];
+    for (const id of ids) out[id] = {};
+    for (const f of foods) {
+      const byNumber = new Map<string, number>();
+      for (const n of f.foodNutrients ?? []) if (n.number && typeof n.amount === "number") byNumber.set(n.number, n.amount);
+      const per100: Per100 = {};
+      for (const k of wanted) {
+        const present = NUMBERS[k].numbers.filter((n) => byNumber.has(n));
+        if (present.length === 0) continue;
+        per100[k] = NUMBERS[k].sum ? present.reduce((s, n) => s + byNumber.get(n)!, 0) : byNumber.get(present[0])!;
+      }
+      out[f.fdcId] = per100;
+    }
   }
   return out;
 };
