@@ -104,6 +104,11 @@ const Index = () => {
   };
 
   const openFocusAreaWindow = (areaId: string) => {
+    // this one is its own page: a galaxy with the research agenda in it
+    if (areaId === "principles-of-intelligence") {
+      window.open("/principles-of-intelligence", "_blank", "noopener");
+      return;
+    }
     const area = focusAreas.find((a) => a.id === areaId);
     if (!area) return;
     const windowId = `focus-${areaId}`;
