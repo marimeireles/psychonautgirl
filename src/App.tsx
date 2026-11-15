@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 // Code-split: these pages (and their data) download only when the route is opened.
 const Ukiepc = lazy(() => import("./pages/Ukiepc"));
 const Interview = lazy(() => import("./pages/Interview"));
+const Food = lazy(() => import("./pages/Food"));
 const NoteDaemon = lazy(() => import("./components/NoteDaemon"));
 
 // the little notes daemon follows you around the interview-prep pages
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/anki" element={<Anki />} />
           <Route path="/ukiepc" element={<Suspense fallback={<PageLoader />}><Ukiepc /></Suspense>} />
           <Route path="/interview" element={<Suspense fallback={<PageLoader />}><Interview /></Suspense>} />
+          <Route path="/food" element={<Suspense fallback={<PageLoader />}><Food /></Suspense>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
