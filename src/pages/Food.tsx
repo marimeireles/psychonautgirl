@@ -278,6 +278,7 @@ const Food = () => {
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState<FoodHit[] | null>(null);
   const [searching, setSearching] = useState(false);
+  const [showAllPast, setShowAllPast] = useState(false); // "eaten before" lists everything, not just the latest six
   const [picked, setPicked] = useState<{ hit: FoodHit; grams: string } | null>(null);
   const [report, setReport] = useState("");
   const [hop, setHop] = useState(false);
@@ -439,8 +440,10 @@ const Food = () => {
   const typed = parsed.text.length >= 2;
   const typedWords = parsed.text.toLowerCase().split(" ").filter(Boolean);
   // nothing typed: the latest few foods at their last amount; typing: the foods that match, at every amount used before
-  const suggestions = (typed ? pastFoods.filter((p) => typedWords.every((w) => p.food.name.includes(w))) : pastFoods)
-    .slice(0, 6)
+  const pastMatches = typed ? pastFoods.filter((p) => typedWords.every((w) => p.food.name.includes(w))) : pastFoods;
+  const pastHidden = Math.max(0, pastMatches.length - 6);
+  const suggestions = pastMatches
+    .slice(0, showAllPast ? undefined : 6)
     .flatMap((p) =>
       p.food.manual || parsed.grams !== undefined
         ? [{ ...p.food, grams: p.food.manual ? p.food.grams : parsed.grams! }]
@@ -831,6 +834,11 @@ const Food = () => {
               + {f.name} <span className="soft">{f.manual ? `${Math.round(f.per100.kcal ?? 0)} kcal` : `${fmtAmount(f.grams, "g")} g`}</span>
             </button>
           ))}
+          {pastHidden > 0 && (
+            <button onClick={() => setShowAllPast(!showAllPast)} className="text-xs soft underline" aria-expanded={showAllPast}>
+              {showAllPast ? "see fewer" : `see ${pastHidden} more`}
+            </button>
+          )}
         </div>
       )}
 

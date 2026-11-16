@@ -6,8 +6,8 @@ import { supabase } from "@/lib/supabase";
  *
  * In review mode a visitor highlights a passage inside one paragraph, a box opens, and their
  * comment is saved to the `manifold_comments` table (see supabase-manifold-comments-schema.sql).
- * Commented passages are tinted; clicking one shows what was said. Every paragraph that can be
- * commented on carries data-para="<section id>:<paragraph number>".
+ * Commented passages are tinted at all times, in or out of review mode; clicking one shows what
+ * was said. Every paragraph that can be commented on carries data-para="<section id>:<paragraph number>".
  *
  * A comment is anchored by the text it quotes, not by position, so it survives edits elsewhere
  * in the paragraph. If the quoted words themselves are edited away, the comment is still listed
@@ -112,9 +112,9 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
   const [sendError, setSendError] = useState("");
   const boxRef = useRef<HTMLDivElement>(null);
 
-  // load once, the first time review mode is opened
+  // load once, when the page opens: the tinted passages show whether or not review mode is on
   useEffect(() => {
-    if (!on || status !== "idle") return;
+    if (status !== "idle") return;
     setStatus("loading");
     supabase
       .from(TABLE)
@@ -125,13 +125,12 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
         setComments((data ?? []) as Comment[]);
         setStatus("ready");
       });
-  }, [on, status]);
+  }, [status]);
 
-  // leaving review mode closes everything
+  // leaving review mode closes the comment being written and the list; an open thread stays
   useEffect(() => {
     if (on) return;
     setDraft(null);
-    setThread(null);
     setListOpen(false);
   }, [on]);
 
@@ -141,7 +140,7 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
     if (!canPaint) return;
     const root = textRef.current;
     const clear = () => ["ppr-comment", "ppr-active", "ppr-draft"].forEach((k) => CSS.highlights.delete(k));
-    if (!on || !root) return clear();
+    if (!root) return clear();
     const plain: Range[] = [], active: Range[] = [];
     for (const c of comments) {
       const para = root.querySelector<HTMLElement>(`[data-para="${CSS.escape(c.para)}"]`);
@@ -156,7 +155,7 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
     if (dr) CSS.highlights.set("ppr-draft", new Highlight(dr));
     else CSS.highlights.delete("ppr-draft");
     return clear;
-  }, [on, comments, draft, activeIds, textRef]);
+  }, [comments, draft, activeIds, textRef]);
 
   // a finished selection inside one paragraph opens the comment box
   const readSelection = useCallback(() => {
@@ -190,13 +189,14 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
   }, [textRef]);
 
   useEffect(() => {
-    if (!on) return;
     const root = textRef.current;
     if (!root) return;
     const onUp = (e: Event) => {
       if (boxRef.current?.contains(e.target as Node)) return;
       window.setTimeout(() => {
-        if (readSelection()) return;
+        // selecting text only starts a comment in review mode; otherwise it is left alone, e.g. for copying
+        if (on && readSelection()) return;
+        if (!window.getSelection()?.isCollapsed) return;
         // a plain click on a tinted passage opens what was said about it
         if (!(e instanceof MouseEvent) || !root.contains(e.target as Node)) return;
         const para = paraOf(e.target as Node);
@@ -274,8 +274,6 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
     }, Math.abs(r.top - window.innerHeight / 2) > 40 ? 650 : 0);
   };
 
-  if (!on) return null;
-
   const open = draft ?? thread;
   const boxLeft = open ? Math.max(12, Math.min(open.x - 180, document.documentElement.clientWidth - 372)) : 0;
   const shown = thread ? comments.filter((c) => thread.ids.includes(c.id)) : [];
@@ -290,16 +288,18 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
     <>
       <style>{CSS_TEXT}</style>
 
-      <div className="ppr-bar" role="status">
-        <strong>Public peer review</strong>
-        <span className="ppr-bar-note">{note}</span>
-        <button type="button" className="ppr-btn" onClick={() => setListOpen(true)} disabled={status !== "ready"}>
-          {comments.length} {comments.length === 1 ? "comment" : "comments"}
-        </button>
-        <button type="button" className="ppr-btn" onClick={onExit}>
-          Exit
-        </button>
-      </div>
+      {on && (
+        <div className="ppr-bar" role="status">
+          <strong>Public peer review</strong>
+          <span className="ppr-bar-note">{note}</span>
+          <button type="button" className="ppr-btn" onClick={() => setListOpen(true)} disabled={status !== "ready"}>
+            {comments.length} {comments.length === 1 ? "comment" : "comments"}
+          </button>
+          <button type="button" className="ppr-btn" onClick={onExit}>
+            Exit
+          </button>
+        </div>
+      )}
 
       {open && (
         <div ref={boxRef} className="ppr-box" style={{ left: boxLeft, top: open.y + 10 }} role="dialog" aria-label={draft ? "Add a comment" : "Comments on this passage"}>
