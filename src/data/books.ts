@@ -22,7 +22,7 @@ Eros the Bittersweet,Read,philosophy; poetry,Anne Carson
 Parable of the Sower,Read,sci-fi,Octavia E. Butler
 Give and Take: A Revolutionary Approach to Success,Read,psychology,Adam M. Grant
 Metaphors We Live By,Read,philosophy; language,George Lakoff
-Sources of the Self: The Making of the Modern Identity,Want to read,philosophy,Charles Taylor
+Sources of the Self: The Making of the Modern Identity,Reading,philosophy,Charles Taylor
 Intelligence as Adaptive Behaviour,Want to read,computer-science; neuroscience,Randall D. Beer
 Understanding Computers and Cognition: A New Foundation for Design,Want to read,computer-science; philosophy,Terry Winograd
 The Book of Delights: Essays,Want to read,fiction,Ross Gay
@@ -1062,7 +1062,7 @@ Walkaway,Abandoned,sci-fi,,
 Advances in Applied Self-Organizing Systems,Want to read,complex-systems; computer-science,Mikhail Prokopenko
 Talking Nets: An Oral History of Neural Networks,Want to read,neuroscience; computer-science; history,James A. Anderson and Edward Rosenfeld
 Love Songs,Want to read,poetry,Sara Teasdale
-Matter and Memory,Want to read,philosophy,Henri Bergson
+Matter and Memory,Reading,philosophy,Henri Bergson
 Functional Differential Geometry,Want to read,math; physics; computer-science,Gerald Jay Sussman and Jack Wisdom
 Beyond Darwin,Want to read,biology; evolution,Bruce H. Lipton and Patricia King
 The Book of Infinity,Want to read,math; philosophy,Joel David Hamkins
@@ -1095,17 +1095,20 @@ The Phantom of the Opera,Read,fiction,Gaston Leroux
 Ecclesiastes: A New Translation with Introduction and Commentary,Reading,judaism; philosophy,Choon-Leong Seow
 Laws Language and Life: Howard Pattee's Classic Papers on the Physics of Symbols,Want to read,complex-systems; biology; philosophy,Howard Pattee and Joanna Rączaszek-Leonardi
 Robustness and Evolvability in Living Systems,Want to read,biology; evolution; complex-systems,Andreas Wagner
-Design for a Brain: The Origin of Adaptive Behavior,Want to read,complex-systems; neuroscience,W. Ross Ashby
+Design for a Brain: The Origin of Adaptive Behavior,Reading,complex-systems; neuroscience,W. Ross Ashby
 On Development: The Biology of Form,Want to read,biology; evolution,John Tyler Bonner
 Behavior and Evolution,Want to read,psychology; evolution,Jean Piaget
-From Being to Becoming: Time and Complexity in the Physical Sciences,Want to read,physics; complex-systems,Ilya Prigogine
-The Ontogeny of Information: Developmental Systems and Evolution,Want to read,biology; evolution; philosophy,Susan Oyama
-The Origins of Order: Self-Organization and Selection in Evolution,Want to read,complex-systems; evolution,Stuart Kauffman
-Life Itself: A Comprehensive Inquiry Into the Nature Origin and Fabrication of Life,Want to read,biology; philosophy; complex-systems,Robert Rosen
-Evolution in Four Dimensions: Genetic Epigenetic Behavioral and Symbolic Variation in the History of Life,Want to read,evolution; biology,Eva Jablonka and Marion J. Lamb
+From Being to Becoming: Time and Complexity in the Physical Sciences,Reading,physics; complex-systems,Ilya Prigogine
+The Ontogeny of Information: Developmental Systems and Evolution,Reading,biology; evolution; philosophy,Susan Oyama
+The Origins of Order: Self-Organization and Selection in Evolution,Reading,complex-systems; evolution,Stuart Kauffman
+Life Itself: A Comprehensive Inquiry Into the Nature Origin and Fabrication of Life,Reading,biology; philosophy; complex-systems,Robert Rosen
+Evolution in Four Dimensions: Genetic Epigenetic Behavioral and Symbolic Variation in the History of Life,Reading,evolution; biology,Eva Jablonka and Marion J. Lamb
 How Life Works: A User's Guide to the New Biology,Want to read,biology,Philip Ball
-The Edge of Sentience: Risk and Precaution in Humans Other Animals and AI,Want to read,philosophy; consciousness; ai,Jonathan Birch
-Principles of Neural Design,Reading,neuroscience,Peter Sterling and Simon Laughlin`
+The Edge of Sentience: Risk and Precaution in Humans Other Animals and AI,Read,philosophy; consciousness; ai,Jonathan Birch
+Principles of Neural Design,Reading,neuroscience,Peter Sterling and Simon Laughlin
+Home of the Fleet: A Century of Portsmouth Royal Dockyard in Photographs,Reading,history,Stephen Courtney and Brian Patterson
+On Growth and Form,Reading,biology; math,D'Arcy Wentworth Thompson
+The Geometry of Biological Time,Reading,biology; math; complex-systems,Arthur T. Winfree`
 
 // Parse the data into an array of Book objects
 export function parseBooks(): Book[] {
