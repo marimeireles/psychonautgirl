@@ -102,6 +102,53 @@ export const myFoods: MyFood[] = [
       ala: 0.01,
     },
   },
+  {
+    name: "golden syrup porridge coop",
+    aliases: ["co-op", "porridge sachet", "porridge oats", "golden syrup flavour porridge oat sachets", "oats", "oatmeal"],
+    note:
+      "Dry weight, from the pack label: oat flakes, sugar, flavouring. One sachet is 36 g; log the milk it is made with separately. " +
+      "Energy, fat, carbs (21 g of the 65 g are sugars), fibre, protein and sodium (0.03 g salt) are the label's. " +
+      "Everything else is an estimate from USDA plain rolled oats: vitamins, minerals and ALA taking the sachet as about 78% oats, amino acids scaled to the label's protein. " +
+      "Selenium is left out, as it depends on where the oats grew. No DHA or EPA.",
+    defaultGrams: 36,
+    portions: [{ label: "sachet", grams: 36 }],
+    per100: {
+      kcal: 373,
+      protein: 9.5,
+      fat: 6.6,
+      carbs: 65,
+      fiber: 7.2,
+      sodium: 12,
+      omega3: 0,
+      ala: 0.08,
+      vitE: 0.33,
+      vitK: 1.6,
+      b1: 0.36,
+      b2: 0.12,
+      b3: 0.87,
+      b5: 0.87,
+      b6: 0.08,
+      folate: 25,
+      choline: 32,
+      calcium: 41,
+      iron: 3.3,
+      magnesium: 108,
+      phosphorus: 320,
+      potassium: 282,
+      zinc: 2.8,
+      copper: 0.3,
+      manganese: 2.8,
+      histidine: 0.2,
+      isoleucine: 0.36,
+      leucine: 0.71,
+      lysine: 0.46,
+      metcys: 0.48,
+      phetyr: 0.76,
+      threonine: 0.28,
+      tryptophan: 0.13,
+      valine: 0.5,
+    },
+  },
 ];
 
 // my foods whose name or aliases contain every word typed
