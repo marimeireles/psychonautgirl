@@ -80,6 +80,28 @@ export const myFoods: MyFood[] = [
       ala: 0.05,
     },
   },
+  {
+    name: "mango and passion fruit coop juice",
+    aliases: ["co-op", "coop", "mango passionfruit juice", "mango passion fruit smoothie", "juice"],
+    note:
+      "From the carton label, which is per 100 ml: enter millilitres in the grams box (100 g here means 100 ml). " +
+      "Apple juice 51%, mango purée 22%, banana purée 10%, apple purée 7%, passion fruit juice 5%, peach purée 4%, lemon juice 1%. " +
+      "All 11 g of carbs are sugars. Sodium is the label's 0.01 g salt. No other vitamins, minerals or amino acids on the label. " +
+      "Omega-3 is estimated from the ingredients: a trace of ALA from the mango and banana, and no DHA or EPA.",
+    defaultGrams: 150,
+    portions: [{ label: "glass (150 ml)", grams: 150 }],
+    per100: {
+      kcal: 46,
+      protein: 0.5,
+      fat: 0.5,
+      carbs: 11,
+      fiber: 0.8,
+      vitC: 12,
+      sodium: 4,
+      omega3: 0,
+      ala: 0.01,
+    },
+  },
 ];
 
 // my foods whose name or aliases contain every word typed

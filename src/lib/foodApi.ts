@@ -122,13 +122,16 @@ export const searchFoods = async (text: string): Promise<FoodHit[]> => {
   return hits;
 };
 
-// ---------- amino acids for dishes ----------
-// USDA's survey foods ("dishes") carry no amino acid values at all, only the plain
-// ingredient foods do. A dish does list its ingredients with weights though, so we
-// look those up, work out the amino acids per gram of protein of the mix, and scale
-// that to the dish's own protein figure. It is an estimate, but a close one.
+// ---------- what dishes come without ----------
+// USDA's survey foods ("dishes": kefir, yogurt, cooked chickpeas, most of what gets logged)
+// carry no amino acid values at all, and no pantothenic acid (B5) or manganese either; only
+// the plain ingredient foods do. A dish does list its ingredients with weights though, so we
+// look those up. Amino acids: per gram of protein of the mix, scaled to the dish's own protein
+// figure. B5 and manganese: the ingredients' amounts added up, over the weight of the recipe.
+// They are estimates, but close ones.
 const AMINO_KEYS = nutrients.filter((n) => n.group === "aminos").map((n) => n.key);
-const AMINO_CACHE_KEY = "food_amino_cache";
+export const DISH_GAP_KEYS = ["b5", "manganese"];
+const MIX_CACHE_KEY = "food_mix_cache";
 
 interface Ingredient {
   code: number;
@@ -139,10 +142,13 @@ interface SearchFood extends ApiFood {
   foodCode?: number | string;
   finalFoodInputFoods?: { srCode?: number; gramWeight?: number }[];
 }
-// grams of protein that had amino data, and the grams of each amino acid that came with it
 interface Mix {
+  // grams of protein that had amino data, and the grams of each amino acid that came with it
   protein: number;
   aminos: Per100;
+  // weight of the whole recipe, and how much B5 and manganese its ingredients hold in total
+  grams: number;
+  gaps: Per100;
 }
 
 const post = async (body: unknown): Promise<SearchFood[]> => {
@@ -159,12 +165,13 @@ const post = async (body: unknown): Promise<SearchFood[]> => {
 const isDishCode = (code: number) => code >= 10_000_000;
 
 const mixOf = async (ingredients: Ingredient[], depth: number): Promise<Mix> => {
-  const mix: Mix = { protein: 0, aminos: {} };
+  const mix: Mix = { protein: 0, aminos: {}, grams: 0, gaps: {} };
   const add = (protein: number, perProtein: Per100) => {
     mix.protein += protein;
     for (const k of AMINO_KEYS) if (perProtein[k] !== undefined) mix.aminos[k] = (mix.aminos[k] ?? 0) + perProtein[k] * protein;
   };
   const list = ingredients.filter((i) => i.grams > 0).slice(0, 40);
+  mix.grams = list.reduce((s, i) => s + i.grams, 0);
   const plain = list.filter((i) => !isDishCode(i.code));
   const dishes = depth < 3 ? list.filter((i) => isDishCode(i.code)) : [];
 
@@ -174,6 +181,7 @@ const mixOf = async (ingredients: Ingredient[], depth: number): Promise<Mix> => 
       const f = foods.find((x) => Number(x.ndbNumber) === i.code);
       if (!f) continue;
       const p = toPer100(f.foodNutrients ?? []);
+      for (const k of DISH_GAP_KEYS) if (p[k] !== undefined) mix.gaps[k] = (mix.gaps[k] ?? 0) + (p[k] * i.grams) / 100;
       if (!hasAminos(p) || !(p.protein > 0)) continue;
       const perProtein: Per100 = {};
       for (const k of AMINO_KEYS) if (p[k] !== undefined) perProtein[k] = p[k] / p.protein;
@@ -184,33 +192,34 @@ const mixOf = async (ingredients: Ingredient[], depth: number): Promise<Mix> => 
     const foods = await post({ query: dishes.map((i) => `foodCode:${i.code}`).join(" "), pageSize: dishes.length + 5, dataType: ["Survey (FNDDS)"] });
     for (const i of dishes) {
       const f = foods.find((x) => Number(x.foodCode) === i.code);
-      const protein = f ? toPer100(f.foodNutrients ?? []).protein : undefined;
-      if (!f || !(protein! > 0)) continue;
+      if (!f) continue;
+      const protein = toPer100(f.foodNutrients ?? []).protein;
       const sub = await mixOf(
         (f.finalFoodInputFoods ?? []).map((x) => ({ code: Number(x.srCode), grams: x.gramWeight ?? 0 })).filter((x) => x.code > 0 && x.code !== i.code),
         depth + 1,
       );
-      if (!(sub.protein > 0)) continue;
+      if (sub.grams > 0) for (const k of DISH_GAP_KEYS) if (sub.gaps[k] !== undefined) mix.gaps[k] = (mix.gaps[k] ?? 0) + (sub.gaps[k] / sub.grams) * i.grams;
+      if (!(protein > 0) || !(sub.protein > 0)) continue;
       const perProtein: Per100 = {};
       for (const k of AMINO_KEYS) if (sub.aminos[k] !== undefined) perProtein[k] = sub.aminos[k] / sub.protein;
-      add((protein! * i.grams) / 100, perProtein);
+      add((protein * i.grams) / 100, perProtein);
     }
   }
   return mix;
 };
 
-const readAminoCache = (): Record<string, Per100 | null> => {
+const readMixCache = (): Record<string, Per100 | null> => {
   try {
-    return JSON.parse(localStorage.getItem(AMINO_CACHE_KEY) || "{}");
+    return JSON.parse(localStorage.getItem(MIX_CACHE_KEY) || "{}");
   } catch {
     return {};
   }
 };
 
-// Amino acids per 100 g for a food that came without them, or null when they cannot be worked out.
-// Throws on network / rate-limit trouble so the caller can try again another time.
-export const estimateAminos = async (fdcId: number, proteinPer100: number): Promise<Per100 | null> => {
-  const cache = readAminoCache();
+// Amino acids, B5 and manganese per 100 g for a food that came without them, or null when none
+// can be worked out. Throws on network / rate-limit trouble so the caller can try again another time.
+export const estimateFromIngredients = async (fdcId: number, proteinPer100: number): Promise<Per100 | null> => {
+  const cache = readMixCache();
   if (fdcId in cache) return cache[fdcId];
 
   const res = await fetch(`https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=${encodeURIComponent(API_KEY)}`);
@@ -222,13 +231,18 @@ export const estimateAminos = async (fdcId: number, proteinPer100: number): Prom
       (food.inputFoods ?? []).map((x) => ({ code: Number(x.ingredientCode), grams: x.ingredientWeight ?? 0 })).filter((x) => x.code > 0),
       0,
     );
-    if (mix.protein > 0) {
-      out = {};
-      for (const k of AMINO_KEYS) if (mix.aminos[k] !== undefined) out[k] = Math.round((mix.aminos[k] / mix.protein) * proteinPer100 * 1000) / 1000;
+    const est: Per100 = {};
+    if (mix.protein > 0 && proteinPer100 > 0) {
+      for (const k of AMINO_KEYS) if (mix.aminos[k] !== undefined) est[k] = Math.round((mix.aminos[k] / mix.protein) * proteinPer100 * 1000) / 1000;
     }
+    if (mix.grams > 0) {
+      for (const k of DISH_GAP_KEYS) if (mix.gaps[k] !== undefined) est[k] = Math.round((mix.gaps[k] / mix.grams) * 100 * 1000) / 1000;
+    }
+    if (Object.keys(est).length > 0) out = est;
   }
   try {
-    localStorage.setItem(AMINO_CACHE_KEY, JSON.stringify({ ...readAminoCache(), [fdcId]: out }));
+    localStorage.removeItem("food_amino_cache"); // the cache this one replaced
+    localStorage.setItem(MIX_CACHE_KEY, JSON.stringify({ ...readMixCache(), [fdcId]: out }));
   } catch {
     /* storage full: skip caching */
   }

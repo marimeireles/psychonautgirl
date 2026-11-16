@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Check, ChevronLeft, ChevronRight, Search, Settings, X } from "lucide-react";
 import { NUTRIENTS_VERSION, nutrients, nutrientGroups, fmtAmount, hasAminos, type NutrientGroup, type Per100 } from "@/data/nutrients";
-import { estimateAminos, fetchNutrients, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
+import { DISH_GAP_KEYS, estimateFromIngredients, fetchNutrients, parseQuery, searchFoods, usingDemoKey, type FoodHit } from "@/lib/foodApi";
 import { matchMyFoods, myFoods } from "@/data/myFoods";
 import { ACTIVITIES, EXERCISE, MAX_PACE_KG, MIND_KCAL, computeEnergy, type ExerciseLevel, type Profile } from "@/data/energy";
 import { openStore, sha256Hex, type FoodRow, type FoodStore, type RowKind } from "@/lib/foodStore";
@@ -16,6 +16,8 @@ interface EntryData {
   fdcId?: number;
   // amino acids were worked out from the dish's ingredients rather than measured
   aminoEst?: boolean;
+  // same for B5 and manganese
+  gapEst?: boolean;
   // typed in by hand as a whole portion: grams are meaningless, kcal is per100.kcal
   manual?: boolean;
   // NUTRIENTS_VERSION the per100 values were fetched under; older ones get the newer nutrients filled in
@@ -55,6 +57,8 @@ const totalsOf = (entries: FoodRow<EntryData>[]): Totals => {
   for (const e of entries) {
     for (const [k, v] of Object.entries(e.data.per100)) t[k] = (t[k] ?? 0) + (v * e.data.grams) / 100;
   }
+  // the niacin target is in niacin equivalents: the body makes 1 mg from every 60 mg of tryptophan
+  if (t.tryptophan) t.b3 = (t.b3 ?? 0) + (t.tryptophan * 1000) / 60;
   return t;
 };
 
@@ -464,25 +468,38 @@ const Food = () => {
         }))
       : [];
 
-  // Dishes come from the food database without amino acids; fill them in from the
-  // ingredients, for new entries and for ones logged before this existed.
+  // Dishes come from the food database without amino acids, B5 or manganese; fill them in
+  // from the ingredients, for new entries and for ones logged before this existed.
   const aminoTried = useRef(new Set<number>());
   useEffect(() => {
     const todo = new Map<number, number>();
     for (const e of entries) {
       const { fdcId, per100, manual } = e.data;
-      if (!fdcId || manual || hasAminos(per100) || !(per100.protein > 0) || aminoTried.current.has(fdcId)) continue;
-      todo.set(fdcId, per100.protein);
+      if (!fdcId || fdcId < 0 || manual || aminoTried.current.has(fdcId)) continue;
+      const lacksAminos = !hasAminos(per100) && per100.protein > 0;
+      if (!lacksAminos && DISH_GAP_KEYS.every((k) => per100[k] !== undefined)) continue;
+      todo.set(fdcId, per100.protein ?? 0);
     }
     if (todo.size === 0) return;
     for (const id of todo.keys()) aminoTried.current.add(id);
     (async () => {
       for (const [fdcId, protein] of todo) {
         try {
-          const aminos = await estimateAminos(fdcId, protein);
-          if (!aminos || !hasAminos(aminos)) continue;
+          const est = await estimateFromIngredients(fdcId, protein);
+          if (!est) continue;
           for (const e of entriesRef.current) {
-            if (e.data.fdcId === fdcId && !hasAminos(e.data.per100)) updateRow(e.id, { ...e.data, per100: { ...e.data.per100, ...aminos }, aminoEst: true });
+            if (e.data.fdcId !== fdcId) continue;
+            // only what the entry lacks: measured values are never overwritten
+            const had = e.data.per100;
+            const aminos = hasAminos(had) || !hasAminos(est) ? [] : Object.entries(est).filter(([k]) => !DISH_GAP_KEYS.includes(k));
+            const gaps = Object.entries(est).filter(([k]) => DISH_GAP_KEYS.includes(k) && had[k] === undefined);
+            if (aminos.length + gaps.length === 0) continue;
+            updateRow(e.id, {
+              ...e.data,
+              per100: { ...had, ...Object.fromEntries([...aminos, ...gaps]) },
+              ...(aminos.length > 0 ? { aminoEst: true } : {}),
+              ...(gaps.length > 0 ? { gapEst: true } : {}),
+            });
           }
         } catch {
           break; // offline or rate limited: the rest get another go next visit
@@ -743,6 +760,7 @@ const Food = () => {
     setMods({ level: dayExercise?.level, mind: dayMind, supp: daySupp.includes(key) ? daySupp.filter((k) => k !== key) : [...daySupp, key] });
   const aminoCount = dayEntries.filter((e) => hasAminos(e.data.per100)).length;
   const aminoEstCount = dayEntries.filter((e) => e.data.aminoEst).length;
+  const gapEstCount = dayEntries.filter((e) => e.data.gapEst).length;
   const weightSpan = settings.goalKg - settings.startKg;
   const weightRatio = weightSpan !== 0 ? Math.min(1, Math.max(0, (currentKg - settings.startKg) / weightSpan)) : 0;
   const dayWeight = weights.find((w) => w.day === day);
@@ -1162,6 +1180,8 @@ const Food = () => {
     if (byHand > 0) L.push(`- ${byHand} of the foods ${byHand === 1 ? "was" : "were"} typed in by hand and may be missing vitamins, minerals and amino acids, so those totals can read low.`);
     if (aminoCount < dayEntries.length) L.push(`- Amino acid data exists for ${aminoCount} of ${dayEntries.length} foods.`);
     if (aminoEstCount > 0) L.push(`- Amino acids for ${aminoEstCount} mixed ${aminoEstCount === 1 ? "dish are" : "dishes are"} estimated from ingredients.`);
+    if (gapEstCount > 0) L.push(`- B5 and manganese for ${gapEstCount} of the foods are estimated from ingredients (the database does not list them for prepared foods).`);
+    if (totals.tryptophan) L.push("- Niacin (B3) is in niacin equivalents: it includes what the body makes from tryptophan (1 mg per 60 mg).");
     L.push("- Food values are from USDA FoodData Central; vitamin and mineral targets are US reference intakes, amino acid targets are WHO adult needs per kg.");
     return L.join("\n");
   };

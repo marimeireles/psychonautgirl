@@ -134,6 +134,14 @@ export const ManifoldPeerReview = ({ on, onExit, textRef }: Props) => {
     setListOpen(false);
   }, [on]);
 
+  // review mode marks the text so the tints can be drawn stronger
+  useEffect(() => {
+    const root = textRef.current;
+    if (!root || !on) return;
+    root.classList.add("ppr-on");
+    return () => root.classList.remove("ppr-on");
+  }, [on, textRef]);
+
   // tint the commented passages, the one being written about, and the one being read
   const activeIds = useMemo(() => new Set(thread?.ids ?? []), [thread]);
   useEffect(() => {
@@ -395,6 +403,17 @@ const CSS_TEXT = `
 ::highlight(ppr-comment) { background-color: rgba(95,178,255,.26); }
 ::highlight(ppr-active) { background-color: rgba(95,178,255,.6); color: #fff; }
 ::highlight(ppr-draft) { background-color: rgba(235,242,250,.32); color: #fff; }
+
+/* review mode: the commented passages stand out much more */
+.ppr-on ::highlight(ppr-comment) {
+  background-color: rgba(95,178,255,.5); color: #fff;
+  text-decoration: underline 2px #8ccaff; text-underline-offset: 3px;
+}
+.ppr-on ::highlight(ppr-active) {
+  background-color: #8ccaff; color: #06121f;
+  text-decoration: underline 2px #fff; text-underline-offset: 3px;
+}
+.ppr-on ::highlight(ppr-draft) { background-color: rgba(235,242,250,.5); color: #fff; }
 
 .ppr-bar {
   position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 6;
