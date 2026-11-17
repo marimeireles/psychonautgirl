@@ -11,6 +11,8 @@ export interface TargetCtx {
   kcalGoal: number;
   sex: "female" | "male";
   age: number;
+  // exercise was ticked on this day or the day before (muscle is still rebuilding the day after)
+  exercised?: boolean;
 }
 
 export interface NutrientDef {
@@ -33,12 +35,15 @@ const bySex = (female: number, male: number) => (ctx: TargetCtx) => (ctx.sex ===
 // mg per kg per day -> grams per day
 const perKg = (mgPerKg: number) => (ctx: TargetCtx) => (mgPerKg * ctx.kg) / 1000;
 
+// grams of protein per kg of body weight: more on an exercise day and the day after, less on rest days
 export const PROTEIN_G_PER_KG = 1.6; // upper end of the usual range for gaining weight
+export const PROTEIN_G_PER_KG_REST = 1.2;
+const proteinTarget = (c: TargetCtx) => (c.exercised ? PROTEIN_G_PER_KG : PROTEIN_G_PER_KG_REST) * c.kg;
 
 export const nutrients: NutrientDef[] = [
   // macros
   { key: "kcal", label: "energy", unit: "kcal", group: "macros", ids: [1008, 2047, 2048], target: (c) => c.kcalGoal },
-  { key: "protein", label: "protein", unit: "g", group: "macros", ids: [1003], target: (c) => PROTEIN_G_PER_KG * c.kg },
+  { key: "protein", label: "protein", unit: "g", group: "macros", ids: [1003], target: proteinTarget },
   { key: "fat", label: "fat", unit: "g", group: "macros", ids: [1004], target: (c) => (0.3 * c.kcalGoal) / 9 },
   {
     key: "carbs",
@@ -46,7 +51,7 @@ export const nutrients: NutrientDef[] = [
     unit: "g",
     group: "macros",
     ids: [1005],
-    target: (c) => Math.max(0, c.kcalGoal - 0.3 * c.kcalGoal - 4 * PROTEIN_G_PER_KG * c.kg) / 4,
+    target: (c) => Math.max(0, c.kcalGoal - 0.3 * c.kcalGoal - 4 * proteinTarget(c)) / 4,
   },
   { key: "fiber", label: "fibre", unit: "g", group: "macros", ids: [1079], target: (c) => (14 * c.kcalGoal) / 1000 },
   // omega-3 fats: the long-chain ones from fish and algae (250 mg a day, EFSA), and plant ALA (US adequate intake).

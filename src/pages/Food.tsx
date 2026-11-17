@@ -62,7 +62,7 @@ const totalsOf = (entries: FoodRow<EntryData>[]): Totals => {
   return t;
 };
 
-// a day counts as "goal reached" from 95% so a near miss doesn't break a streak
+// a day counts as "goal reached" from 95%, so a near miss still grows the tree
 const GOAL_RATIO = 0.95;
 const plantFor = (ratio: number) => (ratio <= 0 ? "🌰" : ratio < 0.35 ? "🌱" : ratio < 0.7 ? "🌿" : ratio < GOAL_RATIO ? "🪴" : "🌳");
 const plantWord = (ratio: number) =>
@@ -418,16 +418,17 @@ const Food = () => {
   const kcalOf = (d: string) => totalsByDay[d]?.kcal ?? 0;
   const ratioOf = (d: string) => kcalOf(d) / goalOf(d);
 
+  // days in a row with something logged; today only counts once it has an entry, and does not break the run before that
   const streak = useMemo(() => {
-    let d = ratioOf(today) >= GOAL_RATIO ? today : addDays(today, -1);
+    const logged = (d: string) => (entriesByDay[d]?.length ?? 0) > 0;
+    let d = logged(today) ? today : addDays(today, -1);
     let n = 0;
-    while (ratioOf(d) >= GOAL_RATIO) {
+    while (logged(d)) {
       n++;
       d = addDays(d, -1);
     }
     return n;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalsByDay, exerciseByDay, energy.goal, currentKg, today]);
+  }, [entriesByDay, today]);
 
   // foods eaten before, most recent first, one per name, each with the amounts it was logged at (latest first)
   const pastFoods = useMemo(() => {
@@ -727,7 +728,9 @@ const Food = () => {
   const kcal = totals.kcal ?? 0;
   const dayGoal = goalOf(day);
   const dayExercise = exerciseOf(day);
-  const ctx = { kg: currentKg, kcalGoal: dayGoal, sex: settings.sex, age: settings.age };
+  // protein needs stay raised the day after exercise too
+  const exercisedYesterday = !dayExercise && !!exerciseOf(addDays(day, -1));
+  const ctx = { kg: currentKg, kcalGoal: dayGoal, sex: settings.sex, age: settings.age, exercised: !!dayExercise || exercisedYesterday };
   // weekly nutrients add up the seven days ending on the day shown, against seven daily targets
   // (a past day whose bar was clicked as covered by a supplement adds one day's worth)
   const suppOn = (d: string, key: string) => !!exerciseByDay[d]?.data.supp?.includes(key);
@@ -1175,6 +1178,7 @@ const Food = () => {
     for (const it of items) L.push(`- ${it.data.name}: ${checkedToday.has(it.data.name) ? "taken" : "not taken"}`);
     L.push("");
     L.push("Notes");
+    if (exercisedYesterday) L.push("- The protein target is raised today because of yesterday's exercise.");
     L.push("- Nutrient amounts come from food only; where a supplement covered one, the line says so.");
     const byHand = dayEntries.filter((e) => e.data.manual).length;
     if (byHand > 0) L.push(`- ${byHand} of the foods ${byHand === 1 ? "was" : "were"} typed in by hand and may be missing vitamins, minerals and amino acids, so those totals can read low.`);
