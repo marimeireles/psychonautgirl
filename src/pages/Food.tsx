@@ -1599,6 +1599,10 @@ const Food = () => {
         ) : (
           diary()
         )}
+        {/* room under the last card, so the top-foods cards of the bottom bars are not cut off by the end of the page */}
+        <footer className="pt-10 pb-2 text-center text-xs font-bold soft" style={{ minHeight: 220 }}>
+          🌱 grown one meal at a time 🍄
+        </footer>
       </div>
     </div>
   );
