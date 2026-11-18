@@ -104,6 +104,14 @@ const PageStyle = () => (
     .food .barbtn { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; border-radius: 10px; }
     .food .barbtn:hover .bar { box-shadow: 0 0 0 2px #dfe3c3; }
     .food .barbtn:focus-visible { outline: 2px solid #6a994e; outline-offset: 4px; }
+    .food .nbar { position: relative; }
+    .food .ntip {
+      position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 20; display: none;
+      background: #fffdf5; border: 2px solid #d5dbb8; border-radius: 18px; padding: 10px 12px;
+      box-shadow: 0 4px 0 #dfe3c3, 0 10px 24px rgba(120, 110, 60, 0.22); font-size: 12px; pointer-events: none;
+    }
+    .food .nbar:hover .ntip, .food .nbar:focus-within .ntip, .food .nbar:focus .ntip { display: block; }
+    .food .nbar:focus-visible { outline: 2px solid #6a994e; outline-offset: 4px; border-radius: 10px; }
     .food .check {
       width: 24px; height: 24px; border-radius: 999px; border: 2px solid #a3b973; background: #fffdf5; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center; color: #fff;
@@ -213,6 +221,8 @@ const NutrientBar = ({
   limit,
   supp,
   onToggle,
+  top,
+  topNote,
 }: {
   label: string;
   amount: number;
@@ -221,6 +231,8 @@ const NutrientBar = ({
   limit?: boolean;
   supp?: boolean; // covered by a supplement today
   onToggle?: () => void; // present when the bar can be clicked to say so
+  top: { name: string; amount: number; share: number }[]; // the foods that gave the most of it, biggest first
+  topNote?: string;
 }) => {
   const ratio = supp ? 1 : target > 0 ? amount / target : 0;
   const cls = limit ? (ratio > 1 ? "bar over" : "bar limit") : supp ? "bar supp" : ratio >= 1 ? "bar full" : "bar";
@@ -239,22 +251,45 @@ const NutrientBar = ({
       </div>
     </>
   );
+  // shown while the bar is hovered or focused
+  const tip = (
+    <div className="ntip" role="tooltip">
+      <div className="font-bold leaf mb-1">
+        top foods for {label}
+        {topNote && <span className="soft font-semibold"> · {topNote}</span>}
+      </div>
+      {top.length === 0 ? (
+        <div className="soft font-semibold">nothing logged has any yet</div>
+      ) : (
+        <ol className="space-y-0.5">
+          {top.map((f) => (
+            <li key={f.name} className="flex items-baseline gap-2 font-semibold">
+              <span className="flex-1 min-w-0 truncate">{f.name}</span>
+              <span className="whitespace-nowrap">
+                {fmtAmount(f.amount, unit)} {unit}
+              </span>
+              <span className="soft whitespace-nowrap w-9 text-right">{Math.round(f.share * 100)}%</span>
+            </li>
+          ))}
+        </ol>
+      )}
+      {onToggle && <div className="soft font-semibold mt-1.5">{supp ? "covered by a supplement today (click to undo)" : "click if a supplement covered this today"}</div>}
+    </div>
+  );
   if (onToggle) {
     return (
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-pressed={!!supp}
-        title={supp ? "covered by a supplement today (click to undo)" : "click if a supplement covered this today"}
-        className="barbtn block w-full text-left"
-      >
-        {body}
-      </button>
+      <div className="nbar">
+        <button type="button" onClick={onToggle} aria-pressed={!!supp} className="barbtn block w-full text-left">
+          {body}
+        </button>
+        {tip}
+      </div>
     );
   }
   return (
-    <div>
+    <div className="nbar" tabIndex={0}>
       {body}
+      {tip}
     </div>
   );
 };
@@ -742,6 +777,24 @@ const Food = () => {
         }, 0)
       : (totals[n.key] ?? 0);
   const targetOf = (n: (typeof nutrients)[number]) => n.target(ctx) * (n.weekly ? 7 : 1);
+  // the five foods that gave the most of a nutrient on the day shown (over the same seven days for weekly ones),
+  // the same food logged twice counted once, each with its share of everything the food gave
+  const topFoodsOf = (n: (typeof nutrients)[number]) => {
+    const by = new Map<string, number>();
+    for (let i = 0; i < (n.weekly ? 7 : 1); i++) {
+      for (const e of entriesByDay[addDays(day, -i)] ?? []) {
+        const of = (k: string) => ((e.data.per100[k] ?? 0) * e.data.grams) / 100;
+        // niacin includes what the body makes from tryptophan, as in the totals
+        const v = of(n.key) + (n.key === "b3" ? (of("tryptophan") * 1000) / 60 : 0);
+        if (v > 0) by.set(e.data.name, (by.get(e.data.name) ?? 0) + v);
+      }
+    }
+    const sum = [...by.values()].reduce((a, b) => a + b, 0);
+    return [...by.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([name, amount]) => ({ name, amount, share: amount / sum }));
+  };
   const ratio = kcal / dayGoal;
   const left = Math.max(0, Math.round(dayGoal - kcal));
   // exercise is burnt on top of maintenance, so the pin moves with it
@@ -1038,6 +1091,8 @@ const Food = () => {
               limit={n.limit}
               supp={daySupp.includes(n.key)}
               onToggle={n.limit || FOOD_ONLY.has(n.key) ? undefined : () => toggleSupp(n.key)}
+              top={topFoodsOf(n)}
+              topNote={n.weekly ? undefined : prettyDay(day, today)}
             />
           ))}
       </div>
