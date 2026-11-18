@@ -109,6 +109,10 @@ export const researchCards: ResearchCard[] = [
         label: "Research agenda",
         url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/deliberation-agenda.pdf",
       },
+      {
+        label: "Dissent explorer: preliminary findings",
+        url: "https://raw.githubusercontent.com/marimeireles/psychonautgirl/master/trusty_links/dissent-explorer-preliminary-findings.pdf",
+      },
     ],
     tags: ["institutions"],
   },
