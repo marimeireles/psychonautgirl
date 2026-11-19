@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 
 export interface SiteVisit {
@@ -14,9 +15,24 @@ export interface SiteVisit {
  * its IP is located, and only the place names are stored — the IP never reaches
  * our database. Dev traffic (localhost) is skipped, and any failure is silent:
  * analytics must never break the site.
+ *
+ * A browser can opt out for good: opening any page with ?nocount in the address
+ * marks that browser, and its visits are no longer logged (?count undoes it).
  */
+const SKIP_KEY = "visit_skip";
+
 export async function logVisit() {
   try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("nocount")) {
+      localStorage.setItem(SKIP_KEY, "1");
+      toast("this browser's visits are no longer counted 🙈");
+    } else if (params.has("count")) {
+      localStorage.removeItem(SKIP_KEY);
+      toast("this browser's visits are counted again 👀");
+    }
+    if (localStorage.getItem(SKIP_KEY)) return;
+
     const host = window.location.hostname;
     if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".local")) return;
     if (sessionStorage.getItem("visit_logged")) return;
