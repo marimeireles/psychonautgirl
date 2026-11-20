@@ -1241,7 +1241,9 @@ const Principles = () => {
       <main className="poi-text" ref={textRef}>
         <section id="summary" className="poi-summary">
           <h3>Summary</h3>
-          <p data-para="summary:0">{renderInline(manifoldSummary, openRef)}</p>
+          {manifoldSummary.map((p, i) => (
+            <p key={i} data-para={`summary:${i}`}>{renderInline(p, openRef)}</p>
+          ))}
         </section>
         {manifoldSections.map((s) => {
           if (!s.sub) sectionNo++;
