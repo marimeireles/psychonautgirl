@@ -18,7 +18,8 @@ VITE_SUPABASE_ANON_KEY=your_key_here
 3. For the UKIEPC training tracker (`/ukiepc`), also run `supabase-ukiepc-schema.sql`.
 4. For the notes daemon (the floating cheatsheet bubble on `/interview`, `/anki`, `/ukiepc`), also run `supabase-daemon-schema.sql` — until then it saves to localStorage only.
 5. For the food diary (`/food`), also run `supabase-food-schema.sql` — until then it saves to localStorage only. Its rows are private (readable only with the secret word typed on the page). Food search uses USDA FoodData Central: get a free key at https://api.data.gov/signup/ and add `VITE_FDC_API_KEY=your_key` to `.env` (without it a shared demo key allows about 10 searches an hour).
-6. For public peer review on `/principles-of-intelligence` (visitors highlight a passage and leave a comment), also run `supabase-manifold-comments-schema.sql` — until then comments cannot be loaded or posted. Comments are public; delete unwanted ones in the Supabase Table Editor.
+6. For the notes you can double-click onto items of the interview gym's reading list and jax tracker (`/interview`), also run `supabase-reading-notes-schema.sql` — until then they save to localStorage only. Like the daemon notes, these rows are public.
+7. For public peer review on `/principles-of-intelligence` (visitors highlight a passage and leave a comment), also run `supabase-manifold-comments-schema.sql` — until then comments cannot be loaded or posted. Comments are public; delete unwanted ones in the Supabase Table Editor.
 
 ---
 

@@ -293,7 +293,7 @@ const Ukiepc = () => {
       <div className="min-h-screen sky ukiepc flex items-center justify-center p-4">
         <PageStyle />
         <div className="bubble w-full max-w-md p-6 sm:p-8 text-center">
-          <h1 className="text-2xl font-bold text-[#c2407f]">interview dashboard</h1>
+          <h1 className="text-2xl font-bold text-[#c2407f]">competitive programming</h1>
 
           <div className="flex justify-center gap-2 mt-5">
             <button onClick={() => setAuthMode("login")} className={`pill px-4 py-1.5 text-sm font-bold ${authMode === "login" ? "on" : ""}`}>
@@ -355,7 +355,7 @@ const Ukiepc = () => {
               <button onClick={() => navigate("/")} className="pill px-3 py-1.5 text-sm font-bold" title="Back to the desktop">
                 home
               </button>
-              <h1 className="text-lg sm:text-xl font-bold text-[#c2407f]">interview dashboard</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-[#c2407f]">competitive programming</h1>
             </div>
             <div className="flex items-center gap-3 text-xs sm:text-sm">
               <span className="font-bold">{user.display_name}</span>

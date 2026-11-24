@@ -92,7 +92,7 @@ export const StartMenu = ({ isOpen, onClose, onOpenBlog, onOpenWindow }: StartMe
     { icon: "🌿", text: "Food Diary", onClick: then(() => navigate("/food")) },
   ];
   const interviews: Entry[] = [
-    { icon: "🏆", text: "Interview Dashboard", asLink: true, onClick: then(() => navigate("/ukiepc")) },
+    { icon: "🏆", text: "Competitive Programming", asLink: true, onClick: then(() => navigate("/ukiepc")) },
     { icon: "🧪", text: "Interview Gym", asLink: true, onClick: then(() => navigate("/interview")) },
   ];
   const blogs: Entry[] = [
