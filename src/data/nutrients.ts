@@ -35,10 +35,10 @@ const bySex = (female: number, male: number) => (ctx: TargetCtx) => (ctx.sex ===
 // mg per kg per day -> grams per day
 const perKg = (mgPerKg: number) => (ctx: TargetCtx) => (mgPerKg * ctx.kg) / 1000;
 
-// grams of protein per kg of body weight: more on an exercise day and the day after, less on rest days
+// grams of protein per kg of body weight: 1.6 every day, more on an exercise day and the day after
 export const PROTEIN_G_PER_KG = 1.6; // upper end of the usual range for gaining weight
-export const PROTEIN_G_PER_KG_REST = 1.2;
-const proteinTarget = (c: TargetCtx) => (c.exercised ? PROTEIN_G_PER_KG : PROTEIN_G_PER_KG_REST) * c.kg;
+export const PROTEIN_G_PER_KG_EXERCISE = 2.0;
+const proteinTarget = (c: TargetCtx) => (c.exercised ? PROTEIN_G_PER_KG_EXERCISE : PROTEIN_G_PER_KG) * c.kg;
 
 export const nutrients: NutrientDef[] = [
   // macros
