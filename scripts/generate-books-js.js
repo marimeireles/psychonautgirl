@@ -91,7 +91,17 @@ function rowFontStyle(i) {
 // Weathering: wrap each glyph so it can be nudged a little, like uneven pen pressure.
 // Some glyphs get a thin transparent band cut through them, like a ballpoint skipping.
 // Glyphs are grouped per word so lines still only break at spaces.
+// Notes may contain links written as [text](url); the link text is still weathered.
 function weather(text) {
+    if (!text) return '';
+    return String(text).split(/(\\[[^\\]]+\\]\\([^)]+\\))/).map(part => {
+        const m = part.match(/^\\[([^\\]]+)\\]\\(([^)]+)\\)$/);
+        if (m) return \`<a href="\${m[2]}" target="_blank" rel="noreferrer">\${weatherWords(m[1])}</a>\`;
+        return weatherWords(part);
+    }).join('');
+}
+
+function weatherWords(text) {
     if (!text) return '';
     return String(text).split(' ').map(word => {
         if (!word) return '';

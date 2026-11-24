@@ -56,7 +56,7 @@ Mating in Captivity,Read,psychology,Esther Perel
 Human All Too Human,Reading,philosophy,Nietzsche
 The Fall of Hyperion,Read,sci-fi,Dan Simmons,
 Alcibiades,Read,philosophy,Plato
-The Vital Question,Read,biology;teleology,Nick Lane
+The Vital Question,Read,biology;teleology,Nick Lane,Wish I had watched [this](https://www.youtube.com/watch?v=pk213XSSktQ) video before reading.
 The Player of Games,Read,sci-fi,Ian Banks
 The Wisdom of Insecurity,Read,buddhism,Allan Watts
 The Dark Forest,Read,sci-fi,Cixin Liu
